@@ -3566,7 +3566,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                             overPotential -= voltsRes;
                         }
 
-                        psr.VoltageElectrode = volts;
+                        psr.VoltageElectrode_ = volts;
                         psr.VoltageTotal = volts;
                         if (region == 0) {
                             psr.VoltageTotal = -volts;
@@ -3575,22 +3575,18 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         psr.ocvSurfRxn = ocvSurfRxn_local;
 
                         double sa = 0.5 * (surfaceAreaRS_final_[iSurf] + surfaceAreaRS_init_[iSurf]);
-                        psr.icurrSurf_ = sa * icurrPerArea;
                         psr.electronProd_ = sa * electronsProducedPerArea;
                         totalEprod +=  psr.electronProd_;
                         psr.deltaTime_  = deltaTsubcycle_;
-                        if (region == 2) {
-                            psr.icurrSurf_ = - psr.icurrSurf_;
-                        }
 
-                        psr.phiMetal = phaseVoltages_[metalPhase_];
+                        psr.phiMetal_ = phaseVoltages_[metalPhase_];
                         psr.phi_lyteAtElectrode =  phaseVoltages_[solnPhase_];
                         if (region == 0) {
-                            psr.phi_anode_point_ = psr.phiMetal;
+                            psr.phi_anode_point_ = psr.phiMetal_;
                             psr.phi_cathode_point_ = psr.phi_lyteAtElectrode;
                         } else if (region == 2) {
                             psr.phi_anode_point_ = psr.phi_lyteAtElectrode;
-                            psr.phi_cathode_point_ = psr.phiMetal;
+                            psr.phi_cathode_point_ = psr.phiMetal_;
                         }
 
                     }

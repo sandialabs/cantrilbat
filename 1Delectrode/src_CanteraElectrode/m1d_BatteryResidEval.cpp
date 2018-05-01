@@ -1546,6 +1546,23 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 
      //       void addSolidPol(double phiCurrentCollector, int region);
 
+     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+        porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+        if (p_ptr) {
+            Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
+            if (capType == CAPACITY_ANODE_ECT) {
+               printf("this is an anode\n");
+               p_ptr->printElectrodePolarizationRecords(dischargeDir);
+            }
+            if (capType == CAPACITY_CATHODE_ECT) {
+               printf("this is a cathode\n");
+               p_ptr->printElectrodePolarizationRecords(dischargeDir);
+            }
+  
+        }
+     }
+
 }
 //==================================================================================================================================
 void

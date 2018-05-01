@@ -1631,6 +1631,9 @@ void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
     integratedThermalEnergySourceTerm_overpotential_Last_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
+
+    polarSrc_list_.clear();
+    polarSrc_list_Last_.clear();
 }
 //==================================================================================================================
 size_t Electrode_Integrator::numIntegratedSrcTerms() const
@@ -1738,13 +1741,14 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
     if (doPolarizationAnalysis_) {
+
         // Create the polarization records for the current time step
-        bool dischargeDir = true;  // hard-coded for now
-        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
+        bool dischargeDir = true; // hardcoded for now
+        double electProdAccounted = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
         // Do an additional check to see that the current is fully accounted for
-        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
-        if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
-            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
+        double electProdTotal =  spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs (electProdAccounted - electProdTotal) > 1.0E-15) {
+            throw Electrode_Error("Electrode_CSTR::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
         }
     }
 }

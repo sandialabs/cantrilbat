@@ -2140,11 +2140,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.49205e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.492E-09  2.000E+00  3.989E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.891E-01      99.96   2  surf_overpotential
-                                                            -7.962E-05       0.04   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.492E-09  2.000E+00  3.989E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.891E-01      99.96   2  surf_overpotential
+                                                                         -7.962E-05       0.04   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
               4     -0.0716114
@@ -2253,11 +2253,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.4844e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.484E-09  2.000E+00  3.989E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.889E-01      99.87   2  surf_overpotential
-                                                            -2.381E-04       0.13   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.484E-09  2.000E+00  3.989E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.889E-01      99.87   2  surf_overpotential
+                                                                         -2.381E-04       0.13   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
               6     -0.0712935
@@ -2366,11 +2366,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.47781e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.478E-09  2.000E+00  3.989E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.887E-01      99.80   2  surf_overpotential
-                                                            -3.752E-04       0.20   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.478E-09  2.000E+00  3.989E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.887E-01      99.80   2  surf_overpotential
+                                                                         -3.752E-04       0.20   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
               8      -0.070922
@@ -2479,11 +2479,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.47011e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.470E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.885E-01      99.72   2  surf_overpotential
-                                                            -5.360E-04       0.28   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.470E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.885E-01      99.72   2  surf_overpotential
+                                                                         -5.360E-04       0.28   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              10     -0.0706079
@@ -2592,11 +2592,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.4636e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.464E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.883E-01      99.64   2  surf_overpotential
-                                                            -6.726E-04       0.36   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.464E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.883E-01      99.64   2  surf_overpotential
+                                                                         -6.726E-04       0.36   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              12     -0.0703046
@@ -2705,11 +2705,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.45731e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.457E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.881E-01      99.57   2  surf_overpotential
-                                                            -8.049E-04       0.43   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.457E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.881E-01      99.57   2  surf_overpotential
+                                                                         -8.049E-04       0.43   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              14     -0.0700038
@@ -2818,11 +2818,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.45108e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.451E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.879E-01      99.50   2  surf_overpotential
-                                                            -9.366E-04       0.50   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.451E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.879E-01      99.50   2  surf_overpotential
+                                                                         -9.366E-04       0.50   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              16     -0.0697057
@@ -2931,11 +2931,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.4449e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.445E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.877E-01      99.43   2  surf_overpotential
-                                                            -1.068E-03       0.57   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.445E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.877E-01      99.43   2  surf_overpotential
+                                                                         -1.068E-03       0.57   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              18       -0.06941
@@ -3044,11 +3044,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.43877e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.439E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.876E-01      99.37   2  surf_overpotential
-                                                            -1.198E-03       0.63   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.439E-09  2.000E+00  3.988E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.876E-01      99.37   2  surf_overpotential
+                                                                         -1.198E-03       0.63   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              20     -0.0691169
@@ -3157,11 +3157,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.43269e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.433E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.874E-01      99.30   2  surf_overpotential
-                                                            -1.328E-03       0.70   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.433E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.874E-01      99.30   2  surf_overpotential
+                                                                         -1.328E-03       0.70   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              22     -0.0688263
@@ -3270,11 +3270,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.42667e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.427E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.872E-01      99.23   2  surf_overpotential
-                                                            -1.457E-03       0.77   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.427E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.872E-01      99.23   2  surf_overpotential
+                                                                         -1.457E-03       0.77   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              24     -0.0685382
@@ -3383,11 +3383,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.4207e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.421E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.870E-01      99.16   2  surf_overpotential
-                                                            -1.585E-03       0.84   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.421E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.870E-01      99.16   2  surf_overpotential
+                                                                         -1.585E-03       0.84   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              26     -0.0682524
@@ -3496,11 +3496,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.41477e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.415E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.868E-01      99.09   2  surf_overpotential
-                                                            -1.713E-03       0.91   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.415E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.868E-01      99.09   2  surf_overpotential
+                                                                         -1.713E-03       0.91   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              28     -0.0679691
@@ -3609,11 +3609,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.4089e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.409E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
-                                                            -1.867E-01      99.02   2  surf_overpotential
-                                                            -1.840E-03       0.98   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.409E-09  2.000E+00  3.987E+00    3.989E+00       0.00   2  Surf_OCV
+                                                                         -1.867E-01      99.02   2  surf_overpotential
+                                                                         -1.840E-03       0.98   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              30     -0.0676881
@@ -3722,11 +3722,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.40308e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.403E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.865E-01      98.96   2  surf_overpotential
-                                                            -1.967E-03       1.04   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.403E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.865E-01      98.96   2  surf_overpotential
+                                                                         -1.967E-03       1.04   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              32     -0.0674095
@@ -3835,11 +3835,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.3973e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.397E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.863E-01      98.89   2  surf_overpotential
-                                                            -2.093E-03       1.11   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.397E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.863E-01      98.89   2  surf_overpotential
+                                                                         -2.093E-03       1.11   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              34     -0.0671331
@@ -3948,11 +3948,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.39157e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.392E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.861E-01      98.82   2  surf_overpotential
-                                                            -2.218E-03       1.18   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.392E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.861E-01      98.82   2  surf_overpotential
+                                                                         -2.218E-03       1.18   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              36     -0.0668591
@@ -4061,11 +4061,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.38589e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.386E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.860E-01      98.76   2  surf_overpotential
-                                                            -2.343E-03       1.24   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.386E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.860E-01      98.76   2  surf_overpotential
+                                                                         -2.343E-03       1.24   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              38     -0.0665873
@@ -4174,11 +4174,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.38026e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.380E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.858E-01      98.69   2  surf_overpotential
-                                                            -2.467E-03       1.31   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.380E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.858E-01      98.69   2  surf_overpotential
+                                                                         -2.467E-03       1.31   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              40     -0.0663177
@@ -4287,11 +4287,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.37467e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.375E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.856E-01      98.62   2  surf_overpotential
-                                                            -2.591E-03       1.38   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.375E-09  2.000E+00  3.986E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.856E-01      98.62   2  surf_overpotential
+                                                                         -2.591E-03       1.38   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              42     -0.0660504
@@ -4400,11 +4400,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.36913e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.369E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.855E-01      98.56   2  surf_overpotential
-                                                            -2.714E-03       1.44   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.369E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.855E-01      98.56   2  surf_overpotential
+                                                                         -2.714E-03       1.44   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              44     -0.0657852
@@ -4513,11 +4513,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.36363e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.364E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.853E-01      98.49   2  surf_overpotential
-                                                            -2.836E-03       1.51   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.364E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.853E-01      98.49   2  surf_overpotential
+                                                                         -2.836E-03       1.51   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              46     -0.0655222
@@ -4626,11 +4626,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.35818e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.358E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.851E-01      98.43   2  surf_overpotential
-                                                            -2.958E-03       1.57   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.358E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.851E-01      98.43   2  surf_overpotential
+                                                                         -2.958E-03       1.57   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              48     -0.0652613
@@ -4739,11 +4739,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.35277e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.353E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.849E-01      98.36   2  surf_overpotential
-                                                            -3.079E-03       1.64   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.353E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.849E-01      98.36   2  surf_overpotential
+                                                                         -3.079E-03       1.64   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              50     -0.0650025
@@ -4852,11 +4852,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.34741e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.347E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.848E-01      98.30   2  surf_overpotential
-                                                            -3.200E-03       1.70   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.347E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.848E-01      98.30   2  surf_overpotential
+                                                                         -3.200E-03       1.70   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              52     -0.0647457
@@ -4965,11 +4965,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.34208e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.342E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.846E-01      98.23   2  surf_overpotential
-                                                            -3.320E-03       1.77   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.342E-09  2.000E+00  3.985E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.846E-01      98.23   2  surf_overpotential
+                                                                         -3.320E-03       1.77   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              54     -0.0644911
@@ -5078,11 +5078,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.33681e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.337E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.844E-01      98.17   2  surf_overpotential
-                                                            -3.440E-03       1.83   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.337E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.844E-01      98.17   2  surf_overpotential
+                                                                         -3.440E-03       1.83   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              56     -0.0642384
@@ -5191,11 +5191,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.33157e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.332E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.843E-01      98.11   2  surf_overpotential
-                                                            -3.559E-03       1.89   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.332E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.843E-01      98.11   2  surf_overpotential
+                                                                         -3.559E-03       1.89   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              58     -0.0639878
@@ -5304,11 +5304,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.32637e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.326E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.841E-01      98.04   2  surf_overpotential
-                                                            -3.677E-03       1.96   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.326E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.841E-01      98.04   2  surf_overpotential
+                                                                         -3.677E-03       1.96   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              60     -0.0637392
@@ -5417,11 +5417,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.32122e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.321E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.839E-01      97.98   2  surf_overpotential
-                                                            -3.795E-03       2.02   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.321E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.839E-01      97.98   2  surf_overpotential
+                                                                         -3.795E-03       2.02   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              62     -0.0634925
@@ -5530,11 +5530,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.31611e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.316E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.838E-01      97.92   2  surf_overpotential
-                                                            -3.912E-03       2.08   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.316E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.838E-01      97.92   2  surf_overpotential
+                                                                         -3.912E-03       2.08   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              64     -0.0632477
@@ -5643,11 +5643,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.31103e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.311E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.836E-01      97.85   2  surf_overpotential
-                                                            -4.029E-03       2.15   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.311E-09  2.000E+00  3.984E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.836E-01      97.85   2  surf_overpotential
+                                                                         -4.029E-03       2.15   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              66     -0.0630049
@@ -5756,11 +5756,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.306e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.306E-09  2.000E+00  3.983E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.835E-01      97.79   2  surf_overpotential
-                                                            -4.145E-03       2.21   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.306E-09  2.000E+00  3.983E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.835E-01      97.79   2  surf_overpotential
+                                                                         -4.145E-03       2.21   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              68      -0.062764
@@ -5869,11 +5869,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.30101e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.301E-09  2.000E+00  3.983E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.833E-01      97.73   2  surf_overpotential
-                                                            -4.261E-03       2.27   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.301E-09  2.000E+00  3.983E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.833E-01      97.73   2  surf_overpotential
+                                                                         -4.261E-03       2.27   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              70     -0.0625249
@@ -5982,11 +5982,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.29605e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.296E-09  2.000E+00  3.983E+00    3.988E+00       0.00   2  Surf_OCV
-                                                            -1.831E-01      97.67   2  surf_overpotential
-                                                            -4.376E-03       2.33   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.296E-09  2.000E+00  3.983E+00    3.988E+00       0.00   2  Surf_OCV
+                                                                         -1.831E-01      97.67   2  surf_overpotential
+                                                                         -4.376E-03       2.33   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              72     -0.0622877
@@ -6095,11 +6095,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.29113e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.291E-09  2.000E+00  3.983E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.830E-01      97.60   2  surf_overpotential
-                                                            -4.491E-03       2.40   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.291E-09  2.000E+00  3.983E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.830E-01      97.60   2  surf_overpotential
+                                                                         -4.491E-03       2.40   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              74     -0.0620524
@@ -6208,11 +6208,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.28625e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.286E-09  2.000E+00  3.983E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.828E-01      97.54   2  surf_overpotential
-                                                            -4.605E-03       2.46   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.286E-09  2.000E+00  3.983E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.828E-01      97.54   2  surf_overpotential
+                                                                         -4.605E-03       2.46   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              76     -0.0618188
@@ -6321,11 +6321,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.28141e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.281E-09  2.000E+00  3.983E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.827E-01      97.48   2  surf_overpotential
-                                                            -4.718E-03       2.52   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.281E-09  2.000E+00  3.983E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.827E-01      97.48   2  surf_overpotential
+                                                                         -4.718E-03       2.52   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              78     -0.0615871
@@ -6434,11 +6434,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.27661e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.277E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.825E-01      97.42   2  surf_overpotential
-                                                            -4.832E-03       2.58   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.277E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.825E-01      97.42   2  surf_overpotential
+                                                                         -4.832E-03       2.58   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              80     -0.0613571
@@ -6547,11 +6547,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.27184e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.272E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.823E-01      97.36   2  surf_overpotential
-                                                            -4.944E-03       2.64   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.272E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.823E-01      97.36   2  surf_overpotential
+                                                                         -4.944E-03       2.64   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              82     -0.0611288
@@ -6660,11 +6660,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.26711e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.267E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.822E-01      97.30   2  surf_overpotential
-                                                            -5.056E-03       2.70   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.267E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.822E-01      97.30   2  surf_overpotential
+                                                                         -5.056E-03       2.70   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              84     -0.0609023
@@ -6773,11 +6773,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.26242e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.262E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.820E-01      97.24   2  surf_overpotential
-                                                            -5.168E-03       2.76   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.262E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.820E-01      97.24   2  surf_overpotential
+                                                                         -5.168E-03       2.76   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              86     -0.0606776
@@ -6886,11 +6886,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.25776e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.258E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.819E-01      97.18   2  surf_overpotential
-                                                            -5.279E-03       2.82   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.258E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.819E-01      97.18   2  surf_overpotential
+                                                                         -5.279E-03       2.82   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              88     -0.0604545
@@ -6999,11 +6999,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.25313e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.253E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.817E-01      97.12   2  surf_overpotential
-                                                            -5.389E-03       2.88   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.253E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.817E-01      97.12   2  surf_overpotential
+                                                                         -5.389E-03       2.88   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              90     -0.0602331
@@ -7112,11 +7112,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.24854e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.249E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.816E-01      97.06   2  surf_overpotential
-                                                            -5.499E-03       2.94   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.249E-09  2.000E+00  3.982E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.816E-01      97.06   2  surf_overpotential
+                                                                         -5.499E-03       2.94   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              92     -0.0600133
@@ -7225,11 +7225,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.24399e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.244E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.814E-01      97.00   2  surf_overpotential
-                                                            -5.609E-03       3.00   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.244E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.814E-01      97.00   2  surf_overpotential
+                                                                         -5.609E-03       3.00   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              94     -0.0597952
@@ -7338,11 +7338,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.23947e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.239E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.813E-01      96.94   2  surf_overpotential
-                                                            -5.718E-03       3.06   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.239E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.813E-01      96.94   2  surf_overpotential
+                                                                         -5.718E-03       3.06   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              96     -0.0595787
@@ -7451,11 +7451,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.23498e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.235E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.811E-01      96.88   2  surf_overpotential
-                                                            -5.827E-03       3.12   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.235E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.811E-01      96.88   2  surf_overpotential
+                                                                         -5.827E-03       3.12   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
              98     -0.0593639
@@ -7564,11 +7564,11 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.23053e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.231E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.810E-01      96.82   2  surf_overpotential
-                                                            -5.935E-03       3.18   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.231E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.810E-01      96.82   2  surf_overpotential
+                                                                         -5.935E-03       3.18   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================
             100     -0.0591506
@@ -7677,10 +7677,10 @@ oc[0] = 3.98922
      Electrode Polarization Analysis: (global step) Total electrons accounted for: -1.2261e-09 
                                                     Number of records = 1
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0   3.800E+00 -1.226E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
-                                                            -1.808E-01      96.77   2  surf_overpotential
-                                                            -6.042E-03       3.23   2  ConcLoss SolidDiff
-                                                    total =  3.800E+00 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0   3.800E+00  -1.226E-09  2.000E+00  3.981E+00    3.987E+00       0.00   2  Surf_OCV
+                                                                         -1.808E-01      96.77   2  surf_overpotential
+                                                                         -6.042E-03       3.23   2  ConcLoss SolidDiff
+                                                                 total =  3.800E+00 
      ============================================================================================
    ==============================================================================================

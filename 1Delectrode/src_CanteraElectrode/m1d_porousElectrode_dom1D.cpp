@@ -395,7 +395,7 @@ void porousElectrode_dom1D::doPolarizationAnalysis(bool dischargeDir, double phi
 
 }
 //==================================================================================================================================
-void porousElectrode_dom1D::printElectrodePolarizationRecords(bool dischargeDir, int region)
+void porousElectrode_dom1D::printElectrodePolarizationRecords(bool dischargeDir)
 {
     bool subTimeStep = false;
     for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {

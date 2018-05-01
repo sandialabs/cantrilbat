@@ -15,13 +15,8 @@
 #ifndef _ELECTRODE_POLARIZATION_H
 #define _ELECTRODE_POLARIZATION_H
 
-
 #include "cantera/base/config.h"
-
 #include "cantera/base/ct_defs.h"
-
-
-
 
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -194,13 +189,6 @@ struct PolarizationSurfRxnResults {
      */
     size_t iRxn_ = npos;
 
-    //! Total current through the surface that is using this particular reaction on this surface
-    /*!
-     *  Units: amps
-     *  @deprecated because I sould be using the elctronProd term instead
-     */
-    double icurrSurf_ = 0.0;
-
     //! Electron production rate for the surface and reaction id during the time step
     /*!
      *  This is proportional to the current of the electrode, which is defined as the net charge transfer from the the electrode
@@ -221,7 +209,9 @@ struct PolarizationSurfRxnResults {
 
     //! Value of the open circuit voltage for the surface reaction index
     /*!
-     *  this is equal to the value of ( phi_metal - phi_lyte) which produces a net electron production of zero.
+     *  This is equal to the value of ( phi_metal - phi_lyte) which produces a net electron production of zero
+     *  for the particular surface reaction we are considering.
+     *  This value is not adjusted to account for polarizations by any type of processing.
      */
     double ocvSurfRxn = 0.0;
 
@@ -235,14 +225,15 @@ struct PolarizationSurfRxnResults {
     //! change in the OCV, such as electrolyte concentration polarization or solid state diffusion polarization.
     /*!
      *  We keep track of the adjusted OCV here.
+     *  The adjusted OCV is equal to (ocvSurfRxn + ocvSurfRxnAdj)
      */ 
     double ocvSurfRxnAdj = 0.0;
 
     //! Value of the voltage for the electrode through which the electrons go through
     /*!
-     *  This is phiMetal - phiSoln always no matter if it is the anode or the cathode
+     *  This is (phiMetal - phiSoln) always no matter if it is the anode or the cathode
      */
-    double VoltageElectrode = 0.0;
+    double VoltageElectrode_ = 0.0;
 
     //! Electric potential of the metal at the electrode
     /*!
@@ -250,7 +241,7 @@ struct PolarizationSurfRxnResults {
      *
      *  phiSoln = phiMetal - VoltageElectrode
      */
-    double phiMetal = 0.0;
+    double phiMetal_ = 0.0;
 
     //! Electric potential of the electrolyte at the electode
     double phi_lyteAtElectrode = 0.0;
@@ -267,7 +258,7 @@ struct PolarizationSurfRxnResults {
     //! Electric potential of the furthest point towards the cathode CC
     double phi_cathode_point_ = 0.0;
 
-    //! Value for the total voltage drops accounted for by the voltsPol_List
+    //! Value for the total voltage drops accounted for by the voltsPol_list records
     /*!
      *  We'll be post-processing this structure to add in voltage drops
      *  The voltages are processed from cathode to the anode.
@@ -298,7 +289,20 @@ struct PolarizationSurfRxnResults {
     PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, Electrode* ee, size_t surfIndex = npos, 
                                size_t rxnIndex = npos); 
 
-   void addOverPotentialPol(double overpotential, double nStoichElectrons,  int region, bool dischargeDir);
+    //! Routine to add the overpotential term
+    /*!
+     *  (UNFINISHED)
+     *  This is unfinished because the overpotential term is added by the Electrode::polarizationAnalysisSurf() routine
+     * 
+     *  @param[in]           overpotential       Calculated value of the overpotential term. 
+     *                                             This is calculated assuming a BV formulation of the surface reaction
+     *  @param[in]           nStoichElectrons    Number of stoichiometric electrons in surface reaction
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           dischargeDir        boolean true if doing analysis in the discharge direction
+     */
+    void addOverPotentialPol(double overpotential, double nStoichElectrons,  int region, bool dischargeDir);
 
     //! Add the polarization losses due to the electrical conduction through the Electrode's solid portion to the current collector
     /*!
@@ -334,6 +338,7 @@ struct PolarizationSurfRxnResults {
      *  VOLT_LOSS_LYTE_PL.
      *
      *  @param[in]           phiLyteElectrode    Electric potential of the electrolyte at the electrode position.
+     *                                              (this parameter is probably redundant)
      *  @param[in]           phiLyteBoundary     Electric potential of the electrolyte at the electrode material - separator
      *                                           material boundary.
      *  @param[in]           region              Region of the solid condition. Two possibilities
@@ -395,8 +400,8 @@ struct PolarizationSurfRxnResults {
      *  @param[in]           region              Region of the solid condition. Two possibilities
      *                                               - 0  anode
      *                                               - 2  cathode
-     *  @param[in]           discharngeDir       Discharge direction:
-     *                                               True if discharging battery
+     *  @param[in]           dischargeDir        Discharge direction:
+     *                                               True if discharging the battery
      *                                               False if charging the battery
      */
     void addLyteConcPol_Sep(double* mf_Lyte_SeparatorBdry, double* mf_Lyte_SeparatorMid, int region, bool dischargeDir);

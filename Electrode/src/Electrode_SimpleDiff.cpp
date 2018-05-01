@@ -2448,7 +2448,7 @@ void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
         // Do an additional check to see that the current is fully accounted for
         double electProdTotal =  spMoleIntegratedSourceTermLast_[kElectron_];
         if (fabs (electProdAccounted - electProdTotal) > 1.0E-15) {
-            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
+            throw Electrode_Error("Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
         }
     }
 }

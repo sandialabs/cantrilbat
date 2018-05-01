@@ -26,13 +26,23 @@ namespace Cantera
 //==================================================================================================================================
 PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber,  Electrode* ee,
                                                        size_t surfIndex, size_t rxnIndex) :
+    dischargeDir_ (true),
     electrodeDomainNumber_(electrodeDomainNumber),
     electrodeCellNumber_(electrodeCellNumber),
     ee_(ee),
     iSurf_(surfIndex),
     iRxn_(rxnIndex),
     electronProd_(0.0),
-    deltaTime_ (0.0)
+    deltaTime_ (0.0),
+    ocvSurf(0.0),
+    ocvSurfRxnAdj(0.0),
+    VoltageElectrode_(0.0),
+    phiMetal_(0.0),
+    phi_lyteAtElectrode(0.0),
+    phi_lyteSpoint(0.0),
+    phi_anode_point_(0.0),
+    phi_cathode_point_(0.0),
+    VoltageTotal(0.0)
 {
     ocvSurfRxn = ee_->openCircuitVoltageRxn(iSurf_, iRxn_);
     ocvSurf = ocvSurfRxn;
@@ -49,7 +59,6 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
     double aft = 1.0 - bef;
 
     // Add the currents. -> currents are deprecated
-    icurrSurf_ += sub.icurrSurf_;
     electronProd_ += sub.electronProd_;
     deltaTime_ += sub.deltaTime_;
 
@@ -58,8 +67,8 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
     }
 
     bool same = true;
-    if (VoltageElectrode  != sub.VoltageElectrode) {
-        VoltageElectrode = sub.VoltageElectrode;
+    if (VoltageElectrode_ != sub.VoltageElectrode_) {
+        VoltageElectrode_ = sub.VoltageElectrode_;
         same = false;
     }
 
@@ -88,13 +97,12 @@ void PolarizationSurfRxnResults::subtractSubStep(struct PolarizationSurfRxnResul
    
 
     // subtract the charges 
-    icurrSurf_ -= sub.icurrSurf_;
     electronProd_ -= sub.electronProd_;
     deltaTime_ -= sub.deltaTime_;
 
-    if (fabs(VoltageElectrode  - sub.VoltageElectrode) > 0.00001) {
+    if (fabs(VoltageElectrode_  - sub.VoltageElectrode_) > 0.00001) {
         throw Electrode_Error("PolarizationSurfRxnResults::subtractSubStep()", "inconsistent voltages: %g %g\n",
-                             VoltageElectrode, sub.VoltageElectrode);
+                             VoltageElectrode_, sub.VoltageElectrode_);
     }
 }
 //==================================================================================================================================
@@ -113,10 +121,7 @@ void PolarizationSurfRxnResults::addOverPotentialPol(double overpotential, doubl
     } else {
         voltsS  = - nStoichElectrons * overpotential;
     }
-
-
-
-
+    VoltPolPhenom ess(SURFACE_OVERPOTENTIAL_PL, region, voltsS);
 
 }
 //==================================================================================================================================
@@ -124,62 +129,66 @@ void PolarizationSurfRxnResults::addOverPotentialPol(double overpotential, doubl
 void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int region, bool dischargeDir)
 {
     double voltsS;
-    bool anodeDischargeDir = true;
-    if (region == 0) {
-       if (!dischargeDir) anodeDischargeDir = false;
-    } else if (region == 2) {
-       if (dischargeDir) anodeDischargeDir = false;
-    }
-    if (anodeDischargeDir) {
-        voltsS  = phiCurrentCollector - phiMetal;
-    } else {
-        voltsS  = phiMetal - phiCurrentCollector;
-    }
-    if (region == 0) {
-        phi_anode_point_ = phiCurrentCollector;
-    } else  if (region == 2) {
-        phi_cathode_point_ =  phiCurrentCollector;
-    }
-    VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS);
     bool found = false;
+    double vOld = 0.0;
+
+    if (region == 0) {
+        voltsS = phiMetal_ - phiCurrentCollector;
+    } else if (region == 2) {
+        voltsS = phiCurrentCollector - phiMetal_;
+    }
+
+    VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS);
     for (VoltPolPhenom& vp : voltsPol_list) {
         if (vp.ipolType == ELECTRICAL_CONDUCTION_LOSS_PL) {
             found = true;
+            vOld = vp.voltageDrop;
             vp = ess;
+            break;
         }
     }
     if (! found) {
         voltsPol_list.push_back(ess);
     }
  
-    // Adjust the total voltage from cathode to anode    
+    // Adjust the total voltage from cathode to anode, sin
     if (dischargeDir) {
-        VoltageTotal -= voltsS;
+        VoltageTotal += voltsS - vOld;
     } else {
-        VoltageTotal += voltsS;
+        VoltageTotal += voltsS - vOld;
     }
-}
+    if (region == 0) {
+        phi_anode_point_ = phiCurrentCollector;
+    }
+    if (region == 2) {
+        phi_cathode_point_ = phiCurrentCollector;
+    }
+} 
 //==================================================================================================================================
+//  do this after the addSolidPol() calc.
 void PolarizationSurfRxnResults::addSolidCCPol(double phiTerminal, double phiCurrentCollector, int region, bool dischargeDir)
 {
     double voltsS;
-    bool anodeDischargeDir = true;
+    bool found = false;
+    double vOld = 0.0;
+
     if (region == 0) {
-       if (!dischargeDir) anodeDischargeDir = false;
-    } else if (region == 2) {
-       if (dischargeDir) anodeDischargeDir = false;
-    }
-    if (anodeDischargeDir) {
+        // usually negative
+        voltsS  = phiCurrentCollector - phiTerminal;
+    } else if (region == 2){
+        // usually negative for discharge dir
         voltsS  = phiTerminal - phiCurrentCollector;
     } else {
-        voltsS  = phiCurrentCollector - phiTerminal;
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidCCPol", "unknown region");
     }
+
     VoltPolPhenom ess(ELECT_COND_COLLECTORS_LOSS_PL, region, voltsS);
-    bool found = false;
     for (VoltPolPhenom& vp : voltsPol_list) {
         if (vp.ipolType == ELECT_COND_COLLECTORS_LOSS_PL) {
             found = true;
+            vOld = vp.voltageDrop;
             vp = ess;
+            break;
         }
     }
     if (! found) {
@@ -188,33 +197,41 @@ void PolarizationSurfRxnResults::addSolidCCPol(double phiTerminal, double phiCur
  
     // Adjust the total voltage from cathode to anode    
     if (dischargeDir) {
-        VoltageTotal -= voltsS;
+        VoltageTotal += voltsS - vOld;
     } else {
-        VoltageTotal += voltsS;
+        VoltageTotal += voltsS - vOld;
+    }
+    if (region == 0) {
+        phi_anode_point_ = phiCurrentCollector;
+    }
+    if (region == 2) {
+        phi_cathode_point_ = phiCurrentCollector;
     }
 
 }
 //==================================================================================================================================
+// Treats to boundary of electrode - separator region
 void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double phiLyteBoundary, int region, bool dischargeDir)
 {
     double voltsS;
-    bool anodeDischargeDir = true;
-    if (region == 0) {
-       if (!dischargeDir) anodeDischargeDir = false;
-    } else if (region == 2) {
-       if (dischargeDir) anodeDischargeDir = false;
+    double vOld = 0.0;
+    if (phiLyteElectrode != phi_lyteAtElectrode) {
+        throw Electrode_Error("PolarizationSurfRxnResults::addLyteCondPol()", "phiLyteElectrode !=  phi_lyteAtElectrode %g %g\n",
+                             phiLyteElectrode,  phi_lyteAtElectrode);
     }
-    if (anodeDischargeDir) {
-        voltsS  = phiLyteElectrode - phiLyteBoundary;
-    } else {
+    if (region == 0) {
         voltsS  = phiLyteBoundary - phiLyteElectrode;
+    } else if (region == 2) {
+        voltsS  = phiLyteElectrode - phiLyteBoundary;
     }
     VoltPolPhenom ess(VOLT_LOSS_LYTE_PL, region, voltsS);
     bool found = false;
     for (VoltPolPhenom& vp : voltsPol_list) {
         if (vp.ipolType == VOLT_LOSS_LYTE_PL) {
             found = true;
+            vOld = vp.voltageDrop;
             vp = ess;
+            break;
         }
     }
     if (! found) {
@@ -223,9 +240,15 @@ void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double 
 
     // Adjust the total voltage from cathode to anode
     if (dischargeDir) {
-        VoltageTotal -= voltsS;
+        VoltageTotal += voltsS - vOld;
     } else {
-        VoltageTotal += voltsS;
+        VoltageTotal += voltsS - vOld;
+    }
+    if (region == 0) {
+        phi_cathode_point_ = phiLyteBoundary;
+    }
+    if (region == 2) {
+        phi_anode_point_ = phiLyteBoundary;
     }
 
 }
@@ -233,23 +256,22 @@ void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double 
 void PolarizationSurfRxnResults::addLyteCondPol_Sep(double phiLyteBoundary, double phiLyte_Spoint, int region, bool dischargeDir)
 {
     double voltsS;
-    bool anodeDischargeDir = true;
-    if (region == 0) {
-       if (!dischargeDir) anodeDischargeDir = false;
-    } else if (region == 2) {
-       if (dischargeDir) anodeDischargeDir = false;
-    }
-    if (anodeDischargeDir) {
-        voltsS  = phiLyteBoundary - phiLyte_Spoint;
-    } else {
-        voltsS  = phiLyte_Spoint - phiLyteBoundary;
-    }
-    VoltPolPhenom ess(VOLT_LOSS_LYTE_SEP_PL, region, voltsS);
+    double vOld = 0.0;
     bool found = false;
+
+    if (region == 0) {
+        voltsS  = phiLyte_Spoint - phiLyteBoundary;
+    } else if (region == 2) {
+        voltsS  = phiLyteBoundary - phiLyte_Spoint;
+    }
+
+    VoltPolPhenom ess(VOLT_LOSS_LYTE_SEP_PL, region, voltsS);
     for (VoltPolPhenom& vp : voltsPol_list) {
         if (vp.ipolType == VOLT_LOSS_LYTE_SEP_PL) {
             found = true;
+            vOld = vp.voltageDrop;
             vp = ess;
+            break;
         }
     }
     if (! found) {
@@ -258,9 +280,15 @@ void PolarizationSurfRxnResults::addLyteCondPol_Sep(double phiLyteBoundary, doub
 
     // Adjust the total voltage from cathode to anode
     if (dischargeDir) {
-        VoltageTotal -= voltsS;
+        VoltageTotal += voltsS - vOld;
     } else {
-        VoltageTotal += voltsS;
+        VoltageTotal += voltsS - vOld;
+    }
+    if (region == 0) {
+        phi_cathode_point_ = phiLyte_Spoint;
+    }
+    if (region == 2) {
+        phi_anode_point_ = phiLyte_Spoint;
     }
 
 }
@@ -268,18 +296,10 @@ void PolarizationSurfRxnResults::addLyteCondPol_Sep(double phiLyteBoundary, doub
 void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorBdry,
                                                 int region, bool dischargeDir)
 {
-    bool anodeDischargeDir = true;
-    if (region == 0) {
-       if (!dischargeDir) anodeDischargeDir = false;
-    } else if (region == 2) {
-       if (dischargeDir) anodeDischargeDir = false;
-    }
     double signADD = 1.0;
-    if (!anodeDischargeDir) {
+    if (region == 2) {
         signADD = -1.0;
     }
-
-
 
     // Fetch the ReactingSurDomain object for the current
     ReactingSurDomain* rsd = ee_->reactingSurface(iSurf_);
@@ -330,9 +350,12 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
             pLoss += deltaV;
         }
     }
-
-    // Keep track of the adjustments in the effective OCV.
-    ocvSurfRxnAdj += pLoss;
+    if (dischargeDir) {
+        if (pLoss > 0.0)  {
+            throw Electrode_Error("PolarizationSurfRxnResults::addLyteConcPol()", 
+                                  "Possible sign error on discargeDir ploss = %g\n", pLoss);
+        }
+    }
 
     VoltPolPhenom ess(CONC_LOSS_LYTE_PL, region, pLoss);
     bool found = false;
@@ -340,31 +363,36 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
         if (vp.ipolType == CONC_LOSS_LYTE_PL) {
             found = true;
             vp = ess;
+            break;
         }
     }
     if (! found) {
         voltsPol_list.push_back(ess);
     }
- 
-    // Adjust the total voltage from cathode to anode    
-    if (dischargeDir) {
-        VoltageTotal -= pLoss;
-    } else {
-        VoltageTotal += pLoss;
+
+    // Adjust the storred OCV -> we have to adjust the storred OCV because it was previously
+    // attributed to the OCV, but in fact it was diffusion resistance.
+    found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == SURFACE_OCV_PL) {
+            found = true;
+            vp.voltageDrop -= pLoss;
+            break;
+        }
     }
+    if (!found) {
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()", "logic error");
+    }
+    // Keep track of the adjustments in the effective OCV.
+    ocvSurfRxnAdj -= pLoss;
+
 }
 //==================================================================================================================================
 void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, double* state_Lyte_SepMid, 
                                                     int region, bool dischargeDir)
 {
-    bool anodeDischargeDir = true;
-    if (region == 0) {
-       if (!dischargeDir) anodeDischargeDir = false;
-    } else if (region == 2) {
-       if (dischargeDir) anodeDischargeDir = false;
-    }
     double signADD = 1.0;
-    if (!anodeDischargeDir) {
+    if (region == 2) {
         signADD = -1.0;
     }
 
@@ -417,27 +445,40 @@ void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, 
         }
     }
 
-    // Keep track of the adjustments in the effective OCV.
-    ocvSurfRxnAdj += pLoss;
-
     VoltPolPhenom ess(CONC_LOSS_LYTE_SEP_PL, region, pLoss);
     bool found = false;
     for (VoltPolPhenom& vp : voltsPol_list) {
         if (vp.ipolType == CONC_LOSS_LYTE_SEP_PL) {
             found = true;
             vp = ess;
+            break;
         }
     }
     if (! found) {
         voltsPol_list.push_back(ess);
     }
- 
-    // Adjust the total voltage from cathode to anode    
     if (dischargeDir) {
-        VoltageTotal -= pLoss;
-    } else {
-        VoltageTotal += pLoss;
+        if (pLoss > 0.0)  {
+            throw Electrode_Error("PolarizationSurfRxnResults::addLyteConcPol()", 
+                                  "Possible sign error on discargeDir ploss = %g\n", pLoss);
+        }
     }
+
+    // Adjust the storred OCV -> we have to adjust the storred OCV because it was previously
+    // attributed to the OCV, but in fact it was electrolyte diffusion resistance.
+    found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == SURFACE_OCV_PL) {
+            found = true;
+            vp.voltageDrop -= pLoss;
+            break;
+        }
+    }
+    if (!found) {
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()", "logic error");
+    }
+    // Keep track of the adjustments in the effective OCV.
+    ocvSurfRxnAdj += pLoss;
 
 }
 //==================================================================================================================================

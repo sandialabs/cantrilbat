@@ -297,11 +297,8 @@ public:
      *  (virtual from porousElectrode_dom1D)
      *
      *  @param[in]         dischargeDir          True if we are doing the analysis in the discharge dir.
-     *  @param[in]         region                Region of the analysis:
-     *                                                0 = anode
-     *                                                2 = cathode
      */
-    virtual void printElectrodePolarizationRecords(bool dischargeDir, int region);
+    virtual void printElectrodePolarizationRecords(bool dischargeDir);
 
     // -------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------   DATA   ----------------------------------------------------------------
