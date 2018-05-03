@@ -19,6 +19,7 @@
 #include "m1d_SurDomain1D.h"
 
 #include "cantera/base/Array.h"
+#include "Electrode_Polarization.h"
 #include <vector>
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -653,6 +654,10 @@ public:
     virtual void 
     doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& soln,
                            const Epetra_Vector_Ghosted* const solnDot_ptr);
+
+    void printPolAgglomInterpret( std::vector<struct Zuzax::PolarizationSurfRxnResults>& aPolA,
+                                  std::vector<struct Zuzax::PolarizationSurfRxnResults>& cPolA );
+
 
     //! Carries out a species element balance over all of the domains
     /*!

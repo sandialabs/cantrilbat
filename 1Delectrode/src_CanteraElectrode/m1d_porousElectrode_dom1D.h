@@ -283,8 +283,8 @@ public:
      */
     virtual void agglomeratePolarizationRecords(bool dischargeDir);
 
-    void agglomerate_avg(std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_agglom,
-                         const std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_list);
+    
+    void agglomerate_avg(std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_agglom);
 
 
     //! Add terms to the polarization analysis
@@ -316,6 +316,14 @@ public:
      *  @param[in]         dischargeDir          True if we are doing the analysis in the discharge dir.
      */
     virtual void printElectrodePolarizationRecords(bool dischargeDir);
+
+    //! Return the agglomeration structure
+    /*!
+     *  @return                                  Returns a changeable reference to the vector of PolarizationSurfRxnResults
+     *                                           structures for this domain.
+     */
+    std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarizationAgglomResult();
+
 
     // -------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------   DATA   ----------------------------------------------------------------
@@ -422,7 +430,8 @@ protected:
      *   Length = total number of cells.
      */
     std::vector<double> nVol_zeroStress_Electrode_Old_Cell_;
-    // Debugging -> last part keeps getting written into
+
+    //! Debugging -> last part keeps getting written into
     size_t wBufff_[5];
 
 

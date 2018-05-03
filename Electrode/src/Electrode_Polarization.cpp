@@ -13,6 +13,7 @@
 #include "Electrode_Exception.h"
 
 #include "Electrode.h"
+#include "cantera/base/zzcompare.h"
 
 #include <cmath>
 
@@ -579,6 +580,28 @@ bool PolarizationSurfRxnResults::checkConsistency(const double gvoltageTotal)
     return res; 
 }
 //==================================================================================================================================
+double PolarizationSurfRxnResults::agglomerate_I_divide()
+{
+    if (electronProd_ != 0.0) {
+        for (VoltPolPhenom& vp : voltsPol_list) {
+            vp.voltageDrop = vp.voltageDrop / electronProd_;
+        }
+    }
+#ifdef DEBUG_MODE
+    // After the division, we should have the property that the voltageDrops sum to the voltage totals again
+    double vt = 0.0;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        vt += vp.voltageDrop;
+    }
+    if (! Zuzax::doubleEqual(vt, VoltageTotal, 1.0E-12, 5)) {
+        throw Electrode_Error("PolarizationSurfRxnResults::agglomerate_I_divide()", 
+                              "End result for dom %d cell %d surf %d react %d doesn't add up to right number: %g %g\n",
+                              electrodeDomainNumber_, electrodeCellNumber_, iSurf_, iRxn_, VoltageTotal, vt);
+    }
+#endif
+    return electronProd_;
+}
+//==================================================================================================================================
 std::string polString(enum Polarization_Loss_Enum plr)
 {
    std::string s = "";
@@ -719,6 +742,79 @@ void agglomerate_IV_add(struct PolarizationSurfRxnResults& apol,
              break;
         }
     }
+}
+//==================================================================================================================================
+void printPolarizationVector(const std::vector<struct PolarizationSurfRxnResults>& polarSrc_L, bool subTimeStep, 
+                             const std::string& eType)
+{
+    double vTotal, vPolTotal, vPolPercent;
+    double totalPolElectrons =  0.0;
+
+    totalPolElectrons = totalElectronSource(polarSrc_L);
+
+    printf("     ============================================================================================\n");
+    printf("     Electrode Polarization Analysis: ");
+    if (subTimeStep) {
+        printf("(local  step)");
+    } else {
+        printf("(global step)");
+    }
+    printf(" Total electrons accounted for: %g \n ",  totalPolElectrons);
+    if (polarSrc_L.size() == 0) {
+       return;
+    }
+    printf("                                DischargeDir = %2d         Number of records = %d\n",
+           polarSrc_L[0].dischargeDir_, (int) polarSrc_L.size());
+    printf("                            ElectrodeCapacityType = %d   ElectrodeType = %s\n",
+           polarSrc_L[0].electrodeCapacityType_, eType.c_str());
+    printf("\n");
+    printf("     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %%PolLoss  Rgn  Reason\n");
+    for (size_t i = 0; i <  polarSrc_L.size(); ++i) {
+        const struct PolarizationSurfRxnResults& ipol = polarSrc_L[i];
+        const struct VoltPolPhenom& vp = ipol.voltsPol_list[0];
+        printf("       %2d %4d   %2d   %2d  % -10.3E  % -10.3E % -10.3E % -10.3E   ",
+               (int) ipol.electrodeDomainNumber_, ipol.electrodeCellNumber_,
+               (int) ipol.iSurf_, (int) ipol.iRxn_, ipol.VoltageTotal, ipol.electronProd_, ipol.deltaTime_, ipol.ocvSurfRxn);
+        vTotal = vp.voltageDrop;
+
+        if (vp.ipolType !=  SURFACE_OCV_PL) {
+            vPolTotal = vp.voltageDrop;
+        } else {
+            vPolTotal = 0.0;
+        }
+        for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
+            const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
+            vTotal += vp.voltageDrop;
+            if (vp.ipolType !=  SURFACE_OCV_PL) {
+                vPolTotal += vp.voltageDrop;
+            }
+        }
+        vPolPercent = 100.;
+        if (vPolTotal != 0.0) {
+            vPolPercent = vp.voltageDrop / vPolTotal;
+        }
+        if (vp.ipolType ==  SURFACE_OCV_PL) {
+            vPolPercent = 0.0;
+        }
+        printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
+        for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
+            const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
+            vPolPercent = 100.;
+            if (vPolTotal != 0.0) {
+                vPolPercent = 100.0 * vp.voltageDrop / vPolTotal;
+            }
+            if (vp.ipolType ==  SURFACE_OCV_PL) {
+                vPolPercent = 0.0;
+            }
+            printf("                                                                         ");
+            printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
+        }
+        if (ipol.voltsPol_list.size() > 1) {
+            printf("            phiAnodeP = % 10.3E  phiCathodeP = % 10.3E     total = % 10.3E \n",
+                   ipol.phi_anode_point_, ipol.phi_cathode_point_, vTotal);
+        }
+    }
+    printf("     ============================================================================================\n");
 }
 //==================================================================================================================================
 } 

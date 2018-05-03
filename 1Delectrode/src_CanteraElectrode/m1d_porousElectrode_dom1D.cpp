@@ -395,7 +395,7 @@ void porousElectrode_dom1D::doPolarizationAnalysis(const Epetra_Vector_Ghosted& 
        iCell_Bdry = 0;
     }
     cIndex_cc_ = iCell_Bdry;
-    cellTmps& cTmps      = cellTmpsVect_Cell_[iCell_Bdry];
+    //cellTmps& cTmps      = cellTmpsVect_Cell_[iCell_Bdry];
     int index_BdryLcNode = Index_DiagLcNode_LCO[iCell_Bdry];
     NodalVars* nodeBdry = LI_ptr_->NodalVars_LcNode[index_BdryLcNode];
     int indexBdry_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_BdryLcNode];
@@ -413,7 +413,7 @@ void porousElectrode_dom1D::doPolarizationAnalysis(const Epetra_Vector_Ghosted& 
          if (ee->doPolarizationAnalysis_) {
             // Need to fill up the state vector
             cIndex_cc_ = iCell;
-            cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
+            //cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
             int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
             NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
             int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
@@ -471,13 +471,15 @@ void porousElectrode_dom1D::agglomeratePolarizationRecords(bool dischargeDir)
             Zuzax::agglomerate_init(psr_agglomerate_list_ ,ee->polarSrc_list_); 
          }
     }
+
+    agglomerate_avg(psr_agglomerate_list_);
+
 }
 //==================================================================================================================================
 /*
  *  Bin according to surface and rxn number
  */
-void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_agglom,
-                                            const std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_list)
+void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_agglom)
 {
     double electronP_total;
     for (size_t j = 0; j < polarSrc_agglom.size(); ++j) {
@@ -485,6 +487,7 @@ void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::Polarizati
 
         // save the initial amount for reference 
         electronP_total = jpol.electronProd_;
+        printf(" total electron production in record %d = %g\n", (int) j, electronP_total );
         jpol.electronProd_ = 0.0;
         
         for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
@@ -493,14 +496,22 @@ void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::Polarizati
                 Zuzax::agglomerate_IV_add(jpol ,ee->polarSrc_list_);
              }
         }
+        if (! doubleEqual(  electronP_total ,  jpol.electronProd_ , 1.0E-25, 7)) {
+            throw m1d_Error("porousElectrode_dom1D::agglomerate_avg()",
+                            "electron production terms were not equal: %g %g ",  electronP_total ,  jpol.electronProd_ );
+        }
 
-
-
+        for (Zuzax::PolarizationSurfRxnResults& jpol : polarSrc_agglom) {
+            jpol.agglomerate_I_divide(); 
+        } 
     }
 
 }
-
-
+//==================================================================================================================================
+std::vector<struct Zuzax::PolarizationSurfRxnResults>& porousElectrode_dom1D::polarizationAgglomResult()
+{
+    return  psr_agglomerate_list_;
+}
 //==================================================================================================================================
 } 
 //----------------------------------------------------------------------------------------------------------------------------------

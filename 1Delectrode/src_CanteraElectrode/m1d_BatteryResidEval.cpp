@@ -1581,14 +1581,45 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
         }
      }
 
+     // Do the anode
      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
-     porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
-     if (p_ptr) {
-        Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
+     porousElectrode_dom1D* ap_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+     if (ap_ptr) {
+        Electrode_Capacity_Type_Enum  capType = ap_ptr->capacityType();
         if (capType == CAPACITY_ANODE_ECT) {
-               printf("Printout of Polarization Records in the Anode\n");
-               p_ptr->agglomeratePolarizationRecords(dischargeDir);
+               printf("Agglomerate the anode records\n");
+               ap_ptr->agglomeratePolarizationRecords(dischargeDir);
         }
+     }
+
+     // Do the cathode
+     d_ptr = DL.BulkDomain1D_List[2];
+      porousElectrode_dom1D* cp_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+     if (cp_ptr) {
+        Electrode_Capacity_Type_Enum  capType = cp_ptr->capacityType();
+        if (capType == CAPACITY_CATHODE_ECT) {
+               printf("Agglomerate the cathode records\n");
+               cp_ptr->agglomeratePolarizationRecords(dischargeDir);
+        }
+     }
+
+     std::vector<struct Zuzax::PolarizationSurfRxnResults>& aPolA = ap_ptr->polarizationAgglomResult();
+     std::vector<struct Zuzax::PolarizationSurfRxnResults>& cPolA = cp_ptr->polarizationAgglomResult();
+ 
+     printPolAgglomInterpret(aPolA, cPolA);
+
+     
+}
+//==================================================================================================================================
+void BatteryResidEval::printPolAgglomInterpret( std::vector<struct Zuzax::PolarizationSurfRxnResults>& aPolA, 
+                                                std::vector<struct Zuzax::PolarizationSurfRxnResults>& cPolA)
+{
+
+    if (aPolA.size() > 0) {
+        printPolarizationVector(aPolA, false, "Anode Agglomeration");
+    }
+    if (cPolA.size() > 0) {
+        printPolarizationVector(cPolA, false, "Cathode Agglomeration");
     }
 
 }

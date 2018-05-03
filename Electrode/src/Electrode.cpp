@@ -3514,6 +3514,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         // Create a psr record for the current reaction on the current surface
                         psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, this, iSurf, iRxn);
                         PolarizationSurfRxnResults& psr = psr_list.back();
+                        psr.electrodeCapacityType_ = electrodeCapacityType_;
                         numErxn++;
                         /*
                          *  Add the OCV record onto VoltPolPhenom list first. Reverse the sign of the anode OCV half-cell reaction
@@ -5600,7 +5601,7 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 //==================================================================================================================================
 void Electrode::printElectrodePolarization(bool subTimeStep)
 {
-    double srcTotalElectron, totalPolElectrons, vTotal, vPolPercent, vPolTotal;
+    double srcTotalElectron, totalPolElectrons;
 
     if (polarSrc_list_.size() == 0) {
         return;
@@ -5626,66 +5627,9 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
     }
     const std::vector<struct PolarizationSurfRxnResults>& polarSrc_L = *polarSrc_ptr;
 
-    printf("     ============================================================================================\n");
-    printf("     Electrode Polarization Analysis: ");
-    if (subTimeStep) {
-        printf("(local  step)"); 
-    } else {
-        printf("(global step)"); 
-    }
-    printf(" Total electrons accounted for: %g \n ",  totalPolElectrons);
-    printf("                                DischargeDir = %2d         Number of records = %d\n",
-           polarSrc_L[0].dischargeDir_, (int) polarSrc_L.size());
-    printf("                            ElectrodeCapacityType = %d   ElectrodeType = %s\n",
-           electrodeCapacityType_, Electrode_Types_Enum_to_string(electrodeType()).c_str());
-    printf("\n"); 
-    printf("     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %%PolLoss  Rgn  Reason\n");
-    for (size_t i = 0; i <  polarSrc_L.size(); ++i) {
-        const struct PolarizationSurfRxnResults& ipol = polarSrc_L[i];
-        const struct VoltPolPhenom& vp = ipol.voltsPol_list[0];
-        printf("       %2d %4d   %2d   %2d  % -10.3E  % -10.3E % -10.3E % -10.3E   ",
-               (int) electrodeDomainNumber_, (int) electrodeCellNumber_,
-               (int) ipol.iSurf_, (int) ipol.iRxn_, ipol.VoltageTotal, ipol.electronProd_, ipol.deltaTime_, ipol.ocvSurfRxn); 
-        vTotal = vp.voltageDrop;
-       
-        if (vp.ipolType !=  SURFACE_OCV_PL) {
-            vPolTotal = vp.voltageDrop;
-        } else {
-            vPolTotal = 0.0;
-        }
-        for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
-            const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
-            vTotal += vp.voltageDrop;
-            if (vp.ipolType !=  SURFACE_OCV_PL) {
-                vPolTotal += vp.voltageDrop;
-            } 
-        }
-        vPolPercent = 100.;
-        if (vPolTotal != 0.0) {
-            vPolPercent = vp.voltageDrop / vPolTotal;
-        }
-        if (vp.ipolType ==  SURFACE_OCV_PL) {
-            vPolPercent = 0.0;
-        }
-        printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
-        for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
-            const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
-            vPolPercent = 100.;
-            if (vPolTotal != 0.0) {
-                vPolPercent = 100.0 * vp.voltageDrop / vPolTotal;
-            }
-            if (vp.ipolType ==  SURFACE_OCV_PL) {
-                vPolPercent = 0.0;
-            }
-            printf("                                                                         ");
-            printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
-        }
-        if (ipol.voltsPol_list.size() > 1) {
-            printf("            phiAnodeP = % 10.3E  phiCathodeP = % 10.3E     total = % 10.3E \n", 
-                   ipol.phi_anode_point_, ipol.phi_cathode_point_, vTotal);
-        }
-    }
-    printf("     ============================================================================================\n");
+    std::string et = Electrode_Types_Enum_to_string(electrodeType()).c_str();
+
+    printPolarizationVector( polarSrc_L , subTimeStep, et);
     
  
    // Then take the total voltage from the ccurrent collector to the middle of the separator, or whatever this electrode takes

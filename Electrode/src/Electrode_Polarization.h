@@ -18,6 +18,8 @@
 #include "cantera/base/config.h"
 #include "cantera/base/ct_defs.h"
 
+#include "Electrode_defs.h"
+
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -176,6 +178,9 @@ struct PolarizationSurfRxnResults {
 
     //! Cell number within the domain
     int electrodeCellNumber_ = 0;
+
+
+    Electrode_Capacity_Type_Enum electrodeCapacityType_ = CAPACITY_ANODE_ECT;
 
     //! Shallow pointer to the Electrode object
     Electrode* ee_;
@@ -448,6 +453,16 @@ struct PolarizationSurfRxnResults {
      *  @return                                  true if the record is consistent
      */
     bool checkConsistency(const double gvoltageTotal);
+
+    //! Step that handles division by the electronProd during the agglomeration step
+    /*!
+     *  It's assumed that before this step the voltage drop items are actually current times voltage drop.
+     *  this step. This step will divide the voltageDrop part of the VoltPolPhenom structure and divide by electronProd_.
+     *
+     *  @return                                  Returns the electron production value.
+     */
+    double agglomerate_I_divide();
+
 };
 
 //===================================================================================================================================
@@ -486,6 +501,9 @@ void agglomerate_init(std::vector<struct PolarizationSurfRxnResults>& polarSrc_a
 void agglomerate_IV_add(struct PolarizationSurfRxnResults& apol,
                         const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list);
 
+
+void printPolarizationVector(const std::vector<struct PolarizationSurfRxnResults>& polarSrc_L, bool subTimeStep,
+                             const std::string& eType);
 
 
 //===================================================================================================================================
