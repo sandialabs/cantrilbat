@@ -390,13 +390,14 @@ oc[0] = -0.0230979
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.20125e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  1.201E-09  1.000E-02 -2.308E-02    2.308E-02       0.00   0  Surf_OCV
-                                                            -2.231E-01     100.00   0  surf_overpotential
-                                                            -6.133E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   1.201E-09  1.000E-02 -2.308E-02    2.308E-02       0.00   0  Surf_OCV
+                                                                         -2.231E-01     100.00   0  surf_overpotential
+                                                                         -6.133E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0403403 beat out pnorm 0.0992296
@@ -515,13 +516,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.52877e-16
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.80154e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  1.802E-09  1.500E-02 -2.306E-02    2.306E-02       0.00   0  Surf_OCV
-                                                            -2.231E-01     100.00   0  surf_overpotential
-                                                            -6.404E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   1.802E-09  1.500E-02 -2.306E-02    2.306E-02       0.00   0  Surf_OCV
+                                                                         -2.231E-01     100.00   0  surf_overpotential
+                                                                         -6.404E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0045151 beat out pnorm 0.102502
@@ -640,13 +642,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-19
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.70155e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.702E-09  2.250E-02 -2.302E-02    2.302E-02       0.00   0  Surf_OCV
-                                                            -2.230E-01     100.00   0  surf_overpotential
-                                                            -6.408E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.702E-09  2.250E-02 -2.302E-02    2.302E-02       0.00   0  Surf_OCV
+                                                                         -2.230E-01     100.00   0  surf_overpotential
+                                                                         -6.408E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000334416 beat out pnorm 0.150997
@@ -765,13 +768,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 4.0506e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  4.051E-09  3.375E-02 -2.296E-02    2.296E-02       0.00   0  Surf_OCV
-                                                            -2.230E-01     100.00   0  surf_overpotential
-                                                            -6.405E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   4.051E-09  3.375E-02 -2.296E-02    2.296E-02       0.00   0  Surf_OCV
+                                                                         -2.230E-01     100.00   0  surf_overpotential
+                                                                         -6.405E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 5.76888e-05 beat out pnorm 0.226356
@@ -890,13 +894,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 6.07204e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  6.072E-09  5.063E-02 -2.288E-02    2.288E-02       0.00   0  Surf_OCV
-                                                            -2.229E-01     100.00   0  surf_overpotential
-                                                            -6.400E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   6.072E-09  5.063E-02 -2.288E-02    2.288E-02       0.00   0  Surf_OCV
+                                                                         -2.229E-01     100.00   0  surf_overpotential
+                                                                         -6.400E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0001249 beat out pnorm 0.339327
@@ -1015,13 +1020,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.35525e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 8.16406e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  8.164E-09  6.812E-02 -2.277E-02    2.277E-02       0.00   0  Surf_OCV
-                                                            -2.228E-01     100.00   0  surf_overpotential
-                                                            -6.394E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   8.164E-09  6.812E-02 -2.277E-02    2.277E-02       0.00   0  Surf_OCV
+                                                                         -2.228E-01     100.00   0  surf_overpotential
+                                                                         -6.394E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000225034 beat out pnorm 0.45622
@@ -1142,13 +1148,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.3991e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.399E-08  2.000E-01 -2.277E-02    2.284E-02       0.00   0  Surf_OCV
-                                                            -2.228E-01     100.00   0  surf_overpotential
-                                                            -6.397E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.399E-08  2.000E-01 -2.277E-02    2.284E-02       0.00   0  Surf_OCV
+                                                                         -2.228E-01     100.00   0  surf_overpotential
+                                                                         -6.397E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -1253,13 +1260,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 9.09171e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  9.092E-09  7.594E-02 -2.265E-02    2.265E-02       0.00   0  Surf_OCV
-                                                            -2.226E-01     100.00   0  surf_overpotential
-                                                            -6.387E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   9.092E-09  7.594E-02 -2.265E-02    2.265E-02       0.00   0  Surf_OCV
+                                                                         -2.226E-01     100.00   0  surf_overpotential
+                                                                         -6.387E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00027794 beat out pnorm 0.507961
@@ -1378,13 +1386,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.36183e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  1.362E-08  1.139E-01 -2.246E-02    2.246E-02       0.00   0  Surf_OCV
-                                                            -2.225E-01     100.00   0  surf_overpotential
-                                                            -6.376E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   1.362E-08  1.139E-01 -2.246E-02    2.246E-02       0.00   0  Surf_OCV
+                                                                         -2.225E-01     100.00   0  surf_overpotential
+                                                                         -6.376E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00062233 beat out pnorm 0.760903
@@ -1503,13 +1512,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.98156e-19
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.21411e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  1.214E-09  1.016E-02 -2.245E-02    2.245E-02       0.00   0  Surf_OCV
-                                                            -2.224E-01     100.00   0  surf_overpotential
-                                                            -6.375E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   1.214E-09  1.016E-02 -2.245E-02    2.245E-02       0.00   0  Surf_OCV
+                                                                         -2.224E-01     100.00   0  surf_overpotential
+                                                                         -6.375E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 4.53411e-06 beat out pnorm 0.067743
@@ -1630,13 +1640,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.39241e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.392E-08  2.000E-01 -2.245E-02    2.249E-02       0.00   0  Surf_OCV
-                                                            -2.225E-01     100.00   0  surf_overpotential
-                                                            -6.377E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.392E-08  2.000E-01 -2.245E-02    2.249E-02       0.00   0  Surf_OCV
+                                                                         -2.225E-01     100.00   0  surf_overpotential
+                                                                         -6.377E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -1741,13 +1752,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.0382e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.038E-08  1.709E-01 -2.218E-02    2.218E-02       0.00   0  Surf_OCV
-                                                            -2.222E-01     100.00   0  surf_overpotential
-                                                            -6.359E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.038E-08  1.709E-01 -2.218E-02    2.218E-02       0.00   0  Surf_OCV
+                                                                         -2.222E-01     100.00   0  surf_overpotential
+                                                                         -6.359E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00139199 beat out pnorm 1.13884
@@ -1866,13 +1878,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 3.47503e-09 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  3.475E-09  2.914E-02 -2.213E-02    2.213E-02       0.00   0  Surf_OCV
-                                                            -2.221E-01     100.00   0  surf_overpotential
-                                                            -6.357E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   3.475E-09  2.914E-02 -2.213E-02    2.213E-02       0.00   0  Surf_OCV
+                                                                         -2.221E-01     100.00   0  surf_overpotential
+                                                                         -6.357E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 3.84814e-05 beat out pnorm 0.193792
@@ -1993,13 +2006,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.38571e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.386E-08  2.000E-01 -2.213E-02    2.216E-02       0.00   0  Surf_OCV
-                                                            -2.222E-01     100.00   0  surf_overpotential
-                                                            -6.359E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.386E-08  2.000E-01 -2.213E-02    2.216E-02       0.00   0  Surf_OCV
+                                                                         -2.222E-01     100.00   0  surf_overpotential
+                                                                         -6.359E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -2104,13 +2118,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.37919e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.379E-08  2.000E-01 -2.181E-02    2.181E-02       0.00   0  Surf_OCV
-                                                            -2.218E-01     100.00   0  surf_overpotential
-                                                            -6.339E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.379E-08  2.000E-01 -2.181E-02    2.181E-02       0.00   0  Surf_OCV
+                                                                         -2.218E-01     100.00   0  surf_overpotential
+                                                                         -6.339E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00187889 beat out pnorm 1.32865
@@ -2231,13 +2246,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.37919e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.379E-08  2.000E-01 -2.181E-02    2.181E-02       0.00   0  Surf_OCV
-                                                            -2.218E-01     100.00   0  surf_overpotential
-                                                            -6.339E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.379E-08  2.000E-01 -2.181E-02    2.181E-02       0.00   0  Surf_OCV
+                                                                         -2.218E-01     100.00   0  surf_overpotential
+                                                                         -6.339E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -2342,13 +2358,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.37347e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.373E-08  2.000E-01 -2.150E-02    2.150E-02       0.00   0  Surf_OCV
-                                                            -2.215E-01     100.00   0  surf_overpotential
-                                                            -6.321E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.373E-08  2.000E-01 -2.150E-02    2.150E-02       0.00   0  Surf_OCV
+                                                                         -2.215E-01     100.00   0  surf_overpotential
+                                                                         -6.321E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00184213 beat out pnorm 1.32441
@@ -2469,13 +2486,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.37347e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.373E-08  2.000E-01 -2.150E-02    2.150E-02       0.00   0  Surf_OCV
-                                                            -2.215E-01     100.00   0  surf_overpotential
-                                                            -6.321E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.373E-08  2.000E-01 -2.150E-02    2.150E-02       0.00   0  Surf_OCV
+                                                                         -2.215E-01     100.00   0  surf_overpotential
+                                                                         -6.321E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -2580,13 +2598,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.36783e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.368E-08  2.000E-01 -2.119E-02    2.119E-02       0.00   0  Surf_OCV
-                                                            -2.212E-01     100.00   0  surf_overpotential
-                                                            -6.303E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.368E-08  2.000E-01 -2.119E-02    2.119E-02       0.00   0  Surf_OCV
+                                                                         -2.212E-01     100.00   0  surf_overpotential
+                                                                         -6.303E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00181818 beat out pnorm 1.32022
@@ -2707,13 +2726,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.36783e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.368E-08  2.000E-01 -2.119E-02    2.119E-02       0.00   0  Surf_OCV
-                                                            -2.212E-01     100.00   0  surf_overpotential
-                                                            -6.303E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.368E-08  2.000E-01 -2.119E-02    2.119E-02       0.00   0  Surf_OCV
+                                                                         -2.212E-01     100.00   0  surf_overpotential
+                                                                         -6.303E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -2818,13 +2838,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.36226e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.362E-08  2.000E-01 -2.089E-02    2.089E-02       0.00   0  Surf_OCV
-                                                            -2.209E-01     100.00   0  surf_overpotential
-                                                            -6.286E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.362E-08  2.000E-01 -2.089E-02    2.089E-02       0.00   0  Surf_OCV
+                                                                         -2.209E-01     100.00   0  surf_overpotential
+                                                                         -6.286E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00179465 beat out pnorm 1.31608
@@ -2945,13 +2966,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.36226e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.362E-08  2.000E-01 -2.089E-02    2.089E-02       0.00   0  Surf_OCV
-                                                            -2.209E-01     100.00   0  surf_overpotential
-                                                            -6.286E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.362E-08  2.000E-01 -2.089E-02    2.089E-02       0.00   0  Surf_OCV
+                                                                         -2.209E-01     100.00   0  surf_overpotential
+                                                                         -6.286E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -3056,13 +3078,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.35675e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.357E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
-                                                            -2.206E-01     100.00   0  surf_overpotential
-                                                            -6.268E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.357E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
+                                                                         -2.206E-01     100.00   0  surf_overpotential
+                                                                         -6.268E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00177151 beat out pnorm 1.31199
@@ -3183,13 +3206,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.35675e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.357E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
-                                                            -2.206E-01     100.00   0  surf_overpotential
-                                                            -6.268E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.357E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
+                                                                         -2.206E-01     100.00   0  surf_overpotential
+                                                                         -6.268E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -3294,13 +3318,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.35131e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.351E-08  2.000E-01 -2.028E-02    2.028E-02       0.00   0  Surf_OCV
-                                                            -2.203E-01     100.00   0  surf_overpotential
-                                                            -6.251E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.351E-08  2.000E-01 -2.028E-02    2.028E-02       0.00   0  Surf_OCV
+                                                                         -2.203E-01     100.00   0  surf_overpotential
+                                                                         -6.251E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00174876 beat out pnorm 1.30794
@@ -3421,13 +3446,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.35131e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.351E-08  2.000E-01 -2.028E-02    2.028E-02       0.00   0  Surf_OCV
-                                                            -2.203E-01     100.00   0  surf_overpotential
-                                                            -6.251E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.351E-08  2.000E-01 -2.028E-02    2.028E-02       0.00   0  Surf_OCV
+                                                                         -2.203E-01     100.00   0  surf_overpotential
+                                                                         -6.251E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
    ==============================================================================================
@@ -3532,13 +3558,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.34594e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.346E-08  2.000E-01 -1.999E-02    1.999E-02       0.00   0  Surf_OCV
-                                                            -2.200E-01     100.00   0  surf_overpotential
-                                                            -6.234E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.346E-08  2.000E-01 -1.999E-02    1.999E-02       0.00   0  Surf_OCV
+                                                                         -2.200E-01     100.00   0  surf_overpotential
+                                                                         -6.234E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0017264 beat out pnorm 1.30394
@@ -3659,12 +3686,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.19551e-18
                            li_site                 0.000E+00
      ============================================================================================
      Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.34594e-08 
-                                                    Number of records = 1
+                                 DischargeDir =  1         Number of records = 1
+                            ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
-     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0  0  -2.000E-01  2.346E-08  2.000E-01 -1.999E-02    1.999E-02       0.00   0  Surf_OCV
-                                                            -2.200E-01     100.00   0  surf_overpotential
-                                                            -6.234E-07       0.00   0  ConcLoss SolidDiff
-                                                    total = -2.000E-01 
+     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
+        0    0    0    0  -2.000E-01   2.346E-08  2.000E-01 -1.999E-02    1.999E-02       0.00   0  Surf_OCV
+                                                                         -2.200E-01     100.00   0  surf_overpotential
+                                                                         -6.234E-07       0.00   0  ConcLoss SolidDiff
+            phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
