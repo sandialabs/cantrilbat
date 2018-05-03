@@ -105,6 +105,7 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     metalPhase_                      = r.metalPhase_;
     elem_Solid_Old_Cell_             = r.elem_Solid_Old_Cell_;
     numElectrodeSubCycles_Cell_      = r.numElectrodeSubCycles_Cell_;
+    psr_agglomerate_list_            = r. psr_agglomerate_list_;
     
     return *this;
 }
@@ -377,17 +378,68 @@ void porousElectrode_dom1D::initPolarizationAnalysis()
     }
 }
 //==================================================================================================================================
-void porousElectrode_dom1D::doPolarizationAnalysis(bool dischargeDir, double phi_CC_Wire, double ph_CC_Elect, 
+/*
+ *  This is carried out at the end of every global time step. There should already be a global record to use
+ */
+void porousElectrode_dom1D::doPolarizationAnalysis(const Epetra_Vector_Ghosted& soln, const std::vector<double>& state_SepMid,
+                                                   bool dischargeDir, double phi_CC_Wire, double phi_CC_Elect, 
                                                    double phi_Elect_Sep, double phi_SepMid,  int region)
 {
+    size_t nspElectrode = BDD_ptr_->nSpeciesElectrolyte_;
+    std::vector<double> state_Electrode(3 + nspElectrode);
+    std::vector<double> state_bdry(3 + nspElectrode);
+    size_t iCell_Bdry = 0;
+    if (region == 0) {
+       iCell_Bdry = NumLcCells - 1;
+    } else if (region == 2) {
+       iCell_Bdry = 0;
+    }
+    cIndex_cc_ = iCell_Bdry;
+    cellTmps& cTmps      = cellTmpsVect_Cell_[iCell_Bdry];
+    int index_BdryLcNode = Index_DiagLcNode_LCO[iCell_Bdry];
+    NodalVars* nodeBdry = LI_ptr_->NodalVars_LcNode[index_BdryLcNode];
+    int indexBdry_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_BdryLcNode];
+    SetupThermoShop1(nodeBdry, &(soln[indexBdry_EqnStart]));
+    state_bdry[0] = temp_Curr_;
+    state_bdry[1] = pres_Curr_;
+    for (size_t k = 0; k < nspElectrode; ++k) {
+        state_bdry[2 + k] = mfElectrolyte_Thermo_Curr_[k];
+    }
+    state_bdry[2 + nspElectrode] = phiElectrolyte_Curr_;
+
+
     for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
          Electrode* ee = Electrode_Cell_[iCell];
          if (ee->doPolarizationAnalysis_) {
-            (void) ee->polarizationAnalysisSurf(ee->polarSrc_list_Last_, dischargeDir);
-            for (size_t n = 0; n < ee->polarSrc_list_Last_.size(); ++n) {
-                PolarizationSurfRxnResults& psr = ee->polarSrc_list_Last_[n];
+            // Need to fill up the state vector
+            cIndex_cc_ = iCell;
+            cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
+            int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+            NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+            int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+            state_Electrode[0] = temp_Curr_;
+            state_Electrode[1] = pres_Curr_;
+            for (size_t k = 0; k < nspElectrode; ++k) {
+                state_Electrode[2 + k] = mfElectrolyte_Thermo_Curr_[k];
+            }
+            state_Electrode[2 + nspElectrode] = phiElectrolyte_Curr_;
+
+            // Create the initial records 
+            //(void) ee->polarizationAnalysisSurf(ee->polarSrc_list_Last_, dischargeDir);
+            for (size_t n = 0; n < ee->polarSrc_list_.size(); ++n) {
+                Zuzax::PolarizationSurfRxnResults& psr = ee->polarSrc_list_[n];
                 // Add contribution for addition of electrode's solid-phase conduction 
-                psr.addSolidPol(phi_CC_Wire, region, dischargeDir);
+                psr.addSolidPol(phi_CC_Elect, region, dischargeDir);
+                psr.addSolidCCPol(phi_CC_Wire, phi_CC_Elect, region, dischargeDir);
+
+                double phiLyteElectrode = psr.phi_lyteAtElectrode;
+                psr.addLyteCondPol(phiLyteElectrode, phi_Elect_Sep, region, dischargeDir);
+                psr.addLyteConcPol(state_Electrode.data(), state_bdry.data(), region, dischargeDir);
+
+                psr.addLyteCondPol_Sep(phi_Elect_Sep, phi_SepMid, region, dischargeDir);
+                psr.addLyteConcPol_Sep(&(state_bdry[0]), &(state_SepMid[0]), region, dischargeDir);
+
             }
 
          }
@@ -406,6 +458,49 @@ void porousElectrode_dom1D::printElectrodePolarizationRecords(bool dischargeDir)
     }
 
 }
+//==================================================================================================================================
+void porousElectrode_dom1D::agglomeratePolarizationRecords(bool dischargeDir)
+{
+    // First discover all of the surfaces and reactions that are contributing to the current.
+    
+    psr_agglomerate_list_.clear();
+    // Create a record of them and add up all of the electon production associated with each (surf,reac)
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+         Electrode* ee = Electrode_Cell_[iCell];
+         if (ee->doPolarizationAnalysis_) {
+            Zuzax::agglomerate_init(psr_agglomerate_list_ ,ee->polarSrc_list_); 
+         }
+    }
+}
+//==================================================================================================================================
+/*
+ *  Bin according to surface and rxn number
+ */
+void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_agglom,
+                                            const std::vector<struct Zuzax::PolarizationSurfRxnResults>& polarSrc_list)
+{
+    double electronP_total;
+    for (size_t j = 0; j < polarSrc_agglom.size(); ++j) {
+        struct PolarizationSurfRxnResults& jpol = polarSrc_agglom[j];
+
+        // save the initial amount for reference 
+        electronP_total = jpol.electronProd_;
+        jpol.electronProd_ = 0.0;
+        
+        for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+             Electrode* ee = Electrode_Cell_[iCell];
+             if (ee->doPolarizationAnalysis_) {
+                Zuzax::agglomerate_IV_add(jpol ,ee->polarSrc_list_);
+             }
+        }
+
+
+
+    }
+
+}
+
+
 //==================================================================================================================================
 } 
 //----------------------------------------------------------------------------------------------------------------------------------

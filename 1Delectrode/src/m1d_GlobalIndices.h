@@ -160,10 +160,10 @@ public:
   //! This utility function will return the global node number given the global equation number
   /*!
    *  @param[in]             GbEqnNum            Global equation number
-   *  @param[out]            rowEqnNum           returns the node equation number
+   *  @param[out]            rowEqnNum           returns the nodal equation number
    *  @return                                    Returns the global node number. Will return -1 if there is a problem.
    */
-  int GbEqnToGbNode(const int GbEqnNum, int & rowEqnNum) const;
+  int GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const;
 
   //! Take a distributed Epetra_Vector vector and make it into a globally-all distributed
   //! vector of the node positions, and then feed it to the nodal Values object
@@ -174,6 +174,25 @@ public:
    *                                             owned nodes are queried).
    */
   void updateGlobalPositions(const Epetra_Vector* const Xpos_LcNode_p);
+
+  //! Given the global node number, this routine returns the processor number and local node number within the owning processor
+  /*!
+   *  @param[in]             GbNodeNum           Global node number
+   *  @param[out]            procNum             returns the processor number
+   *  
+   *  @return                                    Returns the local node number
+   */
+  int GbNodeToLocalNodeNum(const int GbNodeNum, int& procNum) const; 
+
+  //! Given the global equation number, this routine returns the processor number and
+  //! the local equation number within the owning processor
+  /*!
+   *  @param[in]             GbEqnNum           Global node number
+   *  @param[out]            procNum             returns the processor number
+   *  
+   *  @return                                    Returns the local equation number
+   */
+  int GbEqnNumToLocEqnNum(const int GbEqnNum, int& procNum) const; 
 
   //------------------------------------------------------------ D A T A -----------------------------------------------------------
 
@@ -216,7 +235,7 @@ public:
    */
   std::vector<int> NumOwnedLcNodes_Proc;
 
-  //! Total Number of Local Equations owned by each processor
+  //! Total Number of Local equations owned by each processor
   /*!
    *  Length: number of processors.
    *  Index:  index of the processor
@@ -234,7 +253,10 @@ public:
 
   //! The starting global equation index at each global node
   /*!
-   *   Length = number of global nodes.
+   *  The value is the starting global equation number
+   *
+   *  Length:   number of global nodes.
+   *  Indexing: global node number
    */
   std::vector<int> IndexStartGbEqns_GbNode;
 

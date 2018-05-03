@@ -434,13 +434,12 @@ public:
 
     //! Number of owned cells on this domain
     /*!
-     *   This number is used to loop over the number of cells in the
-     *   domain from left to right. This loop is called LCO for local
-     *   cell order.
+     *  This number is used to loop over the number of cells in the domain from left to right.
+     *  This loop is called "LCO" for local cell order.
      */
     int NumLcCells;
 
-    //! number of owned and external nodes in this domain
+    //! Number of owned and external nodes in this domain
     int NumLcNodes;
 
     //! True if this processor owns the left-most node  of this domain

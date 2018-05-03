@@ -139,6 +139,37 @@ public:
                       const double t, const double rdelta_t,
                       const Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType) override;
 
+    //! Get the state vector at a particular cell in the domain
+    /*!
+     *  The state here is defined as the following vector:
+     *      -  0         temperature
+     *      -  1         pressure
+     *      -  2         mole fractions of the electrolyte species
+     *      -  2 + nsp   electric potential of electrolyte
+     *
+     *  @param[in]           iCell               Cell number
+     *  @param[in]           soln                Reference to the Ghosted Epetra_Vector containing the solution
+     *
+     *  @param[out]          state_Lyte          Reference to the return vector which will contain the state 
+     */
+    void getState_Lyte_atCell(size_t iCell, const Epetra_Vector_Ghosted& soln, std::vector<double>& state_Lyte);
+
+
+    //! Get the state vector at a particular node in the domain
+    /*!
+     *  The state here is defined as the following vector:
+     *      -  0         temperature
+     *      -  1         pressure
+     *      -  2         mole fractions of the electrolyte species
+     *      -  2 + nsp   electric potential of electrolyte
+     *
+     *  @param[in]           nv                  NodalVars structure for the current node
+     *  @param[in]           solnNode_Curr       Pointer to the start solution vector at the current node
+     *
+     *  @param[out]          state_Lyte          Reference to the return vector which will contain the state 
+     */
+    void getState_Lyte(const NodalVars* const nv, const double* const solnNode_Curr, std::vector<double>& state_Lyte);
+
     //! Setup shop at a particular nodal point in the domain, calculating intermediate quantites and updating Zuzax's objects
     /*!
      *  (virtual porousFlow_dom1D)

@@ -1433,6 +1433,7 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      *
      */
 
+     std::vector<double> state_SepMid;
      DomainLayout &DL = *DL_ptr_;
      // Identify the ACA point
 
@@ -1475,7 +1476,7 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
          }
          gindex_VoltageSolid_ACA = index_EqnStart + vs + 1;
 
- 
+          
          BulkDomain1D *d_separator = nullptr; 
          m1d::BulkDomainDescription* bdd_separator_ptr = nullptr;
          int index_EqnStart_AS = -1;
@@ -1483,13 +1484,22 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
             d_separator = DL.BulkDomain1D_List[Separator_BDI_];
             bdd_separator_ptr = d_separator->BDD_ptr_;
          }
-         //porousFlow_dom1D* p_separator = dynamic_cast<porousFlow_dom1D*>(d_separator);
+         porousFlow_dom1D* p_separator = dynamic_cast<porousFlow_dom1D*>(d_separator);
          //LocalNodeIndices* lni_separator = d_separator->LI_ptr_;
          int gn_AS = bdd_separator_ptr->FirstGbNode;
          NodalVars* node_AS = gi_ptr->NodalVars_GbNode[gn_AS];
          index_EqnStart_AS = node_AS->EqnStart_GbEqnIndex;
          vs = node_AS->Offset_VarType[Voltage];
          gindex_Voltage_AS = index_EqnStart_AS + vs;
+
+         // Calculate the mid point of the separator -> doesn't work for multip
+
+         int iCellMid = (d_separator->NumLcCells) / 2;
+         p_separator->getState_Lyte_atCell(iCellMid, soln, state_SepMid);
+
+
+         //int numNodesSep = bdd_separator_ptr->LastGbNode - bdd_separator_ptr->FirstGbNode;
+         //int gbnodeMid = bdd_separator_ptr->LastGbNode + numNodesSep / 2;
 
          // calculate SC
          int gn_SC = bdd_separator_ptr->LastGbNode;
@@ -1507,6 +1517,17 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
           gindex_VoltageSolid_CCC = index_EqnStart_CCC + vs + 1;
 
      }
+     BulkDomain1D *d_separator = nullptr; 
+     if (Separator_BDI_ != npos) {
+        d_separator = DL.BulkDomain1D_List[Separator_BDI_];
+     }
+     porousFlow_dom1D* p_separator = dynamic_cast<porousFlow_dom1D*>(d_separator);
+
+     // Calculate the mid point of the separator -> doesn't work for multip
+
+     int iCellMid = (d_separator->NumLcCells) / 2;
+     p_separator->getState_Lyte_atCell(iCellMid, soln, state_SepMid);
+
 
      // Voltage at the Anode collector - Anode interface
      double phi_Wire_ACC = 0.0;
@@ -1522,30 +1543,10 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      bool dischargeDir = true;
      // Loop over the domains gathering the information
 
-     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-        porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
-        if (p_ptr) {
-            Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
-            if (capType == CAPACITY_ANODE_ECT) {
-               printf("this is an anode\n");
-               p_ptr->doPolarizationAnalysis(dischargeDir, phi_Wire_ACC, phiSolid_ACC_Elect, phiLyte_Anode_Sep, phiLyte_SepMid, 0);
-
-            }
-            if (capType == CAPACITY_CATHODE_ECT) {
-               printf("this is a cathode\n");
-               p_ptr->doPolarizationAnalysis(dischargeDir, phi_CCC_Wire, phiSolid_Elect_CCC, phiLyte_Sep_Cathode, phiLyte_SepMid, 0);
-            }
-  
-        }
-     }
-
      // Loop over the anode, filling in the missing pieces that are part of the anode
      
-     // For each electrode in the anode
-
+     // For each electrode in the anode - add the missing pieces
      //       void addSolidPol(double phiCurrentCollector, int region);
-
      for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
         BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
         porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
@@ -1553,15 +1554,42 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
             Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
             if (capType == CAPACITY_ANODE_ECT) {
                printf("this is an anode\n");
-               p_ptr->printElectrodePolarizationRecords(dischargeDir);
+               p_ptr->doPolarizationAnalysis(soln, state_SepMid, dischargeDir, phi_Wire_ACC, phiSolid_ACC_Elect, phiLyte_Anode_Sep, phiLyte_SepMid, 0);
+
             }
             if (capType == CAPACITY_CATHODE_ECT) {
                printf("this is a cathode\n");
-               p_ptr->printElectrodePolarizationRecords(dischargeDir);
+               p_ptr->doPolarizationAnalysis(soln, state_SepMid, dischargeDir, phi_CCC_Wire, phiSolid_Elect_CCC, phiLyte_Sep_Cathode, phiLyte_SepMid, 2);
             }
-  
         }
      }
+
+     // Optional section to print out all of the records
+     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+        porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+        if (p_ptr) {
+            Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
+            if (capType == CAPACITY_ANODE_ECT) {
+               printf("Printout of Polarization Records in the Anode\n");
+               p_ptr->printElectrodePolarizationRecords(dischargeDir);
+            }
+            if (capType == CAPACITY_CATHODE_ECT) {
+               printf("Printout of Polarization Records in the Cathode\n");
+               p_ptr->printElectrodePolarizationRecords(dischargeDir);
+            }
+        }
+     }
+
+     BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
+     porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+     if (p_ptr) {
+        Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
+        if (capType == CAPACITY_ANODE_ECT) {
+               printf("Printout of Polarization Records in the Anode\n");
+               p_ptr->agglomeratePolarizationRecords(dischargeDir);
+        }
+    }
 
 }
 //==================================================================================================================================

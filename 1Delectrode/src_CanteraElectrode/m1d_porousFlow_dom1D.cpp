@@ -790,14 +790,33 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 
 }
 //===================================================================================================================================
-//  Setup shop at a particular point in the domain, calculating intermediate quantites
-//  and updating Zuzax's objects
+void porousFlow_dom1D::getState_Lyte_atCell(size_t iCell, const Epetra_Vector_Ghosted& soln, std::vector<double>& state_Lyte)
+{
+    int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+    NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+    int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+    getState_Lyte(nodeCent, &(soln[indexCent_EqnStart]), state_Lyte);
+}
+//===================================================================================================================================
+void porousFlow_dom1D::getState_Lyte(const NodalVars* const nv, const double* const solnNode_Curr, std::vector<double>& state_Lyte)
+{
+    SetupThermoShop1(nv, solnNode_Curr);
+    size_t nspLyte = ionicLiquid_->nSpecies();
+    state_Lyte.resize(nspLyte + 3);
+    state_Lyte[0] = temp_Curr_;
+    state_Lyte[1] = pres_Curr_;
+    for (size_t k = 0; k < nspLyte; ++k) {
+        state_Lyte[2 + k] = mfElectrolyte_Thermo_Curr_[k];
+    }
+    state_Lyte[2+nspLyte] = phiElectrolyte_Curr_;
+}
+//===================================================================================================================================
 /*
+ *  Setup shop at a particular point in the domain, calculating intermediate quantites and updating Zuzax's objects
  *  
  *  All member data with the suffix, _Curr_, are updated by this function.
  */
-void
-porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnNode_Curr)
+void porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnNode_Curr)
 {
     if (porosityEquationProbType_  &  Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
 	double vfo = volumeFractionOther(cIndex_cc_);

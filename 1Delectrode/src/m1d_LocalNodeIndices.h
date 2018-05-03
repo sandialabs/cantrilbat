@@ -111,7 +111,7 @@ public:
 
     //! Copy constructor
     /*!
-     * @param[in]            r                   Object to be copied
+     *  @param[in]           r                   Object to be copied
      */
     LocalNodeIndices(const LocalNodeIndices& r);
 
@@ -127,8 +127,7 @@ public:
     //! do its calculations
     /*!
      *  In this routine, we figure out the external nodes that are needed to handle the calculations on the node. We then create
-     *  the Epetra maps that store that information.
-     *  This also determines the matrix stencil.
+     *  the Epetra maps that store that information. This also determines the matrix stencil.
      *
      *  @param[in]           dl_ptr              Pointer to the DomainLayout object for the routine
      */
@@ -225,7 +224,7 @@ public:
 
     //! Update the nodal variables structure
     /*!
-     *   This routine will update the position and local node number
+     *  This routine will update the position and local node number
      */
     void UpdateNodalVarsPositions();
 
@@ -402,8 +401,7 @@ public:
      */
     std::vector<int> IDRightLcNode_LcNode;
 
-    //! Vector containing the Global ID of the node to the left of the
-    //! current local node
+    //! Vector containing the Global ID of the node to the left of the current local node
     /*!
      *
      *  Length = NumLcNodes

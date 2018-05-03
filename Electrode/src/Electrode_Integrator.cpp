@@ -1632,8 +1632,10 @@ void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
     integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 
-    polarSrc_list_.clear();
-    polarSrc_list_Last_.clear();
+    if (doPolarizationAnalysis_) {
+        polarSrc_list_.clear();
+        polarSrc_list_Last_.clear();
+    }
 }
 //==================================================================================================================
 size_t Electrode_Integrator::numIntegratedSrcTerms() const

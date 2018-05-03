@@ -303,8 +303,7 @@ public:
 //==================================================================================================================================
 //!  Residual for 1D cell battery evaluations
 /*!
- *   We add in a lot of specific functionality for batteries here.
- *   We tailor the output to print out battery related information.
+ *   We add in a lot of specific functionality for batteries here. We tailor the output to print out battery related information.
  */
 class BatteryResidEval: public ProblemResidEval
 {

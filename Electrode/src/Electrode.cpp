@@ -3451,7 +3451,8 @@ size_t Electrode::numSolnPhaseSpecies() const
 //==================================================================================================================================
 /*
  *  This routine carries out Polarization analysis at the end of every local time step, 
- *  to create records of what electrons went through  which reactions within the local step
+ *  to create records of what electrons went through which reactions within the local step
+ *  It must be called first in order to create the PolarizationSurfRxnResults records. 
  */
 double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir)
 {
@@ -5601,6 +5602,9 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
 {
     double srcTotalElectron, totalPolElectrons, vTotal, vPolPercent, vPolTotal;
 
+    if (polarSrc_list_.size() == 0) {
+        return;
+    }
     // Do an analysis of the electrons and make sure that everything is account for.
     const std::vector<struct PolarizationSurfRxnResults>* polarSrc_ptr = &polarSrc_list_;
     if (subTimeStep == false) {
@@ -5630,7 +5634,10 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
         printf("(global step)"); 
     }
     printf(" Total electrons accounted for: %g \n ",  totalPolElectrons);
-    printf("                                                   Number of records = %d\n", (int) polarSrc_L.size());
+    printf("                                DischargeDir = %2d         Number of records = %d\n",
+           polarSrc_L[0].dischargeDir_, (int) polarSrc_L.size());
+    printf("                            ElectrodeCapacityType = %d   ElectrodeType = %s\n",
+           electrodeCapacityType_, Electrode_Types_Enum_to_string(electrodeType()).c_str());
     printf("\n"); 
     printf("     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %%PolLoss  Rgn  Reason\n");
     for (size_t i = 0; i <  polarSrc_L.size(); ++i) {
@@ -5674,7 +5681,8 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
             printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
         }
         if (ipol.voltsPol_list.size() > 1) {
-            printf("                                                                 total = % 10.3E \n", vTotal);
+            printf("            phiAnodeP = % 10.3E  phiCathodeP = % 10.3E     total = % 10.3E \n", 
+                   ipol.phi_anode_point_, ipol.phi_cathode_point_, vTotal);
         }
     }
     printf("     ============================================================================================\n");

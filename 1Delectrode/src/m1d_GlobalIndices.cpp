@@ -313,5 +313,35 @@ void GlobalIndices::updateGlobalPositions(const Epetra_Vector* const Xpos_LcOwne
     }
 }
 //==================================================================================================================================
+int GlobalIndices::GbNodeToLocalNodeNum( const int GbNodeNum, int& procNum) const
+{
+    int iLocalNodeNum;
+    for (int iproc = 0; iproc <  NumProc - 1; ++iproc) {
+       if (GbNodeNum < IndexStartGbNode_Proc[iproc+1]) {
+           procNum = iproc;
+           iLocalNodeNum = GbNodeNum - IndexStartGbNode_Proc[procNum];
+           return iLocalNodeNum;
+       }
+    }
+    procNum = NumProc - 1;
+    iLocalNodeNum = GbNodeNum - IndexStartGbNode_Proc[procNum];
+    return iLocalNodeNum; 
+}
+//==================================================================================================================================
+int GlobalIndices::GbEqnNumToLocEqnNum( const int GbEqnNum, int& procNum) const
+{
+    int iLocalEqnNum;
+    for (int iproc = 0; iproc <  NumProc - 1; ++iproc) {
+       if (GbEqnNum < IndexStartGbEqns_Proc[iproc+1]) {
+           procNum = iproc;
+           iLocalEqnNum = GbEqnNum - IndexStartGbEqns_Proc[procNum];
+           return iLocalEqnNum;
+       }
+    }
+    procNum = NumProc - 1;
+    iLocalEqnNum = GbEqnNum - IndexStartGbEqns_Proc[procNum];
+    return iLocalEqnNum; 
+}
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------

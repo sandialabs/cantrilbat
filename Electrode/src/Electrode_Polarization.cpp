@@ -202,10 +202,10 @@ void PolarizationSurfRxnResults::addSolidCCPol(double phiTerminal, double phiCur
         VoltageTotal += voltsS - vOld;
     }
     if (region == 0) {
-        phi_anode_point_ = phiCurrentCollector;
+        phi_anode_point_ = phiTerminal;
     }
     if (region == 2) {
-        phi_cathode_point_ = phiCurrentCollector;
+        phi_cathode_point_ = phiTerminal;
     }
 
 }
@@ -293,7 +293,7 @@ void PolarizationSurfRxnResults::addLyteCondPol_Sep(double phiLyteBoundary, doub
 
 }
 //==================================================================================================================================
-void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorBdry,
+void PolarizationSurfRxnResults::addLyteConcPol(const double* state_Lyte_Electrode, const double* state_Lyte_SeparatorBdry,
                                                 int region, bool dischargeDir)
 {
     double signADD = 1.0;
@@ -345,7 +345,7 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
     for (size_t k = 0; k < nspLyte; ++k) {
         double sc = netStoichVec[kinStart + k];
         if (sc != 0.0) {
-            double deltaV = GasConstant * T_Electrode * log(actElectrode[k]) - GasConstant * T_Separator * log(actSeparator[k]);
+            double deltaV = - GasConstant * T_Electrode * log(actElectrode[k]) + GasConstant * T_Separator * log(actSeparator[k]);
             deltaV *= signADD * sc /(Faraday * nStoich);
             pLoss += deltaV;
         }
@@ -388,7 +388,7 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
 
 }
 //==================================================================================================================================
-void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, double* state_Lyte_SepMid, 
+void PolarizationSurfRxnResults::addLyteConcPol_Sep(const double* state_Lyte_SepBdry, const double* state_Lyte_SepMid, 
                                                     int region, bool dischargeDir)
 {
     double signADD = 1.0;
@@ -439,7 +439,7 @@ void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, 
     for (size_t k = 0; k < nspLyte; ++k) {
         double sc = netStoichVec[kinStart + k];
         if (sc != 0.0) {
-            double deltaV = GasConstant * T_SepBdry * log(actSepBdry[k]) - GasConstant * T_SepMid * log(actSepMid[k]);
+            double deltaV = - GasConstant * T_SepBdry * log(actSepBdry[k]) + GasConstant * T_SepMid * log(actSepMid[k]);
             deltaV *= signADD * sc /(Faraday * nStoich);
             pLoss += deltaV;
         }
@@ -658,6 +658,67 @@ double totalElectronSource(const std::vector<struct PolarizationSurfRxnResults>&
 #endif
     }
     return totalSrc;
+}
+//==================================================================================================================================
+/*
+ *  Bin according to surface and rxn number
+ */
+void agglomerate_init(std::vector<struct PolarizationSurfRxnResults>& polarSrc_agglom,
+                      const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list)
+{
+    bool found = false;
+    for (size_t i = 0; i < polarSrc_list.size(); ++i) {
+        const struct PolarizationSurfRxnResults& ipol = polarSrc_list[i];
+        found = false; 
+        for (size_t j = 0; j < polarSrc_agglom.size(); ++j) {
+            struct PolarizationSurfRxnResults& jpol = polarSrc_agglom[j];
+            if ((jpol.iSurf_ == ipol.iSurf_) && (jpol.iRxn_ == ipol.iRxn_)) {
+                found = true;
+                jpol.electronProd_ += ipol.electronProd_;
+                break;
+            }
+        }
+        if (!found) {
+            polarSrc_agglom.push_back(ipol);
+            struct PolarizationSurfRxnResults& jpol = polarSrc_agglom.back();
+            jpol.electrodeCellNumber_ = -1;
+            jpol.voltsPol_list.clear();
+        }
+    }
+}
+//==================================================================================================================================
+void agglomerate_IV_add(struct PolarizationSurfRxnResults& apol,
+                        const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list)
+{
+    double ivprod;
+    bool found;
+    for (size_t i = 0; i < polarSrc_list.size(); ++i) {
+        const struct PolarizationSurfRxnResults& ipol = polarSrc_list[i];
+        if ((apol.iSurf_ == ipol.iSurf_) && (apol.iRxn_ == ipol.iRxn_)) {
+             // Add the electron production found
+             apol.electronProd_ += ipol.electronProd_;
+
+             // For each record  VoltPolPhenom record in ipol
+             for (const VoltPolPhenom& vp : ipol.voltsPol_list) {
+                 ivprod = vp.voltageDrop * ipol.electronProd_;
+                 // search for a match
+                 found = false;
+                 for (VoltPolPhenom& avp : apol.voltsPol_list) {
+                     if ((vp.ipolType == avp.ipolType) && (vp.regionID == avp.regionID)) {
+                         found = true;
+                         avp.voltageDrop += ivprod;              
+                         break;
+                     }
+                 }
+                 if (!found) {
+                     apol.voltsPol_list.push_back(vp);
+                     VoltPolPhenom& avp = apol.voltsPol_list.back();
+                     avp.voltageDrop = ivprod;
+                 }
+             }
+             break;
+        }
+    }
 }
 //==================================================================================================================================
 } 

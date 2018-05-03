@@ -359,7 +359,7 @@ struct PolarizationSurfRxnResults {
      *  @param[in]           phiLyteElectrode    Electric potential of the electrolyte at the electrode position.
      *  @param[in]           phiLyteBoundary     Electric potential of the electrolyte at the electrode material - separator
      *                                           material boundary.
-     *  @param[in]           phiLyte_Spoint      Electric potential of the electrolyte at middle of the separator
+     *  @param[in]           phiLyte_SepMid      Electric potential of the electrolyte at middle of the separator
      *  @param[in]           region              Region of the solid condition. Two possibilities
      *                                               - 0  anode
      *                                               - 2  cathode
@@ -367,7 +367,7 @@ struct PolarizationSurfRxnResults {
      *                                               True if discharging battery
      *                                               False if charging the battery
      */
-    void addLyteCondPol_Sep(double phiLyteBoundary, double phiLyte_Spoint, int region, bool dischargeDir);
+    void addLyteCondPol_Sep(double phiLyteBoundary, double phiLyte_SepMid, int region, bool dischargeDir);
 
     //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
     //! to the edge of the electrode - separator material interface.
@@ -385,7 +385,8 @@ struct PolarizationSurfRxnResults {
      *                                               True if discharging battery
      *                                               False if charging the battery
      */
-    void addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorBdry, int region, bool dischargeDir);
+    void addLyteConcPol(const double* const state_Lyte_Electrode, const double* const state_Lyte_SeparatorBdry,
+                        int region, bool dischargeDir);
 
     //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
     //! to the edge of the electrode - separator material interface.
@@ -404,7 +405,7 @@ struct PolarizationSurfRxnResults {
      *                                               True if discharging the battery
      *                                               False if charging the battery
      */
-    void addLyteConcPol_Sep(double* mf_Lyte_SeparatorBdry, double* mf_Lyte_SeparatorMid, int region, bool dischargeDir);
+    void addLyteConcPol_Sep(const double* const state_Lyte_SeparatorBdry, const double* const state_Lyte_SeparatorMid, int region, bool dischargeDir);
 
     //! Add the concentration polarization losses due to the ionic and neutral molecule conduction through the electrode to the
     //! to electrode surface
@@ -439,6 +440,7 @@ struct PolarizationSurfRxnResults {
      */
     void subtractSubStep(struct PolarizationSurfRxnResults& sub);
 
+    
     //! Once we have calculated all of the voltage losses, all records should have the same value of VoltageTotal
     /*!
      *  @param[in]            gvoltageTotal      Input voltage that this record will be checked against.
@@ -468,6 +470,23 @@ std::string polString(enum Polarization_Loss_Enum plr);
  *                                                 Units:  coulombs
  */ 
 double totalElectronSource(const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list);
+
+//! Agglomerate an electron list into the domain list
+/*!
+ *
+ */
+void agglomerate_init(std::vector<struct PolarizationSurfRxnResults>& polarSrc_agglom, 
+                      const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list);
+
+//! Do the IV product and store it in the voltsPol_list structure
+/*!
+ *  @param[in,out]           apol                    Agglomerization record containing the stored IV product
+ *  @param[in]               polarSrc_list           Record from a single Electrode object
+ */
+void agglomerate_IV_add(struct PolarizationSurfRxnResults& apol,
+                        const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list);
+
+
 
 //===================================================================================================================================
 }
