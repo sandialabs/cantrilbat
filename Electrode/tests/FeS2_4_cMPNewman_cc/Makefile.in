@@ -166,7 +166,7 @@ clean:
 	$(RM) ${PROG} diff* err*
 
 dist_clean:
-	@MAKE@ clean
+	$(MAKE) clean
 	$(RM)  out.txt FeS2_globalResults_0_0.csv  FeS2_intResults_0_0.csv outputTable.csv
 
 

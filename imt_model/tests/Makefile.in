@@ -6,34 +6,34 @@
 #
 ###############################################################
 all:
-	cd AtoB; @MAKE@
-	cd TBP_NoDiff; @MAKE@
-	cd TBP_Water_HeteroCSTR; @MAKE@
-	cd TBP_Diff; @MAKE@
+	cd AtoB; $(MAKE)
+	cd TBP_NoDiff; $(MAKE)
+	cd TBP_Water_HeteroCSTR; $(MAKE)
+	cd TBP_Diff; $(MAKE)
 
 test:
-#	cd TBP_Water_HeteroCSTR; @MAKE@ test
-	cd TBP_NoDiff;           @MAKE@ test
-	cd TBP_Diff;             @MAKE@ test
-	cd AtoB;                 @MAKE@ test
+#	cd TBP_Water_HeteroCSTR; $(MAKE) test
+	cd TBP_NoDiff;           $(MAKE) test
+	cd TBP_Diff;             $(MAKE) test
+	cd AtoB;                 $(MAKE) test
 
 testd:
 
 clean:
-	cd AtoB;    @MAKE@ clean
-	cd TBP_NoDiff;    @MAKE@ clean
-	cd TBP_Water_HeteroCSTR; @MAKE@ clean
-	cd TBP_Diff; @MAKE@ clean
+	cd AtoB;    $(MAKE) clean
+	cd TBP_NoDiff;    $(MAKE) clean
+	cd TBP_Water_HeteroCSTR; $(MAKE) clean
+	cd TBP_Diff; $(MAKE) clean
 
 rebase:
-	cd AtoB;    @MAKE@ rebaseline 
-	cd TBP_NoDiff;    @MAKE@ rebaseline 
-	cd TBP_Water_HeteroCSTR; @MAKE@ rebaseline
-	cd TBP_Diff; @MAKE@ rebaseline
+	cd AtoB;    $(MAKE) rebaseline 
+	cd TBP_NoDiff;    $(MAKE) rebaseline 
+	cd TBP_Water_HeteroCSTR; $(MAKE) rebaseline
+	cd TBP_Diff; $(MAKE) rebaseline
 
 install:
 
 depends:
-	# cd she_electrode;    @MAKE@ depends
+	# cd she_electrode;    $(MAKE) depends
 
 # end of file

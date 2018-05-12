@@ -1,29 +1,29 @@
 #/bin/sh
 
 all:
-	cd LiMetal_LiIon_electrode_rxn;               	@MAKE@
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@
+	cd LiMetal_LiIon_electrode_rxn;               	$(MAKE)
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE)
 
 test:
-	cd LiMetal_LiIon_electrode_rxn;               	@MAKE@ test
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@ test
+	cd LiMetal_LiIon_electrode_rxn;               	$(MAKE) test
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE) test
 
 testd:
-	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ test
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@ test
+	cd LiMetal_LiIon_electrode_rxn;                	$(MAKE) test
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE) test
 
 clean:
-	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ clean
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@ clean
+	cd LiMetal_LiIon_electrode_rxn;                	$(MAKE) clean
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE) clean
 
 depends:
-	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ depends
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@ depends
+	cd LiMetal_LiIon_electrode_rxn;                	$(MAKE) depends
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE) depends
 
 install:
-	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ install
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@ install
+	cd LiMetal_LiIon_electrode_rxn;                	$(MAKE) install
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE) install
 
 rebaseline:
-	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ rebaseline
-	cd LiMetal_LiIon_electrode_rxn_abs;            	@MAKE@ rebaseline
+	cd LiMetal_LiIon_electrode_rxn;                	$(MAKE) rebaseline
+	cd LiMetal_LiIon_electrode_rxn_abs;            	$(MAKE) rebaseline

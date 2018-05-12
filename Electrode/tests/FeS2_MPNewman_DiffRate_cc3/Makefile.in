@@ -180,5 +180,5 @@ test_clean:
 	$(RM) $(TEST_INTERMEDIATE_FILES)
 	
 dist_clean:
-	@MAKE@ clean
+	$(MAKE) clean
 	$(RM) $(TEST_RESULTS)

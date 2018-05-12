@@ -8,19 +8,19 @@
 build_python=@BUILD_PYTHON@
 
 all:
-	cd src; @MAKE@
+	cd src; $(MAKE)
 
 allsrc:
-	cd src; @MAKE@
+	cd src; $(MAKE)
 
 clean:
-	cd src; $(RM) .depends ; @MAKE@ clean
+	cd src; $(RM) .depends ; $(MAKE) clean
 
 depends:
-	cd src; @MAKE@ depends
+	cd src; $(MAKE) depends
 
 install:
-	cd src; @MAKE@ install
+	cd src; $(MAKE) install
 
 test:
 

@@ -152,8 +152,8 @@ clean:
 	$(RM) *.o  .depends .dependsT *.d *~  $(PROGRAM) 
 
 dist_clean:
-	@MAKE@ -s test_clean
-	@MAKE@ -s clean
+	$(MAKE) -s test_clean
+	$(MAKE) -s clean
 
 ##########################################################################################################################
 

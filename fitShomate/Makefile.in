@@ -1,23 +1,18 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2006/06/24 00:06:36 $
-#  $Revision: 1.1 $
 #
-###############################################################
 build_python=@BUILD_PYTHON@
 
 all:
-	cd src; @MAKE@
+	cd src; $(MAKE)
 
 clean:
-	cd src; @MAKE@ clean
+	cd src; $(MAKE) clean
 
 depends:
-	cd src; @MAKE@ depends
+	cd src; $(MAKE) depends
 
 install:
-	cd src; @MAKE@ install
+	cd src; $(MAKE) install
 
 # end of file
 

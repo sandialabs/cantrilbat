@@ -45,9 +45,9 @@ $(PROGRAM): Makefile
 	ln -s $(PROGRAM_ORIGIN) .
 
 test: 
-	@gmake -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 runGood: $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
@@ -73,6 +73,6 @@ test_clean:
 	      thermo.csv runGood runBad runBad_1 runBad_2 runInProgress.txt polarizationData.csv
 
 clean:
-	@MAKE@ test_clean
+	$(MAKE) test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
 

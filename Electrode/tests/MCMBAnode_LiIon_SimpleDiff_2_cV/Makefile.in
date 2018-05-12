@@ -157,6 +157,6 @@ test_clean:
 	          out.txt soln_0_0.xml err_out.txt
 
 clean:
-	@MAKE@ test_clean
+	$(MAKE) test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
 

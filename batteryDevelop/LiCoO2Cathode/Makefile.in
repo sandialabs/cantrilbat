@@ -1,20 +1,20 @@
 #/bin/sh
 
 all:
-	cd LiCoO2_Enth; 			@MAKE@
+	cd LiCoO2_Enth; 			$(MAKE)
 
 test:
-	cd LiCoO2_Enth; 			@MAKE@ test
+	cd LiCoO2_Enth; 			$(MAKE) test
 
 testd:
-	cd LiCoO2_Enth; 			@MAKE@ test
+	cd LiCoO2_Enth; 			$(MAKE) test
 
 clean:
-	cd LiCoO2_Enth; 			@MAKE@ clean
+	cd LiCoO2_Enth; 			$(MAKE) clean
 
 depends:
-	cd LiCoO2_Enth; 			@MAKE@ depends
+	cd LiCoO2_Enth; 			$(MAKE) depends
 
 install:
-	cd LiCoO2_Enth; 			@MAKE@ install
+	cd LiCoO2_Enth; 			$(MAKE) install
 

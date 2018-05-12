@@ -166,6 +166,6 @@ clean:
 	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES)
 
 dist_clean:
-	@MAKE@ clean
+	$(MAKE) clean
 	$(RM) $(TEST_RESULTS)
 

@@ -167,5 +167,5 @@ test_clean:
 	      err_out.txt  MCMB_globalResults_0_0.csv MCMB_intResults_0_0.csv soln_0_0.xml
 
 clean:
-	@MAKE@ test_clean
+	$(MAKE) test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
