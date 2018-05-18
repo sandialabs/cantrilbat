@@ -171,6 +171,14 @@ Electrode Porosity = 0.35
 ! Method for Electrode Capacity Calculation = Default 
 !-----------------------------------------------------------------------------------------------------------
 !
+!  Do Polarization Analysis = boolean [optional]
+!
+!      Turn on polarizaiton analysis for this electrode 
+!
+!-----------------------------------------------------------------------------------------------------------
+! Do Polarization Analysis = 0
+!-----------------------------------------------------------------------------------------------------------
+!
 !  BLOCK:  Bath Specification for phases within the electrode object [optional] 
 !             [default -> the phase defaults for mole fraction is used, along with a mole number of zero
 !                         for the phase as a whole]

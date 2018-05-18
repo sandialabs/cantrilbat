@@ -63,13 +63,11 @@ namespace BEInput
  *  that was supplied during the construction of the object.
  *  The object may then later be queried, using either the
  *  #currentTypedValue() or #currentValueAsVoidP()
- *  functions for the value of #CurrValue
- *  during subsequent processing.
+ *  functions for the value of #CurrValue during subsequent processing.
  *
  * <H2> Example of Usage </H2>
  *
- *   The example below sets up a required keyline entry, putting the value in
- *   the global address globInput.doExtraWork
+ *   The example below sets up a required keyline entry, putting the value in the global address globInput.doExtraWork
  *
  * @code
  *      struct globInput {
@@ -78,9 +76,7 @@ namespace BEInput
  *
  *      BlockEntry *besmd= new BlockEntry("Iteration Options");
  *      int reqd = 1;
- *      LE_OneBool *i2 = new LE_OneBool("Do Extra Work",
- *                                     &gI.doExtraWork,
- *                                     reqd, "doExtraWork");
+ *      LE_OneBool *i2 = new LE_OneBool("Do Extra Work", &gI.doExtraWork, reqd, "doExtraWork");
  *      i2->set_default(true);
  *      besmd->addLineEntry(i2);
  * @endcode
@@ -88,8 +84,7 @@ namespace BEInput
  *  An example of the input deck entry for this one LineEntry follows.
  *  Note, the line may be enclosed in any number of nested blocks,
  *  as long as the last nested block is named "Iteration Options".
- *  All white space differences and capitalization differences
- *  are ignored.
+ *  All white space differences and capitalization differences are ignored.
  *
  *   @code
  *       Start Block Iteration Options
@@ -164,8 +159,7 @@ public:
      *   We make sure to call the base class constructor here to do
      *   much of the initialization.
      *
-     *  When the keyline in the input file of the following form is
-     *  found:
+     *  When the keyline in the input file of the following form is found:
      *
      *  "KeyName" = [boolean]
      *
@@ -249,7 +243,7 @@ public:
 
     //! Adjust base address to store the value
     /*!
-     * @param          addrAdjustment   Offset in raw bytes to adjust the internal value of the Address that will receive
+     *  @param          addrAdjustment   Offset in raw bytes to adjust the internal value of the Address that will receive
      *                                  the boolean.
      */
     void adjustAddress(LONG_PTR addrAdjustment);
@@ -290,8 +284,7 @@ private:
 
     //!The address of the boolean that gets updated by this command
     /*!
-     *  If this is zero, then no external update is carried out.
-     *  The value is always stored in CurrValue.
+     *  If this is zero, then no external update is carried out. The value is always stored in CurrValue.
      */
     bool* AddrVal;
 
@@ -301,8 +294,7 @@ private:
     //! Current value
     /*!
      *  Initially this gets set to the default. Then when
-     * the keyline is called, this gets set to the value of
-     * the argument of the keyline.
+     *  the keyline is called, this gets set to the value of the argument of the keyline.
      */
     bool CurrValue;
 

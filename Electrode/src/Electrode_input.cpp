@@ -238,7 +238,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     RelativeCapacityDischargedPerMole(-1.0),
     maxNumberSubGlobalTimeSteps(1000),
     relativeLocalToGlobalTimeStepMinimum(1.0E-3),
-    extraRtolNonlinearSolver(1.0)
+    extraRtolNonlinearSolver(1.0),
+    doPolarizationAnalysis_(false)
 {
     m_EGRList.resize(1, nullptr);
     m_EGRList[0] = new EGRInput();
@@ -276,7 +277,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     RelativeCapacityDischargedPerMole(-1.0),
     maxNumberSubGlobalTimeSteps(1000),
     relativeLocalToGlobalTimeStepMinimum(1.0E-3),
-    extraRtolNonlinearSolver(1.0)
+    extraRtolNonlinearSolver(1.0),
+    doPolarizationAnalysis_(false)
 {   
     ELECTRODE_KEY_INPUT::operator=(right);
 }
@@ -412,6 +414,7 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      maxNumberSubGlobalTimeSteps         = right.maxNumberSubGlobalTimeSteps;
      relativeLocalToGlobalTimeStepMinimum = right.relativeLocalToGlobalTimeStepMinimum;
      extraRtolNonlinearSolver = right.extraRtolNonlinearSolver;
+    doPolarizationAnalysis_ = right.doPolarizationAnalysis_;
    
      return *this;
 }
@@ -1099,6 +1102,13 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
                                         "RelCapacityDischarged");
     iCapDis->set_default(-1.0);
     cf->addLineEntry(iCapDis);
+
+    /* -----------------------------------------------------------------------------------------------------------
+     *   Do Polarization Analysis = 1
+     */
+    LE_OneBool* eBool = new LE_OneBool("Do Polarization Analysis", &(doPolarizationAnalysis_), 0, "doPolarizationAnalysis");
+    eBool->set_default(false);
+    cf->addLineEntry(eBool);
 
     /* ------------------------------------------------------------------
      * Define a block that may occur multiples times

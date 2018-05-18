@@ -257,6 +257,7 @@ Species name 3 is MgO(S)
             Coeffs : 2
             Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
+    Do Polarization Analysis = (true | false) with default false (OPTIONAL LINE)
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
     Solid Diffusion Model = (integer) with default 0
@@ -446,6 +447,7 @@ Species name 3 is MgO(S)
             Coeffs : 2
             Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
+    Do Polarization Analysis = (true | false) with default false (OPTIONAL LINE)
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
     Solid Diffusion Model = (integer) with default 0
@@ -636,6 +638,7 @@ Species name 3 is MgO(S)
             Coeffs : 2
             Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
+    Do Polarization Analysis = (true | false) with default false (OPTIONAL LINE)
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
     Solid Diffusion Model = (integer) with default 0
@@ -825,6 +828,7 @@ Species name 3 is MgO(S)
             Coeffs : 2
             Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
+    Do Polarization Analysis = (true | false) with default false (OPTIONAL LINE)
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
     Solid Diffusion Model = (integer) with default 0

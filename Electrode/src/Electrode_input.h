@@ -593,6 +593,13 @@ public:
      */
     double extraRtolNonlinearSolver;
 
+
+    //! do Polarization Analysis
+    /*!
+     *  Defualts to false
+     */
+    bool doPolarizationAnalysis_;
+
 };
 //===================================================================================================================================
 //! Utility class to store the reaction index and reaction multiplier for an entry in formulating a global reaction

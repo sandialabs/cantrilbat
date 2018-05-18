@@ -534,6 +534,7 @@ end block Bath Specification for Phase LiCoO2_Margules_1
             Coeffs : 2
             Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
+    Do Polarization Analysis = (true | false) with default false (OPTIONAL LINE)
     START BLOCK Bath Specification for Phase metal_Li_LiIon_electrons           (OPTIONAL BLOCK)
         Voltage = (double) with limits (1e+09, 0) with default 0
         Phase Moles = (double) with default 0
@@ -1583,6 +1584,7 @@ end block Bath Specification for Phase LiCoO2_Margules_1
             Coeffs : 2
             Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
+    Do Polarization Analysis = (true | false) with default false (OPTIONAL LINE)
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
     Solid Diffusion Model = (integer) with default 0
