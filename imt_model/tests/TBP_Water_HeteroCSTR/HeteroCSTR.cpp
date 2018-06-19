@@ -397,9 +397,13 @@ int main(int argc, char **argv)
     //double Tinitial = 0.0;
     double Tfinal = 0.0;
     double Tout = 0.0;
+    int istatus;
     for (int itimes = 0; itimes < nT; itimes++) {
       iface->resetStartingCondition(Tout);
-      Tout = integ->step(10.);
+      istatus = integ->step(10., Tout);
+      if (istatus < ZZ_INT_SUCCESS) {
+          throw ZuzaxError("Error", "integrator returned error: %d", istatus);
+     }
 
       iface->getMoleNumSpecies(DATA_PTR(molNum));
       //Tinitial = Tfinal;

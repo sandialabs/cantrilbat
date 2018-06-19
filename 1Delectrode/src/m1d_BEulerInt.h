@@ -238,7 +238,7 @@ public:
      *
      *  @return                                  returns the time that the calculation was advanced to
      */
-    virtual double step(double t_max);
+    virtual int step(double t_max, double& t_curr) override;
 
     //! Recalculate the solution weights based on the current values
     virtual void setSolnWeights();

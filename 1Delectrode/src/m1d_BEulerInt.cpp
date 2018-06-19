@@ -1529,18 +1529,9 @@ double BEulerInt::integratePRE(double tout)
         // Increment the step number in the function object
         m_func->m_StepNumber++;
 
-        time_current = step(tout);
+        flag = step(tout, time_current);
 
         /*******************************************************************************************************/
-
-        if (time_current < 0.0) {
-            if (time_current == -1234.) {
-                time_current = 0.0;
-            } else {
-                time_current = -time_current;
-            }
-            flag = BE_FAILURE;
-        }
 
         if (flag != BE_FAILURE) {
             bool retn = m_func->evalStoppingCritera(time_current, delta_t_n, *m_y_n, *m_ydot_n);
@@ -1646,7 +1637,7 @@ double BEulerInt::integratePRE(double tout)
  * corrector approach. We use an implicit algorithm here.
  *
  */
-double BEulerInt::step(double t_max)
+int BEulerInt::step(double t_max, double& t_curr)
 {
     double CJ = 0.0;
     bool step_failed = false;
@@ -2128,14 +2119,17 @@ double BEulerInt::step(double t_max)
         m_time_step_num--;
 
         if (time_n == 0.0) {
-            return -1234.0;
+            t_curr = time_n;
+            return ZZ_INT_FAILURE;
         }
-        return -time_n;
+        t_curr = time_n;
+        return ZZ_INT_FAILURE;
     }
     /*
      * Send back the overall result of the time step.
      */
-    return time_n;
+    t_curr = time_n; 
+    return ZZ_INT_SUCCESS;
 }
 //====================================================================================================================
 
