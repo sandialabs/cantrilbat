@@ -63,7 +63,7 @@ runGood: $(PROGRAM_ORIGIN) $(DATA) $(BLESSED_FILES)
 	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../../test_suite/runtest )
 
 rebaseline:
-	./rebaseline
+	./rebaseline.sh
 
 #############################################################################
 #          INSTALL RULES

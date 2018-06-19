@@ -474,27 +474,27 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
  FINISHED PROCESSING COMMAND FILE interface.inp, PASS # 3
 =========================================================
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.8094E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
-	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    2.8094E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
+	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.8094, residTrial = 9.99041e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   9.9904E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 9.0106E-09  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 9.0106E-09  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    9.9904E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    9.9904E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 9.99041e-08, residTrial = 3.76456e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   3.7646E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.6846E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.6846E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
@@ -517,7 +517,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      3  5.0353122E-13   5.0363192E-13  -1.0070618E-16   1.4822345E-20  -2.2514275E-28  -4.4703828E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4620229E-27   1.1452270E-16  
+		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4624173E-27   1.1455360E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      8  3.0045730E-12   3.0051733E-12  -6.0091248E-16   6.5433248E-19  -2.9100725E-27  -1.3091694E-16  
 		      k  Mole Sum        GrossVol
@@ -622,7 +622,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      3  5.0353122E-13   5.0363192E-13  -1.0070618E-16   1.4822345E-20  -2.2514275E-28  -4.4703828E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4620229E-27   1.1452270E-16  
+		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4624173E-27   1.1455360E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      8  3.0045730E-12   3.0051733E-12  -6.0091248E-16   6.5433248E-19  -2.9100725E-27  -1.3091694E-16  
 		      k  Mole Sum        GrossVol
@@ -732,26 +732,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                            AB_site                 0.000E+00
      ============================================================================================
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.7244E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    1.7244E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.72443, residTrial = 2.8797e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   2.8797E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1899E-09  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1899E-09  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.8797E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    2.8797E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.8797e-08, residTrial = 7.47994e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.4799E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.6280E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.6280E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
@@ -768,19 +768,19 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		         drhodt          massFluxA_                      advDens  
 		    V_S -1.1696731E-04  -1.8452220E-04                   6.7554886E-05  -4.3183786E-14  -2.3403031E-10  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4957729E-22   9.8791756E-17  
-		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.6078755E-24   7.9150687E-19  
+		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4957737E-22   9.8791764E-17  
+		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.6079513E-24   7.9151475E-19  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0546910E-28  -1.3964398E-16  
+		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0545677E-28  -1.3962765E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499811E-27   1.2274739E-16  
+		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499812E-27   1.2274740E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19   1.2818545E-27   5.4017317E-17  
+		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19   1.2818548E-27   5.4017327E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223830E-05   1.9223830E-05                                   6.7762636E-21   3.5249289E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0673976E-13  -5.4107918E-10  
+		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0673975E-13  -5.4107912E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 1.5e-05
@@ -873,19 +873,19 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		         drhodt          massFluxA_                      advDens  
 		    V_S -1.1696731E-04  -1.8452220E-04                   6.7554886E-05  -4.3183786E-14  -2.3403031E-10  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4957729E-22   9.8791756E-17  
-		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.6078755E-24   7.9150687E-19  
+		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4957737E-22   9.8791764E-17  
+		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.6079513E-24   7.9151475E-19  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0546910E-28  -1.3964398E-16  
+		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0545677E-28  -1.3962765E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499811E-27   1.2274739E-16  
+		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499812E-27   1.2274740E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19   1.2818545E-27   5.4017317E-17  
+		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19   1.2818548E-27   5.4017327E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223830E-05   1.9223830E-05                                   6.7762636E-21   3.5249289E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0673976E-13  -5.4107918E-10  
+		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0673975E-13  -5.4107912E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       2       t_init =  1.00000E-05,       t_final =  1.50000E-05
                          IntegrationCounter =       2  t_init_init =  1.00000E-05, t_final_final =  2.00000E-05
@@ -912,26 +912,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
  -------------------------------------------------------------------------------------------------------------------
                                                                                                          1.996E-01
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.2905E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    2.2905E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.29046, residTrial = 9.50293e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   9.5029E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 8.0698E-09  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 8.0698E-09  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    9.5029E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    9.5029E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 9.50293e-08, residTrial = 2.64827e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   2.6483E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.0869E-09  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.0869E-09  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
@@ -941,7 +941,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5082799E-12  -6.3830758E-12   3.8023064E-15   8.7099364E-13   5.4281961E-22   3.8644690E-17  
 		      2  1.7400734E-15   0.0000000E+00  -1.9139257E-18   1.7419873E-15   8.4033132E-25   2.9912605E-17  
 		      3 -8.5141066E-12  -9.3878975E-12   2.7972627E-15   8.7099364E-13   2.7559483E-22   1.9620300E-17  
-		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065748E-24   5.3636952E-17  
+		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065750E-24   5.3636960E-17  
 		      5  2.8606599E-13   2.8618044E-13  -1.1444390E-16   0.0000000E+00  -3.5548045E-29  -3.1061560E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.0842022E-19  -3.8585774E-16
@@ -1046,7 +1046,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5082799E-12  -6.3830758E-12   3.8023064E-15   8.7099364E-13   5.4281961E-22   3.8644690E-17  
 		      2  1.7400734E-15   0.0000000E+00  -1.9139257E-18   1.7419873E-15   8.4033132E-25   2.9912605E-17  
 		      3 -8.5141066E-12  -9.3878975E-12   2.7972627E-15   8.7099364E-13   2.7559483E-22   1.9620300E-17  
-		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065748E-24   5.3636952E-17  
+		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065750E-24   5.3636960E-17  
 		      5  2.8606599E-13   2.8618044E-13  -1.1444390E-16   0.0000000E+00  -3.5548045E-29  -3.1061560E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.0842022E-19  -3.8585774E-16
@@ -1169,26 +1169,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                            AB_site                 0.000E+00
      ============================================================================================
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.8522E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    2.8522E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.85225, residTrial = 1.04085e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   1.0408E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 7.1945E-09  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 7.1945E-09  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.0408E-07
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    1.0408E-07
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.04085e-07, residTrial = 7.75155e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.7516E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 2.5333E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 2.5333E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
@@ -1198,26 +1198,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5071795E-12  -6.3830569E-12   4.7524426E-15   8.7112495E-13   5.4728438E-22   3.8962563E-17  
 		      2  1.7398576E-15   0.0000000E+00  -2.3922588E-18   1.7422499E-15  -7.1261888E-25  -2.5366525E-17  
 		      3 -8.5130815E-12  -9.3877028E-12   3.4963981E-15   8.7112495E-13   2.1078454E-22   1.5006299E-17  
-		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1897745E-25   2.9158724E-17  
-		      5  2.8603110E-13   2.8617415E-13  -1.4304703E-16   0.0000000E+00  -3.1702348E-29  -2.2162196E-17  
+		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1897725E-25   2.9158717E-17  
+		      5  2.8603110E-13   2.8617415E-13  -1.4304703E-16   0.0000000E+00  -3.1727000E-29  -2.2179430E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
 		    V_S -1.1693327E-04  -1.8450853E-04                   6.7575259E-05  -1.6159058E-14  -8.7578917E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
 		      0  1.4182821E-13   0.0000000E+00   1.0217899E-15   1.4080643E-13  -1.0213816E-20  -1.0626210E-15  
-		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3773343E-23   8.7156146E-18  
+		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3773444E-23   8.7156251E-18  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7645005E-28   1.4018710E-16  
+		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7645006E-28   1.4018711E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6311316E-27   5.1124244E-17  
+		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6311320E-27   5.1124257E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19   4.0894388E-28   1.5296874E-17  
+		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19   4.0894412E-28   1.5296883E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223827E-05   1.9223827E-05                                   3.3881318E-21   1.7624647E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964254E-13  -6.0665033E-10  
+		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964253E-13  -6.0665027E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 2.5e-05
@@ -1303,26 +1303,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5071795E-12  -6.3830569E-12   4.7524426E-15   8.7112495E-13   5.4728438E-22   3.8962563E-17  
 		      2  1.7398576E-15   0.0000000E+00  -2.3922588E-18   1.7422499E-15  -7.1261888E-25  -2.5366525E-17  
 		      3 -8.5130815E-12  -9.3877028E-12   3.4963981E-15   8.7112495E-13   2.1078454E-22   1.5006299E-17  
-		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1897745E-25   2.9158724E-17  
-		      5  2.8603110E-13   2.8617415E-13  -1.4304703E-16   0.0000000E+00  -3.1702348E-29  -2.2162196E-17  
+		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1897725E-25   2.9158717E-17  
+		      5  2.8603110E-13   2.8617415E-13  -1.4304703E-16   0.0000000E+00  -3.1727000E-29  -2.2179430E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
 		    V_S -1.1693327E-04  -1.8450853E-04                   6.7575259E-05  -1.6159058E-14  -8.7578917E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
 		      0  1.4182821E-13   0.0000000E+00   1.0217899E-15   1.4080643E-13  -1.0213816E-20  -1.0626210E-15  
-		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3773343E-23   8.7156146E-18  
+		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3773444E-23   8.7156251E-18  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7645005E-28   1.4018710E-16  
+		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7645006E-28   1.4018711E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6311316E-27   5.1124244E-17  
+		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6311320E-27   5.1124257E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19   4.0894388E-28   1.5296874E-17  
+		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19   4.0894412E-28   1.5296883E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223827E-05   1.9223827E-05                                   3.3881318E-21   1.7624647E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964254E-13  -6.0665033E-10  
+		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964253E-13  -6.0665027E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       4       t_init =  2.00000E-05,       t_final =  2.50000E-05
                          IntegrationCounter =       3  t_init_init =  2.00000E-05, t_final_final =  3.00000E-05
@@ -1349,26 +1349,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
  -------------------------------------------------------------------------------------------------------------------
                                                                                                          1.998E-01
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    3.4098E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    3.4098E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 3.40978, residTrial = 2.44801e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   2.4480E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.4312E-08  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.4312E-08  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.4480E-07
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    2.4480E-07
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.44801e-07, residTrial = 3.21363e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   3.2136E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.3878E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.3878E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
@@ -1379,7 +1379,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      2  1.7396420E-15   0.0000000E+00  -2.8705261E-18   1.7425125E-15  -1.3327340E-24  -4.7440263E-17  
 		      3 -8.5120565E-12  -9.3875082E-12   4.1954533E-15   8.7125624E-13  -3.2384040E-23  -2.3055053E-18  
 		      4 -1.4995943E-12  -1.5022351E-12   8.9826369E-16   1.7425125E-15  -1.6105345E-25  -5.7344239E-18  
-		      5  2.8599621E-13   2.8616786E-13  -1.7164669E-16   0.0000000E+00  -2.4380732E-29  -1.4204031E-17  
+		      5  2.8599621E-13   2.8616786E-13  -1.7164669E-16   0.0000000E+00  -2.4430036E-29  -1.4232755E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
@@ -1393,7 +1393,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3792101E-12   6.3830380E-12  -3.8284386E-15   5.5995196E-19   4.4597161E-27   1.1648895E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.7557422E-27   9.7599687E-17  
+		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.7555450E-27   9.7592702E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223826E-05   1.9223826E-05                                  -3.3881318E-21  -1.7624649E-16
 		         drhodt          massFluxB_                      advDens  
@@ -1484,7 +1484,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      2  1.7396420E-15   0.0000000E+00  -2.8705261E-18   1.7425125E-15  -1.3327340E-24  -4.7440263E-17  
 		      3 -8.5120565E-12  -9.3875082E-12   4.1954533E-15   8.7125624E-13  -3.2384040E-23  -2.3055053E-18  
 		      4 -1.4995943E-12  -1.5022351E-12   8.9826369E-16   1.7425125E-15  -1.6105345E-25  -5.7344239E-18  
-		      5  2.8599621E-13   2.8616786E-13  -1.7164669E-16   0.0000000E+00  -2.4380732E-29  -1.4204031E-17  
+		      5  2.8599621E-13   2.8616786E-13  -1.7164669E-16   0.0000000E+00  -2.4430036E-29  -1.4232755E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
@@ -1498,7 +1498,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3792101E-12   6.3830380E-12  -3.8284386E-15   5.5995196E-19   4.4597161E-27   1.1648895E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.7557422E-27   9.7599687E-17  
+		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.7555450E-27   9.7592702E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223826E-05   1.9223826E-05                                  -3.3881318E-21  -1.7624649E-16
 		         drhodt          massFluxB_                      advDens  
@@ -1606,26 +1606,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                            AB_site                 0.000E+00
      ============================================================================================
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.6447E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    2.6447E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.64469, residTrial = 7.77182e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   7.7718E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.9741E-09  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.9741E-09  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    7.7718E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    7.7718E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 7.77182e-08, residTrial = 7.30776e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.3078E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.2638E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.2638E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
@@ -1635,7 +1635,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5049794E-12  -6.3830191E-12   6.6521280E-15   8.7138751E-13  -5.9625384E-22  -4.2448857E-17  
 		      2  1.7394263E-15   0.0000000E+00  -3.3487275E-18   1.7427750E-15   6.6516574E-25   2.3677371E-17  
 		      3 -8.5110316E-12  -9.3873136E-12   4.8944284E-15   8.7138751E-13   2.8946394E-22   2.0607715E-17  
-		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1528966E-25   1.8348239E-17  
+		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1528947E-25   1.8348232E-17  
 		      5  2.8596133E-13   2.8616157E-13  -2.0024286E-16   0.0000000E+00  -6.7718778E-29  -3.3818349E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.6263033E-19  -5.7878660E-16
@@ -1645,10 +1645,10 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.4179325E-13   0.0000000E+00   1.4303203E-15   1.4036294E-13  -4.9198153E-21  -5.1184582E-16  
 		      1 -9.7765522E-12  -9.9252897E-12   8.3755334E-15   1.4036192E-13   5.5320925E-22   5.7554924E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.6268150E-30   2.0583775E-18  
+		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.7007707E-30   2.1003506E-18  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1711730E-27   9.3392117E-17  
+		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1703841E-27   9.3374454E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      8  1.5010964E-12   1.5021473E-12  -1.0512382E-15   4.3423918E-19   1.8164471E-27   6.1085277E-17  
 		      k  Mole Sum        GrossVol
@@ -1740,7 +1740,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5049794E-12  -6.3830191E-12   6.6521280E-15   8.7138751E-13  -5.9625384E-22  -4.2448857E-17  
 		      2  1.7394263E-15   0.0000000E+00  -3.3487275E-18   1.7427750E-15   6.6516574E-25   2.3677371E-17  
 		      3 -8.5110316E-12  -9.3873136E-12   4.8944284E-15   8.7138751E-13   2.8946394E-22   2.0607715E-17  
-		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1528966E-25   1.8348239E-17  
+		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1528947E-25   1.8348232E-17  
 		      5  2.8596133E-13   2.8616157E-13  -2.0024286E-16   0.0000000E+00  -6.7718778E-29  -3.3818349E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.6263033E-19  -5.7878660E-16
@@ -1750,10 +1750,10 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.4179325E-13   0.0000000E+00   1.4303203E-15   1.4036294E-13  -4.9198153E-21  -5.1184582E-16  
 		      1 -9.7765522E-12  -9.9252897E-12   8.3755334E-15   1.4036192E-13   5.5320925E-22   5.7554924E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.6268150E-30   2.0583775E-18  
+		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.7007707E-30   2.1003506E-18  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1711730E-27   9.3392117E-17  
+		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1703841E-27   9.3374454E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      8  1.5010964E-12   1.5021473E-12  -1.0512382E-15   4.3423918E-19   1.8164471E-27   6.1085277E-17  
 		      k  Mole Sum        GrossVol
@@ -1786,26 +1786,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
  -------------------------------------------------------------------------------------------------------------------
                                                                                                          1.998E-01
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    4.5123E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    4.5123E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 4.51227, residTrial = 3.79065e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   3.7907E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.7050E-09  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.7050E-09  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    3.7907E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    3.7907E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 3.79065e-08, residTrial = 1.05109e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.0511E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.3157E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.3157E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
@@ -1825,7 +1825,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.4177579E-13   0.0000000E+00   1.6345433E-15   1.4014124E-13   6.8999240E-21   7.1785158E-16  
 		      1 -9.7753770E-12  -9.9250885E-12   9.5714672E-15   1.4014008E-13   4.9629332E-22   5.1633543E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5161294E-13   2.5181427E-13  -2.0135856E-16   2.9358066E-20   1.9005812E-28   9.4387670E-17  
+		      3  2.5161294E-13   2.5181427E-13  -2.0135856E-16   2.9358066E-20   1.9003346E-28   9.4375427E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3778968E-12   6.3830001E-12  -5.1040782E-15   7.4417431E-19   3.5115176E-27   6.8798105E-17  
@@ -1930,7 +1930,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.4177579E-13   0.0000000E+00   1.6345433E-15   1.4014124E-13   6.8999240E-21   7.1785158E-16  
 		      1 -9.7753770E-12  -9.9250885E-12   9.5714672E-15   1.4014008E-13   4.9629332E-22   5.1633543E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5161294E-13   2.5181427E-13  -2.0135856E-16   2.9358066E-20   1.9005812E-28   9.4387670E-17  
+		      3  2.5161294E-13   2.5181427E-13  -2.0135856E-16   2.9358066E-20   1.9003346E-28   9.4375427E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3778968E-12   6.3830001E-12  -5.1040782E-15   7.4417431E-19   3.5115176E-27   6.8798105E-17  
@@ -2043,26 +2043,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                            AB_site                 0.000E+00
      ============================================================================================
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    5.0573E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    5.0573E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 5.05734, residTrial = 1.54833e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   1.5483E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 6.2609E-10  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 6.2609E-10  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.5483E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    1.5483E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.54833e-08, residTrial = 1.25791e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.2579E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 8.4792E-10  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 8.4792E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
@@ -2082,7 +2082,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.4175829E-13   0.0000000E+00   1.8387382E-15   1.3991957E-13  -1.9767525E-20  -2.0565659E-15  
 		      1 -9.7742019E-12  -9.9248874E-12   1.0767253E-14   1.3991827E-13   2.2885516E-22   2.3809740E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0483909E-28   4.6282937E-17  
+		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0493770E-28   4.6326469E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3772403E-12   6.3829812E-12  -5.7417989E-15   8.3583007E-19  -1.8365987E-27  -3.1986380E-17  
@@ -2187,7 +2187,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.4175829E-13   0.0000000E+00   1.8387382E-15   1.3991957E-13  -1.9767525E-20  -2.0565659E-15  
 		      1 -9.7742019E-12  -9.9248874E-12   1.0767253E-14   1.3991827E-13   2.2885516E-22   2.3809740E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0483909E-28   4.6282937E-17  
+		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0493770E-28   4.6326469E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3772403E-12   6.3829812E-12  -5.7417989E-15   8.3583007E-19  -1.8365987E-27  -3.1986380E-17  
@@ -2223,55 +2223,55 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
  -------------------------------------------------------------------------------------------------------------------
                                                                                                          1.999E-01
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    5.5983E+00
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 1:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    5.5983E+00
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 5.59834, residTrial = 1.54047e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
+	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   1.5405E-08
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 5.6664E-10  
+	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 5.6664E-10  
 	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 2:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.5405E-08
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	solve_problem(): iteration 2:
+	   solve_problem(): Getting a new Jacobian
+	   solve_problem(): Initial Residual Norm =    1.5405E-08
+	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.54047e-08, residTrial = 2.14966e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   2.1497E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.4039E-09  
+	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.4039E-09  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5397453E-11  -2.5181371E-13  -4.2794753E-14   1.5692062E-11  -2.4380802E-19  -9.6429297E-16  
-		      1 -5.5016809E-12  -6.3829623E-12   9.5001893E-15   8.7178121E-13   1.2063478E-22   8.5883129E-18  
-		      2  1.7387795E-15   0.0000000E+00  -4.7829364E-18   1.7435624E-15  -1.3549122E-24  -4.8229712E-17  
-		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194625E-22  -1.1529409E-17  
-		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4044138E-24   5.0015844E-17  
+		      0  1.5397453E-11  -2.5181371E-13  -4.2794753E-14   1.5692062E-11  -2.4380802E-19  -9.6429296E-16  
+		      1 -5.5016809E-12  -6.3829623E-12   9.5001893E-15   8.7178121E-13   1.2063498E-22   8.5883272E-18  
+		      2  1.7387795E-15   0.0000000E+00  -4.7829364E-18   1.7435624E-15  -1.3549120E-24  -4.8229705E-17  
+		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194605E-22  -1.1529395E-17  
+		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4044142E-24   5.0015858E-17  
 		      5  2.8585671E-13   2.8614272E-13  -2.8601050E-16   0.0000000E+00   1.1389179E-28   3.9820887E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   5.4210109E-20   1.9292887E-16
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039379E-13  -1.3573363E-09  
+		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039378E-13  -1.3573362E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344498E-21   6.1740593E-16  
-		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9565182E-22   8.2778479E-17  
+		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344497E-21   6.1740592E-16  
+		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9565175E-22   8.2778471E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4131409E-29   2.9455330E-17  
+		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4131385E-29   2.9455320E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9812069E-27  -6.2406516E-17  
+		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9812075E-27  -6.2406525E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -2.0647207E-27  -6.0304748E-17  
+		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -2.0647210E-27  -6.0304756E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223820E-05   1.9223820E-05                                   3.3881318E-21   1.7624654E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9267231E-13  -1.4850122E-09  
+		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9267232E-13  -1.4850123E-09  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 5e-05
@@ -2353,30 +2353,30 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5397453E-11  -2.5181371E-13  -4.2794753E-14   1.5692062E-11  -2.4380802E-19  -9.6429297E-16  
-		      1 -5.5016809E-12  -6.3829623E-12   9.5001893E-15   8.7178121E-13   1.2063478E-22   8.5883129E-18  
-		      2  1.7387795E-15   0.0000000E+00  -4.7829364E-18   1.7435624E-15  -1.3549122E-24  -4.8229712E-17  
-		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194625E-22  -1.1529409E-17  
-		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4044138E-24   5.0015844E-17  
+		      0  1.5397453E-11  -2.5181371E-13  -4.2794753E-14   1.5692062E-11  -2.4380802E-19  -9.6429296E-16  
+		      1 -5.5016809E-12  -6.3829623E-12   9.5001893E-15   8.7178121E-13   1.2063498E-22   8.5883272E-18  
+		      2  1.7387795E-15   0.0000000E+00  -4.7829364E-18   1.7435624E-15  -1.3549120E-24  -4.8229705E-17  
+		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194605E-22  -1.1529395E-17  
+		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4044142E-24   5.0015858E-17  
 		      5  2.8585671E-13   2.8614272E-13  -2.8601050E-16   0.0000000E+00   1.1389179E-28   3.9820887E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   5.4210109E-20   1.9292887E-16
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039379E-13  -1.3573363E-09  
+		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039378E-13  -1.3573362E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344498E-21   6.1740593E-16  
-		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9565182E-22   8.2778479E-17  
+		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344497E-21   6.1740592E-16  
+		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9565175E-22   8.2778471E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4131409E-29   2.9455330E-17  
+		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4131385E-29   2.9455320E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9812069E-27  -6.2406516E-17  
+		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9812075E-27  -6.2406525E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -2.0647207E-27  -6.0304748E-17  
+		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -2.0647210E-27  -6.0304756E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223820E-05   1.9223820E-05                                   3.3881318E-21   1.7624654E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9267231E-13  -1.4850122E-09  
+		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9267232E-13  -1.4850123E-09  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       9       t_init =  4.50000E-05,       t_final =  5.00000E-05
                          IntegrationCounter =       5  t_init_init =  4.00000E-05, t_final_final =  5.00000E-05

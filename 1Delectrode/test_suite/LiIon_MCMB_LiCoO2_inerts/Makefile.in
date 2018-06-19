@@ -55,7 +55,7 @@ runGood: $(DATA) Makefile $(BLESSED_FILES)  $(BPROGRAM) $(BRUNTEST) $(PROGRAM)
 	$(RUNTEST)	
 
 rebaseline:
-	./rebaseline
+	./rebaseline.sh
 
 test_clean:
 	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)

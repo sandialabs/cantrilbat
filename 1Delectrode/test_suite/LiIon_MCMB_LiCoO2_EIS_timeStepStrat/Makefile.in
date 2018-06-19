@@ -71,7 +71,7 @@ testTime.txt: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES) $(BRUNTEST) $(PROGRA
 	touch testTime.txt
 
 rebaseline:
-	./rebaseline
+	./rebaseline.sh
 
 #############################################################################
 #          INSTALL RULES

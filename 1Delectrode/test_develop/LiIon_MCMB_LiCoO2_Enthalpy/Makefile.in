@@ -1,9 +1,6 @@
 #!/bin/sh
 #
 #
-# $Id: Makefile.in,v 1.3 2011/01/01 02:24:53 hkmoffa Exp $
-#
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -64,11 +61,8 @@ runGood: $(PROGRAM_ORIGIN) $(DATA) $(BLESSED_FILES)
 	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../../test_suite/runtest)
 
 rebaseline:
-	./rebaseline
+	./rebaseline.sh
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
