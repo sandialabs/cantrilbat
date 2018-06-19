@@ -663,9 +663,9 @@ public:
     // ---------------------------- INTEGRATED SOURCE TERM CALCULATIONS ------- ----------------------------------------------
     // ---------------------------------------------------------------------------------------------
 
-    //!  Returns the number of integrated source terms whose errors are controlled by this integrator
+    //! Returns the number of integrated source terms whose errors are controlled by this integrator
     /*!
-     *   @return                                 Returns the number of integrated source terms
+     *  @return                                  Returns the number of integrated source terms
      */
     size_t numIntegratedSrcTerms() const;
 
@@ -681,6 +681,8 @@ public:
 
     //! Calculate the integrated source terms and do other items now that we have a completed time step
     /*!
+     *  (virtual from Electrode_Integrate)
+     *
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
@@ -688,6 +690,8 @@ public:
 
     //! Accumulate src terms and other results from the local step into the global holding bins.
     /*!
+     *  (virtual from Electrode_Integrate)
+     *
      *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step and we have satisfied all accuracy requirements.
      *  The step is good. We now accumulate the results before going on to a new local step.
@@ -702,6 +706,8 @@ public:
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
+     *  (virtual from Electrode_Integrate)
+     *
      *  The tolerances are based on controlling the integrated global source term (e.g., electron source term)
      *  for the electrode over the integration interval.  The integrated source term has units of kmol.
      *
@@ -716,6 +722,8 @@ public:
 
     //! Zero vectors that are accumulated over local time step to represent global time step quantities
     /*!
+     *  (virtual from Electrode_Integrate)
+     *
      *  Zero the integrated source term contributions such as spMoleIntegratedSourceTerm_. We do this when
      *  we are starting a new global time step or reintegrating the current global time step.
      *  Estimated global time step errors.

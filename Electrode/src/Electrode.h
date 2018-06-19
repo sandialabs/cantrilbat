@@ -1181,6 +1181,9 @@ public:
      *  We calculate a rate here by taking the total production amounts and then divide by the time step.
      *
      *  @param[out]          net                 Species net production rates [kmol/s]
+     *                                              Length:   m_NumTotSpecies
+     *                                              Units:    kmol/s
+     *                                              Indexing: PhaseList global species index
      *
      *  @return                                  Returns the current, amps = columb sec-1
      */
