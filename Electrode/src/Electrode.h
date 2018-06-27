@@ -806,17 +806,16 @@ public:
      */
     void getPhaseProductionRates(const double* const speciesProductionRates, double* const phaseMoleFlux) const;
 
-    //! Overpotential term for the heat generation from a single surface for the current global time step
+    //! Instantaneious Overpotential term for the heat generation from a single surface
     /*!
      *   ( units = J / s) 
      *   @param[in]          isk                 Index of the ReactingSurDomain
      *
      *   @return                                 Returns the thermal energy overpotential term ( units = J / s)                     
-     *  @todo make it const
      */
     virtual double thermalEnergySourceTerm_overpotential(size_t isk);
 
-    //! Returns the reversible Entropy term leading to heat generation from a single surface for the current global time step
+    //! Returns the instantanious reversible Entropy term leading to heat generation from a single surface 
     /*!
      *  (virtual from Electrode)
      *
@@ -825,11 +824,10 @@ public:
      *   @param[in]          isk                 Surface index         
      *
      *   @return                                 Returns the themal energy source term  (units J / s)
-     *  @todo make it const
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 
-    //! Energy source term due to the Enthalpy formation from a single surface for the current global time step
+    //! Instantaneous Energy source term due to the Enthalpy formation from a single surface
     /*!
      *  (virtual from Electrode)
      *
@@ -2057,7 +2055,7 @@ public:
      */
     size_t kKinSpecElectron(const size_t isph) const;
 
-    //!  Return the global species index of the electron in the Electrode object
+    //! Return the global species index of the electron in the Electrode object
     /*!
      *  @return                               Returns the global species index of the electron in the PhaseList
      */

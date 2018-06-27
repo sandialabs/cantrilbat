@@ -271,6 +271,13 @@ double ReactingSurDomain::getCurrentDensityRxn(double* const currentDensityRxn)
     return netCurrentDensity;
 }
 //==================================================================================================================================
+const std::vector<doublevalue>& ReactingSurDomain::calcLimitedNetSurfaceROP(const doublevalue* const nMoles)
+{
+    updateROP();
+    limitROP(nMoles);
+    return m_ropnet;
+}
+//==================================================================================================================================
 double ReactingSurDomain::getLimitedCurrentDensityRxn(const doublevalue* const nMoles)
 {
     doublevalue netCurrentDensity = 0.0;

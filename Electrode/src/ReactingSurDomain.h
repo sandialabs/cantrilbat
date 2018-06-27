@@ -288,6 +288,8 @@ public:
      */
     double getCurrentDensityRxn(doublevalue* const currentDensityRxn = 0);
 
+    const std::vector<doublevalue>& calcLimitedNetSurfaceROP(const doublevalue* const nMoles);
+
     //! Get the net current density for the set of reactions on this surface in amps m-2.
     /*!
      *  Get the net current.  We use the value of kElectronIndex_ to identify the index for the electron species.
@@ -310,6 +312,7 @@ public:
      *                                               at the current conditions.
      */
     double getLimitedCurrentDensityRxn(const doublevalue* const nMoles);
+
 
     //! Add an open circuit voltage override feature to the current reacting surface
     /*!

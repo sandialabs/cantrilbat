@@ -11,8 +11,8 @@
  * may require a license from the United States Government.
  */
 
-#ifndef CT_ELECTRODE_DEFS_H
-#define CT_ELECTRODE_DEFS_H
+#ifndef ZZ_ELECTRODE_DEFS_H
+#define ZZ_ELECTRODE_DEFS_H
 
 #include "cantera/base/config.h"
 

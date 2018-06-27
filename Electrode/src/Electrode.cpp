@@ -1971,7 +1971,7 @@ void Electrode::updateState_Phase(size_t iph)
         size_t isurf = iph - m_NumVolPhases;
         sphaseMolarAreas_[isurf] = tp.molarArea();
     }
-    // Right now we use the Cp calculation from Cantera until we expand Cantera to calculate Cv
+    // Right now we use the Cp calculation from Zuzax until we expand Zuzax to always calculate Cv
     if (doThermalPropertyCalculations_) {
         tp.getPartialMolarCp(&(CvPM_[istart]));
         tp.getPartialMolarEnthalpies(&(enthalpyMolar_final_[istart]));
@@ -3528,11 +3528,12 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         /*
                          *  Add the overpotential term next. We'll use the same VoltPolPhenom variable, and then push it back to 
                          *  a new record.
-                         *  The end result for the sign of this term should be positive for all cases (discharge vs charge 
-                         *  and anode vs cathode). This is checked and an error is thrown in these debugging stages.
+                         *  The end result for the sign of this term should be negative for  discharge and positive for  charge,
+                         *  for both the anode and the cathode. This is checked and an error is thrown in these debugging stages.
                          */
                         vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;
-                        double dsn = netStoichE / fabs(netStoichE);
+                        //double dsn = netStoichE / fabs(netStoichE);
+                        double dsn = 1.0;
                         vpp.voltageDrop = overPotential * dsn;
                         if (region == 0) {
                             vpp.voltageDrop = -overPotential * dsn; 
@@ -4892,7 +4893,7 @@ double Electrode::integratedEnthalpySourceTerm()
     return energySource;
 }
 //==================================================================================================================================
-// Overpotential term for the heat generation
+// Instantaneous Overpotential term for the heat generation
 double Electrode::thermalEnergySourceTerm_overpotential(size_t isk)
 {
     double nstoich, ocv, io, nu, beta, resist;
@@ -4920,7 +4921,7 @@ double Electrode::thermalEnergySourceTerm_overpotential(size_t isk)
     return q;
 }
 //===================================================================================================================================
-// Reversible Enthalpy term leading to heat generation
+// Instantaneous Reversible Enthalpy term leading to heat generation
 double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
 {
     double nstoich, ocv, io, nu, beta, resist;
@@ -4952,14 +4953,11 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
             } else {
 
             }
-
         }
-
     }
     return q;
 }
 //==================================================================================================================================
-// Reversible Entropy term leading to  heat generation
 /*
  *
  */
