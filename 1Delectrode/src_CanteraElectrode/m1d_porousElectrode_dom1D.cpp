@@ -456,7 +456,6 @@ void porousElectrode_dom1D::printElectrodePolarizationRecords(bool dischargeDir)
             ee->printElectrodePolarization(subTimeStep);
          }
     }
-
 }
 //==================================================================================================================================
 void porousElectrode_dom1D::agglomeratePolarizationRecords(bool dischargeDir)
@@ -473,7 +472,6 @@ void porousElectrode_dom1D::agglomeratePolarizationRecords(bool dischargeDir)
     }
 
     agglomerate_avg(psr_agglomerate_list_);
-
 }
 //==================================================================================================================================
 /*

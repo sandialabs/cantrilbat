@@ -45,14 +45,14 @@ $(RUNTEST): $(BRUNTEST) Makefile
 
 test: 
 	@ggg=`pwd` ; echo -n 'Checking need to run test ' `pwd` ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@ $(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 #
 # Executable will be found by runtest so took PROGRAM out
 #
 runGood: $(DATA) Makefile $(BLESSED_FILES)  $(BPROGRAM) $(BRUNTEST) $(PROGRAM)
 	@ggg=`pwd` ; echo 'RUNNING TEST ' `basename $$ggg`
-	$(RUNTEST)	
+	$(RUNTEST)
 
 rebaseline:
 	./rebaseline.sh
