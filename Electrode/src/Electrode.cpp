@@ -4128,18 +4128,18 @@ bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
     tbase = std::max(Tinitial, tbase);
     tbase = std::max(tbase, t_final_final_);
     if (!resetToInitInit) {
-        if (fabs(Tinitial - t_final_final_) > (1.0E-13 * tbase)) {
+        if (fabs(Tinitial - t_final_final_) > (1.0E-5 * tbase)) {
             throw Electrode_Error("Electrode::resetStartingCondition()",
-                                  "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
+                                  "Tinitial %16.8E is not compatible with t_final_final_ %16.8E", Tinitial, t_final_final_);
         }
     }
     /*
      *  Make sure that tfinal and tfinal_final_ are the same. This is a comfort condition
      */
-    if (fabs(tfinal_ - t_final_final_) > (1.0E-13 * tbase)) {
+    if (fabs(tfinal_ - t_final_final_) > (1.0E-5 * tbase)) {
         throw Electrode_Error("Electrode::resetStartingCondition()",
-                              "tfinal_ " + fp2str(tfinal_) + " is not equal to t_final_final_ " + fp2str(t_final_final_) +
-                              " This condition is needed for some transfers.");
+                              "tfinal_ %16.8E is not equal to t_final_final_ %16.8E. This condition is needed for some transfers.",
+                              tfinal_, t_final_final_);
     }
 
     // Location for writing out a completed step
