@@ -52,7 +52,7 @@ export LCXX_END_LIBS
 # to link against
 #
 # F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
-F77='/sierra/sntools/SDK/compilers/gcc/4.9.3-RHEL6/bin/gfortran'
+F77='/sierra/sntools/SDK/compilers/gcc/7.2.0-RHEL6/bin/gfortran'
 export F77
 #
 #FFLAGS="-g -DDEBUG_HKM  -fno-second-underscore"
