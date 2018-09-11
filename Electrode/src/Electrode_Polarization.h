@@ -463,6 +463,15 @@ struct PolarizationSurfRxnResults {
      */
     double agglomerate_I_divide();
 
+    //! Looks up the voltage drop due to a polarization loss and returns it
+    /*!
+     *  If the polarization loss type is not found, it returns 0.0
+     *
+     *  @param[in]           pltype              Polarization loss type
+     *
+     *  @return                                  Returns the polarization loss value
+     */
+    double get_PL_value(const enum Polarization_Loss_Enum pltype) const;
 };
 
 //===================================================================================================================================

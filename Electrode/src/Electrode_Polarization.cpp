@@ -554,6 +554,16 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool disch
 
 }
 //==================================================================================================================================
+double PolarizationSurfRxnResults::get_PL_value(const enum Polarization_Loss_Enum pltype) const
+{
+    for (const VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == pltype) {
+            return vp.voltageDrop;
+        }
+    }
+    return 0.0;
+}
+//==================================================================================================================================
 bool PolarizationSurfRxnResults::checkConsistency(const double gvoltageTotal)
 {
     bool res = true;

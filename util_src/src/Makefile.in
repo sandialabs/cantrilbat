@@ -77,7 +77,7 @@ LIBOBJS = mdp_allo.o sort.o tok_input_util.o tok_readFile.o LE_LineEntry.o \
 
 INCFILES = BaseEntry.h sort.h  BE_UnitConversion.h BE_BlockEntry.h LE_OneInt.h LE_OneSizet.h \
           mdp_allo.h BE_MolalityComp.h  BE_UnitConversionLength.h  \
-          LE_MultiCStr.h LE_OneStr.h h BE_MoleComp.h \
+          LE_MultiCStr.h LE_OneStr.h  BE_MoleComp.h \
           BE_UnitConversionPressure.h  LE_OneBool.h LE_PickList.h  \
           sortAlgorithms.h BE_MultiBlock.h BE_MultiBlockNested.h BI_Dependency.h LE_OneBoolInt.h \
           LE_StrListDbl.h  tok_input_util.h BE_StrDbl.h BI_DepIntMaxMin.h \

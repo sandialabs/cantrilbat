@@ -1564,7 +1564,6 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
     // Loop over the anode, filling in the missing pieces that are part of the anode
 
     // For each electrode in the anode - add the missing pieces
-    //       void addSolidPol(double phiCurrentCollector, int region);
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
         BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
         porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);

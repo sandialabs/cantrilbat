@@ -18,6 +18,9 @@
  */
 #include <cstring>
 
+
+#include <string>
+
 //!  This namespace contains a selection of utility routines that mallocs memory in a C fashion
 //!  and also supplies timing and debugging utilities.
 /*!
@@ -358,6 +361,17 @@ extern void mdp_realloc_dbl_2(double** * array_hdl, int ndim1, int ndim2, int nd
  *     @return               Pointer to the intialized character array. Failures are indicated by returning the NULL pointer.
  */
 extern char* mdp_alloc_char_1(int nvalues, const char val = '\0');
+
+
+//! Allocate and initialize a one dimensional array of characters from a C++ string
+/*!
+ *  Allocate and initialize a one dimensional array of characters.
+ *
+ *  @param[in]               sval                String to be copied in
+ *
+ *  @return               Pointer to the intialized character array. Failures are indicated by returning the NULL pointer.
+ */
+extern char* mdp_alloc_char_1_string(const std::string& sval);
 
 //!  Reallocates and initializes a one dimensional array of characters.
 /*!

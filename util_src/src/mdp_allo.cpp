@@ -11,10 +11,13 @@
 
 #include "mdp_allo.h"
 
+
 #include <new>
 #include <cstdlib>
 #include <cstdio>
 #include <cstdarg>
+
+#include <string>
 
 namespace mdpUtil
 {
@@ -1006,6 +1009,16 @@ char* mdp_alloc_char_1(int nvalues, const char val)
     } else {
         mdp_alloc_eh("mdp_alloc_char_1", nvalues * sizeof(char));
     }
+    return array;
+}
+//==================================================================================================================================
+char* mdp_alloc_char_1_string(const std::string& sval)
+{
+    size_t is = sval.size() + 1;
+    char* array = (char*) mdp_array_alloc(1, is, sizeof(char));
+    is--;
+    (void) memcpy((void*) array, (const void*) sval.data(), is * sizeof(char));
+    array[is] = '\0';
     return array;
 }
 //==================================================================================================================================
