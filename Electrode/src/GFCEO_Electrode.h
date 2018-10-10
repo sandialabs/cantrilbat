@@ -222,7 +222,7 @@ public:
      *           -0 or neg value Means an unsuccessful operation
      */
     virtual int  evalTimeTrackingEqns(const double t, const double delta_t, const double* const y,
-                                      const double* const ydot) override;
+                                      const double* const ydot, const double* const p) override;
 
     //! Evaluate any stopping criteria other than a final time limit
     /*!

@@ -141,7 +141,8 @@ void GFCEO_Electrode::setAtol(double atol)
 {
 }
 //===================================================================================================================================
-int  GFCEO_Electrode::evalTimeTrackingEqns(const double t, const double delta_t, const double* const y, const double* const ydot)
+int  GFCEO_Electrode::evalTimeTrackingEqns(const double t, const double delta_t, const double* const y, const double* const ydot,
+                                           const double* const p)
 {
     return 0;
 }
