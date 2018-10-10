@@ -1299,7 +1299,7 @@ void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependen
         writelog(buf);
         sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
         writelog(buf);
-        if (solveType == Solve_Type::TimeDependentInitial) {
+        if (solveType == Solve_Type::TimeDependentInitial_Solve) {
             sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind,
                     delta_t);
         } else {

@@ -173,7 +173,7 @@ Electrode Porosity = 0.35
 !
 !  Do Polarization Analysis = boolean [optional]
 !
-!      Turn on polarizaiton analysis for this electrode 
+!      Turn on polarization analysis for this electrode 
 !
 !-----------------------------------------------------------------------------------------------------------
 ! Do Polarization Analysis = 0

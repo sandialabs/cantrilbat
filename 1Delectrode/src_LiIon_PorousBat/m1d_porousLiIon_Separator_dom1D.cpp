@@ -1325,7 +1325,7 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         t_init_ = t;
     } else {
         // We want an infinitly small time step 
-        if (solveType == Zuzax::Solve_Type::TimeDependentInitial) {
+        if (solveType == Zuzax::Solve_Type::TimeDependentInitial_Solve) {
            t_init_ = t;
         } else {
            t_init_ = t - 1.0/rdelta_t;
@@ -2750,8 +2750,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     int n;
     int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
 
-    char buf[100];
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
@@ -2787,11 +2786,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     if (do0Write) {
         for (iBlock = 0; iBlock < nn; iBlock++) {
             drawline(indentSpaces, 80);
-            ss.print0("%s   iGbNode  z   ", ind);
+            ss.print0("%s   iGbNode  z   ", indent.c_str());
             for (n = 0; n < 5; n++) {
                 int ivar = iBlock * 5 + n;
                 VarType vt = variableNameList[ivar];
-                string name = vt.VariableName(15);
+                std::string name = vt.VariableName(15);
                 ss.print0(" %15s", name.c_str());
             }
             ss.print0("\n");
@@ -2843,13 +2842,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         if (nrem > 0) {
             drawline(indentSpaces, 80);
             ss.print0("%s    iGbNode  z   ", ind);
-            ZZCantera::writelog(buf);
             for (n = 0; n < nrem; n++) {
                 int ivar = nn * 5 + n;
                 VarType vt = variableNameList[ivar];
                 string name = vt.VariableName(15);
                 ss.print0(" %15s", name.c_str());
-                ZZCantera::writelog(buf);
             }
             ss.print0("\n");
             drawline(indentSpaces, 80);

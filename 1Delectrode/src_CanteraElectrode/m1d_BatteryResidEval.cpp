@@ -621,7 +621,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
         ZZCantera::writelog(buf);
         sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
         ZZCantera::writelog(buf);
-        if (solveType == Zuzax::Solve_Type::TimeDependentInitial) {
+        if (solveType == Zuzax::Solve_Type::TimeDependentInitial_Solve) {
             sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind,
                     delta_t);
         } else {

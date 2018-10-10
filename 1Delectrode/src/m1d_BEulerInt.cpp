@@ -1477,7 +1477,7 @@ double BEulerInt::integratePRE(double tout)
      */
     if (m_print_flag > 0) {
         m_func->writeSolution(ievent, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
-			      Zuzax::Solve_Type::TimeDependentInitial, delta_t_np1);
+			      Zuzax::Solve_Type::TimeDependentInitial_Solve, delta_t_np1);
     }
 
     /*

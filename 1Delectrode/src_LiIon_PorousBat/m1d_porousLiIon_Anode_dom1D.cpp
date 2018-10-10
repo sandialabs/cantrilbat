@@ -1754,7 +1754,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         t_init_ = t;
     } else {
         // We want an infinitly small time step 
-        if (solveType == Zuzax::Solve_Type::TimeDependentInitial) {
+        if (solveType == Zuzax::Solve_Type::TimeDependentInitial_Solve) {
            t_init_ = t;
         } else {
            t_init_ = t - 1.0/rdelta_t;
