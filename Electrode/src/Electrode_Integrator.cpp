@@ -564,6 +564,7 @@ int Electrode_Integrator::create_solvers()
     jacPtr_ = new SquareMatrix(neqNLS, 0.0);
 
     jacMng_ = new JacobianManager(this, jacPtr_);
+    jacMng_->setNumDeltaSolnOption(1);
     pSolveJAC_ = new NonlinearSolver_JAC(this);
 
     return neqNLS;
