@@ -1,8 +1,8 @@
 #/bin/sh
 #
-# Installation from the CAB_3279 trunk
+# Installation from the 
 #
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc720/Zzuzax_master_dbg
+CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc720/Zzuzax_v3.6_dbg
 export CANTERA_INSTALL_DIR
 #
 CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zuzax_master
