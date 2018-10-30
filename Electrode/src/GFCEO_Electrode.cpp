@@ -162,7 +162,7 @@ int GFCEO_Electrode::calcDeltaSolnVariables(const double t, const double* const 
     return 0;
 }
 //===================================================================================================================================
-void GFCEO_Electrode::calcSolnScales(const double* const y, const double* const y_old, double* const yScales)
+void GFCEO_Electrode::calcColumnScales(const double* const y, const double* const y_old, double* const yColScales)
 {
     
 }

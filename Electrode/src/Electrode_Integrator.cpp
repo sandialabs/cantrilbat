@@ -1109,7 +1109,7 @@ topConvergence:
             /*
              *  Set the tolerances on the solution variables
              */
-           pSolveJAC_->setAtol(DATA_PTR(atolNLS_));
+           pSolveJAC_->setAtolVec(DATA_PTR(atolNLS_));
            pSolveJAC_->setRtol(0.1 *  extraRtolNonlinearSolver_ * rtolNLS_);
            // } else {
            //     pSolve_->setAtol(DATA_PTR(atolNLS_));

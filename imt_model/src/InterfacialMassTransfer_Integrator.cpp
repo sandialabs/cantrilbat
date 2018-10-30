@@ -624,7 +624,7 @@ namespace Cantera
 	/*
 	 *  
 	 */
-	pSolve_->setAtol(DATA_PTR(atolNLS_));
+	pSolve_->setAtolVec(DATA_PTR(atolNLS_));
 	pSolve_->setRtol(localRtolResidAllowed);
 	/*
 	 *  Set the tolerances on the residual evaluation of the nonlinear solver
