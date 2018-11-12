@@ -17,8 +17,8 @@ test:
 	cd airNASA9;                                          $(MAKE) -s test
 	cd H2_electrode_rxn;                                  $(MAKE) -s test
 	cd Al_electrode_rxn;                                  $(MAKE) -s test
-	cd Zn_electrode_rxn; ./runtest
-	cd KCl_solid_test; ./runtest
+	cd Zn_electrode_rxn;                                  $(MAKE) -s test
+	cd KCl_solid_test;                                    $(MAKE) -s test
 	cd NaCl_solid_test;                                   $(MAKE) -s test
 	cd HMW_NaCl_sp_test;                                  $(MAKE) -s test
 	cd HMW_NaKCl_EQ3_test;                                $(MAKE) -s test
@@ -48,7 +48,7 @@ rebaseline:
 	cd airNASA9;                                          $(MAKE) rebaseline
 	cd H2_electrode_rxn;                                  $(MAKE) rebaseline
 	cd Al_electrode_rxn;                                  $(MAKE) rebaseline
-	cd Zn_electrode_rxn; ./rebaseline
+	cd Zn_electrode_rxn;                                  $(MAKE) rebaseline
 	cd KCl_solid_test; ./rebaseline
 	cd NaCl_solid_test;                                   $(MAKE) rebaseline
 	cd HMW_NaCl_sp_test;                                  $(MAKE) rebaseline
@@ -80,8 +80,8 @@ clean_dist:
 	cd airNASA9;                                          $(MAKE) -s clean_dist
 	cd H2_electrode_rxn;                                  $(MAKE) -s clean_dist
 	cd Al_electrode_rxn;                                  $(MAKE) -s clean_dist
-	cd Zn_electrode_rxn; ./cleanup
-	cd KCl_solid_test; ./cleanup
+	cd Zn_electrode_rxn;                                  $(MAKE) -s clean_dist
+	cd KCl_solid_test;                                    $(MAKE) -s clean_dist
 	cd NaCl_solid_test;                                   $(MAKE) -s clean_dist
 	cd HMW_NaCl_sp_test;                                  $(MAKE) -s clean_dist
 	cd HMW_NaKCl_EQ3_test;                                $(MAKE) -s clean_dist
@@ -110,9 +110,9 @@ clean:
 	cd diamondSurf;                                       $(MAKE) -s clean
 	cd airNASA9;                                          $(MAKE) -s clean
 	cd H2_electrode_rxn;                                  $(MAKE) -s clean
-	cd Al_electrode_rxn; ./cleanup
-	cd Zn_electrode_rxn; ./cleanup
-	cd KCl_solid_test; ./cleanup
+	cd Al_electrode_rxn;                                  $(MAKE) -s clean
+	cd Zn_electrode_rxn;                                  $(MAKE) -s clean
+	cd KCl_solid_test;                                    $(MAKE) -s clean
 	cd NaCl_solid_test;                                   $(MAKE) -s clean
 	cd HMW_NaCl_sp_test;                                  $(MAKE) -s clean
 	cd HMW_NaKCl_EQ3_test;                                $(MAKE) -s clean
@@ -142,8 +142,8 @@ clean_test:
 	cd airNASA9;                                           $(MAKE) -s clean_test
 	cd H2_electrode_rxn;                                   $(MAKE) -s clean_test
 	cd Al_electrode_rxn;                                   $(MAKE) -s clean_test
-	cd Zn_electrode_rxn; ./cleanup
-	cd KCl_solid_test; ./cleanup
+	cd Zn_electrode_rxn;                                   $(MAKE) -s clean_test
+	cd KCl_solid_test;                                     $(MAKE) -s clean_test
 	cd NaCl_solid_test;                                    $(MAKE) -s clean_test
 	cd HMW_NaCl_sp_test;                                   $(MAKE) -s clean_test
 	cd HMW_NaKCl_EQ3_test;                                 $(MAKE) -s clean_test
@@ -173,8 +173,8 @@ clean_test_flags:
 	cd airNASA9;                                           $(MAKE) -s clean_test_flags
 	cd H2_electrode_rxn;                                   $(MAKE) -s clean_test_flags
 	cd Al_electrode_rxn;                                   $(MAKE) -s clean_test_flags
-	cd Zn_electrode_rxn; ./cleanup
-	cd KCl_solid_test; ./cleanup
+	cd Zn_electrode_rxn;                                   $(MAKE) -s clean_test_flags
+	cd KCl_solid_test;                                     $(MAKE) -s clean_test_flags
 	cd NaCl_solid_test;                                    $(MAKE) -s clean_test_flags
 	cd HMW_NaCl_sp_test;                                   $(MAKE) -s clean_test_flags
 	cd HMW_NaKCl_EQ3_test;                                 $(MAKE) -s clean_test_flags
