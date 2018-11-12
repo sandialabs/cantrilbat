@@ -28,9 +28,9 @@ test:
 	cd LiSi_2_LiCl_electrode_rxn;                         $(MAKE) -s test
 	cd LiSi_3_LiCl_electrode_rxn;                         $(MAKE) -s test
 	cd LiMetal_LiIon_electrode_rxn;                       $(MAKE) -s test
-	cd MCMBAnode_LiIon_electrode_rxn; ./runtest
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./runtest
-	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./runtest
+	cd MCMBAnode_LiIon_electrode_rxn;                     $(MAKE) -s test
+	cd LiCoO2Cathode_LiIon_electrode_rxn;                 $(MAKE) -s test
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn;               $(MAKE) -s test
 	cd FeS_electrode_rxn;                                 $(MAKE) -s test
 	cd FeS2_electrode_rxn_1;                              $(MAKE) -s test
 	cd FeS2_electrode_rxn_2;                              $(MAKE) -s test
@@ -49,7 +49,7 @@ rebaseline:
 	cd H2_electrode_rxn;                                  $(MAKE) rebaseline
 	cd Al_electrode_rxn;                                  $(MAKE) rebaseline
 	cd Zn_electrode_rxn;                                  $(MAKE) rebaseline
-	cd KCl_solid_test; ./rebaseline
+	cd KCl_solid_test;                                    $(MAKE) rebaseline
 	cd NaCl_solid_test;                                   $(MAKE) rebaseline
 	cd HMW_NaCl_sp_test;                                  $(MAKE) rebaseline
 	cd HMW_NaKCl_EQ3_test;                                $(MAKE) rebaseline
@@ -59,9 +59,9 @@ rebaseline:
 	cd LiSi_2_LiCl_electrode_rxn;                         $(MAKE) rebaseline
 	cd LiSi_3_LiCl_electrode_rxn;                         $(MAKE) rebaseline
 	cd LiMetal_LiIon_electrode_rxn;                       $(MAKE) rebaseline
-	cd MCMBAnode_LiIon_electrode_rxn; ./rebaseline
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./rebaseline
-	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./rebaseline
+	cd MCMBAnode_LiIon_electrode_rxn;                     $(MAKE) rebaseline
+	cd LiCoO2Cathode_LiIon_electrode_rxn;                 $(MAKE) rebaseline
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn;               $(MAKE) rebaseline
 	cd FeS_electrode_rxn;                                 $(MAKE) rebaseline
 	cd FeS2_electrode_rxn_1;                              $(MAKE) rebaseline
 	cd FeS2_electrode_rxn_2;                              $(MAKE) rebaseline
@@ -91,9 +91,9 @@ clean_dist:
 	cd LiSi_2_LiCl_electrode_rxn;                         $(MAKE) -s clean_dist
 	cd LiSi_3_LiCl_electrode_rxn;                         $(MAKE) -s clean_dist
 	cd LiMetal_LiIon_electrode_rxn;                       $(MAKE) -s clean_dist
-	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn;                     $(MAKE) -s clean_dist
+	cd LiCoO2Cathode_LiIon_electrode_rxn;                 $(MAKE) -s clean_dist
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn;               $(MAKE) -s clean_dist
 	cd FeS_electrode_rxn;                                 $(MAKE) -s clean_dist
 	cd FeS2_electrode_rxn_1;                              $(MAKE) -s clean_dist
 	cd FeS2_electrode_rxn_2;                              $(MAKE) -s clean_dist
@@ -122,9 +122,9 @@ clean:
 	cd LiSi_2_LiCl_electrode_rxn;                         $(MAKE) -s clean
 	cd LiSi_3_LiCl_electrode_rxn;                         $(MAKE) -s clean
 	cd LiMetal_LiIon_electrode_rxn;                       $(MAKE) -s clean
-	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn;                     $(MAKE) -s clean
+	cd LiCoO2Cathode_LiIon_electrode_rxn;                 $(MAKE) -s clean
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn;               $(MAKE) -s clean
 	cd FeS_electrode_rxn;                                 $(MAKE) -s clean
 	cd FeS2_electrode_rxn_1;                              $(MAKE) -s clean
 	cd FeS2_electrode_rxn_2;                              $(MAKE) -s clean
@@ -153,9 +153,9 @@ clean_test:
 	cd LiSi_2_LiCl_electrode_rxn;                          $(MAKE) -s clean_test
 	cd LiSi_3_LiCl_electrode_rxn;                          $(MAKE) -s clean_test
 	cd LiMetal_LiIon_electrode_rxn;                        $(MAKE) -s clean_test
-	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn;                      $(MAKE) -s clean_test
+	cd LiCoO2Cathode_LiIon_electrode_rxn;                  $(MAKE) -s clean_test
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn;                $(MAKE) -s clean_test
 	cd FeS_electrode_rxn;                                  $(MAKE) -s clean_test
 	cd FeS2_electrode_rxn_1;                               $(MAKE) -s clean_test
 	cd FeS2_electrode_rxn_2;                               $(MAKE) -s clean_test
@@ -184,9 +184,9 @@ clean_test_flags:
 	cd LiSi_2_LiCl_electrode_rxn;                          $(MAKE) -s clean_test_flags
 	cd LiSi_3_LiCl_electrode_rxn;                          $(MAKE) -s clean_test_flags
 	cd LiMetal_LiIon_electrode_rxn;                        $(MAKE) -s clean_test_flags
-	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
-	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn;                      $(MAKE) -s clean_test_flags
+	cd LiCoO2Cathode_LiIon_electrode_rxn;                  $(MAKE) -s clean_test_flags
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn;                $(MAKE) -s clean_test_flags
 	cd FeS_electrode_rxn;                                  $(MAKE) -s clean_test_flags
 	cd FeS2_electrode_rxn_1;                               $(MAKE) -s clean_test_flags
 	cd FeS2_electrode_rxn_2;                               $(MAKE) -s clean_test_flags
