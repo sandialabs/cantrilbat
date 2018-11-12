@@ -13,10 +13,10 @@ test:
 	cd issPhase;                                          $(MAKE) -s test
 	cd DHphase;                                           $(MAKE) -s test
 	cd hacaSurf;                                          $(MAKE) -s test
-	cd diamondSurf; ./runtest
+	cd diamondSurf;                                       $(MAKE) -s test
 	cd airNASA9;                                          $(MAKE) -s test
 	cd H2_electrode_rxn;                                  $(MAKE) -s test
-	cd Al_electrode_rxn; ./runtest
+	cd Al_electrode_rxn;                                  $(MAKE) -s test
 	cd Zn_electrode_rxn; ./runtest
 	cd KCl_solid_test; ./runtest
 	cd NaCl_solid_test;                                   $(MAKE) -s test
@@ -44,10 +44,10 @@ rebaseline:
 	cd issPhase;                                          $(MAKE) rebaseline
 	cd DHphase;                                           $(MAKE) rebaseline
 	cd hacaSurf;                                          $(MAKE) rebaseline
-	cd diamondSurf; ./rebaseline
+	cd diamondSurf;                                       $(MAKE) rebaseline
 	cd airNASA9;                                          $(MAKE) rebaseline
 	cd H2_electrode_rxn;                                  $(MAKE) rebaseline
-	cd Al_electrode_rxn; ./rebaseline
+	cd Al_electrode_rxn;                                  $(MAKE) rebaseline
 	cd Zn_electrode_rxn; ./rebaseline
 	cd KCl_solid_test; ./rebaseline
 	cd NaCl_solid_test;                                   $(MAKE) rebaseline
@@ -76,10 +76,10 @@ clean_dist:
 	cd issPhase;                                          $(MAKE) -s clean_dist
 	cd DHphase;                                           $(MAKE) -s clean_dist
 	cd hacaSurf;                                          $(MAKE) -s clean_dist
-	cd diamondSurf; ./cleanup
+	cd diamondSurf;                                       $(MAKE) -s clean_dist
 	cd airNASA9;                                          $(MAKE) -s clean_dist
 	cd H2_electrode_rxn;                                  $(MAKE) -s clean_dist
-	cd Al_electrode_rxn; ./cleanup
+	cd Al_electrode_rxn;                                  $(MAKE) -s clean_dist
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
 	cd NaCl_solid_test;                                   $(MAKE) -s clean_dist
@@ -107,7 +107,7 @@ clean:
 	cd issPhase;                                          $(MAKE) -s clean
 	cd DHphase;                                           $(MAKE) -s clean
 	cd hacaSurf;                                          $(MAKE) -s clean
-	cd diamondSurf; ./cleanup
+	cd diamondSurf;                                       $(MAKE) -s clean
 	cd airNASA9;                                          $(MAKE) -s clean
 	cd H2_electrode_rxn;                                  $(MAKE) -s clean
 	cd Al_electrode_rxn; ./cleanup
@@ -138,10 +138,10 @@ clean_test:
 	cd issPhase;                                           $(MAKE) -s clean_test
 	cd DHphase;                                            $(MAKE) -s clean_test
 	cd hacaSurf;                                           $(MAKE) -s clean_test
-	cd diamondSurf; ./cleanup
+	cd diamondSurf;                                        $(MAKE) -s clean_test
 	cd airNASA9;                                           $(MAKE) -s clean_test
-	cd H2_electrode_rxn; ./cleanup
-	cd Al_electrode_rxn; ./cleanup
+	cd H2_electrode_rxn;                                   $(MAKE) -s clean_test
+	cd Al_electrode_rxn;                                   $(MAKE) -s clean_test
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
 	cd NaCl_solid_test;                                    $(MAKE) -s clean_test
@@ -168,11 +168,11 @@ clean_test_flags:
 	cd heliumAir;                                          $(MAKE) -s clean_test_flags
 	cd issPhase;                                           $(MAKE) -s clean_test_flags
 	cd DHphase;                                            $(MAKE) -s clean_test_flags
-	cd hacaSurf;                                           $(MAKE) clean_test_flags
-	cd diamondSurf; ./cleanup
+	cd hacaSurf;                                           $(MAKE) -s clean_test_flags
+	cd diamondSurf;                                        $(MAKE) -s clean_test_flags
 	cd airNASA9;                                           $(MAKE) -s clean_test_flags
-	cd H2_electrode_rxn;                                   $(MAKE) clean_test_flags
-	cd Al_electrode_rxn; ./cleanup
+	cd H2_electrode_rxn;                                   $(MAKE) -s clean_test_flags
+	cd Al_electrode_rxn;                                   $(MAKE) -s clean_test_flags
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
 	cd NaCl_solid_test;                                    $(MAKE) -s clean_test_flags
