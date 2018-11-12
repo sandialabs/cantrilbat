@@ -2,8 +2,9 @@ configure
 autom4te.cache
 config.log
 config.status
-mac_sierra-gcc-mp-4.4_dbg_noMPI
-rhel5_64_sierra_gcc444
+ZTrhel6_64_sierra_gcc720_HKM
+Zrhel6_64_sierra_gcc720_HKM
+Zrhel6_64_sierra_gcc720_opt_HKM
 *.o
 *.d
 *.a
@@ -11,8 +12,6 @@ rhel5_64_sierra_gcc444
 configCantrilbat.h
 *~
 .*.swp
-rhel6_64_sierra_gcc472_mech
-rhel6_64_sierra_gcc472_current
 runBad
 runGood
 runInProgress.txt
