@@ -548,7 +548,7 @@ void Print0_epMultiVector(stream0& os, const Epetra_MultiVector& v)
     int NumMyElements1 = vmap.NumMyElements();
     int MaxElementSize1 = vmap.MaxElementSize();
     int* MyGlobalElements1 = vmap.MyGlobalElements();
-    int* FirstPointInElementList1;
+    int* FirstPointInElementList1 = nullptr;
     if (MaxElementSize1 != 1) {
         FirstPointInElementList1 = vmap.FirstPointInElementList();
     }

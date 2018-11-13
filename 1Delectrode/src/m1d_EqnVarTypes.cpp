@@ -220,7 +220,7 @@ VarType::setID(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubTyp
 {
   VariableType = variableType;
   VariableSubType = variableSubType;
-  if (!subName) {
+  if (subName) {
     strncpy(VariableSubTypeName, subName, 23);
   } else {
     VariableSubTypeName[0] = '\0';
@@ -318,7 +318,7 @@ EqnType::setID(const EQ_TYPE equationType, const EQ_TYPE_SUBNUM equationSubType,
 {
   EquationType = equationType;
   EquationSubType = equationSubType;
-  if (!subName) {
+  if (subName) {
     strncpy(EquationSubTypeName, subName, 23);
   } else {
     EquationSubTypeName[0] = '\0';

@@ -703,7 +703,7 @@ double& EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn)
     }
     return *pos;
 #else
-    return GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
+    return *GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
 #endif
 }
 //==================================================================================================================================
