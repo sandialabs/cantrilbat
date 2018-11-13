@@ -20,7 +20,7 @@ SOLUTION_XML_DIFFNAME="  diff_xml.txt         "
 #   Text files to compare against
 #
 BLESSED_DATA_FILES=" good_ccout.txt  "
-DATA_FILES="         ccout.txt       "
+DATA_FILES="         out.txt       "
 DIFF_NAMES="         diff_out.txt  "
 DIFF_REQ="           True          "
 #

@@ -26,8 +26,8 @@ DIFF_REQ="           True          "
 #
 #  CSV file to compare against
 #
-BLESSED_CSV_FILES="  LiCoO2_intResults_blessed.csv  "
-CSV_FILES="          LiCoO2_intResults_0_0.csv          "
+BLESSED_CSV_FILES="  LiCoO2_globalResults_blessed.csv  "
+CSV_FILES="          LiCoO2_globalResults_0_0.csv          "
 DIFF_CSV_NAMES="     diff_csv.txt        "
 DIFF_CSV_REQ="       True                     "
 #

@@ -10,10 +10,14 @@
 
 PROGRAM = LiCoO2_LiIonCathode_SimpleDiff_cV
 
-BLESSED_FILES = good_out.txt LiCoO2_intResults_blessed.csv
+BLESSED_FILES = good_out.txt LiCoO2_globalResults_blessed.csv
 
 DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
         metal_Li_LiIon_electrons.xml cathode.inp
+
+TEST_FILES =  LiCoO2_globalResults_0_0.csv out.txt soln_0_0.xml
+
+TEST_INTERMEDIATES = diff_out.txt
 
 OBJ = $(PROGRAM).o
 #
@@ -122,7 +126,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	../runtest_Electrode
 
 rebaseline:
-	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
+	cp LiCoO2_globalResults_0_0.csv LiCoO2_globalResults_blessed.csv
 	cp out.txt good_out.txt
 	cp soln_0_0.xml  soln_0_0_blessed.xml 
 
@@ -149,7 +153,7 @@ endif
 # Clean of the test intermediate files and test results
 test_clean:
 	$(RM) *~  diff_out.txt diff_csv.txt diff_xml.txt diff_summary.txt  err_out.txt runInProgress.txt runBad runGood
-	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv soln_0_0.xml
+	$(RM)  LiCoO2_globalResults_0_0.csv soln_0_0.xml $(TEST_FILES)
 
 # Cleaning of the make process and the test intermediate results
 clean:
@@ -158,5 +162,5 @@ clean:
 
 dist_clean:
 	$(MAKE) clean
-	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv soln_0_0.xml
+	$(RM)  $(TEST_FILES) soln_0_0.xml
 

@@ -17,6 +17,9 @@ DATA = anodeCC.inp ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode_extra.xml \
 BLESSED_FILES = good_ccout.txt MCMB_CC_globalResults_blessed_0_0.csv  \
             MCMB_CC_intResults_blessed_0_0.csv  outputTable_blessed.csv  soln_0_0_blessed.xml
 
+TEST_RESULTS = out.txt    MCMB_CC_globalResults_0_0.csv  MCMB_CC_intResults_0_0.csv   
+
+TEST_INTERMEDIATES = diff_csv.txt  diff_ocsv.txt  diff_out.txt  diff_summary.txt  diff_xml.txt
 
 OBJ = $(PROGRAM).o
 
@@ -133,7 +136,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 rebaseline:
 	cp MCMB_CC_intResults_0_0.csv     MCMB_CC_intResults_blessed_0_0.csv
 	cp MCMB_CC_globalResults_0_0.csv  MCMB_CC_globalResults_blessed_0_0.csv
-	cp ccout.txt good_ccout.txt
+	cp out.txt good_ccout.txt
 	cp  outputTable.csv  outputTable_blessed.csv
 
 ##############################################################################

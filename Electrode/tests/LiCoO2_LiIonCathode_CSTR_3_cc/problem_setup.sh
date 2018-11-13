@@ -26,10 +26,10 @@ DIFF_REQ="           True          "
 #
 #  CSV file to compare against
 #
-BLESSED_CSV_FILES="  LiCoO2_intResults_blessed.csv  outputTable.csv"
-CSV_FILES="          LiCoO2_intResults_0_0.csv      outputTable_blessed.csv    "
-DIFF_CSV_NAMES="     diff_csv.txt                   diff_ocsv.txt "
-DIFF_CSV_REQ="       True                           True  "
+BLESSED_CSV_FILES="  LiCoO2_globalResults_blessed.csv  outputTable.csv"
+CSV_FILES="          LiCoO2_globalResults_0_0.csv      outputTable_blessed.csv    "
+DIFF_CSV_NAMES="     diff_csv.txt                      diff_ocsv.txt "
+DIFF_CSV_REQ="       True                              True  "
 #
 #  Extra files to be removed before the test starts
 #

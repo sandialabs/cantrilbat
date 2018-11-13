@@ -19,7 +19,7 @@
 PROGRAM = LiCoO2_Cathode_3_cc
 TESTNAME = LiCoO2_LiIonCathode_CSTR_3_cc  
 
-BLESSED_FILES = good_out.txt LiCoO2_intResults_blessed.csv
+BLESSED_FILES = good_out.txt LiCoO2_globalResults_blessed.csv
 
 DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
         metal_Li_LiIon_electrons.xml cathode.inp
@@ -148,7 +148,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	../runtest_Electrode
 
 rebaseline:
-	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
+	cp LiCoO2_globalResults_0_0.csv LiCoO2_globalResults_blessed.csv
 	cp out.txt good_out.txt
 
 ##############################################################################
