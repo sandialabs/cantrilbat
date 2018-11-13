@@ -162,14 +162,10 @@ void epequil_updateOne(ThermoPhase &p_ref, EPEQUIL_INPUT *pi) {
 int main(int argc, char **argv)
 {
    int i;
-   int ip1 = 0;
    FILE *inputFP = stdin;
    EPEQUIL_INPUT *prob_input = new EPEQUIL_INPUT();
    int retn;
    string commandFile = "epequil.inp";
-   bool printInputFormat = false; // print cmdfile.txt format
-   bool printedUsage = false; // bool indicated that we have already
-                              // printed usage
 
    /*
     * Process the command line arguments
@@ -182,10 +178,8 @@ int main(int argc, char **argv)
 	 int nopt = static_cast<int>(tok.size());
 	 for (int n = 1; n < nopt; n++) {
 	   if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
-	     printInputFormat = true;
 	   } else if (tok[n] == 'h') {
 	     printUsage();
-	     printedUsage = true;
              exit(1);
 	   } else if (tok[n] == 'd') {
 	     int lvl = 2;
@@ -196,8 +190,6 @@ int main(int argc, char **argv)
                  n = nopt - 1;
                  j += 1;
                  if (lvl >= 0 && lvl <= 1000) {
-                   if (lvl == 0) ip1 = 0;
-                   else          ip1 = 1; 
 #ifdef DEBUG
 		   epequil_debug_print_lvl = lvl;
 #endif
@@ -206,7 +198,6 @@ int main(int argc, char **argv)
 	     }
 	   } else {
 	     printUsage();
-	     printedUsage = true;
 	     exit(1);
 	   }
 	 }
@@ -214,7 +205,6 @@ int main(int argc, char **argv)
 	 commandFile = tok;
        } else {
 	 printUsage();
-	 printedUsage = true;
 	 exit(1);
        }
      }

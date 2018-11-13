@@ -744,8 +744,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double xdelCell; // cell width - right boundary minus the left boundary.
-    double newStuffTC;
-    double oldStuffTC;
+    double newStuffTC = 0.0;
+    double oldStuffTC = 0.0;
 
     //  Electrolyte mole fluxes - this is c V dot n at the boundaries of the cells
     double moleFluxRight = 0.0;
@@ -812,20 +812,20 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     //double fluxR = 0.0;
 
     const Epetra_Vector& soln = *soln_ptr;
-    double* mf_old;
+    double* mf_old = nullptr;
 
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexLeft_EqnStart;
+    int indexLeft_EqnStart = 0;
     /*
      * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexCent_EqnStart;
+    int indexCent_EqnStart = 0;
     /*
      * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexRight_EqnStart;
+    int indexRight_EqnStart = 0;
 
     /*
      *   Find the species index for the first species in the electrode object pertaining to the electrolyte
@@ -3618,7 +3618,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 	// Gather the species moles in the electrode object
 	//  Output moles of species -> 
 	//
-	Electrode* ee;
+	Electrode* ee = nullptr;
 	std::vector<double> spmoles_Cell(nSpeciesElectrode_*NumLcCells, 0.0);
 	for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
 	    ee = Electrode_Cell_[iCell];

@@ -1891,7 +1891,7 @@ namespace Cantera
   //===================================================================================================================
  
   void imtPSS_NoSurf_DiffBL::printInterfacialMassTransfer_Phase(size_t iph, int pSrc, bool subTimeStep) {
-    size_t isph;
+    size_t isph = npos;
     double *netROP = new double[m_NumTotSpecies];
     ThermoPhase &tp = thermo(iph);
     std::string pname = tp.id();

@@ -40,8 +40,6 @@ int main(int argc, char **argv) {
   int printLvl = 1;
   int estimateEquil = -1;
   std::string inputFile = "gri30.xml";
-  bool printInputFormat = false; // print cmdfile.txt format 
-  bool printedUsage = false;
 
   vcs_nonideal::vcs_timing_print_lvl = 0;
 
@@ -56,10 +54,8 @@ int main(int argc, char **argv) {
 	int nopt = static_cast<int>(tok.size());
 	for (int n = 1; n < nopt; n++) {
 	  if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
-	    printInputFormat = true;
 	  } else if (tok[n] == 'h') {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  } else if (tok[n] == 'd') {
 	    printLvl = 2;
@@ -78,7 +74,6 @@ int main(int argc, char **argv) {
 	    }
 	  } else {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  }
 	}
@@ -86,7 +81,6 @@ int main(int argc, char **argv) {
 	inputFile = tok;
       } else {
 	printUsage();
-	printedUsage = true;
 	exit(1);
       }
     }

@@ -49,7 +49,6 @@ void createPhaseDiagram() {
   ofstream Fe1_xSPhaseFile;
   ofstream Li2_xFe1_xS2PhaseFile;
   int tab = 20;
-  int nsp = 3;
   int printLvl = 0;     
   int outputLvl = 1;
 
@@ -100,7 +99,7 @@ void createPhaseDiagram() {
 
   double pres = OneAtm;
   double temp;
-  double xN[nsp];
+  double xN[20];
 
   double xmin = 0;
   double xmax = 0.4;
@@ -180,16 +179,16 @@ void createPhaseDiagram() {
       double mu[10];
       phaseFile << endl;
       phaseFile << "Mole Fraction Li: " << xN[iLi] << endl;
-      for (int j = 0; j < nPhases; j++ ) {
+      for (size_t j = 0; j < nPhases; j++ ) {
 	phaseFile << mmm.phase(j).name() << ": ";
 	mmm.phase(j).getChemPotentials(mu);
-	for (int i = 0; i < mmm.phase(j).nSpecies(); i++ ){
+	for (size_t i = 0; i < mmm.phase(j).nSpecies(); i++ ){
 	  phaseFile << mu[i]/1e6 << ", ";
 	}
 	phaseFile << endl;
       }
       phaseFile << setw(2*tab) << " ";
-      for (int j = 0; j < nPhases; j++ ) {
+      for (size_t j = 0; j < nPhases; j++ ) {
 	phaseFile << setw(tab) << mmm.phase(j).name();
       }
       phaseFile << endl;
@@ -198,13 +197,13 @@ void createPhaseDiagram() {
       if (outputLvl) {
 
 	phaseFile << setw(tab) << temp << setw(tab) << pres ;
-	for (int ph = 0; ph < nPhases; ph++ ){
+	for (size_t ph = 0; ph < nPhases; ph++ ){
 	  phaseFile << setw(tab) << mmm.phaseMoles(ph);
 	}
 	phaseFile << endl;
 
 	gasPhaseFile << setw(tab) << temp << setw(tab) << pres ;
-	for (int sp = 0; sp < gas->nSpecies(); sp++ ){
+	for (size_t sp = 0; sp < gas->nSpecies(); sp++ ){
 	  if (mmm.phaseMoles(igas) > 1e-8){
 	    gasPhaseFile << setw(tab) << gas->moleFraction(sp);
 	  }
@@ -215,7 +214,7 @@ void createPhaseDiagram() {
 	gasPhaseFile << endl;
 	
 	Fe1_xSPhaseFile << setw(tab) << temp << setw(tab) << pres ;
-	for (int sp = 0; sp < Fe1_xS->nSpecies(); sp++ ){
+	for (size_t sp = 0; sp < Fe1_xS->nSpecies(); sp++ ){
 	  if (mmm.phaseMoles(iFe1_xS) > 1e-8){
 	    Fe1_xSPhaseFile << setw(tab) << Fe1_xS->moleFraction(sp);
 	  }
@@ -226,7 +225,7 @@ void createPhaseDiagram() {
 	Fe1_xSPhaseFile << endl;
 
 	Li2_xFe1_xS2PhaseFile << setw(tab) << temp << setw(tab) << pres ;
-	for (int sp = 0; sp < Li2_xFe1_xS2->nSpecies(); sp++ ){
+	for (size_t sp = 0; sp < Li2_xFe1_xS2->nSpecies(); sp++ ){
 	  if (mmm.phaseMoles(iLi2_xFe1_xS2) > 1e-8){
 	    Li2_xFe1_xS2PhaseFile << setw(tab) << Li2_xFe1_xS2->moleFraction(sp);
 	  }

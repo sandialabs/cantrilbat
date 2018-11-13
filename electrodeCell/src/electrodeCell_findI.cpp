@@ -35,7 +35,7 @@ double findV(Electrode *electrode, double Itarget,
   double Ilow = Undef;
   double Ihigh = Undef;
   double Ierr, IConvErr;
-  double Enow;
+  double Enow = 0.0;
   double dIdV = 0.0;
 
   InterfaceKinetics *iK = electrode->reactingSurface(0);

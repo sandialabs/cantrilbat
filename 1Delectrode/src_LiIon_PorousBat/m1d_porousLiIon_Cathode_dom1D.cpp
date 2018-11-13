@@ -750,7 +750,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     std::vector<double> resLocal_Species(nsp_, 0.0);
 
     const Epetra_Vector& soln = *soln_ptr;
-    double* mf_old;
+    double* mf_old = nullptr;
  
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
@@ -3656,7 +3656,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 	// Gather the species moles in the electrode object
 	//  Output moles of species -> 
 	//
-	Electrode* ee;
+	Electrode* ee = nullptr;
 	std::vector<double> spmoles_Cell(nSpeciesElectrode_*NumLcCells, 0.0);
 	for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
 	    ee = Electrode_Cell_[iCell];
@@ -3836,7 +3836,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     // Number of points in each vector
     string sss = id();
     stream0 ss;
-    double newVaxial, oldVaxial;
+    double newVaxial, oldVaxial = 0.0;
 
     if (do0Write) {
         drawline(indentSpaces, 80);

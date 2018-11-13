@@ -602,12 +602,10 @@ int main(int argc, char *argv[])
   int numSim2 = countSimulations(fp2);
   if (numSim1 <= 0) {
     printf("Number of Simulation Entries in file 1 is zero\n");
-    testPassed = -1;
     exit(-1);
   }
   if (numSim1 != numSim2) {
     printf("Number of Simulation Entries differ: %d %d\n", numSim1, numSim2);
-    testPassed = -1;
     exit(-1);
   }
 
@@ -666,7 +664,9 @@ int main(int argc, char *argv[])
       }
     }
   }
+  if (testPassed != 1) {
+       iTotal++;
+  }
   return iTotal;
-
 }
 //======================================================================================================================

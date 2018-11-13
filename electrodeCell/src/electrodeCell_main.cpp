@@ -462,7 +462,7 @@ int main(int argc, char **argv)
 	     electrodeA->phaseElectricPotential(iph));
     }
 
-    double IcurrNet;
+    double IcurrNet = 0.0;
 
     // Set the Interfacial Voltage
     // InterfaceKinetics *iKA = electrodeA->m_rSurDomain;

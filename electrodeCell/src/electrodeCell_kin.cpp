@@ -224,7 +224,7 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
   double *electrodeMF = new double[electrode->nSpecies()];
   electrode->getMoleFractions(electrodeMF);
 
-  double T, Tdelta;
+  double T, Tdelta = 0.0;
   for (i = 0; i < TT.size(); i++) {
     T = TT[i];
     for (iphKin = 0; iphKin < nPhases; iphKin++) {

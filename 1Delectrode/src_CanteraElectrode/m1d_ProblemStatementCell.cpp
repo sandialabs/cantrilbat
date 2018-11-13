@@ -999,8 +999,9 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
     if (anode_input_->electrodeGrossArea > 0.0) {
         electrodeGrossAreaA = anode_input_->electrodeGrossArea;
     } else if (anode_input_->electrodeGrossDiameter > 0.0) {
-        electrodeGrossAreaA = Pi * 0.25 * anode_input_->electrodeGrossDiameter *
-                              anode_input_->electrodeGrossDiameter;
+        electrodeGrossAreaA = Pi * 0.25 * anode_input_->electrodeGrossDiameter * anode_input_->electrodeGrossDiameter;
+    } else {
+        throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()","Unknown case");
     }
 
     double electrodeGrossAreaC;
@@ -1008,8 +1009,9 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
     if (cathode_input_->electrodeGrossArea > 0.0) {
         electrodeGrossAreaC = cathode_input_->electrodeGrossArea;
     } else if (anode_input_->electrodeGrossDiameter > 0.0) {
-        electrodeGrossAreaC = Pi * 0.25 * cathode_input_->electrodeGrossDiameter *
-                              cathode_input_->electrodeGrossDiameter;
+        electrodeGrossAreaC = Pi * 0.25 * cathode_input_->electrodeGrossDiameter * cathode_input_->electrodeGrossDiameter;
+    } else {
+        throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()","Unknown case");
     }
 
     if (! doubleEqual(electrodeGrossAreaA, electrodeGrossAreaC, 1.0E-13, 10)) {

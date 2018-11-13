@@ -21,7 +21,6 @@ int main(int argc, char** argv)
 {
     int retn = 0;
     string commandFile = "xxx.xml";
-    int DebugPrinting = 0;
     try {
         if (argc > 1) {
             std::string tok;
@@ -34,15 +33,12 @@ int main(int argc, char** argv)
                             printUsage();
                             exit(1);
                         } else if (tok[n] == 'd') {
-                            int lvl = 0;
                             if (j < (argc - 1)) {
                                 string tokla = string(argv[j+1]);
                                 if (strlen(tokla.c_str()) > 0) {
-                                    lvl = atoi(tokla.c_str());
                                     n = nopt - 1;
                                     j += 1;
 
-                                    DebugPrinting = lvl;
 
                                 }
                             }
