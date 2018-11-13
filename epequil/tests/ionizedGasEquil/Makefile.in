@@ -17,7 +17,7 @@ TESTNAME = $(PROG_NAME)
 
 BLESSED_FILES = output_blessed.txt gas_0_0_Data_blessed.csv    gas_3_2_Data_blessed.csv  gas_6_5_Data_blessed.csv
 
-DATA =  air_below6000K.xml  LiKCl_Margules_trans.xml  LiKCl_recipmoltenSalt_trans.xml runtest
+DATA =  air_below6000K.cti  LiKCl_Margules_trans.xml  LiKCl_recipmoltenSalt_trans.xml runtest
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
