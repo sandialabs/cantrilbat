@@ -20,7 +20,7 @@ SOLUTION_XML_DIFFNAME="  diff_xml.txt         diff_s43r_xml.txt "
 #
 #   Text files to compare against
 #
-BLESSED_DATA_FILES=" good_out.txt  "
+BLESSED_DATA_FILES=" output_test_blessed.txt  "
 DATA_FILES="         out.txt       "
 DIFF_NAMES="         diff_out.txt  "
 DIFF_REQ="           True          "

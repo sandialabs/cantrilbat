@@ -37,6 +37,10 @@ CT_INCROOT =  @ct_incroot@
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
+#
+#  Flag to indicate whether Zuzax was compiled with DEBUG_MODE enabled
+#
+DEBUG_MODE_ENABLED = @Zuzax_Debug_Mode_Enabled@
 
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
@@ -66,7 +70,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM)
+all: .depends $(PROGRAM) output_test_blessed.txt
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -100,8 +104,6 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
@@ -125,10 +127,18 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
-test: 
+test:  output_test_blessed.txt
 	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
+
+output_test_blessed.txt: good_out.txt good_out_noDbg.txt Makefile
+	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
+           cp good_out.txt output_test_blessed.txt ; \
+        else \
+           cp good_out_noDbg.txt output_test_blessed.txt ; \
+        fi
+
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
@@ -138,7 +148,11 @@ rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
 	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
 	cp soln_0_0.xml                soln_0_0_blessed.xml
-	cp out.txt good_out.txt
+	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
+           cp out.txt good_out.txt  ; \
+        else \
+           cp out.txt good_out_noDbg.txt ; \
+        fi
 
 ##############################################################################
 

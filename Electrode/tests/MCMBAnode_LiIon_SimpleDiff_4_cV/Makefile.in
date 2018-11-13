@@ -19,11 +19,11 @@ DATA = anode.inp problem_setup.sh \
 TEST_RESULTS = out.txt soln_0_0.xml MCMB_intResults_0_0.csv   MCMB_globalResults_0_0.csv ls soln_Restart_1_0_0.xml
 
 TEST_INTERMEDIATES = diff_csv.txt diff_icsv.txt diff_gcsv.txt diff_out.txt capCheck_0.txt err_out.txt  \
-                     diff_summary.txt diff_xml.txt diff_s43r_xml.txt
+                     diff_summary.txt diff_xml.txt diff_s43r_xml.txt output_test_blessed.txt
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
-all: .depends $(PROGRAM)
+all: .depends $(PROGRAM) output_test_blessed.txt
 #
 ################################################################################################################
 #                          Setup The Cantera Directory locations
@@ -38,6 +38,10 @@ CT_INCROOT = @ct_incroot@
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
+#
+#  Flag to indicate whether Zuzax was compiled with DEBUG_MODE enabled
+#
+DEBUG_MODE_ENABLED = @Zuzax_Debug_Mode_Enabled@
 #
 # Setup the util_src library for inclusion in this project
 #
@@ -125,20 +129,31 @@ depends:
 #                        SECTION TO SET UP TEST RUNS
 ########################################################################################################################
 #
-test: 
+test: output_test_blessed.txt
 	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
+#
+output_test_blessed.txt: good_out.txt good_out_noDbg.txt Makefile
+	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
+           cp good_out.txt output_test_blessed.txt ; \
+        else \
+           cp good_out_noDbg.txt output_test_blessed.txt ; \
+        fi
 #
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	../runtest_Electrode
 
 rebaseline:
-	cp out.txt                   good_out.txt
 	cp soln_0_0.xml              soln_0_0_blessed.xml
 	cp  MCMB_intResults_0_0.csv  MCMB_intResults_blessed_0_0.csv 
 	cp  MCMB_globalResults_0_0.csv MCMB_globalResults_blessed_0_0.csv 
+	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
+           cp out.txt good_out.txt  ; \
+        else \
+           cp out.txt good_out_noDbg.txt ; \
+        fi
 
 
 test_clean:
@@ -151,7 +166,7 @@ clean_test:
 
 clean:
 	$(RM) $(TEST_FLAGS)
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)  $(TEST_FLAGS)
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  $(TEST_FLAGS) soln_Restart*xml
 
 dist_clean:
 	$(MAKE)  clean_test

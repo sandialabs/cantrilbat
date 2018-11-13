@@ -23,6 +23,8 @@ BLESSED_FILES = good_out.txt  outputTable_blessed.csv  soln_0_0_blessed.xml
 
 DATA = cathode.inp ECsoln_ion.xml   problem_setup.sh
 
+TEST_INTERMEDIATES = output_test_blessed.txt
+
 OBJ = $(PROGRAM).o
 
 ##########################################################################
@@ -38,6 +40,10 @@ CT_INCROOT =  @ct_incroot@
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
+#
+#  Flag to indicate whether Zuzax was compiled with DEBUG_MODE enabled
+#
+DEBUG_MODE_ENABLED = @Zuzax_Debug_Mode_Enabled@
 #
 # Source tree base for cantera_apps
 #
@@ -72,7 +78,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
-all: .depends $(PROGRAM)
+all: .depends $(PROGRAM) output_test_blessed.txt
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -133,21 +139,34 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
-test: 
+test: output_test_blessed.txt
 	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
+
+output_test_blessed.txt: good_out.txt good_out_noDbg.txt Makefile
+	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
+           cp good_out.txt output_test_blessed.txt ; \
+        else \
+           cp good_out_noDbg.txt output_test_blessed.txt ; \
+        fi
+
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	../../tests/runtest_Electrode
 
 rebaseline:
-	cp out.txt good_out.txt
 	cp LiCoO2_intResults_0_0.csv      LiCoO2_intResults_0_0_blessed.csv
 	cp LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_0_0_blessed.csv 
 	cp outputTable.csv                outputTable_blessed.csv
 	cp soln_0_0.xml                   soln_0_0_blessed.xml
+	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
+           cp out.txt good_out.txt  ; \
+        else \
+           cp out.txt good_out_noDbg.txt ; \
+        fi
+
 
 ##############################################################################
 
@@ -167,8 +186,6 @@ LiCoO2_Cathode_Radial_cc: LiCoO2_Cathode_Radial_cc.o $(OBJ_CANTERA_ADDONS) $(UTI
                   $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
-
-
 
 LiCoO2Thermo: LiCoO2Thermo.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
@@ -199,5 +216,5 @@ clean:
 	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt ccout.txt
 
 test_clean:
-	$(RM) LiCoO2_intResults_0_0.csv 
+	$(RM) LiCoO2_intResults_0_0.csv output_test_blessed.txt
 

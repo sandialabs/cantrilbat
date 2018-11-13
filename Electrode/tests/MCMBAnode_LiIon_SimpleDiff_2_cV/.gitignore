@@ -1,14 +1,7 @@
 .depends
-MCMBAnode_CSTR_2
-MCMBAnode_CSTR_2.d
-FeS2_globalResults_0_0.csv
-FeS2_intResults_0_0.csv
-FeS2_MPNewman_cV.TVD.v3breakpoints
 diff_csv.txt
 out.txt
 .nfs*
-FeS2_2_MPNewman_cV
-FeS2_2_MPNewman_cV.d
 Makefile
 diff_out.txt
 err_out.txt
@@ -18,10 +11,9 @@ MCMB_intResults_0_0.csv
 MCMBAnode_CSTR_2.TVD.v3breakpoints
 diff_gcsv.txt
 diff_icsv.txt
-MCMBAnode_SimpleDiff
-MCMBAnode_SimpleDiff.d
 out
 out_old.txt
 soln.xml_0_0.xml
 soln_0_0.xml
 MCMBAnode_SimpleDiff_2
+output_test_blessed.txt
