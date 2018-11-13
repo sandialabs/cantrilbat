@@ -137,6 +137,8 @@ void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int reg
         voltsS = phiMetal_ - phiCurrentCollector;
     } else if (region == 2) {
         voltsS = phiCurrentCollector - phiMetal_;
+    } else {
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidPol()", "unknown region: %d", region);
     }
 
     VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS);
@@ -224,6 +226,8 @@ void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double 
         voltsS  = phiLyteBoundary - phiLyteElectrode;
     } else if (region == 2) {
         voltsS  = phiLyteElectrode - phiLyteBoundary;
+    } else {
+        throw Electrode_Error("PolarizationSurfRxnResults::addLyteCondPol()", "unknown region: %d", region);
     }
     VoltPolPhenom ess(VOLT_LOSS_LYTE_PL, region, voltsS);
     bool found = false;
@@ -264,6 +268,8 @@ void PolarizationSurfRxnResults::addLyteCondPol_Sep(double phiLyteBoundary, doub
         voltsS  = phiLyte_Spoint - phiLyteBoundary;
     } else if (region == 2) {
         voltsS  = phiLyteBoundary - phiLyte_Spoint;
+    } else {
+        throw Electrode_Error("PolarizationSurfRxnResults::addLyteCondPol_Sep()", "unknown region: %d", region);
     }
 
     VoltPolPhenom ess(VOLT_LOSS_LYTE_SEP_PL, region, voltsS);
