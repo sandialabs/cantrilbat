@@ -1,0 +1,114 @@
+#/bin/sh
+#
+#
+ARCH_DIR="/projects/battery/cantrilbat_project/arch/linux64_gcc720"
+#
+CANTERA_INSTALL_DIR="${ARCH_DIR}/zuzax_v3.6_dbg"
+export CANTERA_INSTALL_DIR
+#
+#
+CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_dbg"
+export CANTERA_APPS_INSTALL_DIR
+#
+PYTHON_DIR=${ARCH_DIR}/python-2.7.8
+export PYTHON_DIR
+#
+#  BUILD_WITH_F2C is optional on linux. 
+#
+export BUILD_WITH_F2C='n'
+#
+#
+#
+SET_PYTHON_SITE_PACKAGE_TOPDIR=y
+export SET_PYTHON_SITE_PACKAGE_TOPDIR
+#
+PYTHON_SITE_PACKAGE_TOPDIR="${ARCH_DIR}/python-2.7.8"
+export PYTHON_SITE_PACKAGE_TOPDIR
+#
+CXX=/sierra/sntools/SDK/compilers/gcc/7.2.0-RHEL6/bin/g++
+export CXX
+#
+# CXXFLAGS:
+#   Defines within the code:
+#     -DDEBUG_MODE
+#     -DDEBUG_HKM
+#     -DDO_INIT_CALC
+#     -DMECH_MODEL
+#     -DDEBUG_INIT_CALCULATION
+CXXFLAGS="-std=c++11 -g -Wall -pedantic -Wformat -DDEBUG_MODE -DMECH_MODEL"
+export CXXFLAGS
+#
+#  Turn on and off MECH_MODEL here
+#
+CXX_GDEFINES="-DMECH_MODEL"
+export CXX_GDEFINES
+#
+LCXX_END_LIBS=" -lrt -lgfortran"
+export LCXX_END_LIBS
+#
+# Specify the fortran compiler, because some libraries are
+# written in fortran. This is used to find the libraries
+# to link against
+#
+F77='/sierra/sntools/SDK/compilers/gcc/7.2.0-RHEL6/bin/gfortran'
+export F77
+#
+FFLAGS="-g -fno-second-underscore"
+export FFLAGS
+#
+# MPIHOME
+#
+export MPIHOME=/projects/sierra/linux_rh6/SDK/mpi/openmpi/1.10.2-gcc-7.2.0-RHEL6
+MPICXX=${MPIHOME}/bin/mpiCC
+export MPICXX
+
+MPICC=${MPIHOME}/bin/mpicc
+export MPICC
+
+MPIF77=${MPIHOME}/bin/mpif77
+export MPIF77
+
+# 
+#  Location and Name of the blas library
+#
+export BLAS_LIBRARY_DIR="${ARCH_DIR}/lib"
+export BLAS_LIBRARY_NAMES=libblas_linux64-gcc720.a
+# 
+#  Location and Name of the lapack library
+#
+export LAPACK_LIBRARY_DIR="${ARCH_DIR}/lib"
+export LAPACK_LIBRARY_NAMES=liblapack_linux64-gcc720.a
+#
+#  Location of the Umfpack library
+#
+export UMFPACK_LIBRARY_DIR="${ARCH_DIR}/UMFPACK-5.4/lib"
+export UMFPACK_LIBRARY_NAMES="libumfpack_dbg.a:libamd_dbg.a"
+#export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
+#
+#  Location of the superludist library
+#
+export SUPERLUDIST_LIBRARY_DIR="${ARCH_DIR}/SuperLU_DIST_4.3/lib"
+export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
+
+export PARMETIS_LIBRARY_DIR="${ARCH_DIR}/ParMetis-4.0.3/lib"
+export PARMETIS_LIBRARY_NAMES="libparmetis.a:libmetis.a"
+
+export Y12M_LIBRARY_DIR=${ARCH_DIR}/lib
+export Y12M_LIBRARY_NAMES="liby12m.a"
+
+#  Not ready yet so have to fall back to existing dir
+TRILINOS_INSTALL_DIR="${ARCH_DIR}/trilinos_12_10_1_lim_opt"
+export TRILINOS_INSTALL_DIR
+
+DO_MPI='y'
+export DO_MPI
+
+# turn on purify
+# export PURIFY=purify
+
+
+#
+MAKE=gmake
+export MAKE
+#
+./preconfig
