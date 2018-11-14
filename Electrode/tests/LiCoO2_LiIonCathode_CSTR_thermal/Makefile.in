@@ -13,7 +13,7 @@
 PROGRAM = LiCoO2_Cathode_thermal
 TESTNAME = LiCoO2_LiIonCathode_CSTR_thermal
 
-BLESSED_FILES = good_out.txt soln_0_0_blessed.xml LiCoO2_intResults_blessed.csv 
+BLESSED_FILES = good_out.txt soln_0_0_blessed.xml LiCoO2_globalResults_blessed.csv 
 
 DATA = cathode.inp problem_setup.sh \
        ECsoln_ion.xml LiCoO2Cathode_electrode.xml LiCoO2_Margules_1.xml Li_Metal.xml \
