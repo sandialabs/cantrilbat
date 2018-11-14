@@ -1,10 +1,6 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2011/11/02 17:43:39 $
-#  $Revision: 1.27 $
+#  Cantrilbat top Makefile
 #
-###############################################################
 build_python=@BUILD_PYTHON@
 
 ctv=@ctversion@
@@ -12,9 +8,21 @@ ctv=@ctversion@
 INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 MP_MACHINEFILE_DEFAULT=@MP_MACHINEFILE_DEFAULT@
 #
-# These links are to Cantera's install space: for reference in the top Makefile
+# These links are to Zuzax's install space: for reference in the top Makefile
 #
 CT_prefix =  @ct_prefix@
+#
+# These links are to Zuzax's install space
+#
+CT_INCROOT = @ct_incroot@
+#
+# Bring in the Zuzax includes through the .mak file: Here is the entry
+#
+include $(CT_INCROOT)/cantera/Zuzax.mak
+#
+#  Flag to indicate whether Zuzax was compiled with DEBUG_MODE enabled
+#
+DEBUG_MODE_ENABLED = @Zuzax_Debug_Mode_Enabled@
 #
 #  all:   Compiles all programs, both application and tests
 #
