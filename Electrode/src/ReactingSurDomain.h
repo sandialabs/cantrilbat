@@ -47,10 +47,6 @@ struct OCV_Override_input;
  *      The standard state thermodynamic functions for the delta of reactions are not overridden. They 
  *      still refer to the unchanged thermodynamics values.
  *
- *      todo: Working on splitting this class into 2. The first one will be located in Zuzax/kinetics: ElectrodeKinetics_into_PL
- *
- *      todo: This class is missing some obvious member functions, that are probably carried out manually within the Electrode
- *            object
  */
 class ReactingSurDomain : public ElectrodeKinetics_intoPL
 {

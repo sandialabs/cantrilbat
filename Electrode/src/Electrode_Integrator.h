@@ -1123,7 +1123,7 @@ public:
      *
      *  The final_final is not touched.
      *
-     * @param setFinal   Boolean indicating whether you should set the final as well
+     *  @param setFinal   Boolean indicating whether you should set the final as well
      */
     virtual void setInitStateFromInitInit(bool setFinal = false) override;
 
