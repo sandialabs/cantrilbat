@@ -26,7 +26,6 @@
 #include "cantera/thermo/FixedChemPotSSTP.h"
 
 #include "cantera/numerics/solveProb.h"
-#include "cantera/numerics/BEulerInt.h"
 
 #include "cantera/solvers.h"
 
