@@ -141,6 +141,7 @@ depends:
 # test:       Carries out all tests
 #
 test:
+	@INSTALL@ -d @cta_bindir@
 	cd util_src;                      $(MAKE) -s test
 	cd Electrode;                     $(MAKE) -s test
 	cd 1Delectrode;                   $(MAKE) -s test
@@ -176,9 +177,9 @@ install_clean:
 # install:   Posts all install files 
 #
 install:
-	@ @INSTALL@ -d @cta_incdir@
-	@ @INSTALL@ -d @cta_libdir@
-	@ @INSTALL@ -d @cta_bindir@
+	@INSTALL@ -d @cta_incdir@
+	@INSTALL@ -d @cta_libdir@
+	@INSTALL@ -d @cta_bindir@
 	cd bin;       $(INSTALL_TSC)  runtest_Exec @cta_bindir@
 	cd bin;       $(INSTALL_TSC)  runtest_Electrode @cta_bindir@
 	$(INSTALL_TSC) configCantrilbat.h  @cta_incdir@
