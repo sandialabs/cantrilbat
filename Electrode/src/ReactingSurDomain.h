@@ -160,7 +160,6 @@ public:
      */
     virtual void reinitializeIndexing();
 
-
 protected:
     //! Routine to be called after all species and phases have been defined for the object
     /*!

@@ -71,11 +71,6 @@ LE_PickList::LE_PickList(const char* lineName, int* aaa,
     }
 }
 //====================================================================================================================
-/*
- * LE_PickList(const LE_PickList&):
- *
- * copy Constructor:
- */
 LE_PickList::LE_PickList(const LE_PickList& b) :
     LineEntry(b),
     AddrVal(b.AddrVal),
@@ -100,12 +95,6 @@ LE_PickList::LE_PickList(const LE_PickList& b) :
     strncpy(PrintString, b.PrintString, MAX_INPUT_STR_LN+1);
 }
 //====================================================================================================================
-/*
- *
- * LE_PickList& operator=(const LE_PickList &b) :
- *
- *  assignment operator
- */
 LE_PickList& LE_PickList::operator=(const LE_PickList& b)
 {
     if (&b != this) {
@@ -134,12 +123,6 @@ LE_PickList& LE_PickList::operator=(const LE_PickList& b)
     return *this;
 }
 //====================================================================================================================
-/*
- *
- * LineEntry* duplMyselfAsLineEntry() (virtual)
- *
- * Duplication as a base class
- */
 LineEntry* LE_PickList::duplMyselfAsLineEntry() const
 {
     LE_PickList* newLE = new LE_PickList(*this);

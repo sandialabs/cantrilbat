@@ -283,6 +283,11 @@ fi
 if test -n "$NEED_CTF2C" ; then
  LMPICXX_END_LIBS=$LMPICXX_END_LIBS' -lctf2c'
 fi
+#
+# The dynamic loader library was added to trilinos dependencies it seems
+#    2/1/2019
+#
+LMPICXX_END_LIBS=$LMPICXX_END_LIBS' -ldl'
 
 #
 # Check to see if we have a -lm line
