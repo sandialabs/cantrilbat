@@ -166,7 +166,7 @@ clean_test:
 
 clean:
 	$(RM) $(TEST_FLAGS)
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)  $(TEST_FLAGS) soln_Restart*xml
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  $(TEST_FLAGS) soln_Restart*0.xml
 
 dist_clean:
 	$(MAKE)  clean_test
