@@ -203,7 +203,7 @@ public:
     /*!
      *  @param[in]           e                   Pointer to the Electrode object you want the new EState object to service
      * 
-     *  @return Returns a duplication of the current state as a pointer to the base class
+     *  @return                                  Returns a duplication of the current state as a pointer to the base class
      */
     virtual EState* duplMyselfAsEState(Electrode* e = nullptr) const;
 
