@@ -180,7 +180,7 @@ public:
     /*!
      *  @param[in]           EState_type_string  Type of the EState object. 
      */
-    EState(std::string EState_type_string = "EState_CSTR" );
+    EState(const std::string& EState_type_string = "EState_CSTR" );
 
     //! Copy Constructor
     /*!

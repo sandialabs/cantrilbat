@@ -493,17 +493,19 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* const eibase
 //==================================================================================================================================
 int Electrode_SimpleDiff::electrode_stateSave_create(bool force)
 {
-    if (eState_save_) {
-        if (!force) {
-            return 0;
-        } else {
-            delete eState_save_;
+    int rr = 0;
+    if (force) {
+        if (eState_save_) {
+            delete eState_save_; 
+            eState_save_ = nullptr;
         }
     }
-    eState_save_ = new EState_RadialDistrib();
-    int rr = eState_save_->initialize(this);
-    if (rr >= 0) {
-        rr = 0;
+    if (eState_save_ == nullptr) {
+        eState_save_ = new EState_RadialDistrib("EState_RadialDistrib", "SimpleDiff");
+        rr = eState_save_->initialize(this);
+        if (rr >= 0) {
+            rr = 0;
+        }
     }
     if (!xmlStateData_final_) {
         eState_save_->copyElectrode_intoState(this);
