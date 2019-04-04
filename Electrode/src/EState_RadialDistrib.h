@@ -42,7 +42,8 @@ public:
      *  @param[in]           modelEState         string model type for                
      *  @param[in]           electrodeType       Type of the electrode
      */
-    EState_RadialDistrib(std::string modelEState = "EState_RadialDistrib", std::string electrodeType = "SimpleDiff");
+    EState_RadialDistrib(const std::string& modelEState = "EState_RadialDistrib", 
+                         const std::string& electrodeType = "SimpleDiff");
 
     //! Copy Constructor
     /*!

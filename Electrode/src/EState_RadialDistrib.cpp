@@ -30,7 +30,7 @@ namespace Cantera
 #endif
 {
 //======================================================================================================================
-EState_RadialDistrib::EState_RadialDistrib(std::string modelEState, std::string electrodeType) :
+EState_RadialDistrib::EState_RadialDistrib(const std::string& modelEState, const std::string& electrodeType) :
     EState(modelEState),
     numRCells_(0),
     numKRSpecies_(0),
