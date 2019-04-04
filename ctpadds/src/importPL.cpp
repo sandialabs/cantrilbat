@@ -51,11 +51,11 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
     std::string dimS = xmlphase->operator[]("dim");
     size_t iphGlob;
     if (dimS == "3") {
-       iphGlob =  pl->addVolPhase(tPhase, xmlphase);
+       iphGlob =  pl->addVolPhase(tPhase);
     } else if (dimS == "2") {
-        iphGlob = pl->addSurPhase(tPhase, xmlphase);
+        iphGlob = pl->addSurPhase(tPhase);
     } else if (dimS == "1") {
-        iphGlob = pl->addEdgePhase(tPhase, xmlphase);
+        iphGlob = pl->addEdgePhase(tPhase);
     } else {
         throw ZuzaxError("processPhasePL()", "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }

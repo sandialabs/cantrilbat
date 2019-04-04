@@ -82,9 +82,9 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
     }
     std::string dimS = xmlphase->operator[]("dim");
     if (dimS == "3") {
-        pl->addVolPhase(tPhase, xmlphase);
+        pl->addVolPhase(tPhase);
     } else if (dimS == "2") {
-        pl->addSurPhase(tPhase, xmlphase);
+        pl->addSurPhase(tPhase);
     } else {
         throw CanteraError("processPhasePL",
                            "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
