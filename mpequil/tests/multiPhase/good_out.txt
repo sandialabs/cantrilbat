@@ -397,7 +397,7 @@ CaCO3(S)         0.000000e+00    1.000000e+00    -9.424500e+08
 FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
 -------------------------------------------------------------
  
-  air using EOS IdealGas:
+  air;air;FLUID_GAS using EOS IdealGas:
  
        temperature            1050  K
           pressure          101325  Pa

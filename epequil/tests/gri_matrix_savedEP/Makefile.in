@@ -95,7 +95,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	$(TOPDIR)/bin/runtest_Exec
 
 rebaseline:
-	cp output.txt output_blessed.txt
+	cp out.txt output_blessed.txt
 
 clean:
 	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT

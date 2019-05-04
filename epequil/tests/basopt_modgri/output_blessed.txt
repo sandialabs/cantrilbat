@@ -1,7 +1,7 @@
 number of components = 4
 number of components = 4
  
-  gri30_mix using EOS IdealGas:
+  gri30_mix;gri30_mix;FLUID_GAS using EOS IdealGas:
  
        temperature            1500  K
           pressure          100000  Pa

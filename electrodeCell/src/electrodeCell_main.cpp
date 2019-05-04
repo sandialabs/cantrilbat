@@ -56,7 +56,7 @@ void printUsage() {
 //! This routine converts the MPEQUIL_INPUT problem into a VCS_PROB
 //! structure
 
-int mpequil_convert(ZZCantera::Electrode *electrode, ZZVCSnonideal::VCS_PROB *vprob,  ZZCantera::MP_EquilStatic *mix) {
+int mpequil_convert(Zuzax::Electrode *electrode, vcs_nonideal::VCS_PROB *vprob,  Zuzax::MP_EquilStatic *mix) {
 
   /*
    *     Extract the current state information
@@ -92,7 +92,7 @@ int mpequil_convert(ZZCantera::Electrode *electrode, ZZVCSnonideal::VCS_PROB *vp
  *
  */
 
-int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int printFlag) {
+int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int printFlag) {
 
   Electrode_Equilibrium *ee_equil = new Electrode_Equilibrium(electrode);
 
@@ -103,7 +103,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
   int ne = electrode->nElements();
   int nVphase = electrode->nVolPhases();
   int nVspecies = electrode->nVolSpecies();
-  ZZVCSnonideal::VCS_PROB *vprob = new ZZVCSnonideal::VCS_PROB(nVspecies, ne, nVphase);
+  vcs_nonideal::VCS_PROB *vprob = new vcs_nonideal::VCS_PROB(nVspecies, ne, nVphase);
 #ifdef DEBUG
   vprob->setDebugPrintLvl(VCS_Debug_Print_Lvl);
 #endif
@@ -130,7 +130,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
    } 
   int ipr = std::max(0, printFlag - 1);
   int maxit = 1000;
-  ZZVCSnonideal::VCS_SOLVE *vsolvePtr = new ZZVCSnonideal::VCS_SOLVE();
+  vcs_nonideal::VCS_SOLVE *vsolvePtr = new vcs_nonideal::VCS_SOLVE();
   int iconv = vsolvePtr->vcs(vprob, 0, ipr, ip1, maxit);
 
 
@@ -192,7 +192,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
 	printf("  %15.3e   %15.3e  ", vprob->m_spMoles[i], vprob->mf[i]);
 	if (vprob->m_spMoles[i] <= 0.0) {
 	  size_t iph = vprob->PhaseID[i];
-	  ZZVCSnonideal::vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
+	  vcs_nonideal::vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");
 	  } else {
@@ -237,7 +237,7 @@ int main(int argc, char **argv)
   std::string commandFileC = "electrodeCathode.inp";
   // printed usage
 
-  ZZVCSnonideal::vcs_timing_print_lvl = 0;
+  vcs_nonideal::vcs_timing_print_lvl = 0;
 
   /*
    * Process the command line arguments
@@ -318,7 +318,7 @@ int main(int argc, char **argv)
     delete electrodeA_input;
 
     //  Use the ElectrodeModelName value as input to the electrode factory to create the electrode
-    ZZCantera::Electrode* electrodeA = newElectrodeObject(aen);
+    Zuzax::Electrode* electrodeA = newElectrodeObject(aen);
     if (!electrodeA) {
         throw ZuzaxError("electrodeCell_main()", "newElectrodeObject failed for model");
     }
@@ -364,7 +364,7 @@ int main(int argc, char **argv)
      */
     std::string en = electrodeC_input->electrodeModelName;
     delete electrodeC_input;
-    ZZCantera::Electrode* electrodeC = newElectrodeObject(en);
+    Zuzax::Electrode* electrodeC = newElectrodeObject(en);
     electrodeC_input = newElectrodeKeyInputObject(en);
     if (!electrodeC_input) {
         throw ZuzaxError("electrodeCell_main()", "newElectrodeKeyInputObject() failed for model %s", en.c_str());
@@ -478,7 +478,7 @@ int main(int argc, char **argv)
 
      // electrodeA->addExtraGlobalRxn(egr_ptr);
       /*
-      ZZCantera::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKA);
+      Zuzax::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKA);
       double *RxnVector  = new double[nReactionsA];
       for (int i = 0; i < nReactionsA; i++) {
 	RxnVector[i] = 0.0;
@@ -494,8 +494,8 @@ int main(int argc, char **argv)
       electrodeA->m_egr.push_back(egr);
       electrodeA->m_rmcEGR.push_back(rmcEGR);
       */
-      ZZCantera::RxnMolChange *rmcEGR = electrodeA->rxnMolChangesEGR(iextra); 
-      ZZCantera::ExtraGlobalRxn *egr = electrodeA->extraGlobalRxnPathway(iextra);
+      Zuzax::RxnMolChange *rmcEGR = electrodeA->rxnMolChangesEGR(iextra); 
+      Zuzax::ExtraGlobalRxn *egr = electrodeA->extraGlobalRxnPathway(iextra);
       if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
 	//processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
 	//		    *iK, *egr, *rts);
@@ -542,7 +542,7 @@ int main(int argc, char **argv)
 
     //  electrodeC->addExtraGlobalRxn(egr_ptr);
       /*
-      ZZCantera::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKC);
+      Zuzax::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKC);
       double *RxnVector  = new double[nReactionsC];
       for (int i = 0; i < nReactionsC; i++) {
 	RxnVector[i] = 0.0;
@@ -558,8 +558,8 @@ int main(int argc, char **argv)
       electrodeC->m_egr.push_back(egr);
       electrodeC->m_rmcEGR.push_back(rmcEGR);
       */
-      ZZCantera::ExtraGlobalRxn *egr = electrodeC->extraGlobalRxnPathway(iextra);
-      ZZCantera::RxnMolChange *rmcEGR = electrodeC->rxnMolChangesEGR(iextra); 
+      Zuzax::ExtraGlobalRxn *egr = electrodeC->extraGlobalRxnPathway(iextra);
+      Zuzax::RxnMolChange *rmcEGR = electrodeC->rxnMolChangesEGR(iextra); 
 
       if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
 	//processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
@@ -580,8 +580,8 @@ int main(int argc, char **argv)
       double deltaV = AopenCircuitVoltageEst  + i * 0.02;
       //electrodeA->setDeltaVoltage(deltaV); 
       electrodeA->setVoltages(deltaV, 0.0);
-      ZZCantera::RxnMolChange * rmcEGR = electrodeA->rxnMolChangesEGR(0);
-      ZZCantera::ExtraGlobalRxn * egr = electrodeA->extraGlobalRxnPathway(0);
+      Zuzax::RxnMolChange * rmcEGR = electrodeA->rxnMolChangesEGR(0);
+      Zuzax::ExtraGlobalRxn * egr = electrodeA->extraGlobalRxnPathway(0);
       IcurrNet = processGERCurrent(rmcEGR, electrodeA, 0, *iKA, 
 				   *(egr));
 
@@ -614,7 +614,7 @@ int main(int argc, char **argv)
     delete electrodeA_input;
 
 
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 

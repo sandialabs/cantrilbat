@@ -28,11 +28,7 @@
 #include <cstring>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -55,7 +51,7 @@ void printUsage() {
 int main(int argc, char **argv)
 {
  
-  ZZVCSnonideal::vcs_timing_print_lvl = 0;
+  vcs_nonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver_JAC::s_TurnOffTiming = true;
   NonlinearSolver_JAC::s_print_NumJac = true;
 

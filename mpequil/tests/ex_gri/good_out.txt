@@ -1,5 +1,5 @@
  
-  gri30_mix using EOS IdealGas:
+  gri30_mix;gri30_mix;FLUID_GAS using EOS IdealGas:
  
        temperature            2000  K
           pressure          101325  Pa

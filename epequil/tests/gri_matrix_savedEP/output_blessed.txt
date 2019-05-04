@@ -1,5 +1,5 @@
  
-  gri30_mix using EOS IdealGas:
+  gri30_mix;gri30_mix;FLUID_GAS using EOS IdealGas:
  
        temperature             500  K
           pressure          101325  Pa
@@ -72,7 +72,7 @@
             CH2CHO              0                0     
             CH3CHO              0                0     
  
-  gri30_mix using EOS IdealGas:
+  gri30_mix;gri30_mix;FLUID_GAS using EOS IdealGas:
  
        temperature             500  K
           pressure          101325  Pa
@@ -145,7 +145,7 @@
             CH2CHO              0                0     
             CH3CHO              0                0     
  
-  gri30_mix using EOS IdealGas:
+  gri30_mix;gri30_mix;FLUID_GAS using EOS IdealGas:
  
        temperature            2000  K
           pressure          101325  Pa
@@ -218,7 +218,7 @@
             CH2CHO    6.11141e-18      1.33555e-17         -80.3462
             CH3CHO    3.34175e-17      7.47388e-17         -90.7538
  
-  gri30_mix using EOS IdealGas:
+  gri30_mix;gri30_mix;FLUID_GAS using EOS IdealGas:
  
        temperature            2000  K
           pressure               1  Pa

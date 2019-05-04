@@ -1,5 +1,5 @@
  
-  airNASA9 using EOS IdealGas:
+  airNASA9;airNASA9;FLUID_GAS using EOS IdealGas:
  
        temperature            1300  K
           pressure             100  Pa
@@ -28,10 +28,10 @@
                NO+    5.54815e-23      5.54806e-23          7.13407
                 N+    1.50364e-53      7.01868e-54          24.5998
                 O+    1.34058e-41      7.14781e-42          23.7263
-                e-    5.54815e-23       1.0093e-27         -62.4316
+                e-    5.54815e-23      1.01433e-27         -62.4316
 GOAL inteEnergy = 725050, vol = 3602.2
  
-  airNASA9 using EOS IdealGas:
+  airNASA9;airNASA9;FLUID_GAS using EOS IdealGas:
  
        temperature         1303.32  K
           pressure         100.256  Pa
@@ -60,6 +60,6 @@ GOAL inteEnergy = 725050, vol = 3602.2
                NO+    8.67255e-22      8.67241e-22          9.64464
                 N+    2.90115e-52       1.3542e-52           27.113
                 O+    2.40159e-40       1.2805e-40          26.2393
-                e-    8.67255e-22      1.57767e-26         -59.6847
+                e-    8.67255e-22      1.58554e-26         -59.6847
 NUMBER OF SUCCESSES =  3780
 NUMBER OF FAILURES  =  0

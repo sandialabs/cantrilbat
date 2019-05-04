@@ -9,8 +9,8 @@
  */
 
 
-#include "cantera/equilibrium.h"
-#include "cantera/base/stringUtils.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/base/stringUtils.h"
 #include "mpequil_input.h"
 #include "mpequil_prep.h"
 
@@ -25,26 +25,18 @@
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
 
-#ifdef USE_VCSNONIDEAL
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#endif
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_prob.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/equil/vcs_internal.h"
 
 #include <cstring>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
-#ifdef USE_VCSNONIDEAL
-using namespace ZZVCSnonideal;
-#endif
+using namespace vcs_nonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -65,9 +57,9 @@ void printUsage() {
 //! This routine converts the MPEQUIL_INPUT problem into a VCS_PROB
 //! structure
 #ifdef USE_VCSNONIDEAL
-int mpequil_convert(MPEQUIL_INPUT *prob_input, ZZVCSnonideal::VCS_PROB *vprob) {
+int mpequil_convert(MPEQUIL_INPUT *prob_input, vcs_nonideal::VCS_PROB *vprob) {
 
-  ZZCantera::MP_EquilStatic *mix = prob_input->m_mp;
+  Zuzax::MP_EquilStatic *mix = prob_input->m_mp;
   /*
    *     Extract the current state information
    *     from the MultiPhase object and
@@ -131,8 +123,8 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
   /*
    * Malloc a new vcs problem strcutre
    */
-  ZZVCSnonideal::VCS_PROB *vprob =
-    new ZZVCSnonideal::VCS_PROB(prob_input->nspecies, prob_input->ne, prob_input->nphase);
+  vcs_nonideal::VCS_PROB *vprob =
+    new vcs_nonideal::VCS_PROB(prob_input->nspecies, prob_input->ne, prob_input->nphase);
 #ifdef DEBUG
   vprob->setDebugPrintLvl(VCS_Debug_Print_Lvl);
 #endif
@@ -159,7 +151,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
    } 
   int ipr = MAX(0, printFlag - 1);
   int maxit = 1000;
-  ZZVCSnonideal::VCS_SOLVE *vsolvePtr = new ZZVCSnonideal::VCS_SOLVE();
+  vcs_nonideal::VCS_SOLVE *vsolvePtr = new vcs_nonideal::VCS_SOLVE();
   int iconv = vsolvePtr->vcs(vprob, 0, ipr, ip1, maxit);
 
 
@@ -262,7 +254,7 @@ int main(int argc, char **argv)
   string commandFile = "mpequil.inp";
   // printed usage
 
-  ZZVCSnonideal::vcs_timing_print_lvl = 0;
+  vcs_nonideal::vcs_timing_print_lvl = 0;
 
   /*
    * Process the command line arguments
@@ -396,11 +388,11 @@ int main(int argc, char **argv)
     delete prob_input;
 
 
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;
