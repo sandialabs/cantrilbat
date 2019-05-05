@@ -13,7 +13,7 @@ States Government.
         Carrier Species (used in diff. calcs) = electronSHE
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1     electronSHE          1.0000       4.855E+00       1.000E+00
+              1     electronSHE          1.0000       4.831E+00       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -25,14 +25,14 @@ INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
                    E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
-        Molecular Weight = 0.000545858 gm/mol
+        Molecular Weight = 0.00054858 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = -19.481160  kJ/gmol 
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.000205984 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 0.000205984 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.000207011 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.000207011 m3/kmol
         Molar Volume formulation for eos type 9 is not known to cttables
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000:
@@ -486,7 +486,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |      metalElectrons|   3           2   0.0010917 |            -2                 0 |
+               |      metalElectrons|   3           2   0.0010972 |            -2                 0 |
                |   ZnSO4_electrolyte|   3           1      65.379 |             2                 0 |
                |               Zn(S)|   3          -1      -65.38 |             0                 0 |
                |        zinc_surface|   2           0           0 |             0                 0 |
@@ -577,7 +577,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
         Carrier Species (used in diff. calcs) = electronSHE
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1     electronSHE          1.0000       4.855E+00       1.000E+00
+              1     electronSHE          1.0000       4.831E+00       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "ZnSO4_electrolyte", with name, "ZnSO4_electrolyte", with eosType, "UnknownPhaseType"
@@ -631,7 +631,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metalElectro
         This reaction is a charge transfer reaction, n = 1
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |      metalElectrons|   3          -1 -0.00054586 |             1                 0 |
+               |      metalElectrons|   3          -1 -0.00054858 |             1                 0 |
                |   ZnSO4_electrolyte|   3        -0.5     -32.689 |            -1                 0 |
                |               Zn(S)|   3         0.5       32.69 |             0                 0 |
                |        zinc_surface|   2           0           0 |             0                 0 |

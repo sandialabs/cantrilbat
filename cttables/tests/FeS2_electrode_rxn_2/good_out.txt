@@ -13,7 +13,7 @@ States Government.
         Carrier Species (used in diff. calcs) = electron_Li_LiCl
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1electron_Li_LiCl          1.0000       1.832E+05       1.000E+00
+              1electron_Li_LiCl          1.0000       1.823E+05       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -25,16 +25,16 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
                    E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
-        Molecular Weight = 0.000545858 gm/mol
+        Molecular Weight = 0.00054858 gm/mol
         Heat of formation (298.15K) = 398.142816  kJ/gmol 
         DeltaGf (298.15K) = 406.080354  kJ/gmol 
                 Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 400 K
         Maximum Temperature = 2700 K
-        Partial    Molar Volume at (T,P) of (723.15,101325) = 5.45858e-09 m3/kmol
-        StandState Molar Volume at (T,P) of (723.15,101325) = 5.45858e-09 m3/kmol
+        Partial    Molar Volume at (T,P) of (723.15,101325) = 5.4858e-09 m3/kmol
+        StandState Molar Volume at (T,P) of (723.15,101325) = 5.4858e-09 m3/kmol
         StoichSubstance constant density = 100000 kg m-3 
-        species Molar Volume = 5.45858E-09 m**3 / kmol <- constant
+        species Molar Volume = 5.4858E-09 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
@@ -523,7 +523,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |metal_Li_LiCl_electrons|   3          -1 -0.00054586 |             1                 0 |
+               |metal_Li_LiCl_electrons|   3          -1 -0.00054858 |             1                 0 |
                |   LiKCl_electrolyte|   3          -1     -6.9405 |            -1                 0 |
                |         Li3Fe2S4(S)|   3          -1     -260.78 |             0                 0 |
                | Li[2+x]Fe[1-x]S2(S)|   3           2      267.72 |             0                 0 |
@@ -619,7 +619,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "metal_Li_LiCl_electrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |metal_Li_LiCl_electrons|   3          -1 -0.00054586 |             1            1.8537 |
+               |metal_Li_LiCl_electrons|   3          -1 -0.00054858 |             1            1.8537 |
                |   LiKCl_electrolyte|   3          -1     -6.9405 |            -1                 0 |
                |         Li3Fe2S4(S)|   3           0           0 |             0                 0 |
                | Li[2+x]Fe[1-x]S2(S)|   3         0.5       66.93 |             0                 0 |
@@ -748,7 +748,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "metal_Li_LiCl_electrons"
         Carrier Species (used in diff. calcs) = electron_Li_LiCl
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1electron_Li_LiCl          1.0000       1.832E+05       1.000E+00
+              1electron_Li_LiCl          1.0000       1.823E+05       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "LiKCl_electrolyte", with name, "LiKCl_electrolyte", with eosType, "IonsFromNeutralMolecule"
@@ -824,7 +824,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiC
         This reaction is a charge transfer reaction, n = 1
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |metal_Li_LiCl_electrons|   3           1  0.00054586 |            -1                 0 |
+               |metal_Li_LiCl_electrons|   3           1  0.00054858 |            -1                 0 |
                |   LiKCl_electrolyte|   3           1      6.9405 |             1                 0 |
                |         Li3Fe2S4(S)|   3           1      260.78 |             0                 0 |
                | Li[2+x]Fe[1-x]S2(S)|   3          -2     -267.72 |             0                 0 |

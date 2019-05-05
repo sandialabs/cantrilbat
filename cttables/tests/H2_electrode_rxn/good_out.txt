@@ -13,7 +13,7 @@ States Government.
         Carrier Species (used in diff. calcs) = Pt_electron
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1     Pt_electron          1.0000       4.635E+03       1.000E+00
+              1     Pt_electron          1.0000       4.612E+03       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -25,14 +25,14 @@ INFORMATION TABLE FOR SPECIES "Pt_electron" IN PHASE "Pt_H2electrons"
                    E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
-        Molecular Weight = 0.000545858 gm/mol
+        Molecular Weight = 0.00054858 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = -19.481160 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 2.15754e-07 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 2.15754e-07 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 2.1683e-07 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 2.1683e-07 m3/kmol
         Molar Volume formulation for eos type 9 is not known to cttables
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000:
@@ -474,7 +474,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Pt_H2electrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |      Pt_H2electrons|   3          -1 -0.00054586 |             1                 0 |
+               |      Pt_H2electrons|   3          -1 -0.00054858 |             1                 0 |
                |    NaCl_electrolyte|   3          -1     -1.0074 |            -1                 0 |
                |               h2gas|   3           0           0 |             0                 0 |
                |    platinum_surface|   2           0      1.0079 |             0                 0 |
@@ -613,7 +613,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |      Pt_H2electrons|   3           1  0.00054586 |            -1                 1 |
+               |      Pt_H2electrons|   3           1  0.00054858 |            -1                 1 |
                |    NaCl_electrolyte|   3           1      1.0074 |             1                 0 |
                |               h2gas|   3          -1     -2.0159 |             0                 0 |
                |    platinum_surface|   2           0      1.0079 |             0                 0 |
@@ -704,7 +704,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
         Carrier Species (used in diff. calcs) = Pt_electron
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1     Pt_electron          1.0000       4.635E+03       1.000E+00
+              1     Pt_electron          1.0000       4.612E+03       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "NaCl_electrolyte", with name, "NaCl_electrolyte", with eosType, "UnknownPhaseType"
@@ -759,7 +759,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "Pt_H2electro
         This reaction is a charge transfer reaction, n = 2
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |      Pt_H2electrons|   3          -2  -0.0010917 |             2                 0 |
+               |      Pt_H2electrons|   3          -2  -0.0010972 |             2                 0 |
                |    NaCl_electrolyte|   3          -2     -2.0148 |            -2                 0 |
                |               h2gas|   3           1      2.0159 |             0                 0 |
                |    platinum_surface|   2           0           0 |             0                 0 |

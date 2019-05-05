@@ -82,7 +82,7 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "electronSHE" IN PHASE "metalElectrons"
         Elemental Composition:
                   E: 1
         Electronic Charge = -1.000000
-        Molecular Weight = 0.000545858 gm/mol
+        Molecular Weight = 0.00054858 gm/mol
         Heat of formation (298.15K) = 0.0000  kJ/gmol 
         DeltaGf (298.15K) = -19.4812  kJ/gmol 
                 Phase and Species Reference Pressure = 101325 Pa
@@ -434,7 +434,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
                |               Al(S)|   3          -1     -26.982 |             0                 0 |
-               |      metalElectrons|   3           3   0.0016376 |            -3                 0 |
+               |      metalElectrons|   3           3   0.0016457 |            -3                 0 |
                |    AlCl_electrolyte|   3           1       26.98 |             3                 0 |
                |    aluminum_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
@@ -482,7 +482,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !    -1.734 |   2.48e-48     2.48e-48    -3.25e-62 |    7.18e-44    -7.18e-44     -9.41e-58 |
+               !    -1.734 |   2.48e-48     2.48e-48    -3.19e-62 |    7.18e-44    -7.18e-44     -9.24e-58 |
                !        -1 |   7.67e-30     8.02e-67     7.67e-30 |    2.22e-25    -2.32e-62      2.22e-25 |
                !      -0.8 |   8.41e-25     7.32e-72     8.41e-25 |    2.43e-20    -2.12e-67      2.43e-20 |
                !      -0.6 |   9.22e-20     6.68e-77     9.22e-20 |    2.67e-15    -1.93e-72      2.67e-15 |
@@ -500,7 +500,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |       Ifwd         Irev        Inet  |    al_site |
                |   Volts   |               (amps/cm2)             |            |
                -----------------------------------------------------------------
-               !    -1.734 |   7.18e-44    -7.18e-44    -9.41e-58 |         1  |
+               !    -1.734 |   7.18e-44    -7.18e-44    -9.24e-58 |         1  |
                !        -1 |   2.22e-25    -2.32e-62     2.22e-25 |         1  |
                !      -0.8 |   2.43e-20    -2.12e-67     2.43e-20 |         1  |
                !      -0.6 |   2.67e-15    -1.93e-72     2.67e-15 |         1  |
