@@ -10,19 +10,14 @@
  * U.S. Government retains certain rights in this software.
  */
 
-#ifndef IMPORTPL_H
-#define IMPORTPL_H
+#ifndef ZZ_IMPORTPL_H
+#define ZZ_IMPORTPL_H
 
-#include "cantera/base/config.h"
-
+#include "zuzax/base/config.h"
 #include <string>
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class PhaseList;
@@ -34,7 +29,7 @@ class PhaseList;
  *  This returns the number of phases found, processed, and added to the PhaseList object.
  *
  *  @param[in]               pl                  Pointer to the PhaseList object
- *  @param[in]               canteraFile         Cantera CTML file
+ *  @param[in]               canteraFile         Zuzax CTML file
  *
  *  @return                                      Returns the number of phases added to the PhaseList object.
  */

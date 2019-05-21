@@ -18,7 +18,7 @@
 #include "Electrode.h"
 #include "Electrode_Factory.h"
 
-#include "cantera/thermo.h"
+#include "zuzax/thermo.h"
 
 
 extern m1d::ProblemStatementCell PSinput;

@@ -10,7 +10,7 @@
 
 #include "Electrode_SurfaceRegion.h"
 #include "Electrode_RadialDiffRegions.h"
-#include "cantera/integrators.h"
+#include "zuzax/integrators.h"
 
 #include "BlockEntryGlobal.h"
 
@@ -27,11 +27,7 @@ using namespace TKInput;
 #endif
 
 //--------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 Electrode_SurfaceRegion::Electrode_SurfaceRegion() :

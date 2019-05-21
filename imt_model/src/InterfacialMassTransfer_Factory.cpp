@@ -12,18 +12,7 @@
 #include "imtPSS_NoSurf_DiffBL.h"
 #include "InterfacialMassTransfer_1to1Distrib.h"
 
-#ifdef useZuzaxNamespace
-using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
-
-
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {  
   //====================================================================================================================
   /*
@@ -56,7 +45,7 @@ namespace Cantera
     for (std::map<IMT_Types_Enum, std::string>::iterator pos = IMT_types_string.begin();
          pos != IMT_types_string.end(); ++pos) {
       string_IMT_types[pos->second] = pos->first;
-      std::string lll =  ZZCantera::lowercase(pos->second);
+      std::string lll =  Zuzax::lowercase(pos->second);
       string_IMT_types[lll] = pos->first;
     }
   }
@@ -94,7 +83,7 @@ namespace Cantera
     }
     std::map<std::string, IMT_Types_Enum>::iterator pos = string_IMT_types.find(input_string);
     if (pos == string_IMT_types.end())  {
-      std::string iii = ZZCantera::lowercase(input_string);
+      std::string iii = Zuzax::lowercase(input_string);
       pos = string_IMT_types.find(iii);
       if (pos == string_IMT_types.end())  {
         return UNKNOWN_IMT;
@@ -105,7 +94,7 @@ namespace Cantera
   //====================================================================================================================
   // Private constructors prevents usage
   InterfacialMassTransfer_Factory::InterfacialMassTransfer_Factory() :
-    ZZCantera::FactoryBase()
+    Zuzax::FactoryBase()
   {
   }
   //====================================================================================================================
@@ -142,7 +131,7 @@ namespace Cantera
       ee = new imtPSS_NoSurf_DiffBL();
  
     default: 
-      throw CanteraError("IMT_Factory::newIMTObject()",
+      throw ZuzaxError("IMT_Factory::newIMTObject()",
 			 "Unknown IMT model: " + model);
     }
     return ee;
@@ -184,7 +173,7 @@ namespace Cantera
       break;
  
     default: 
-      throw CanteraError("IMT_Factory::newIMTObject()",
+      throw ZuzaxError("IMT_Factory::newIMTObject()",
 			 "Unknown IMT model: " + model);
     }
 

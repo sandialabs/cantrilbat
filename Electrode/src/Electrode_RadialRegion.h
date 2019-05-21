@@ -1,5 +1,5 @@
 /*
- * $Id: Electrode_RadialRegion.h 298 2012-08-08 20:15:48Z hkmoffa $
+ * @file Electrode_RadialRegion.h 
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -13,11 +13,7 @@
 
 #include "Electrode_Integrator.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //! Specific input for a region that has a radial morphology
@@ -151,7 +147,7 @@ class Electrode_RadialDiffRegions;
  *  Also the region lies between a starting radius and an ending radius.
  *
  */
-class Electrode_RadialRegion : public ZZCantera::Electrode_Integrator
+class Electrode_RadialRegion : public Zuzax::Electrode_Integrator
 {
 public:
     //! Constructor

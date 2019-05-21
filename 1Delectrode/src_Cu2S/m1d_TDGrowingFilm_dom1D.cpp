@@ -321,7 +321,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res, const bool doTimeDependentRes
 
         // Calculate concentrations
 
-        // Set the Cantera state
+        // Set the Zuzax state
 
         // Calculate the density of the fluid
 
@@ -382,7 +382,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res, const bool doTimeDependentRes
 
     // Calculate concentrations
 
-    // Set the Cantera state
+    // Set the Zuzax state
 
     // Calculate the density of the fluid
 
@@ -438,7 +438,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res, const bool doTimeDependentRes
 
       // Calculate concentrations
 
-      // Set the Cantera state
+      // Set the Zuzax state
 
       // Calculate the density of the fluid
 
@@ -462,7 +462,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res, const bool doTimeDependentRes
 
       // Calculate concentrations
 
-      // Set the Cantera state
+      // Set the Zuzax state
 
       // Calculate the density of the fluid
 

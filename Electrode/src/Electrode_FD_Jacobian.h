@@ -19,11 +19,7 @@
 #include <list>
 #include <map>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //! Implementation of the Electrode_Jacobian interface that uses numerical finite differencing to calculate source term 

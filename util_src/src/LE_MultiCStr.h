@@ -17,12 +17,11 @@
 
 #include "LE_LineEntry.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
-
-
-//!  This class stores character strings from 1 or more
-//!  keylines.
+//==================================================================================================================================
+//!  This class stores character strings from 1 or more  keylines.
 /*!
  *   This sets up the <b>LineEntry</b> special case for the entry of
  *   Multiple lines of text input.
@@ -185,18 +184,17 @@ public:
      *   The minimum number of tokens is equal to one. In other words we
      *   require something in the string as a default.
      *
-     *   @param keyName Input keystring to be matched.
-     *   @param addrVal  Address of the C ** string variable that
-     *                   will be used to store the result
-     *   @param maxval   Maximum number of tokens allowed in the string
-     *                   The default is MAXTOKENS
-     *   @param minval   Minimum number of tokens allowed in the string
-     *                   The default is 1
-     *   @param numRL    Number or instances of the keystring that
-     *                   must be present for the input deck to be
-     *                   complete. The default is zero.
-     *   @param varName  Name of the variable to be used for describing
-     *                   output errors.
+     *   @param[in]          keyName             Input keystring to be matched.
+     *   @param[in]          addrVal             Address of the C ** string variable that
+     *                                           will be used to store the result
+     *   @param[in]          maxval              Maximum number of tokens allowed in the string
+     *                                           The default is MAXTOKENS
+     *   @param[in]          minval              Minimum number of tokens allowed in the string
+     *                                           The default is 1
+     *   @param[in]          numRL               Number or instances of the keystring that
+     *                                           must be present for the input deck to be
+     *                                           complete. The default is zero.
+     *   @param[in]          varName             Name of the variable to be used for describing output errors.
      *
      *  Example
      * ---------
@@ -221,7 +219,7 @@ public:
      * Result:
      *            spname = "H2O(l)"
      *
-     *  Input Entry
+     * Input Entry
      *            Name of the Species = H2O (l)
      * Result
      *               -> exception thrown

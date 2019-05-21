@@ -7,13 +7,9 @@
 
 #include "m1d_SDD_Mixed.h"
 
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"  // ion properties
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 class Electrode;
 }
@@ -95,12 +91,12 @@ public:
     /*!
      *   We own the electrode object
      */
-    ZZCantera::Electrode* ElectrodeA_;
+    Zuzax::Electrode* ElectrodeA_;
 
     //! Pointer to the thermo object for the molten salt
     /*!
      */
-    ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
+    Zuzax::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
     //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
     friend class SurDomain_FlatLiSiAnode;

@@ -292,7 +292,7 @@ public:
      *                                             Defaults to false.
      */
     virtual void
-    saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+    saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
                const double t, bool duplicateOnAllProcs = false) override;
 
     //! Generate the initial conditions for the problem. This routine finds the solution vector and solution dot vector given
@@ -521,7 +521,7 @@ protected:
     //!  Current Thermo value of quantities at the current point
 
 
-    ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
+    Zuzax::Array2D mfElectrolyte_Soln_Cell_old_;
 
     // --------------------------------------------------------------------------
     //!  Current transport values of quantities at the current point

@@ -33,7 +33,7 @@ namespace m1d
   {
      pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
      if (!pscInput_ptr_) {
-      ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
+      Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
                           "Bad dynamic cast");
      } 
      InitializeDomainPicture();
@@ -44,7 +44,7 @@ namespace m1d
   {
     pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
     if (!pscInput_ptr_) {
-      ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
+      Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
                           "Bad dynamic cast");
     }
     if (probNum == 1) {

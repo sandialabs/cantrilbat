@@ -1,7 +1,7 @@
 #include "exp_BoundaryCondition.h"
 #include "exp_DakotaInterface.h"
 
-using namespace Cantera;
+using namespace Zuzax;
 
 
 int main() {

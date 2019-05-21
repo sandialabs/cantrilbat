@@ -9,19 +9,19 @@
 #include "tok_input_util.h"
 
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/thermo/MolalityVPSSTP.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
+#include "zuzax/thermo/FixedChemPotSSTP.h"
 
-#include "cantera/numerics/solveProb.h"
-#include "cantera/thermo/SurfPhase.h"
-#include "cantera/thermo/SurfPhase.h"
+#include "zuzax/numerics/solveProb.h"
+#include "zuzax/thermo/SurfPhase.h"
+#include "zuzax/thermo/SurfPhase.h"
 
-#include "cantera/solvers.h"
+#include "zuzax/solvers.h"
 
 
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 
 
 #include "BlockEntryGlobal.h"
@@ -47,11 +47,7 @@ using namespace mdpUtil;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif  
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   //======================================================================================================================
@@ -500,7 +496,7 @@ namespace Cantera
   }
   //======================================================================================================================
   void ErrorModelType(int pos, std::string actual, std::string expected) {
-    throw ZZCantera::CanteraError("InterfacialMassTransfer::electrode_model_create() model id",
+    throw Zuzax::ZuzaxError("InterfacialMassTransfer::electrode_model_create() model id",
 				"At pos " + int2str(pos) + ", expected phase " + expected + 
 		       " but got phase " + actual);
   }
@@ -597,7 +593,7 @@ namespace Cantera
 	ReactingSurDomain *rsd = new ReactingSurDomain();
 	int ok = rsd->importFromPL(this, -1, i);
 	if (!ok) {
-	  throw CanteraError("cttables main:", "rSurDomain returned an error"); 
+	  throw ZuzaxError("cttables main:", "rSurDomain returned an error"); 
 	}
 	// We carry a list of pointers to ReactingSurDomain
 	RSD_List_[i] = rsd;
@@ -727,13 +723,13 @@ namespace Cantera
       }
     }
     if (solnAPhase_ == npos) {
-      throw CanteraError("InterfacialMassTransfer::model_create()", "Couldn't find solnA phase");
+      throw ZuzaxError("InterfacialMassTransfer::model_create()", "Couldn't find solnA phase");
     }
     if (solnBPhase_ == npos) {
-      throw CanteraError("InterfacialMassTransfer::model_create()", "Couldn't find solnB phase");
+      throw ZuzaxError("InterfacialMassTransfer::model_create()", "Couldn't find solnB phase");
     }
     if (solnAPhase_ == solnBPhase_) {
-      throw CanteraError("InterfacialMassTransfer::model_create()", "Phase A and Phase B are the same");
+      throw ZuzaxError("InterfacialMassTransfer::model_create()", "Phase A and Phase B are the same");
     }
 
 
@@ -1020,7 +1016,7 @@ namespace Cantera
   // ------------------------------ OBTAIN STATIC PROBLEM INFORMATION ----------------------------
   
   //====================================================================================================================
-  ZZCantera::ReactingSurDomain * InterfacialMassTransfer::currOuterReactingSurface() {
+  Zuzax::ReactingSurDomain * InterfacialMassTransfer::currOuterReactingSurface() {
     for (size_t isk = 0; isk < m_NumSurPhases; isk++) {
       if (ActiveKineticsSurf_[isk]) {
 	return RSD_List_[isk];
@@ -1029,7 +1025,7 @@ namespace Cantera
     return 0;
   }
   //====================================================================================================================
-  ZZCantera::ReactingSurDomain * InterfacialMassTransfer::reactingSurface(size_t iSurf) {
+  Zuzax::ReactingSurDomain * InterfacialMassTransfer::reactingSurface(size_t iSurf) {
     return RSD_List_[iSurf];
   }
   //====================================================================================================================
@@ -1102,7 +1098,7 @@ namespace Cantera
   size_t InterfacialMassTransfer::ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const {
     ReactingSurDomain *rsd = RSD_List_[isk];
     if (!rsd) {
-      throw CanteraError("ReactingSurfacePhaseIndex", "Reacting surface not found");
+      throw ZuzaxError("ReactingSurfacePhaseIndex", "Reacting surface not found");
     }
     return rsd->PLtoKinPhaseIndex_[PLph];
   }
@@ -1216,7 +1212,7 @@ namespace Cantera
 
   void InterfacialMassTransfer::setTime(double time) {
     if (pendingIntegratedStep_) {
-	throw CanteraError("InterfacialMassTransfer::setTime",
+	throw ZuzaxError("InterfacialMassTransfer::setTime",
 			   "called when there is a pending step");
     }
     t_init_init_ = time;
@@ -1250,7 +1246,7 @@ namespace Cantera
   void InterfacialMassTransfer::setPhaseMoleNumbers(size_t iph, const double * const moleNum) {
     if (pendingIntegratedStep_) {
       if (iph != solnAPhase_) {
-	throw CanteraError("InterfacialMassTransfer::setPhaseMoleNumbers",
+	throw ZuzaxError("InterfacialMassTransfer::setPhaseMoleNumbers",
 			   "called when there is a pending step");
       }
     }
@@ -1593,15 +1589,15 @@ namespace Cantera
       double mv = tp.molarVolume();
       double palt = mv * phaseMoles_final_[iph];
       if (palt < -1.0E-15) {
-	throw CanteraError(" InterfacialMassTransfer::TotalVol() ", " phase volume is negative " + fp2str(palt));
+	throw ZuzaxError(" InterfacialMassTransfer::TotalVol() ", " phase volume is negative " + fp2str(palt));
       }
       if (psum < -1.0E-15) {
-	throw CanteraError(" InterfacialMassTransfer::TotalVol() ", " phase volume is negative " + fp2str(psum));
+	throw ZuzaxError(" InterfacialMassTransfer::TotalVol() ", " phase volume is negative " + fp2str(psum));
       }
       double denom = palt + psum + 1.0E-9;
       if (tp.eosType() != cLattice) {
 	if (fabs((palt - psum) / denom) > 1.0E-4) {
-	  throw CanteraError(" InterfacialMassTransfer::TotalVol() ",
+	  throw ZuzaxError(" InterfacialMassTransfer::TotalVol() ",
 			     " internal inconsistency " + fp2str(palt) + " " + fp2str(psum));
 	}
       }
@@ -1997,7 +1993,7 @@ namespace Cantera
   void InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm(doublevalue* const phaseMolesCreated) const
   { 
     if (!pendingIntegratedStep_) {
-      throw CanteraError(" InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm",
+      throw ZuzaxError(" InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm",
 			   "no pending integration step");
     }
     double sum = 0.0;
@@ -2025,7 +2021,7 @@ namespace Cantera
  double InterfacialMassTransfer::getIntegratedPhaseMassSourceTerm(size_t iph) const
   {
     if (!pendingIntegratedStep_) {
-      throw CanteraError(" InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm",
+      throw ZuzaxError(" InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm",
 			 "no pending integration step");
     }
     double sum = 0.0;
@@ -2319,7 +2315,7 @@ namespace Cantera
   int InterfacialMassTransfer::integrate(double deltaT, double GlobalRtolSrcTerm, double GlobalAtolSrcTerm,
 					 int fieldInterpolationType, int subIntegrationType, SubIntegrationHistory * sih)
   {
-    throw CanteraError("InterfacialMassTransfer::integrate()",
+    throw ZuzaxError("InterfacialMassTransfer::integrate()",
 		       "base class called");
     pendingIntegratedStep_ = 1;
     return 0;
@@ -2352,7 +2348,7 @@ namespace Cantera
     tbase = MAX(Tinitial, tbase);
     tbase = MAX(tbase, t_final_final_);
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-      throw CanteraError("InterfacialMassTransfer::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
+      throw ZuzaxError("InterfacialMassTransfer::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
 			 + fp2str(t_final_final_));
     }
 
@@ -2624,7 +2620,7 @@ namespace Cantera
   double InterfacialMassTransfer::integratedSourceTerm(doublevalue* const spMoleDelta) const 
   {
     if (t_final_ == t_init_) {
-      throw CanteraError(" InterfacialMassTransfer::integratedSourceTerm()", "tfinal == tinit");
+      throw ZuzaxError(" InterfacialMassTransfer::integratedSourceTerm()", "tfinal == tinit");
     }
     /*
      *  We may do more here to ensure that the last integration is implicit

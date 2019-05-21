@@ -9,11 +9,7 @@
 
 using namespace std;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //======================================================================================================================
 Electrode_InfCapacity::Electrode_InfCapacity() :
@@ -247,7 +243,7 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(double* const phaseMo
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMolesTransfered[iph] = 0.0;
-        ZZCantera::ThermoPhase& tp = thermo(iph);
+        Zuzax::ThermoPhase& tp = thermo(iph);
         string pname = tp.id();
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();

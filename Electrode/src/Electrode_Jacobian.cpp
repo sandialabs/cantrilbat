@@ -1,5 +1,5 @@
 /*
- * $Id: Electrode_Jacobian.cpp 496 2013-01-07 21:15:37Z hkmoffa $
+ *  @file Electrode_Jacobian.cpp 
  */
 
 #include "Electrode_Jacobian.h"
@@ -7,11 +7,7 @@
 #include <map>
 #include <vector>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :

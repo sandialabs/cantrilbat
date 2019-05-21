@@ -22,11 +22,7 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //======================================================================================================================
 Electrode_SimplePhaseChangeDiffusion::Electrode_SimplePhaseChangeDiffusion() :

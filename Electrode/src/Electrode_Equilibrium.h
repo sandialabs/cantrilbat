@@ -1,12 +1,9 @@
 /**
- * Predict the stability of a single phase that is currently zereod.
+ *  @file Electrod_Equilibrium.h Predict the stability of a single phase that is currently zereod.
  *
  *  This routine fills in an estimate for the solution
  *  Return 1 if the phases are stable and 0 if they are not
  *
- */
-/*
- * $Id: Electrode_PhaseStability.h 496 2013-01-07 21:15:37Z hkmoffa $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -23,11 +20,7 @@
 #include <string>
 #include <vector>
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
 class MP_EquilStatic;

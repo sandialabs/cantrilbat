@@ -6,21 +6,14 @@
  *
  */
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_internal.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_internal.h"
 
 #include <cstring>
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#define ZZCantera Zuzax
-#else
-using namespace Cantera;
-#define ZZCantera Cantera
-#endif
-
 using namespace std;
 
 void printUsage() {
@@ -113,7 +106,7 @@ int main(int argc, char **argv) {
 
     g.setState_TPX(T, pres, DATA_PTR(Xmol));
     try {
-      retnSub = ZZCantera::vcs_equilibrate(g, "TP", estimateEquil, printLvl, solver, 1.0e-9, 1000, 100, -99);
+      retnSub = Zuzax::vcs_equilibrate(g, "TP", estimateEquil, printLvl, solver, 1.0e-9, 1000, 100, -99);
 
       cout << g;
       if (retnSub != 1) {
@@ -128,7 +121,7 @@ int main(int argc, char **argv) {
 	exit(-1);
       }
       numSucc++;
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       cout << g;
       showErrors(cerr);
       cerr << "ERROR: MultiEquil equilibration step failed at " 
@@ -147,7 +140,7 @@ int main(int argc, char **argv) {
 
     return numFail;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "ERROR: program terminating due to unforeseen circumstances." << endl;
     return -1;

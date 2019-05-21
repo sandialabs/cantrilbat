@@ -20,7 +20,7 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_GlobalIndices.h"
 
-#include "cantera/base/Array.h"
+#include "zuzax/base/Array.h"
 
 //=====================================================================================
 /*
@@ -456,7 +456,7 @@ int main(int argc, char **argv)
         /*
          * Cleanup
          */
-        ZZCantera::appdelete();
+        Zuzax::appdelete();
         safeDelete(jac);
         safeDelete(ps);
 
@@ -478,11 +478,11 @@ int main(int argc, char **argv)
 
     }
     /*
-     *  If we have thrown a CanteraError of some sort, we catch it here and print out
+     *  If we have thrown a ZuzaxError of some sort, we catch it here and print out
      *  an informative error message.
      */
-    catch (ZZCantera::CanteraError) {
-        ZZCantera::showErrors();
+    catch (Zuzax::ZuzaxError) {
+        Zuzax::showErrors();
         return -1;
     }
     /*
@@ -501,9 +501,9 @@ int main(int argc, char **argv)
     }
 
     /*
-     * Release certain Cantera resources
+     * Release certain Zuzax resources
      */
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
 #ifdef HAVE_MPI
     MPI_Finalize();

@@ -128,7 +128,7 @@ public:
    *                             false, the xml_node info will only exist on proc 0.
    */
   virtual void
-  saveDomain(ZZCantera::XML_Node& oNode,
+  saveDomain(Zuzax::XML_Node& oNode,
              const Epetra_Vector *soln_GlAll_ptr,
              const Epetra_Vector *solnDot_GlAll_ptr,
              const double t,
@@ -263,13 +263,13 @@ protected:
   /*!
    *   We do not own the electrode object
    */
-  ZZCantera::Electrode *ElectrodeC_;
+  Zuzax::Electrode *ElectrodeC_;
 
   //! Thermodynamics object for the liquid electrolyte
   /*!
    *  This is a shallow pointer
    */
-  ZZCantera::ThermoPhase *electrolyteThermo_;
+  Zuzax::ThermoPhase *electrolyteThermo_;
 
   //! Pointer to the bulk domain description object
   //! for the electrolyte

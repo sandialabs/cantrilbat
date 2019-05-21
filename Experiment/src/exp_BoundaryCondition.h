@@ -14,15 +14,15 @@
 #ifndef EXP_BOUNDARYCONDITION
 #define EXP_BOUNDARYCONDITION
 
-#include "cantera/base/ct_defs.h" 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ct_defs.h" 
+#include "zuzax/base/ctexceptions.h"
 
-#include "cantera/base/xml.h"
-#include "cantera/base/ctml.h"
-using namespace ctml;
+#include "zuzax/base/xml.h"
+#include "zuzax/base/ctml.h"
+using namespace ztml;
 
 
-namespace Cantera {
+namespace Zuzax {
 
 /** 
  * The BoundaryCondition class provides a single scalar dependent 
@@ -162,7 +162,7 @@ class BoundaryCondition {
    *  @return  returns a double, though we will never get there
    */
   double err(std::string msg) const{
-    throw CanteraError("BoundaryCondition Base Class\n",
+    throw ZuzaxError("BoundaryCondition Base Class\n",
 		       "**** Method "+ msg +" not implemented\n");
     return 0.0;
   }
@@ -349,6 +349,6 @@ class BClineartable : public BoundaryCondition {
 };
 
 
-} //namespace Cantera
+} 
 
 #endif // EXP_BOUNDARYCONDITION

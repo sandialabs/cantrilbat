@@ -7,17 +7,13 @@
  *
  */
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 
 #include <cstdio>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 int main(int argc, char **argv) {
   try {
@@ -69,7 +65,7 @@ int main(int argc, char **argv) {
 
     return 0;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

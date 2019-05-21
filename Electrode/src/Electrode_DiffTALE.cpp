@@ -9,11 +9,11 @@
 #include "tok_input_util.h"
 
 #include "Electrode_DiffTALE.h"
-#include "cantera/integrators.h"
+#include "zuzax/integrators.h"
 #include "Electrode_RadialDiffRegions.h"
 #include "EState_RadialDistrib.h"
 
-#include "cantera/base/vec_functions.h"
+#include "zuzax/base/vec_functions.h"
 
 using namespace std;
 using namespace BEInput;
@@ -30,11 +30,7 @@ using namespace TKInput;
 
 static const double ONE_THIRD = 1.0 / 3.0;
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 /*
@@ -2401,14 +2397,6 @@ void  Electrode_DiffTALE::gatherIntegratedSrcPrediction()
     }
 }
 //==================================================================================================================================
-//  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
-/*
- *  (virtual from Electrode_Integrator)
- *
- *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
- *
- *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
- */
 double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
     double pnorm = l0norm_PC_NLS(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
@@ -3977,7 +3965,7 @@ void  Electrode_DiffTALE::showOneResid(const std::string &title, int indentSpace
     drawline(indentSpaces, 80);
 }
 //====================================================================================================================
-//  Extract the ROP of the reaction fronts from Cantera within this routine
+//  Extract the ROP of the reaction fronts from Zuzax within this routine
 /*
  *  In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
  *
@@ -4193,7 +4181,7 @@ void Electrode_DiffTALE::setState_EState(const EState& esb)
         // relativeElectronsDischargedPerMole_
         // relativeDeptOfDischarge_
         // capacityDischargedToDate_
-        // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
+        // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Zuzax::Faraday;
         electronKmolDischargedToDate_      = es.electronKmolDischargedToDate_;
 
         //for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {

@@ -20,20 +20,16 @@
 #endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 Electrode_Error::Electrode_Error(const std::string& proc, const std::string& msg) :
-    ZZCantera::ZuzaxError(proc, msg)
+    Zuzax::ZuzaxError(proc, msg)
 {
 }
 //==================================================================================================================================
 Electrode_Error::Electrode_Error(const std::string& proc, const char* fmt, ...) :
-    ZZCantera::ZuzaxError()
+    Zuzax::ZuzaxError()
 {
     procedure_ = proc;
     msg_.resize(1024);
@@ -72,7 +68,7 @@ Electrode_Error::~Electrode_Error() throw()
 }
 //==================================================================================================================================
 Electrode_Error::Electrode_Error() :
-    ZZCantera::ZuzaxError()
+    Zuzax::ZuzaxError()
 {
 }
 //==================================================================================================================================
@@ -81,16 +77,16 @@ Electrode_Error::Electrode_Error() :
 namespace esmodel
 {
 //==================================================================================================================================
-void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string& procedure, const std::string& msg)
+void Electrode_Warning(const Zuzax::Electrode& e,  const std::string& procedure, const std::string& msg)
 {
     int eDom = e.electrodeDomainNumber_;
     int eCell = e.electrodeCellNumber_;
     int printLvl_ = e.printLvl_;
 
     if (printLvl_) {
-        ZZCantera::Electrode_Types_Enum etype = e.electrodeType();
+        Zuzax::Electrode_Types_Enum etype = e.electrodeType();
         std::string estring = Electrode_Types_Enum_to_string(etype);
-        std::string pmsg = "Electrode_Warning: dom: " + ZZCantera::int2str(eDom) + " Cell: " + ZZCantera::int2str(
+        std::string pmsg = "Electrode_Warning: dom: " + Zuzax::int2str(eDom) + " Cell: " + Zuzax::int2str(
                                eCell) + ": " + estring + ":" + procedure;
         std::cerr << pmsg << " " << msg << std::endl;
     }

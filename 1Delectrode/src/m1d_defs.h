@@ -46,23 +46,9 @@
 #include "configCantrilbat.h"
 #include "m1d_exception.h"
 
-#include "cantera/base/ct_defs.h"
-#include "cantera/base/stringUtils.h"
+#include "zuzax/base/ct_defs.h"
+#include "zuzax/base/stringUtils.h"
 
-/*
- * Use ZZCantera for namespace identification
- */
-#ifdef useZuzaxNamespace
-//! Generic name for the Zuzax namespace definition
-#ifndef ZZCantera
-#define ZZCantera Zuzax
-#endif
-#else
-#ifndef ZZCantera
-//! Generic name for the Zuzax namespace definition
-#define ZZCantera Cantera
-#endif
-#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d

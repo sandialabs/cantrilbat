@@ -10,8 +10,8 @@
 
 
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
 
 #include "BlockEntryGlobal.h"
@@ -33,11 +33,7 @@ using namespace ca_ab;
 
 #include <string>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 /*************************************************************************
  *
@@ -237,7 +233,7 @@ IMT_KEY_INPUT::~IMT_KEY_INPUT () {
  *         MoleNumberIG 
  *         ElementAbundances 
  */
-void IMT_KEY_INPUT::InitForInput(const ZZCantera::PhaseList * const pl) {
+void IMT_KEY_INPUT::InitForInput(const Zuzax::PhaseList * const pl) {
   nTotPhases  = pl->nPhases();
   nTotSpecies = pl->nSpecies();
   nTotElements = pl->nElements();
@@ -350,15 +346,12 @@ static void setup_input_pass1(BlockEntry *cf, IMT_KEY_INPUT *ei)
 
 }
 //======================================================================================================================
-/****************************************************************************
- *
- */
 static void setup_input_pass2(BlockEntry *cf, IMT_KEY_INPUT *ei)
 {
   LineEntry *sle1 = 0;
   /*
    *  Get the input deck for
-   *  Cantera description of the model.
+   *  Zuzax description of the model.
    */
   LE_MultiCStr *s1 =
     new LE_MultiCStr("Cantera File Name", &(ei->CanteraFileNames),
@@ -366,7 +359,7 @@ static void setup_input_pass2(BlockEntry *cf, IMT_KEY_INPUT *ei)
   s1->set_default("gas.cti");
 
   /*
-   * Set up a dependency on the input from the Number of cantera
+   * Set up a dependency on the input from the Number of Zuzax
    * Files card
    */
   sle1 = cf->searchLineEntry("Number of Cantera Files");
@@ -432,11 +425,11 @@ static void setup_input_pass3(BlockEntry *cf,
     }
   }
   if (ei->solnAIndex_ < 0) {
-    throw CanteraError("InterfacialMassTransfer_input::setup_input_pass3()",
+    throw ZuzaxError("InterfacialMassTransfer_input::setup_input_pass3()",
 		       "Phase A name, " + ei->PhaseAName + ", was not found in the list of Volume phases");
   }
   if (ei->solnBIndex_ < 0) {
-    throw CanteraError("InterfacialMassTransfer_input::setup_input_pass3()",
+    throw ZuzaxError("InterfacialMassTransfer_input::setup_input_pass3()",
 		       "Phase B name, " + ei->PhaseAName + ", was not found in the list of Volume phases");
   }
 
@@ -935,7 +928,7 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
 	kmol = BG->PhaseMass[iph] / tp->meanMolecularWeight();
 	BG->PhaseMoles[iph] = kmol;
       } else if ( BG->PhaseMass[iph] > 0.0 ) {
-	throw CanteraError("electrode_input()", "both number of moles and mass of phase specified");
+	throw ZuzaxError("electrode_input()", "both number of moles and mass of phase specified");
       }
  
       //update number of moles (gets done again in electrode_model_init())
@@ -1038,7 +1031,7 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
   return 0;
 }
 //=========================================================================================
-int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INPUT *ei,
+int imt_model_print(Zuzax::InterfacialMassTransfer *electrodeA,  IMT_KEY_INPUT *ei,
 		    BEInput::BlockEntry *cf)
 {
 

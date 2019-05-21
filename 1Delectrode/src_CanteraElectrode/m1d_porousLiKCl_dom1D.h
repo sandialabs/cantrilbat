@@ -24,11 +24,7 @@
 #include "m1d_porousFlow_dom1D.h"
 #include "m1d_BDD_porousLiKCl.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 class IonsFromNeutralVPSSTP;
 }
@@ -368,7 +364,7 @@ protected:
 
 
     //! Old value of the electrolyte mole fraction vector
-    ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
+    Zuzax::Array2D mfElectrolyte_Soln_Cell_old_;
 
     //! Current value of the electrolyte mole fraction time deriv vector
     std::vector<double> mfElectrolyte_SolnDot_Curr_;
@@ -429,7 +425,7 @@ protected:
     std::vector<double> solnTemp;
 
     //! Velocity basis of the transport equations
-    ZZCantera::VelocityBasis ivb_;
+    Zuzax::VelocityBasis ivb_;
 
 private:
     void

@@ -8,8 +8,8 @@
 #define DEBUG_HKM
 #endif
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -23,10 +23,10 @@ int main(int argc, char **argv) {
     IdealGasMix g("red1.xml", "gri30_mix");
 
 #ifdef DEBUG_BASISOPTIMIZE
-   ZZCantera::BasisOptimize_print_lvl = 1;
+   Zuzax::BasisOptimize_print_lvl = 1;
 #endif
 #ifdef DEBUG_CHEMEQUIL
-   ZZCantera::ChemEquil_print_lvl = 1;
+   Zuzax::ChemEquil_print_lvl = 1;
 #endif
 
     double pres = 1.0E5;
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
  
     return 0;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

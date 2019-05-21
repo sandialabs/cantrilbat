@@ -20,9 +20,9 @@
 #include "m1d_porousElectrode_dom1D.h"
 #include "m1d_BDT_porAnode_LiKCl.h"
 
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include <zuzax/transport.h>      // transport properties
+#include <zuzax/thermo.h>      // transport properties
+#include <zuzax/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include "Electrode.h"
 
 //======================================================================================================================
@@ -276,7 +276,7 @@ public:
    *                             false, the xml_node info will only exist on proc 0.
    */
   virtual void
-  saveDomain(ZZCantera::XML_Node& oNode,
+  saveDomain(Zuzax::XML_Node& oNode,
              const Epetra_Vector *soln_GlAll_ptr,
              const Epetra_Vector *solnDot_GlAll_ptr,
              const double t,
@@ -717,7 +717,7 @@ protected:
 
 
   //! Old value of the electrolyte mole fraction vector
-  ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
+  Zuzax::Array2D mfElectrolyte_Soln_Cell_old_;
 
   //! Current value of the electrolyte mole fraction time deriv vector
   std::vector<double> mfElectrolyte_SolnDot_Curr_;

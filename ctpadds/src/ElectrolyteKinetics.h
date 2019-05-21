@@ -21,19 +21,15 @@
 #include <map>
 #include <string>
 #include <stdlib.h>
-#include "cantera/thermo/mix_defs.h"
-#include "cantera/kinetics/Kinetics.h"
-#include "cantera/base/xml.h"
+#include "zuzax/thermo/mix_defs.h"
+#include "zuzax/kinetics/Kinetics.h"
+#include "zuzax/base/xml.h"
 
-#include "cantera/base/utilities.h"
-#include "cantera/kinetics/RateCoeffMgr.h"
-#include "cantera/kinetics/ReactionStoichMgr.h"
+#include "zuzax/base/utilities.h"
+#include "zuzax/kinetics/RateCoeffMgr.h"
+#include "zuzax/kinetics/ReactionStoichMgr.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   // forward references

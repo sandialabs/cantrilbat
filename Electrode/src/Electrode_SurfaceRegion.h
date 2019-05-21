@@ -13,11 +13,7 @@
 
 #include "Electrode_Integrator.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 //! This class is a derived class used to model phase-change electrodes
@@ -111,7 +107,7 @@ public:
      */
     virtual size_t nEquations_calc() const override;
 
-    //! Get all of the reaction rates and parameters from Cantera
+    //! Get all of the reaction rates and parameters from Zuzax
     /*!
      *  @param[out]          justBornMultiSpecies Vector of phases which are just born
      */

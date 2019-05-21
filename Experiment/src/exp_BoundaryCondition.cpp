@@ -19,15 +19,15 @@
  */
 // Copyright 2010 Sandia National Laboratories
 
-#ifndef CANTERA_APP
-#define CANTERA_APP
+#ifndef ZUZAX_APP
+#define ZUZAX_APP
 #endif
 
-#include "cantera/base/ct_defs.h" 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ct_defs.h" 
+#include "zuzax/base/ctexceptions.h"
 #include "exp_BoundaryCondition.h" 
 
-namespace Cantera {
+namespace Zuzax {
 
   ////////////////////////////////////////////////////////////
   // class BCsteptable 
@@ -59,7 +59,7 @@ namespace Cantera {
     setDepenUnits( depenUnits );
 
     if ( indepVals_.size() != depenVals_.size() ) { 
-      throw CanteraError("BCsteptable constructor\n",
+      throw ZuzaxError("BCsteptable constructor\n",
 			 "**** indepVals_ and depenVals_ unequal size\n");
       
     }
@@ -91,11 +91,11 @@ namespace Cantera {
   void BCsteptable::useXML( XML_Node& bcNode ) {
     
     if ( !bcNode.hasChild("independentVar") ) 
-      throw CanteraError("BCsteptable::useXML()",
+      throw ZuzaxError("BCsteptable::useXML()",
 			 "no independentVar XML node.");
     
     if ( !bcNode.hasChild("dependentVar") ) 
-      throw CanteraError("BCsteptable::useXML()",
+      throw ZuzaxError("BCsteptable::useXML()",
 			 "no dependentVar XML node.");
     
     bool convert = true;
@@ -145,10 +145,10 @@ namespace Cantera {
       { 
 	step_++;
 	if ( step_ > stepMax_ ) 
-	  throw CanteraError("exp_BoundaryCondition::findStep",
+	  throw ZuzaxError("exp_BoundaryCondition::findStep",
 			     "Out of bounds error with step_ > stepMax_");
 	if ( indVar > indepVals_[ step_ ] ) 
-	  throw CanteraError("exp_BoundaryCondition::findStep",
+	  throw ZuzaxError("exp_BoundaryCondition::findStep",
 			     "BoundaryCondition independent variable step was greater than the BoundaryCondition resolution.");
       }
   }
@@ -188,7 +188,7 @@ namespace Cantera {
     setDepenUnits( depenUnits );
 
     if ( indepVals_.size() != depenVals_.size() ) { 
-      throw CanteraError("BClineartable constructor\n",
+      throw ZuzaxError("BClineartable constructor\n",
 			 "**** indepVals_ and depenVals_ unequal size\n");
       
     }
@@ -204,7 +204,6 @@ namespace Cantera {
     XML_Node *baseNode;
     baseNode = get_XML_File( filename );
     //std::istream& infile( filename );
-    //Cantera::XML_Node* baseNode;
     //baseNode.build( infile );
     useXML( *baseNode );
     close_XML_File( filename );
@@ -226,7 +225,7 @@ namespace Cantera {
 
 
     if ( indepVals_.size() != depenVals_.size() ) { 
-      throw CanteraError("BClineartable::useXML\n",
+      throw ZuzaxError("BClineartable::useXML\n",
 			 "**** indepVals_ and depenVals_ unequal size\n");
       
     }
@@ -262,19 +261,13 @@ namespace Cantera {
       { 
 	step_++;
 	if ( step_ > stepMax_ ) 
-	  throw CanteraError("exp_BoundaryCondition::findStep",
+	  throw ZuzaxError("exp_BoundaryCondition::findStep",
 			     "Out of bounds error with step_ > stepMax_");
 	if ( indVar > indepVals_[ step_ + 1 ] ) 
-	  throw CanteraError("exp_BoundaryCondition::findStep",
+	  throw ZuzaxError("exp_BoundaryCondition::findStep",
 			     "BoundaryCondition independent variable step was greater than the BoundaryCondition resolution.");
       }
   }
 
-
-
-
-
-
-
-}//namespace Cantera
+}
 

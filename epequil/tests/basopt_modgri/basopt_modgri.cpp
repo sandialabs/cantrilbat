@@ -8,33 +8,27 @@
 #define DEBUG_HKM
 #endif
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 #include <cstdio>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#define ZZCantera Zuzax
-#else
-using namespace Cantera;
-#define ZZCantera Cantera
-#endif
 
 #ifdef DEBUG_BASISOPTIMIZE
-  extern int ZZCantera::BasisOptimize_print_lvl;
+  extern int Zuzax::BasisOptimize_print_lvl;
 #endif
 #ifdef DEBUG_CHEMEQUIL
-  extern int ZZCantera::ChemEquil_print_lvl;
+  extern int Zuzax::ChemEquil_print_lvl;
 #endif
 
 int main(int argc, char **argv) {
   try {
 #ifdef DEBUG_BASISOPTIMIZE
-    ZZCantera::BasisOptimize_print_lvl = 1;
+    Zuzax::BasisOptimize_print_lvl = 1;
 #endif
 #ifdef DEBUG_CHEMEQUIL
-    ZZCantera::ChemEquil_print_lvl = 1;
+    Zuzax::ChemEquil_print_lvl = 1;
 #endif
     IdealGasMix g("gri30mod.xml", "gri30_mix");
 
@@ -51,14 +45,14 @@ int main(int argc, char **argv) {
     bool doFormMatrix = false;
     vector_fp formRxnMatrix;
 
-    int nc = ZZCantera::BasisOptimize(&usedZeroedSpecies, doFormMatrix,
+    int nc = Zuzax::BasisOptimize(&usedZeroedSpecies, doFormMatrix,
 				    &mphase, orderVectorSpecies, orderVectorElements,
 				    formRxnMatrix);
     cout << "number of components = " << nc << endl;
 
     vector_fp elementAbundances;
     int nct = nc;
-    nct = ZZCantera::ElemRearrange(nc, elementAbundances, &mphase, 
+    nct = Zuzax::ElemRearrange(nc, elementAbundances, &mphase, 
 				 orderVectorSpecies, orderVectorElements);
     if (nc != nct) {
       printf("ERROR\n");
@@ -72,17 +66,17 @@ int main(int argc, char **argv) {
     cout << "number of components = " << nc << endl;
 
 #ifdef DEBUG_BASISOPTIMIZE
-    ZZCantera::BasisOptimize_print_lvl = 0;
+    Zuzax::BasisOptimize_print_lvl = 0;
 #endif
 #ifdef DEBUG_CHEMEQUIL
-    ZZCantera::ChemEquil_print_lvl = 0;
+    Zuzax::ChemEquil_print_lvl = 0;
 #endif
     equilibrate(g, "TP", -1);
     cout << g;
  
     return 0;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

@@ -13,7 +13,7 @@
 
 #include "InterfacialMassTransfer_PseudoSS.h"
 
-#include "cantera/transport.h"
+#include "zuzax/transport.h"
 
 #include <string>
 #include <vector>
@@ -28,11 +28,7 @@
 
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   class imtPSS_NoSurf_DiffBL: public InterfacialMassTransfer_PseudoSS {
@@ -459,10 +455,10 @@ namespace Cantera
     std::vector<double> gradX_phaseB_;
 
     //! Transport object for phase A
-    ZZCantera::Transport *tranA_;
+    Zuzax::Transport *tranA_;
 
     //! transport object for phase B
-    ZZCantera::Transport *tranB_;
+    Zuzax::Transport *tranB_;
 
 
    //! Normal mass-averaged Velocity of phase A at start of global step

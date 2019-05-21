@@ -14,11 +14,7 @@
 #include "Electrode.h"
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 

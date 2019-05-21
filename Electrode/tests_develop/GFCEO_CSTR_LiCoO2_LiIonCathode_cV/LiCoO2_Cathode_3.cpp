@@ -8,14 +8,14 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/NonlinearSolver.h"
-#include "cantera/numerics/DAE_Solver.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/NonlinearSolver.h"
+#include "zuzax/numerics/DAE_Solver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
@@ -193,7 +193,7 @@ int main(int argc, char **argv)
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
     showErrors();
     return -1;
   } catch (ZuzaxError) {

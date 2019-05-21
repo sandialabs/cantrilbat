@@ -67,7 +67,7 @@ public:
     /*!
      *  This procedure is done before the Equations anv variable list are set up.
      *  Needed information about what is possible is input here.
-     *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+     *  We read the Zuzax ThermoPhase and transport object into DomainDescriptions here.
      *
      *   We loop over volume and then surface domains.
      */

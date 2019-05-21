@@ -15,9 +15,9 @@
  * A porosity/tortuosity is also associated with the domain.
  */
 
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include <zuzax/transport.h>      // transport properties
+#include <zuzax/thermo.h>      // transport properties
+#include <zuzax/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include "m1d_DomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_porousElectrode_dom1D.h"
@@ -192,7 +192,7 @@ public:
    *                             false, the xml_node info will only exist on proc 0.
    */
   virtual void
-  saveDomain(ZZCantera::XML_Node& oNode,
+  saveDomain(Zuzax::XML_Node& oNode,
              const Epetra_Vector *soln_GlAll_ptr,
              const Epetra_Vector *solnDot_GlAll_ptr,
              const double t,
@@ -333,19 +333,19 @@ protected:
   /*!
    *   We do not own this object
    */
-  //ZZCantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+  //Zuzax::IonsFromNeutralVPSSTP *ionicLiquid_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We do not own this object
    */
-  //ZZCantera::Transport* trans_;
+  //Zuzax::Transport* trans_;
 
   //! Pointer to the electrode object
   /*!
    *   We do not own the electrode object
    */
-  ZZCantera::Electrode *Electrode_;
+  Zuzax::Electrode *Electrode_;
 
   //! Number of phases solved
   int nph_;

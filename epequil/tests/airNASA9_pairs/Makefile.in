@@ -28,8 +28,8 @@ OBJS = airNASA9_pairs.o
 # This link is to Cantera's install space
 CT_INCROOT=@ct_incroot@
 
-# Bring in the Cantera includes through the .mak file
-include $(CT_INCROOT)/cantera/Cantera.mak
+# Bring in the Zuzax includes through the .mak file
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 # Define the include directories
 INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)

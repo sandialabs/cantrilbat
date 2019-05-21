@@ -12,7 +12,7 @@
  *
  *  xmlSolnDiff File1.xml File2.xml
  *
- *  Compares the variable values in two Cantera solution xml 
+ *  Compares the variable values in two Zuzax solution xml 
  *  files. 
  *  The comparison is done using a weighted norm basis.
  *
@@ -42,14 +42,14 @@
 #include "SolnLayout.h"
 #include "SolnDomain.h"
 
-#include "cantera/base/xml.h"
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/base/ctexceptions.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
 #else
-using namespace Cantera;
+using namespace Zuzax;
 #endif
 using namespace m1d;
 
@@ -414,7 +414,7 @@ XML_Node *getSimul(XML_Node *xmlTop, std::string id_tag) {
   if (xctml->name() != "ctml") {
     xctml = xmlTop->findByName("ctml");
     if (!xctml) {
-      throw CanteraError("countSimulations","can't find ctml node");
+      throw ZuzaxError("countSimulations","can't find ctml node");
     }
   }
   XML_Node* node = xctml->findNameID("simulation", id_tag);
@@ -427,7 +427,7 @@ int countSimulations(XML_Node *xmlTop) {
   if (xctml->name() != "ctml") {
     xctml = xmlTop->findByName("ctml");
     if (!xctml) {
-      throw CanteraError("countSimulations","can't find ctml node");
+      throw ZuzaxError("countSimulations","can't find ctml node");
     }
   }
   std::vector<XML_Node*> ccc;
@@ -441,14 +441,14 @@ XML_Node *getSimulNum(XML_Node *xmlTop, int num) {
   if (xctml->name() != "ctml") {
     xctml = xmlTop->findByName("ctml");
     if (!xctml) {
-      throw CanteraError("countSimulations","can't find ctml node");
+      throw ZuzaxError("countSimulations","can't find ctml node");
     }
   }
   std::vector<XML_Node*> ccc;
   xctml->getChildren("simulation", ccc);
   int sz = ccc.size(); 
   if (num < 0 || num >= sz) {
-    throw CanteraError("getSimulNum", "out of bounds");
+    throw ZuzaxError("getSimulNum", "out of bounds");
   }
   return ccc[num];
 }
@@ -456,12 +456,12 @@ XML_Node *getSimulNum(XML_Node *xmlTop, int num) {
 XML_Node *readXML(std::string inputFile) {
 
   if (inputFile.size() == 0) {
-    throw CanteraError("constructXML",  "input file is null");
+    throw ZuzaxError("constructXML",  "input file is null");
   }
   string path = findInputFile(inputFile);
   std::ifstream fin(path.c_str());
   if (!fin) {
-    throw CanteraError("HMWSoln:constructPhaseFile","could not open "
+    throw ZuzaxError("HMWSoln:constructPhaseFile","could not open "
                        +path+" for reading.");
   } 
   /*
@@ -478,7 +478,7 @@ static void print_usage() {
   printf("\t\n");
   printf("  xmlSolnDiff [-h] [-a atol] [-r rtol] File1.xml File2.xml\n");
   printf("\t\n");
-  printf("\tCompares two solution files in Cantera Solution XML format.\n");
+  printf("\tCompares two solution files in Zuzax Solution XML format.\n");
   printf("\tThe comparison is done using a weighted norm basis.\n");
   printf("\t\n");
   printf("\tThe two files should be basically equal. However, File1.xml is\n");
@@ -578,8 +578,8 @@ int main(int argc, char *argv[])
   printf("             Version $Revision: 506 $\n");
   printf("             Harry K. Moffat Div. 1516 Sandia National Labs\n");
   printf("           \n");
-  printf("             First  Cantera XML Solution File = %s\n", fileName1);
-  printf("             Second Cantera XML Solution File = %s\n", fileName2); 
+  printf("             First  Zuzax XML Solution File = %s\n", fileName1);
+  printf("             Second Zuzax XML Solution File = %s\n", fileName2); 
   printf("\n");
   printf("             Absolute tol = %g\n", gatol);
   printf("             Relative tol = %g\n", grtol);
@@ -616,8 +616,8 @@ int main(int argc, char *argv[])
 
   for (int iSim1 = 0; iSim1 < numSim1; iSim1++) {
     int iSim2 = iSim1;
-    ZZCantera::XML_Node *sim1 = getSimulNum(fp1, iSim1);
-    ZZCantera::XML_Node *sim2 = getSimulNum(fp2, iSim2);
+    Zuzax::XML_Node *sim1 = getSimulNum(fp1, iSim1);
+    Zuzax::XML_Node *sim2 = getSimulNum(fp2, iSim2);
 
     /*
      *  Read the simulation into a new structure

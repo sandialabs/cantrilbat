@@ -27,17 +27,13 @@
 #include <map>
 #include <iomanip>
 
-#include "cantera/numerics.h"
-#include "cantera/numerics/ResidJacEval.h"    // defines class Water
-#include "cantera/numerics/NonlinearSolver.h"
+#include "zuzax/numerics.h"
+#include "zuzax/numerics/ResidJacEval.h"    // defines class Water
+#include "zuzax/numerics/NonlinearSolver.h"
 #include "Electrode.h"
 //#include "NonlinearElectrodeSolver.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 
 ofstream outfile;
@@ -228,7 +224,7 @@ int main(int argc, char** argv) {
  
 
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cout);
   }
   //fclose(fp);

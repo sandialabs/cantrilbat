@@ -34,7 +34,7 @@ TEST_RESULTS = out.txt SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat Sur
 INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp
 
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 #########################################################################
 
 PROGRAM_ORIGIN = ../../src_LiIon_PorousBat/$(PROGRAM)
@@ -45,9 +45,9 @@ PURIFY=@PURIFY@
 CT_INCROOT =  @ct_incroot@
 
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 all: $(PROGRAM)
 

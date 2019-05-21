@@ -18,13 +18,9 @@
 
 #include "m1d_valCellTmps_porousFlow.h"
 
-#include <cantera/transport.h>
+#include "zuzax/transport.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 class Transport;
 }
@@ -675,19 +671,19 @@ protected:
     std::vector<valCellTmps> valCellTmpsVect_Cell_;
 
     //! Velocity basis of the transport equations
-    ZZCantera::VelocityBasis ivb_;
+    Zuzax::VelocityBasis ivb_;
 
     //! Pointer to the thermo object for the electrolyte
     /*!
      *   We do not own this object
      */
-    ZZCantera::ThermoPhase* ionicLiquid_;
+    Zuzax::ThermoPhase* ionicLiquid_;
 
     //! Pointer to the transport object for the electrolyte
-    ZZCantera::Transport* trans_;
+    Zuzax::Transport* trans_;
 
     //! Pointer to the solid skeleton
-    ZZCantera::ThermoPhase* solidSkeleton_;
+    Zuzax::ThermoPhase* solidSkeleton_;
 
     //! Vector of extra phases
     std::vector<ExtraPhase*> ExtraPhaseList_;

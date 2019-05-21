@@ -20,11 +20,7 @@
 #include "Electrode_SurfaceRegion.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class Electrode_RadialRegion;
@@ -203,7 +199,7 @@ public:
      */
     void initializeAsEvenDistribution();
 
-    //! Get all of the reaction rates and parameters from Cantera
+    //! Get all of the reaction rates and parameters from Zuzax
     void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
 
     //! Print conditions of the electrode for the current integration step to stdout

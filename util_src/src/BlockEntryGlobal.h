@@ -32,8 +32,8 @@
   A typical input deck might look like this
  
 \verbatim
-Number of Cantera Files = 1
-Cantera File Name = airNASA9.xml
+Number of Zuzax Files = 1
+Zuzax File Name = airNASA9.xml
 
 DebugPrinting = true
 Bath Temperature = 6500.

@@ -12,11 +12,11 @@
 .SUFFIXES: .d
 #
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 ##########################################################################
 #
 CANTERA_INCROOT=@ct_incroot@
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 #
 #
 UTILSRC_DIR=../../util_src/src

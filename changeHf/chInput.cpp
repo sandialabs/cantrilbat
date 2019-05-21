@@ -29,9 +29,9 @@
 #include "md_timer.h"
 #include "mdp_allo.h"
 #include "BE_MolalityComp.h"
-#include "cantera/thermo/ThermoPhase.h"
+#include "zuzax/thermo/ThermoPhase.h"
 
-//#include "cantera/kernel/thermo/MolalityVPSSTP.h"
+//#include "zuzax/kernel/thermo/MolalityVPSSTP.h"
 
 using namespace BEInput;
 using namespace TKInput;

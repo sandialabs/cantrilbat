@@ -17,11 +17,7 @@
 #include "Electrode.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 //!  Electrode with infinite capacity
@@ -35,7 +31,7 @@ namespace Cantera
  *       capacity = capacitySpeciesSpMoles_ * capacitySpeciesCoeff_ * Faraday
  *
  */
-class Electrode_InfCapacity : public ZZCantera::Electrode
+class Electrode_InfCapacity : public Zuzax::Electrode
 {
 public:
 

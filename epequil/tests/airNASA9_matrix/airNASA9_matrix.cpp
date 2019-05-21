@@ -6,8 +6,8 @@
  *  Copyright 2002 California Institute of Technology
  *
  */
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -19,7 +19,7 @@ using namespace Cantera;
 int main(int argc, char **argv) {
 
 #ifdef DEBUG_CHEMEQUIL
-  ZZCantera::ChemEquil_print_lvl = 0;
+  Zuzax::ChemEquil_print_lvl = 0;
 #endif
 
   int numSucc = 0;
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
       } else {
         cout << g;
       }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       showErrors(cerr);
       cerr << "ERROR: equilibration step failed at " 
 	   << " T    = " << T 
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
       } else {
         cout << g;
       }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       showErrors(cerr);
       cerr << "ERROR: equilibration step failed at " 
 	   << " T    = " << T 
@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
                    << " x_O2 = " << Xmol[iO2]
                    << endl;
             }
-	  } catch (CanteraError) {
+	  } catch (ZuzaxError) {
 	    showErrors(cerr);
 	    cerr << "ERROR: equilibration step failed at " 
 		 << " T    = " << T 
@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
 
     return numFail;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "ERROR: program terminating due to unforeseen circumstances." << endl;
     return -1;

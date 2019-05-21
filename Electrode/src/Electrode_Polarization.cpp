@@ -13,16 +13,12 @@
 #include "Electrode_Exception.h"
 
 #include "Electrode.h"
-#include "cantera/base/zzcompare.h"
+#include "zuzax/base/zzcompare.h"
 
 #include <cmath>
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber,  Electrode* ee,

@@ -12,13 +12,13 @@
 #define _INTERFACIALMASSTRANSFER_H
 
 
-#include "cantera/equilibrium.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/ResidJacEval.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/ResidJacEval.h"
 
 #include "tok_input_util.h"
 
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 #include "ReactingSurDomain.h"
 #include "ExternalField.h"
 
@@ -36,32 +36,13 @@
  *-----------------------------------------------------------------------------
  */
 
-
-#ifdef useZuzaxNamespace
-#define ZZCantera Zuzax
 namespace Zuzax
-#else
-#define ZZCantera Cantera
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
   class IMT_KEY_INPUT;
 }
 class SubIntegrationHistory;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
 
   //!  Enum Type identifying the models for the Electrodes
@@ -204,7 +185,7 @@ namespace Cantera
    *    this will include a distributed solid domain.
    *    This will include multiple materials that create multiple plateaus.
    */
-  class InterfacialMassTransfer : public ZZCantera::PhaseList {
+  class InterfacialMassTransfer : public Zuzax::PhaseList {
   public:
     
     // ---------------------------------------------------------------------------------------------
@@ -276,13 +257,13 @@ namespace Cantera
     /*!
      *
      */
-    ZZCantera::ReactingSurDomain * currOuterReactingSurface();
+    Zuzax::ReactingSurDomain * currOuterReactingSurface();
 
     //! Returns a reacting surface object
     /*!
      *  @param iSurf  returns a pointer to that reacting surface
      */
-    ZZCantera::ReactingSurDomain * reactingSurface(size_t iSurf);
+    Zuzax::ReactingSurDomain * reactingSurface(size_t iSurf);
 
   
     //! Set the phase existence flag in the electrode kinetics object so that kinetics 
@@ -1642,7 +1623,7 @@ namespace Cantera
 
   };
 
-  int imt_model_input(ZZCantera::IMT_KEY_INPUT *input,  std::string commandFile, BEInput::BlockEntry *cf);
+  int imt_model_input(Zuzax::IMT_KEY_INPUT *input,  std::string commandFile, BEInput::BlockEntry *cf);
 
 }
 

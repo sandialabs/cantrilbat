@@ -16,11 +16,7 @@
 #include "BlockEntryGlobal.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace BEInput;
 using namespace mdpUtil;
 
@@ -79,8 +75,7 @@ void setup_input_pass1(BlockEntry *cf, Kinetics *g_kin_ptr, ThermoPhase *g_ptr)
    *
    * Configure the number of cantera files
    */
-  LE_OneInt *in1 = new LE_OneInt("Number of Cantera Files",
-				 &IOO.NumberCanteraFiles);
+  LE_OneInt *in1 = new LE_OneInt("Number of Cantera Files", &IOO.NumberCanteraFiles);
   in1->set_default(1);
   cf->addLineEntry(in1);
 
@@ -104,7 +99,7 @@ void setup_input_pass2(BlockEntry *cf, Kinetics *g_kin_ptr,
   BaseEntry::set_SkipUnknownEntries(3);
   /*
    *  Get the input deck for
-   *  Cantera description of the model.
+   *  Zuzax description of the model.
    */
   LE_MultiCStr *s1 =
     new LE_MultiCStr("Cantera File Name", &IOO.CanteraFileNames,
@@ -112,8 +107,7 @@ void setup_input_pass2(BlockEntry *cf, Kinetics *g_kin_ptr,
   s1->set_default("gas.cti");
 
   /*
-   * Set up a dependency on the input from the Number of Cantera
-   * Files card
+   * Set up a dependency on the input from the Number of Cantera Files card
    */
   LineEntry *sle1 = cf->searchLineEntry("Number of Cantera Files");
   int numF = 1;

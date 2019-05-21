@@ -10,8 +10,8 @@
 #ifndef M1D_DOMAINLAYOUT_LIKCL_INFPLATEBAT_H
 #define M1D_DOMAINLAYOUT_LIKCL_INFPLATEBAT_H
 
-//#include "cantera/transport.h"      // transport properties
-//#include "cantera/thermo.h"      // transport properties
+//#include "zuzax/transport.h"      // transport properties
+//#include "zuzax/thermo.h"      // transport properties
 
 
 #include "m1d_DomainLayout.h"

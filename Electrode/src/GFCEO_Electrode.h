@@ -12,14 +12,10 @@
 #define _GFCEO_ELECTRODE_H
 
 #include "Electrode_Integrator.h"
-#include "cantera/numerics/ResidJacEval.h"
+#include "zuzax/numerics/ResidJacEval.h"
 
 //-----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class DAE_Solver;
@@ -33,7 +29,7 @@ class DAE_Solver;
  *  object evolves in time.
  *
  */
-class GFCEO_Electrode : public ZZCantera::ResidJacEval
+class GFCEO_Electrode : public Zuzax::ResidJacEval
 {
 public:
 

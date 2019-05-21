@@ -32,14 +32,14 @@
 //#include "IdealSolidSolnPhase.h"
 
 
-#include "cantera/numerics/DenseMatrix.h"
+#include "zuzax/numerics/DenseMatrix.h"
 
 // Kinetics includes
-#include "cantera/kinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
-#include "cantera/thermo/SurfPhase.h"
+#include "zuzax/kinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
+#include "zuzax/thermo/SurfPhase.h"
 //#include "SolidKinetics.h"
-#include "cantera/kinetics/KineticsFactory.h"
+#include "zuzax/kinetics/KineticsFactory.h"
 
 #include <iostream>
 #include <new>
@@ -51,11 +51,7 @@
 
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 #define MIN(x,y)     (( (x) < (y) ) ? (x) : (y))
 
@@ -223,7 +219,7 @@ void ExtraGlobalRxn::setupElemRxnVector(double *RxnVector,
     }
   }
   if (!ifound) {
-    throw CanteraError(":setupElemRxnVector",
+    throw ZuzaxError(":setupElemRxnVector",
 		       "Special species not a reactant or product: " 
 		       + int2str( m_SpecialSpecies));
   }

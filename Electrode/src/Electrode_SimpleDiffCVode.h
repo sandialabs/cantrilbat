@@ -14,11 +14,7 @@
 
 #include "Electrode_Integrator.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 
@@ -210,7 +206,7 @@ protected:
 
     double deltaCAPdt_;
 
-    Cantera::Integrator* m_integ;
+    Zuzax::Integrator* m_integ;
 
     //! Absolute tolerance for nonlinear residual
     std::vector<double> atolBaseResid_;

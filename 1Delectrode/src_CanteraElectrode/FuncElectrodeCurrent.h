@@ -18,11 +18,7 @@
 #include "Electrode.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //==================================================================================================================================
@@ -30,7 +26,7 @@ namespace Cantera
 /*!
  *   This class is a child of the ResidEval class
  */
-class CurrentFunc: public ZZCantera::ResidEval
+class CurrentFunc: public Zuzax::ResidEval
 {
 public:
 

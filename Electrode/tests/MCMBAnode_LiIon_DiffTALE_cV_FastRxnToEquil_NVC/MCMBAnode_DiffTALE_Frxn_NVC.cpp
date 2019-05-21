@@ -7,16 +7,16 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-//#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+//#include "zuzax/equil/vcs_prob.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_DiffTALE.h"
@@ -25,12 +25,7 @@
 #include <sstream>
 #include <iomanip>
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
-
 using namespace std;
 
 // a lvl of one prints out the .csv file
@@ -194,7 +189,7 @@ int main(int argc, char **argv)
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

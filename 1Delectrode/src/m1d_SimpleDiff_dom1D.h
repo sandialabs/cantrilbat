@@ -100,7 +100,7 @@ public:
    *                                              as proc 0. If false, the xml_node info will only exist on proc 0.
    */
   virtual void
-  saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
+  saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
              const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false) override;
 
 private:

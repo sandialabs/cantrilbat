@@ -10,10 +10,11 @@
 
 #include "m1d_BDD_porousFlow.h"
 
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include <cantera/thermo/StoichSubstance.h>  // separator
+#include "zuzax/transport.h"      // transport properties
+#include "zuzax/thermo.h"      // transport properties
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"  // ion properties
+#include "zuzax/thermo/StoichSubstance.h"  // separator
+
 namespace m1d
 {
 
@@ -87,13 +88,13 @@ public:
   /*!
    *   We own this object
    */
-  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
+  Zuzax::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We own this object
    */
-  //ZZCantera::Transport* trans_;
+  //Zuzax::Transport* trans_;
 
 };
 

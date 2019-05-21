@@ -332,7 +332,7 @@ public:
      * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
      */
     virtual void
-    readDomain(const ZZCantera::XML_Node& domainNode,
+    readDomain(const Zuzax::XML_Node& domainNode,
                Epetra_Vector* const soln_GlAll_ptr,
                Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
@@ -349,7 +349,7 @@ public:
      *                                             Defaults to false.
      */
     virtual void
-    saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+    saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
                const double t, bool duplicateOnAllProcs = false) override; 
 
     //! Method for writing the header for the surface domain to a tecplot file.
@@ -751,7 +751,7 @@ protected:
     // -----------------------------------------------------------------------
     //!  Current Thermo value of quantities at the current point
 
-    ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
+    Zuzax::Array2D mfElectrolyte_Soln_Cell_old_;
 
     //! Current value of the cathode voltage
     double phiElectrode_Curr_;

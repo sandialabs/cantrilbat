@@ -11,7 +11,7 @@
 #include "RSD_OCVmodel.h"
 #include "Electrode_Factory.h"
 
-#include "cantera/thermo/ThermoPhase.h"
+#include "zuzax/thermo/ThermoPhase.h"
 
 //#include "ReactingSurDomainOld.h"
 #include "mdp_stringUtils.h"
@@ -22,11 +22,7 @@
 #include <cstdlib>
 
 //-----------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //=============================================================================================================================
 //  Here we make a map of all ModelID's to string associations that we support

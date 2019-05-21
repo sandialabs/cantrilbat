@@ -26,8 +26,8 @@
 #include "SolnLayout.h"
 #include "SolnDomain.h"
 
-#include "cantera/base/xml.h"
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/base/ctexceptions.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -384,7 +384,7 @@ XML_Node *getSimul(XML_Node *xmlTop, std::string id_tag) {
   if (xctml->name() != "ctml") {
     xctml = xmlTop->findByName("ctml");
     if (!xctml) {
-      throw CanteraError("countSimulations","can't find ctml node");
+      throw ZuzaxError("countSimulations","can't find ctml node");
     }
   }
   XML_Node* node = xctml->findNameID("simulation", id_tag);
@@ -400,7 +400,7 @@ int countSimulations(XML_Node *xmlTop) {
   if (xctml->name() != "ctml") {
     xctml = xmlTop->findByName("ctml");
     if (!xctml) {
-      throw CanteraError("countSimulations","can't find ctml node");
+      throw ZuzaxError("countSimulations","can't find ctml node");
     }
   }
   std::vector<XML_Node*> ccc;
@@ -414,14 +414,14 @@ XML_Node *getSimulNum(XML_Node *xmlTop, int num) {
   if (xctml->name() != "ctml") {
     xctml = xmlTop->findByName("ctml");
     if (!xctml) {
-      throw CanteraError("countSimulations","can't find ctml node");
+      throw ZuzaxError("countSimulations","can't find ctml node");
     }
   }
   std::vector<XML_Node*> ccc;
   xctml->getChildren("simulation", ccc);
   int sz = ccc.size(); 
   if (num < 0 || num >= sz) {
-    throw CanteraError("getSimulNum", "out of bounds");
+    throw ZuzaxError("getSimulNum", "out of bounds");
   }
   return ccc[num];
 }
@@ -429,12 +429,12 @@ XML_Node *getSimulNum(XML_Node *xmlTop, int num) {
 XML_Node *readXML(std::string inputFile) {
 
   if (inputFile.size() == 0) {
-    throw CanteraError("readXML",  "input file is null");
+    throw ZuzaxError("readXML",  "input file is null");
   }
   string path = findInputFile(inputFile);
   std::ifstream fin(path.c_str());
   if (!fin) {
-    throw CanteraError("HMWSoln:constructPhaseFile","could not open "
+    throw ZuzaxError("HMWSoln:constructPhaseFile","could not open "
                        +path+" for reading.");
   } 
   /*
@@ -451,7 +451,7 @@ static void print_usage() {
   printf("\t\n");
   printf("  m1d_cullSolns [-h] [-a atol] [-r rtol] FiletoWrite.xml FileToWrite.xml\n");
   printf("\t\n");
-  printf("\tReads one file in Cantera Solution XML format.\n");
+  printf("\tReads one file in Zuzax Solution XML format.\n");
   printf("\tThen writes a subset of the solution of that file to another file.\n");
   printf("\tHere we take the last solution file and dump only that to the new file.\n");
   printf("\t\n");
@@ -549,8 +549,8 @@ int main(int argc, char *argv[])
   printf("             Version $Revision: 506 $\n");
   printf("             Harry K. Moffat Div. 1516 Sandia National Labs\n");
   printf("           \n");
-  printf("             First  Cantera XML Solution File = %s\n", fileName1);
-  printf("             Second Cantera XML Solution File = %s\n", fileName2.c_str()); 
+  printf("             First  Zuzax XML Solution File = %s\n", fileName1);
+  printf("             Second Zuzax XML Solution File = %s\n", fileName2.c_str()); 
   printf("\n");
   printf("             Absolute tol = %g\n", gatol);
   printf("             Relative tol = %g\n", grtol);
@@ -576,7 +576,7 @@ int main(int argc, char *argv[])
   }
 
   fp2 = new XML_Node("--");
-  ZZCantera::XML_Node& ct2 = fp2->addChild("ctml");
+  Zuzax::XML_Node& ct2 = fp2->addChild("ctml");
 
   std::vector<m1d::SolnLayout *> sim1_List(numSim1);
   std::vector<m1d::SolnLayout *> sim2_List(numSim2);
@@ -584,7 +584,7 @@ int main(int argc, char *argv[])
 
   for (int iSim1 = 0; iSim1 < numSim1; iSim1++) {
     //int iSim2 = iSim1;
-    ZZCantera::XML_Node *sim1 = getSimulNum(fp1, iSim1);
+    Zuzax::XML_Node *sim1 = getSimulNum(fp1, iSim1);
   
     /*
      *  Read the simulation into a new structure
@@ -593,7 +593,7 @@ int main(int argc, char *argv[])
 
   };
 
-  ZZCantera::XML_Node *sim1 = getSimulNum(fp1, numSim1 - 1);
+  Zuzax::XML_Node *sim1 = getSimulNum(fp1, numSim1 - 1);
   ct2.addChild(*sim1);
 
 

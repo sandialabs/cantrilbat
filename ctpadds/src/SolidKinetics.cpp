@@ -16,19 +16,15 @@
  */
 
 #include "SolidKinetics.h"
-#include "cantera/thermo/IdealSolidSolnPhase.h"
-#include "cantera/kinetics/ReactionData.h"
+#include "zuzax/thermo/IdealSolidSolnPhase.h"
+#include "zuzax/kinetics/ReactionData.h"
 
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 //===========================================================================================================
 SolidKinetics::SolidKinetics() :

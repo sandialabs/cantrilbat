@@ -13,16 +13,12 @@
  */
 
 #include "Electrode.h"
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ctexceptions.h"
 
 #include <cstdio>
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 // -----------------------------------------------------------------------------------------------------------------
 // --------------------------  CAPACITY SETUP AND OUTPUT -----------------------------------------------------------
@@ -272,7 +268,7 @@ double Electrode::capacityDischarged(int platNum) const
     if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
        sgn = -1.0;
     }
-    return sgn * tmp * ZZCantera::Faraday;
+    return sgn * tmp * Zuzax::Faraday;
 }
 //======================================================================================================================
 double Electrode::depthOfDischargeStarting(int platNum) const
@@ -890,5 +886,5 @@ void Electrode::setCapacityCoeff_MCMB() const
     }
 }
 //====================================================================================================================
-} // End of ZZCantera Namespace
+} // End of Zuzax Namespace
 //----------------------------------------------------------------------------------------------------------------------------------

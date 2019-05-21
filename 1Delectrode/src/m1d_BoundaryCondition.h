@@ -20,11 +20,11 @@
 #define CANTERA_APP
 #endif
 
-#include "cantera/base/ct_defs.h" 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ct_defs.h" 
+#include "zuzax/base/ctexceptions.h"
 
-#include "cantera/base/xml.h"
-#include "cantera/base/ctml.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/base/ctml.h"
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
 
@@ -83,7 +83,7 @@ public:
      */
     BoundaryCondition& operator=(const BoundaryCondition& right);
 
-    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    //! Fill independent and dependent values from Zuzax::XML_Node object named BoundaryCondition
     /*!
      *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
      *
@@ -91,7 +91,7 @@ public:
      *
      *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
      */
-    virtual void useXML(ZZCantera::XML_Node& bcNode);
+    virtual void useXML(Zuzax::XML_Node& bcNode);
 
     //! Return the dependent variable value given the value of the independent variable argument
     /*!
@@ -297,7 +297,7 @@ protected:
     /*!
      *  Length: numIntervals+1
      */
-    ZZCantera::vector_fp indepVals_;
+    Zuzax::vector_fp indepVals_;
 
     //! Vector of dependent variable values appropriate for time/space after the corresponding indepVals_
     /*!
@@ -306,14 +306,14 @@ protected:
      *
      *  Length: numIntervals or numIntervals+1
      */
-    ZZCantera::vector_fp depenVals_;
+    Zuzax::vector_fp depenVals_;
 
     //! Vector of variable dependent values for comparison purposes.
     //! For example, if current is input, these might be measured voltages.
     /*!
      *  Length: numIntervals
      */ 
-    ZZCantera::vector_fp compareVals_;
+    Zuzax::vector_fp compareVals_;
 
     //! Current step interval in a sequence of values
     /*!
@@ -441,7 +441,7 @@ public:
      *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
      *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
      */
-    BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, const ZZCantera::vector_fp& compareVals_, 
+    BCsteptable(const Zuzax::vector_fp& indValue, const Zuzax::vector_fp& depValue, const Zuzax::vector_fp& compareVals_, 
                 const std::string& titleName = "BCsteptable", const std::string& indepUnits = "unknownUnits", 
                 const std::string& depenUnits = "unknownUnits");
 
@@ -456,12 +456,12 @@ public:
     /*!
      *  @param[in]           node                Reference to an XML node where the information for the boundary condition is storred.
      */
-    BCsteptable(ZZCantera::XML_Node& node);
+    BCsteptable(Zuzax::XML_Node& node);
 
     //! Destructor
     virtual ~BCsteptable();
 
-    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    //! Fill independent and dependent values from Zuzax::XML_Node object named BoundaryCondition
     /*!
      *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
      *
@@ -469,7 +469,7 @@ public:
      *
      *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
      */
-    virtual void useXML(ZZCantera::XML_Node& bcNode) override;
+    virtual void useXML(Zuzax::XML_Node& bcNode) override;
 
     //! Return the dependent variable value given the independent variable argument
     /*!
@@ -522,7 +522,7 @@ public:
      *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
      *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
      */
-    BClineartable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, ZZCantera::vector_fp compareVals_, std::string titleName = "BClineartable",
+    BClineartable(Zuzax::vector_fp indValue, Zuzax::vector_fp depValue, Zuzax::vector_fp compareVals_, std::string titleName = "BClineartable",
                   std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
 
     //! Construct the BClineartable from information contained in an xml file
@@ -539,12 +539,12 @@ public:
      *
      *  @param[in]           node           Reference to an XML_Node object containing the boundary condition description
      */
-    BClineartable(ZZCantera::XML_Node& node);
+    BClineartable(Zuzax::XML_Node& node);
 
     //! Virtual destructor
     virtual ~BClineartable();
 
-    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    //! Fill independent and dependent values from Zuzax::XML_Node object named BoundaryCondition
     /*!
      *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
      *
@@ -552,7 +552,7 @@ public:
      *
      *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
      */
-    virtual void useXML(ZZCantera::XML_Node& bcNode) override;
+    virtual void useXML(Zuzax::XML_Node& bcNode) override;
 
     //! Return the dependent variable value given
     //! the independent variable argument
@@ -622,12 +622,12 @@ public:
     /*!
      *  @param[in]           node                Reference to an XML_Node containing all of the boundary condition information
      */
-    BCsinusoidal(ZZCantera::XML_Node& node);
+    BCsinusoidal(Zuzax::XML_Node& node);
 
     //! Virtual Destructor
     virtual ~BCsinusoidal();
 
-    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    //! Fill independent and dependent values from Zuzax::XML_Node object named BoundaryCondition
     /*!
      *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
      *
@@ -635,7 +635,7 @@ public:
      *
      *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
      */
-    void useXML(ZZCantera::XML_Node& bcNode) override;
+    void useXML(Zuzax::XML_Node& bcNode) override;
 
     //! Return the dependent variable value given the independent variable argument
     /*!

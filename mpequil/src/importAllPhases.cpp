@@ -3,8 +3,8 @@
  *
  *     This file contains routines which are global routines, i.e.,
  *     not part of any object. These routine take as input, ctml
- *     pointers to data, and pointers to Cantera objects. The purpose
- *     of these routines is to intialize the Cantera objects with data
+ *     pointers to data, and pointers to Zuzax objects. The purpose
+ *     of these routines is to intialize the Zuzax objects with data
  *     from the ctml tree structures.
  */
 /**
@@ -12,7 +12,7 @@
  *
  */
 /*
- * Cantera includes: The paths change if you are compiling it 
+ * Zuzax includes: The paths change if you are compiling it 
  * as part of the cantera build tree or as an application
  */
 #ifdef COMPILE_IN_CANTERA_BUILDTREE
@@ -23,22 +23,18 @@
 #include "kernelThermoFactory.h"
 #include "xml.h"
 #else
-#include "cantera/thermo/speciesThermoTypes.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "cantera/thermo/ThermoFactory.h"
-#include "cantera/base/xml.h"
-#include "cantera/base/ctml.h"
+#include "zuzax/thermo/speciesThermoTypes.h"
+#include "zuzax/thermo/ThermoPhase.h"
+#include "zuzax/thermo/ThermoFactory.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/base/ctml.h"
 #endif
 
 #include "importAllPhases.h"
 #include "mdp_allo.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace mdpUtil;
 
 /**************************************************************************
@@ -109,12 +105,12 @@ int importAllCTML(MPEQUIL_INPUT *pi, string canteraFile) {
     XML_Node *xc = 0;
     try {
       xc = get_XML_File(canteraFile);
-    }  catch (CanteraError) {
-      throw CanteraError("importAllCTML",
+    }  catch (ZuzaxError) {
+      throw ZuzaxError("importAllCTML",
 			 string("Could not find/process file, ") + canteraFile + string(" -> aborting"));
     }
     if (!xc) {
-      throw CanteraError("importAllCTML",
+      throw ZuzaxError("importAllCTML",
 			 string("Could not find/process file, ") + canteraFile + string(" -> aborting")); 
     }
     findXMLAllPhasePL(xc, pi);

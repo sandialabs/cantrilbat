@@ -21,7 +21,7 @@ ZZ_INCROOT =  @ct_incroot@
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(ZZ_INCROOT)/cantera/Zuzax.mak
+include $(ZZ_INCROOT)/zuzax/Zuzax.mak
 
 
 # The directory where Zuzax include files may be found.

@@ -12,7 +12,7 @@
 
 #include "m1d_BEulerInt.h"
 
-#include "cantera/numerics/SquareMatrix.h"
+#include "zuzax/numerics/SquareMatrix.h"
 
 #include "mdp_allo.h"
 
@@ -35,11 +35,7 @@ extern int iTimeStep_HKM;
 #include <fstream>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace m1d;
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler {
@@ -70,7 +66,7 @@ static void print_line(const char *str, int n)
 //=====================================================================================================================
 /*
  * Exception thrown when a BEuler error is encountered. We just call the
- * Cantera Error handler in the initialization list
+ * Zuzax Error handler in the initialization list
  */
 BEulerErr::BEulerErr(std::string msg) :
         ZuzaxError("BEulerInt", msg)
@@ -165,8 +161,8 @@ BEulerInt& BEulerInt::operator=(const BEulerInt &r)
     if (this == &r) {
         return *this;
     }
-    //ZZCantera::DAE_Solver::operator=(r);
-    ZZCantera::Integrator::operator=(r);
+    //Zuzax::DAE_Solver::operator=(r);
+    Zuzax::Integrator::operator=(r);
 
     m_currentTimeRegion = r.m_currentTimeRegion;
     m_timeRegionBoundaries = r.m_timeRegionBoundaries;
@@ -2206,7 +2202,7 @@ int BEulerInt::calcConsistentInitialDerivs()
      *  to end the calculation in failure. We may change this behavior in the future, I don't know.
      */
     if (ierror < 0) {
-        throw CanteraError("BEulerInt::calcConsistentInitialDerivs", "Nonlinear solver failed to converge");
+        throw ZuzaxError("BEulerInt::calcConsistentInitialDerivs", "Nonlinear solver failed to converge");
     }
 
     /*

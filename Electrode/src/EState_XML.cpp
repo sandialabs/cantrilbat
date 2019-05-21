@@ -4,9 +4,9 @@
 
 #include "EState_XML.h"
 
-#include "cantera/base/xml.h"
-#include "cantera/base/stringUtils.h"
-#include "cantera/base/ctml.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/base/stringUtils.h"
+#include "zuzax/base/ctml.h"
 
 #include "Electrode_Exception.h"
 #include "EState.h"
@@ -17,11 +17,7 @@
 #include <cstdio>
 #include <fstream>
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 using namespace std;
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -41,7 +37,7 @@ static void create_string_maps()
     if (gMap_ESEnum_String.string_maps_created) {
         return;
     }
-    std::map<ZZCantera::EState_Type_Enum, std::string>& estate_types_string = gMap_ESEnum_String.estate_types_string;
+    std::map<Zuzax::EState_Type_Enum, std::string>& estate_types_string = gMap_ESEnum_String.estate_types_string;
     std::map<std::string , EState_Type_Enum>& string_estate_types = gMap_ESEnum_String.string_estate_types;
 
     gMap_ESEnum_String.string_maps_created = true;
@@ -55,18 +51,18 @@ static void create_string_maps()
     for (std::map<EState_Type_Enum, std::string>::iterator pos = estate_types_string.begin();
             pos != estate_types_string.end(); ++pos) {
         string_estate_types[pos->second] = pos->first;
-        std::string lll =  ZZCantera::lowercase(pos->second);
+        std::string lll =  Zuzax::lowercase(pos->second);
         string_estate_types[lll] = pos->first;
     }
 }
 //=================================================================================================================================
-ZZCantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index)
+Zuzax::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index)
 {
     /*
-     * Call the basic Cantera routine that reads the XML file. If the file isn't found a NULL is returned 
+     * Call the basic Zuzax routine that reads the XML file. If the file isn't found a NULL is returned 
      * causing this program to also return NULL
      */
-    ZZCantera::XML_Node* xSavedSoln = get_XML_File(fileName);
+    Zuzax::XML_Node* xSavedSoln = get_XML_File(fileName);
     if (!xSavedSoln) {
         return xSavedSoln;
     }
@@ -88,7 +84,7 @@ ZZCantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int ind
     return eRecord;
 }
 //==================================================================================================================================
-std::string EState_Type_Enum_to_string(const ZZCantera::EState_Type_Enum& etype)
+std::string EState_Type_Enum_to_string(const Zuzax::EState_Type_Enum& etype)
 {
     if (!gMap_ESEnum_String.string_maps_created) {
         create_string_maps();
@@ -110,7 +106,7 @@ EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string)
     std::map<std::string , EState_Type_Enum>& string_estate_types = gMap_ESEnum_String.string_estate_types;
     std::map<std::string, EState_Type_Enum>::iterator pos = string_estate_types.find(input_string);
     if (pos == string_estate_types.end())  {
-        std::string iii = ZZCantera::lowercase(input_string);
+        std::string iii = Zuzax::lowercase(input_string);
         pos = string_estate_types.find(iii);
         if (pos == string_estate_types.end())  {
             return EST_UNKNOWN_TYPE;
@@ -190,7 +186,7 @@ ETimeState::ETimeState(const ETimeState& r) :
     }
 }
 //==================================================================================================================================
-ETimeState::ETimeState(const ZZCantera::XML_Node& xTimeState, const ZZCantera::EState_ID_struct& e_id) :
+ETimeState::ETimeState(const Zuzax::XML_Node& xTimeState, const Zuzax::EState_ID_struct& e_id) :
     cellNumber_(0),
     domainNumber_(0),
     es_(0),
@@ -251,7 +247,7 @@ XML_Node* ETimeState::write_ETimeState_ToXML() const
      return xmi;
  }
 //==================================================================================================================================
-void ETimeState::read_ETimeState_fromXML(const ZZCantera::XML_Node& xTimeState, const ZZCantera::EState_ID_struct& e_id)
+void ETimeState::read_ETimeState_fromXML(const Zuzax::XML_Node& xTimeState, const Zuzax::EState_ID_struct& e_id)
 {
     /*
      *   Check to see that we are in the right spot
@@ -364,7 +360,7 @@ ETimeInterval::~ETimeInterval()
      }
 }
 //==================================================================================================================================
-ETimeInterval::ETimeInterval(const ZZCantera::XML_Node& xTimeInterval, const ZZCantera::EState_ID_struct& e_id) :
+ETimeInterval::ETimeInterval(const Zuzax::XML_Node& xTimeInterval, const Zuzax::EState_ID_struct& e_id) :
     ETimeInterval()
 {
     read_ETimeInterval_fromXML(xTimeInterval, e_id);
@@ -419,7 +415,7 @@ ETimeInterval& ETimeInterval::operator=(const ETimeInterval& right)
  *   @return   Returns the malloced XML_Node with name globalTimeStep containing the information in this
  *             object. The calling program is responsible for freeing this.
  */
-ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index, int windex ) const
+Zuzax::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index, int windex ) const
 {
      const std::string fmt = "%22.14E";
      int ii = index_;
@@ -449,7 +445,7 @@ ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index, int win
      return xtg;
 }
 //==================================================================================================================================
-void ETimeInterval::read_ETimeInterval_fromXML(const ZZCantera::XML_Node& xTimeInterval, const ZZCantera::EState_ID_struct& e_id)
+void ETimeInterval::read_ETimeInterval_fromXML(const Zuzax::XML_Node& xTimeInterval, const Zuzax::EState_ID_struct& e_id)
 {
     std::string nn = xTimeInterval.name();
     if (nn != "globalTimeStep") {
@@ -584,7 +580,7 @@ ElectrodeTimeEvolutionOutput::~ElectrodeTimeEvolutionOutput()
     }
 }
 //==================================================================================================================================
-ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ZZCantera::XML_Node& xElectrodeOutput) :
+ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const Zuzax::XML_Node& xElectrodeOutput) :
     index_(1),
     timeStamp_(""),
     e_ID_(),
@@ -630,7 +626,7 @@ ElectrodeTimeEvolutionOutput& ElectrodeTimeEvolutionOutput::operator=(const Elec
     return *this;
 }
 //==================================================================================================================================
-ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOutput_ToXML(int index) const
+Zuzax::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOutput_ToXML(int index) const
 {
     int windex = index_;
     if (index != -1) {
@@ -650,7 +646,7 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
     return xEO;
 }
 //==================================================================================================================================
-void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(const ZZCantera::XML_Node& xElectrodeOutput)
+void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(const Zuzax::XML_Node& xElectrodeOutput)
 {
     std::string valueString, typeString;
     std::string nn = xElectrodeOutput.name();
@@ -891,7 +887,7 @@ double ElectrodeTimeEvolutionOutput::electrodeInitialMoles() const
  * @return    Returns a pointer to a new EState instance matching the  model string. Returns NULL if
  *            something went wrong. Throws an exception if the string wasn't matched.
  */
-ZZCantera::EState* EState_Factory::newEStateObject(std::string model)
+Zuzax::EState* EState_Factory::newEStateObject(std::string model)
 {
     /*
      *  Look up the string to find the enum
@@ -929,7 +925,7 @@ ZZCantera::EState* EState_Factory::newEStateObject(std::string model)
     return ee;
 }
 //==================================================================================================================================
-ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xSoln, int& globalTimeStepNum)
+Zuzax::XML_Node* selectLastGlobalTimeStepInterval(Zuzax::XML_Node* xSoln, int& globalTimeStepNum)
 {
     /*
      *  Find the electrodeOutput XML element.
@@ -971,7 +967,7 @@ ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xSoln
     return xGlobalTimeSteps[jMax];
 }
 //==================================================================================================================================
-ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCantera::XML_Node& xmlGlobalTimeStep, double& timeVal, 
+Zuzax::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const Zuzax::XML_Node& xmlGlobalTimeStep, double& timeVal, 
                                                                   int printSteps)
 {
     std::string typeString;
@@ -992,7 +988,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCanter
 	    XML_Node* xTimeState = xTimeStates[n];
 	    std::string tt = xTimeState->attrib("type");
 	    ZZctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
-	    timeVal = ZZCantera::fpValueCheck(timeValStr);
+	    timeVal = Zuzax::fpValueCheck(timeValStr);
 	    printf(" type = %s  time = %g\n", tt.c_str(), timeVal);   
 	}
     }
@@ -1011,7 +1007,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCanter
     return eStateX;
 }
 //==================================================================================================================================
-ZZCantera::EState* newEStateObject(std::string model, EState_Factory* f)
+Zuzax::EState* newEStateObject(std::string model, EState_Factory* f)
 {
     if (f == 0) {
         f = EState_Factory::factory();
@@ -1019,14 +1015,14 @@ ZZCantera::EState* newEStateObject(std::string model, EState_Factory* f)
     return f->newEStateObject(model);
 }
 //==================================================================================================================================
-ZZCantera::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, double& timeRead)
+Zuzax::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, double& timeRead)
 {
     timeRead = 0.0;
     /*
      *   Read in the XML file using the XMLfile name as input. getting the first ElectrodeOutput XML tree.
      *    -> that's what the 1 argument is. May do more with this in the future.
      */
-    ZZCantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, 1);
+    Zuzax::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, 1);
     if (!xEout) {
 	ESModel_Warning("getElectrodeOutputFile", "Error");
 	return NULL;
@@ -1052,7 +1048,7 @@ ZZCantera::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, d
      *   Select the last global time step increment
      */
     int globalTimeStepNum = 0;
-    ZZCantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
+    Zuzax::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
     if (!x) {
 	delete es;
 	return NULL;
@@ -1061,7 +1057,7 @@ ZZCantera::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, d
      *  Select the t_final step from the last global time step
      */
     double timeVal;
-    ZZCantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 0);
+    Zuzax::XML_Node* xSt = locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 0);
     if (!xSt) {
 	delete es;
 	return NULL;
@@ -1076,7 +1072,7 @@ ZZCantera::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, d
     return es;
 }
 //==================================================================================================================================
-ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, const ZZCantera::EState_ID_struct& e_id)
+Zuzax::EState* createEState_fromXML(const Zuzax::XML_Node& xEState, const Zuzax::EState_ID_struct& e_id)
 {
     /*
      *   Check to see that we are in the right spot
@@ -1103,7 +1099,7 @@ ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, cons
     return es;
 }
 //==================================================================================================================================
-size_t reportXMLElectrodeOutput_NumRecords(const ZZCantera::XML_Node& Xfile)
+size_t reportXMLElectrodeOutput_NumRecords(const Zuzax::XML_Node& Xfile)
 {
     //
     //  Need to be at the ctml level for the next command to work
@@ -1116,7 +1112,7 @@ size_t reportXMLElectrodeOutput_NumRecords(const ZZCantera::XML_Node& Xfile)
     return xCTML->nChildren("electrodeOutput");
 }
 //==================================================================================================================================
-esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::XML_Node& Xfile, int index)
+esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const Zuzax::XML_Node& Xfile, int index)
 {
     //
     //  Need to be at the ctml level for the next command to work
@@ -1146,7 +1142,7 @@ esmodel::ElectrodeTimeEvolutionOutput* readFileElectrodeOutput(const std::string
      *   Read the XML file name getting the first ElectrodeOutput XML tree.
      *    -> that's what the 1 argument is. May do more with this in the future.
      */
-    ZZCantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, index);
+    Zuzax::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, index);
     if (!xEout) {
 	ESModel_Warning("getElectrodeOutputFile", "Error");
 	return NULL;
@@ -1157,9 +1153,9 @@ esmodel::ElectrodeTimeEvolutionOutput* readFileElectrodeOutput(const std::string
 //==================================================================================================================================
 void writeElectrodeOutputFile(std::string fileName, const esmodel::ElectrodeTimeEvolutionOutput& e_teo)
 {
-     ZZCantera::XML_Node root("--");
-     ZZCantera::XML_Node& ct = root.addChild("ctml");
-     ZZCantera::XML_Node* x_eteo = e_teo.write_ElectrodeTimeEvolutionOutput_ToXML();
+     Zuzax::XML_Node root("--");
+     Zuzax::XML_Node& ct = root.addChild("ctml");
+     Zuzax::XML_Node* x_eteo = e_teo.write_ElectrodeTimeEvolutionOutput_ToXML();
      ct.addChildToTree(x_eteo);
      std::fstream s(fileName.c_str(), fstream::in | fstream::out | fstream::trunc);
      root.write(s);

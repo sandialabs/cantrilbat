@@ -12,8 +12,8 @@
 #ifndef REACTINGSURDOMAIN_H
 #define REACTINGSURDOMAIN_H
 
-#include "cantera/kinetics/ElectrodeKinetics_intoPL.h"
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/kinetics/ElectrodeKinetics_intoPL.h"
+#include "zuzax/multiphase/PhaseList.h"
 
 #include "RSD_OCVmodel.h"
 
@@ -22,11 +22,7 @@
 
 class RxnMolChange;
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 // Forward declartion for structure. This is fully defined in Electrode_input.h

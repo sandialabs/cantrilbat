@@ -5,11 +5,7 @@
 #include "Electrode_MP_RxnExtent_FeS2.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2() :

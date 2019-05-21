@@ -22,11 +22,11 @@
 
 #include <limits>
 
-#include "cantera/numerics/SquareMatrix.h"
+#include "zuzax/numerics/SquareMatrix.h"
 #include "NonlinearElectrodeSolver.h"
 
-#include "cantera/base/clockWC.h"
-#include "cantera/kernel/vec_functions.h"
+#include "zuzax/base/clockWC.h"
+#include "zuzax/kernel/vec_functions.h"
 #include <ctime>
 
 #include <cfloat>
@@ -43,14 +43,10 @@ extern void print_line(const char *, int);
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 
-namespace Cantera {
+namespace Zuzax {
 
 
  //====================================================================================================================

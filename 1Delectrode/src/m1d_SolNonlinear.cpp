@@ -13,10 +13,10 @@
 
 #include "m1d_Comm.h"
 #include "m1d_SolNonlinear.h"
-#include "cantera/base/accurateClock.h"
-#include "cantera/base/utilities.h"
+#include "zuzax/base/accurateClock.h"
+#include "zuzax/base/utilities.h"
 #include "mdp_allo.h"
-#include "cantera/base/stringUtils.h"
+#include "zuzax/base/stringUtils.h"
 
 #include "Epetra_Vector.h"
 #include "Epetra_VbrMatrix.h"
@@ -582,7 +582,7 @@ SolNonlinear::doNewtonSolve(Epetra_Vector_Owned& delta_soln, const Epetra_Vector
 #ifdef DEBUG_MODE
     if (1) {
         for (int j = 0; j < m_NumLcOwnedEqns; j++) {
-            ZZCantera::checkFinite(delta_soln[j]);
+            Zuzax::checkFinite(delta_soln[j]);
         }
     }
 #endif
@@ -1024,10 +1024,10 @@ SolNonlinear::dampStep(double time_curr, const Epetra_Vector_Ghosted& y0,  const
         get_res(time_curr, rdelta_t, m_y_new, m_ydot_new);
 
         if (m_print_flag >= 6) {
-            ResS = "Residual For Damping Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(ff);
+            ResS = "Residual For Damping Trial " + Zuzax::int2str(m) + " with Damping Coeff " + Zuzax::fp2str(ff);
             m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), 10);
         } else if (m_print_flag == 4 || m_print_flag == 5) {
-            ResS = "Residual For Damp Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(ff);
+            ResS = "Residual For Damp Trial " + Zuzax::int2str(m) + " with Damping Coeff " + Zuzax::fp2str(ff);
             m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), true);
         } else {
             m_normResidTrial = res_error_norm(*m_resid);
@@ -1212,10 +1212,10 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
         get_res(time_curr, rdelta_t, m_y_new, m_ydot_new);
 
         if (m_print_flag >= 6) {
-            ResS = "Residual For Damping Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(m_fdamp);
+            ResS = "Residual For Damping Trial " + Zuzax::int2str(m) + " with Damping Coeff " + Zuzax::fp2str(m_fdamp);
             m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), 10);
         } else if (m_print_flag == 4 || m_print_flag == 5) {
-            ResS = "Residual For Damp Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(m_fdamp);
+            ResS = "Residual For Damp Trial " + Zuzax::int2str(m) + " with Damping Coeff " + Zuzax::fp2str(m_fdamp);
             m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), true);
         } else {
             m_normResidTrial = res_error_norm(*m_resid);
@@ -1930,7 +1930,7 @@ SolNonlinear::solve_nonlinear_problem(Zuzax::Solve_Type solnType,
         }
 
         if (m_print_flag > 3) {
-            string ResS = "Accepted Step " + ZZCantera::int2str(m_num_newt_its) + " Residual Norm";
+            string ResS = "Accepted Step " + Zuzax::int2str(m_num_newt_its) + " Residual Norm";
             res_error_norm(*m_resid, ResS.c_str(), 10);
         }
 

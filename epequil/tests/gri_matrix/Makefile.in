@@ -32,8 +32,8 @@ OBJS = gri_matrix.o
 # This link is to Cantera's install space
 CT_INCROOT=@ct_incroot@
 
-# Bring in the Cantera includes through the .mak file
-include $(CT_INCROOT)/cantera/Cantera.mak
+# Bring in the Zuzax includes through the .mak file
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 # Top of the directory structure for git module
 TOPDIR = @abs_top_srcdir@
@@ -49,7 +49,7 @@ CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS)
 # Ending C++ linking libraries
 LCXX_END_LIBS = @LCXX_END_LIBS@
 
-# the directory where Cantera include files may be found.
+# the directory where Zuzax include files may be found.
 
 # flags passed to the C++ compiler/linker for the linking step
 LCXX_FLAGS = @CXXFLAGS@

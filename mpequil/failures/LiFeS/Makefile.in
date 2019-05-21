@@ -8,14 +8,14 @@
 RM = /bin/rm -f
 #
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 #########################################################################
 #
-# The directory where Cantera include files may be found.
+# The directory where Zuzax include files may be found.
 #
 CANTERA_INCROOT=@ct_incroot@
 #
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 #
 CADS_ROOT=@cads_root@
 CADS_UTILSRC_DIR=$(CADS_ROOT)/util_src
@@ -60,7 +60,7 @@ all: .depends phaseDiagram
 .cpp.o:
 	$(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 # 
-# These classes compile against the Cantera kernel
+# These classes compile against the Zuzax kernel
 # format
 #
 SRCDIR=../../src

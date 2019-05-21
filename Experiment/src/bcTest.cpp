@@ -1,7 +1,7 @@
 #include "exp_BoundaryCondition.h"
 #include "exp_DakotaInterface.h"
 
-using namespace Cantera;
+using namespace Zuzax;
 
 
 int main() {
@@ -9,7 +9,7 @@ int main() {
   try {
     BCsteptable bc( "sampleBC.xml" );
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(std::cout);
   }
 } 

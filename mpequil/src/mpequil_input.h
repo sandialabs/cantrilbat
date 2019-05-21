@@ -11,16 +11,11 @@
 #ifndef _MPEQUIL_INPUT_H
 #define _MPEQUIL_INPUT_H
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 #include "tok_input_util.h"
 #include <string>
 #include <vector>
 
-#ifdef useZuzaxNamespace
-#define ZZCantera Zuzax
-#else
-#define ZZCantera Cantera
-#endif
 
 /*
  *-----------------------------------------------------------------------------
@@ -62,7 +57,7 @@ public:
     double *ElementAbundances;
     bool  specifiedElementAbundances;
     std::string Title;
-    void InitForInput(ZZCantera::MP_EquilStatic *);
+    void InitForInput(Zuzax::MP_EquilStatic *);
 	
 };
 extern MPEQUIL_KEY_INPUT PO;
@@ -75,9 +70,9 @@ public:
   MPEQUIL_INPUT();
   ~MPEQUIL_INPUT();
 
-  ZZCantera::ThermoPhase **tplist;
+  Zuzax::ThermoPhase **tplist;
 
-  ZZCantera::MP_EquilStatic *m_mp;
+  Zuzax::MP_EquilStatic *m_mp;
 
   //* Integer representing the Problem type.
   /*!

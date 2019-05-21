@@ -15,11 +15,7 @@
 #include "Electrode_CSTR_MCMBAnode.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 Electrode_CSTR_MCMBAnode::Electrode_CSTR_MCMBAnode() :

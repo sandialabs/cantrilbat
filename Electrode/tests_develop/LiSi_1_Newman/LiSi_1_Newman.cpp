@@ -5,13 +5,13 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/RootFind.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_input.h"
 #include "Electrode.h"
@@ -20,11 +20,7 @@
 #include <stdio.h>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
 int VCS_Debug_Print_Lvl = 3;
@@ -52,7 +48,7 @@ int main(int argc, char **argv)
   string commandFileC = "electrodeCathode.inp";
   // printed usage
 
-  ZZCantera::NonlinearSolver_JAC::s_TurnOffTiming = true;
+  Zuzax::NonlinearSolver_JAC::s_TurnOffTiming = true;
 
 
   /*
@@ -109,7 +105,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
-    ZZCantera::Electrode_MP_RxnExtent *electrodeA  = new ZZCantera::Electrode_MP_RxnExtent();
+    Zuzax::Electrode_MP_RxnExtent *electrodeA  = new Zuzax::Electrode_MP_RxnExtent();
     
     ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
     
@@ -167,7 +163,7 @@ int main(int argc, char **argv)
     int inLi12Si7 = electrodeA->globalSpeciesIndex("Li12Si7(S)");
     int inSi = electrodeA->globalSpeciesIndex("Si(S)");
     if (inLi13Si4 < 0) {
-      throw CanteraError("main", "species not found");
+      throw ZuzaxError("main", "species not found");
     }
 
     int nspGlobal = electrodeA->nSpecies();
@@ -321,11 +317,11 @@ int main(int argc, char **argv)
     delete electrodeA;
 
 
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

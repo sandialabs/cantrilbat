@@ -75,11 +75,11 @@ BDT_porAnode_LiKCl::ReadModelDescriptions()
 
     int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
     if (iph < 0) {
-	throw CanteraError("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl",
+	throw ZuzaxError("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl",
 			   "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
     }
     ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
-    ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquidIFN_ = dynamic_cast<Zuzax::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
     ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
 
     ELECTRODE_KEY_INPUT *ai = PSCinput_ptr->anode_input_;
@@ -216,7 +216,7 @@ void
 BDT_porAnode_LiKCl::DetermineConstitutiveModels()
 {
     safeDelete(trans_);
-    trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+    trans_ = Zuzax::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //=====================================================================================================================
 } /* End of Namespace */

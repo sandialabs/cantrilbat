@@ -15,17 +15,13 @@
 #ifndef _ELECTRODE_POLARIZATION_H
 #define _ELECTRODE_POLARIZATION_H
 
-#include "cantera/base/config.h"
-#include "cantera/base/ct_defs.h"
+#include "zuzax/base/config.h"
+#include "zuzax/base/ct_defs.h"
 
 #include "Electrode_defs.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class Electrode;

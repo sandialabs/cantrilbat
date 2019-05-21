@@ -10,9 +10,9 @@
 #ifndef M1D_DOMAINLAYOUT_LIKCL_POROUSBAT_H
 #define M1D_DOMAINLAYOUT_LIKCL_POROUSBAT_H
 
-//#include "cantera/Cantera.h"
-//#include "cantera/transport.h"      // transport properties
-//#include "cantera/thermo.h"      // transport properties
+//#include "zuzax/Cantera.h"
+//#include "zuzax/transport.h"      // transport properties
+//#include "zuzax/thermo.h"      // transport properties
 
 
 #include "m1d_DomainLayout.h"

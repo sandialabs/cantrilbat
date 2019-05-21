@@ -43,8 +43,8 @@ esac
 #
 ct_prefix=${CANTERA_INSTALL_DIR}
 #
-ct_prdef="/usr/local/cantera"
-if test "x$OS_IS_DARWIN" = "x1"; then ct_prdef="/Applications/Cantera"; fi
+ct_prdef="/usr/local/zuzax"
+if test "x$OS_IS_DARWIN" = "x1"; then ct_prdef="/Applications/Zuzax"; fi
 #
 ct_local_inst=1
 AC_SUBST(ct_local_inst)
@@ -91,8 +91,8 @@ fi
 #       Go Get the Cantera Version String
 # ----------------------------------------------------------------------------
 #
-CANTERA_INC=${CANTERA_INSTALL_DIR}/include/cantera
-CANTERA_MAK=${CANTERA_INC}/Cantera.mak
+CANTERA_INC=${CANTERA_INSTALL_DIR}/include/zuzax
+CANTERA_MAK=${CANTERA_INC}/Zuzax.mak
 CANTERA_VERSION_SED=`sed -n  '/^CANTERA_VERSION/  s/CANTERA_VERSION=// p' ${CANTERA_MAK}`
 echo 'Cantera Version Number Read from Cantera.mak = "'${CANTERA_VERSION_SED}"\""
 if test ${CANTERA_VERSION} = "default"
@@ -197,7 +197,7 @@ AC_SUBST(MP_MACHINEFILE_DEFAULT)
 #   Right now we use a grep statement for a string. It works, though it probably
 #   isn't the most stable method.
 #
-ZUZAX_config_FILE=${ct_prefix}/include/cantera/base/config.h
+ZUZAX_config_FILE=${ct_prefix}/include/zuzax/base/config.h
 # echo "ZUZAX_config_FILE = " $ZUZAX_config_FILE
 CA_CANTERA_DEBUG_MODE=0  
 Zuzax_Debug_Mode_Enabled=0
@@ -478,7 +478,7 @@ AC_CHECK_FUNCS([memset])
 # Add a define for the CANTERA_ROOT preprocessor variable
 #
 AC_DEFINE_UNQUOTED(CANTERA_ROOT, "$CANTERA_ROOT", Root location of the \
-    Cantera Source Code directory)
+    Zuzax Source Code directory)
 #
 # Add in a Makefile substitution rule in for the macro @ctb_root@
 #

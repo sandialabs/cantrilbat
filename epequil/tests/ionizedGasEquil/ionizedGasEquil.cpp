@@ -10,27 +10,23 @@
 #define DEBUG_HKM
 #endif
 
-#include "cantera/IdealGasMix.h"
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>
-#include <cantera/thermo/MargulesVPSSTP.h>
-#include <cantera/thermo/MolalityVPSSTP.h>
-#include <cantera/thermo/PureFluidPhase.h>
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include <zuzax/thermo/IonsFromNeutralVPSSTP.h>
+#include <zuzax/thermo/MargulesVPSSTP.h>
+#include <zuzax/thermo/MolalityVPSSTP.h>
+#include <zuzax/thermo/PureFluidPhase.h>
+#include "zuzax/equilibrium.h"
 #include <iomanip>
 #include <sstream>
 #include <cstdio>
 #include <fstream>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 int main(int argc, char **argv) {
 #ifdef DEBUG_CHEMEQUIL
-  ZZCantera::ChemEquil_print_lvl = 0;
+  Zuzax::ChemEquil_print_lvl = 0;
 #endif
   try {
 
@@ -110,7 +106,7 @@ int main(int argc, char **argv) {
     delete gas;
   }
 
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors();
   }
   return 0;

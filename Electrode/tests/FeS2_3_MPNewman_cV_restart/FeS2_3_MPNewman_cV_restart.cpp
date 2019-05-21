@@ -10,8 +10,8 @@
 
 #include "Electrode_input.h"
 #include "Electrode_MP_RxnExtent.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equilibrium.h"
 
 #include <iomanip>
 
@@ -45,7 +45,7 @@ void printUsage() {
 //   int isurf = 0;
 //   int numInnerPhases = 1;
 //   int numOuterPhases = 1;
-//   ZZCantera::Plateau *ppo = new Plateau(isurf,numInnerPhases,numOuterPhases);
+//   Zuzax::Plateau *ppo = new Plateau(isurf,numInnerPhases,numOuterPhases);
 //   eC->plateauList_.push_back(ppo);
   
 //   // set phase indices
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    ZZCantera::Electrode_MP_RxnExtent *electrodeC  = new ZZCantera::Electrode_MP_RxnExtent();
+    Zuzax::Electrode_MP_RxnExtent *electrodeC  = new Zuzax::Electrode_MP_RxnExtent();
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
@@ -264,11 +264,11 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeC_input;
     delete electrodeC;
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

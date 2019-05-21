@@ -14,8 +14,8 @@
 #include "cttables_kin.h"
 
 #include "BlockEntryGlobal.h"
-#include "cantera/base/accurateClock.h"
-#include "cantera/base/PrintCtrl.h"
+#include "zuzax/base/accurateClock.h"
+#include "zuzax/base/PrintCtrl.h"
 
 // Kinetics includes
 #include "importAllCTML.h"
@@ -24,11 +24,7 @@
 
 //==================================================================================================================================
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 using namespace std;
 using namespace BEInput;
@@ -50,7 +46,7 @@ int DebugPrinting(0);
 
 /**!
  * Driving object is a cantera Kinetics object.
- * If false, driving object is a Cantera ThermoPhase object
+ * If false, driving object is a Zuzax ThermoPhase object
  */
 bool TopIsKineticsObject = false;
 
@@ -835,7 +831,7 @@ setBathSpeciesConditions(ThermoPhase& g, PhaseList* pl, int printLvl)
 
     int iph = pl->globalPhaseIndex(&g);
     if (iph < 0) {
-        throw CanteraError(" ", "phase not found");
+        throw ZuzaxError(" ", "phase not found");
     }
 
     BG.BathSpeciesName = g.speciesName(BG.BathSpeciesIDVec[iph]);
@@ -881,7 +877,7 @@ printBathSpeciesConditions(ThermoPhase& g, PhaseList* pl, int printLvl)
 
     int iph = pl->globalPhaseIndex(&g);
     if (iph < 0) {
-        throw CanteraError(" ", "phase not found");
+        throw ZuzaxError(" ", "phase not found");
     }
 
     BG.BathSpeciesName = g.speciesName(BG.BathSpeciesIDVec[iph]);
@@ -984,7 +980,7 @@ bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
     g.setState_TPY(T, P, y);
     try {
         GTran = processExpandedTransport(xmlPhase, &g);
-    } catch (CanteraError& ctex) {
+    } catch (ZuzaxError& ctex) {
         cout << "setupGasTransport ERROR!" << endl;
         showErrors(cout);
         retn = false;
@@ -1055,7 +1051,7 @@ int main(int argc, char** argv)
     bool printInputFormat = false;
     zuzaxUtil::accurateClock tt;
     std::string commandFile = "cttables.inp";
-    ZZCantera::Kinetics* gKinetics = 0;
+    Zuzax::Kinetics* gKinetics = 0;
     // look for command-line options
     if (argc > 1) {
         std::string tok;
@@ -1106,7 +1102,7 @@ int main(int argc, char** argv)
     }
 
     /*
-     * General Catch block to trap Cantera Errors and print them
+     * General Catch block to trap Zuzax Errors and print them
      */
     try {
         ReactingVolDomain* rVolDomain = new ReactingVolDomain();
@@ -1203,7 +1199,7 @@ int main(int argc, char** argv)
         /*
          * Process the first pass of the input file ->
          *   We are just after the information needed to initialize
-         *   the Cantera structures and size the problem
+         *   the Zuzax structures and size the problem
          */
         //cf->print_usage(0);
         ok = process_input(cf, commandFile, gKinetics, gThermoMainPhase, pl);
@@ -1241,7 +1237,7 @@ int main(int argc, char** argv)
             ok = rVolDomain->importVolKinFromPL(pl, ivfound);
         }
         if (!ok) {
-            throw CanteraError("cttables main:", "rVolDomain returned an error");
+            throw ZuzaxError("cttables main:", "rVolDomain returned an error");
         }
 
 
@@ -1444,7 +1440,7 @@ int main(int argc, char** argv)
         TT_ptr = 0;
         appdelete();
 
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
         showErrors(cout);
         return 0;
     }

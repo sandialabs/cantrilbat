@@ -725,7 +725,7 @@ void SurDomain_CathodeCollector::initialConditions(const bool doTimeDependentRes
     }
 }
 //=================================================================================================================
-void SurDomain_CathodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
+void SurDomain_CathodeCollector::saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
                                             const Epetra_Vector* solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     // const double* s = soln_GLALL_ptr + loc();
@@ -739,7 +739,7 @@ void SurDomain_CathodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Ep
     NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     int eqnStart = nv->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
-    ZZCantera::XML_Node& inlt = oNode.addChild("domain");
+    Zuzax::XML_Node& inlt = oNode.addChild("domain");
     int numVar = nv->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
@@ -748,19 +748,19 @@ void SurDomain_CathodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Ep
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos();
-    ZZctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
+        ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
     }
     string nm = "Volts(CurrentCCVoltage)";
-    ZZctml::addFloat(inlt, nm, phiCathodeCC_, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, nm, phiCathodeCC_, "", "", Zuzax::Undef, Zuzax::Undef);
 
 }
 //===================================================================================================================================

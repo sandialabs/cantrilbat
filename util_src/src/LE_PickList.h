@@ -82,12 +82,12 @@ namespace BEInput
  *
  *    BlockEntry* beppk = new BlockEntry("Particle Phase Kinetics", 1);
  *
- *    char *cppkkm[2] = {"NONE", "Cantera"};
+ *    char *cppkkm[2] = {"NONE", "Zuzax"};
  *    LE_PickList *lepkm = new LE_PickList("Kinetics Method",
  *                                         &(ga->ParticleKineticsMethod),
  *                                         cppkkm,
  *                                         2, 1, "ParticleKineticsMethod");
- *    lepkm->set_default("Cantera");
+ *    lepkm->set_default("Zuzax");
  *    BI_DepIntMaxMin* depimm3 =
  *        new BI_DepIntMaxMin(lept, BIDT_INTMAXMIN,
  *                            1, 1, BIDRT_RTINTMM_ERROR);
@@ -104,7 +104,7 @@ namespace BEInput
  *
  *  @code
  *       Start Block Particle Phase Kinetics
- *          Kinetics Method = Cantera
+ *          Kinetics Method = Zuzax
  *       End   Block Particle Phase Kinetics
  *  @endcode
  *

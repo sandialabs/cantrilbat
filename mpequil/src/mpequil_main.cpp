@@ -129,7 +129,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
   vprob->setDebugPrintLvl(VCS_Debug_Print_Lvl);
 #endif
   /*
-   * vcs problem input to Cantera conversion
+   * vcs problem input to Zuzax conversion
    */
   int res = mpequil_convert(prob_input, vprob);
   if (res != 0) {

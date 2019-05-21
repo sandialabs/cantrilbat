@@ -10,14 +10,14 @@
 
 
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
-#include "cantera/numerics/CVodesIntegrator.h"
-#include "cantera/kinetics/AqueousKinetics.h"
-#include "cantera/kinetics.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/numerics/CVodesIntegrator.h"
+#include "zuzax/kinetics/AqueousKinetics.h"
+#include "zuzax/kinetics.h"
 
 #include "InterfacialMassTransfer_input.h"
 #include "InterfacialMassTransfer.h"
@@ -30,11 +30,7 @@
 
 using namespace std;
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace mdpUtil;
 
 
@@ -54,11 +50,7 @@ void printUsage() {
 }
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera 
-#endif
 {
 /**
  *  Virtual base class for ODE right-hand-side function evaluators.
@@ -332,9 +324,9 @@ int main(int argc, char **argv)
     }
   
   
-    ZZCantera::imtPSS_NoSurf* iface  = new ZZCantera::imtPSS_NoSurf();
+    Zuzax::imtPSS_NoSurf* iface  = new Zuzax::imtPSS_NoSurf();
     
-    ZZCantera::IMT_KEY_INPUT *face_input = new IMT_KEY_INPUT();
+    Zuzax::IMT_KEY_INPUT *face_input = new IMT_KEY_INPUT();
     
     std::string commandFile = "interface.inp";
   
@@ -438,11 +430,11 @@ int main(int argc, char **argv)
     delete cf;
     delete face_input;
     delete iface;
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

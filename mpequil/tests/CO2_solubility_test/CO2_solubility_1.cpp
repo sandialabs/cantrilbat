@@ -7,24 +7,17 @@
  *
  */
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/thermo.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/base/logger.h"
-#include "cantera/thermo/HMWSoln.h"
+#include "zuzax/thermo.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/base/logger.h"
+#include "zuzax/thermo/HMWSoln.h"
 
 #include <cstring>
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#define ZZCantera Zuzax
-#else
-using namespace Cantera;
-#define ZZCantera Cantera
-#endif
-
 using namespace std;
 
 void printUsage() {
@@ -99,7 +92,7 @@ int main(int argc, char **argv) {
 
     string nacl_s = "NaCl_Solid.xml";
     string id = "NaCl(S)";
-    ZZCantera::ThermoPhase *solid = ZZCantera::newPhase(nacl_s, id);
+    Zuzax::ThermoPhase *solid = Zuzax::newPhase(nacl_s, id);
     solid->setState_TP(300.0, pres);
 
     
@@ -107,7 +100,7 @@ int main(int argc, char **argv) {
     gas.setState_TPX(300.0, pres, "H2O:0.12, CO2:0.88");
 
 
-    ZZCantera::MP_EquilStatic mmm;
+    Zuzax::MP_EquilStatic mmm;
     
     mmm.addPhase(HMW, 10.);
     mmm.addPhase(solid, 0.001);
@@ -129,7 +122,7 @@ int main(int argc, char **argv) {
    
     return 0;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

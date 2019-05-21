@@ -20,7 +20,7 @@
 #include "Epetra_Map.h"
 #include "Epetra_Vector.h"
 
-#include "cantera/base/stringUtils.h"
+#include "zuzax/base/stringUtils.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
@@ -270,7 +270,7 @@ GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const
 {
 #ifdef DEBUG_MODE
     if ((GbEqnNum < 0) || GbEqnNum >= NumGbEqns) {
-        throw m1d_Error("GlobalIndices::GbEqnToGbNode", "GbEqnNum out of bounds: " + ZZCantera::int2str(GbEqnNum));
+        throw m1d_Error("GlobalIndices::GbEqnToGbNode", "GbEqnNum out of bounds: " + Zuzax::int2str(GbEqnNum));
     }
 #endif
     int nfound = -1;

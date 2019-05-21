@@ -12,14 +12,10 @@
 #define _INTERFACIALMASSTRANSFER_INTEGRATOR_H
 
 #include "InterfacialMassTransfer.h"
-#include "cantera/integrators.h"
-#include "cantera/numerics/ResidJacEval.h"
+#include "zuzax/integrators.h"
+#include "zuzax/numerics/ResidJacEval.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   class NonlinearSolver_JAC;
@@ -32,7 +28,7 @@ namespace Cantera
    * Complete problem statement
    *
    */
-  class InterfacialMassTransfer_Integrator : public InterfacialMassTransfer , public ZZCantera::ResidJacEval {
+  class InterfacialMassTransfer_Integrator : public InterfacialMassTransfer , public Zuzax::ResidJacEval {
   public:
   
     // ---------------------------------------------------------------------------------------------
@@ -328,7 +324,7 @@ namespace Cantera
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian 
     /*!  
-     * (virtual from ZZCantera::ResidJacEval)
+     * (virtual from Zuzax::ResidJacEval)
      *
      *   There is a default algorithm provided. 
      *

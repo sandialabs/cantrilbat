@@ -14,33 +14,25 @@
 #ifndef ELECTRODE_EXCEPTION_H
 #define ELECTRODE_EXCEPTION_H
 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ctexceptions.h"
 #include "Electrode_defs.h"
 
 #include <string>
 #include <vector>
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 class Electrode;
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 //! base error class for m1d package inherits from the exception stl
 /*!
  *  This error class is built on top of the Zuzax error procedures.
  */
-class Electrode_Error : public ZZCantera::ZuzaxError
+class Electrode_Error : public Zuzax::ZuzaxError
 {
 public:
 
@@ -128,7 +120,7 @@ protected:
  * @ingroup errorhandling
  */
 #  define AssertTrace(expr)  ((expr) ? (void) 0 : \
-			      throw ZZCantera::Electrode_Error(STR_TRACE, std::string("failed assert: ") + #expr))
+			      throw Zuzax::Electrode_Error(STR_TRACE, std::string("failed assert: ") + #expr))
 
 //==================================================================================================================================
 //!  Assertion must be true or an error is thrown
@@ -142,7 +134,7 @@ protected:
  * @ingroup errorhandling
  */
 #  define AssertThrow(expr, procedure)   ((expr) ? (void) 0 :\
-					  throw ZZCantera::Electrode_Error(procedure, std::string("failed assert: ") + #expr))
+					  throw Zuzax::Electrode_Error(procedure, std::string("failed assert: ") + #expr))
 
 //==================================================================================================================================
 //!  Assertion must be true or an error is thrown
@@ -160,7 +152,7 @@ protected:
  */
 
 # define AssertThrowMsg(expr, procedure, message) \
-             ((expr) ? (void) 0 : throw ZZCantera::Electrode_Error(procedure + std::string(": at failed assert: \"") +\
+             ((expr) ? (void) 0 : throw Zuzax::Electrode_Error(procedure + std::string(": at failed assert: \"") +\
                                                        std::string(#expr) + std::string("\""), message) )
 
 //==================================================================================================================================
@@ -179,7 +171,7 @@ namespace esmodel
  *   @param[in]             procedure             String identifying the procedure where the warning occurred.
  *   @param[in]             msg                   String with the message
  */
-void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string& procedure, const std::string& msg);
+void Electrode_Warning(const Zuzax::Electrode& e,  const std::string& procedure, const std::string& msg);
 
 //! Write a warning to the logfile when not within an Electrode object
 /*!

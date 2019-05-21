@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
     string path = findInputFile(fn);
     ifstream fin(path.c_str());
     if (!fin) {
-      throw CanteraError("copyXML","could not open "
+      throw ZuzaxError("copyXML","could not open "
 			 +path+" for reading.");
     }
     /*

@@ -17,11 +17,11 @@
 #include "Electrode_Exception.h"
 #include "Electrode_input.h"
 
-#include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/solveProb.h"
-#include "cantera/kinetics/ExtraGlobalRxn.h"
-#include "cantera/base/vec_functions.h"
-#include "cantera/base/zzcompare.h"
+#include "zuzax/numerics/RootFind.h"
+#include "zuzax/numerics/solveProb.h"
+#include "zuzax/kinetics/ExtraGlobalRxn.h"
+#include "zuzax/base/vec_functions.h"
+#include "zuzax/base/zzcompare.h"
 #include "ApplBase_print.h"
 
 
@@ -31,11 +31,7 @@
 #endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //======================================================================================================================
 // By default predictor_corrector printing is turned on, at least to the printLvl_ level.
@@ -357,9 +353,9 @@ Electrode& Electrode::operator=(const Electrode& right)
     polarSrc_list_Last_ = right.polarSrc_list_Last_;
     polarSrc_list_ = right.polarSrc_list_;
 
-    ZZCantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
-    ZZCantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
-    ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
+    Zuzax::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
+    Zuzax::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
+    Zuzax::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
 
     metalPhase_ = right.metalPhase_;
     solnPhase_ = right.solnPhase_;
@@ -687,7 +683,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             }
 
             // Check to see if we have entered an OCVoverride for this species. If we have then modify the reacting surface
-            ZZCantera::OCV_Override_input* ocv_ptr = ei->OCVoverride_ptrList[isurf];
+            Zuzax::OCV_Override_input* ocv_ptr = ei->OCVoverride_ptrList[isurf];
             if (ocv_ptr->numTimes > 0) {
                 rsd->addOCVoverride(ocv_ptr);
             }
@@ -698,7 +694,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             ActiveKineticsSurf_[isurf] = 1;
         }
     }
-    ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(ei->OCVoverride_ptrList, OCVoverride_ptrList_);
+    Zuzax::deepStdVectorPointerCopy<OCV_Override_input>(ei->OCVoverride_ptrList, OCVoverride_ptrList_);
     //OCVoverride_ptrList_ = ei->OCVoverride_ptrList;
 
     /*
@@ -1614,7 +1610,7 @@ void Electrode::resizeParticleNumbersToMoleNumbers()
     resizeSurfaceAreasToGeometry();
 }
 //====================================================================================================================
-ZZCantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
+Zuzax::ReactingSurDomain* Electrode::currOuterReactingSurface()
 {
     for (size_t isk = 0; isk < numSurfaces_; isk++) {
         if (ActiveKineticsSurf_[isk]) {
@@ -1624,7 +1620,7 @@ ZZCantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
     return 0;
 }
 //==================================================================================================================================
-ZZCantera::ReactingSurDomain* Electrode::reactingSurface(size_t iSurf)
+Zuzax::ReactingSurDomain* Electrode::reactingSurface(size_t iSurf)
 {
     return RSD_List_[iSurf];
 }
@@ -3685,7 +3681,7 @@ void Electrode::addExtraGlobalRxn(const EGRInput& egri)
     }
     size_t nReactionsA = iKA->nReactions();
 
-    ZZCantera::ExtraGlobalRxn* egr = new ExtraGlobalRxn(*iKA);
+    Zuzax::ExtraGlobalRxn* egr = new ExtraGlobalRxn(*iKA);
     double* RxnVector = new double[nReactionsA];
     for (size_t i = 0; i < nReactionsA; i++) {
         RxnVector[i] = 0.0;
@@ -3713,7 +3709,7 @@ size_t Electrode::processExtraGlobalRxnPathways(const std::vector<EGRInput*>& EG
     return numExtraGlobalRxns;
 }
 //==================================================================================================================================
-ZZCantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(size_t iegr)
+Zuzax::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(size_t iegr)
 {
     return m_egr[iegr];
 }
@@ -3964,7 +3960,7 @@ int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double de
 
     solveProb* pSolve = new solveProb(pSolve_Res);
     pSolve->m_ioflag = 10;
-    pSolve->setAtolConst(1.0E-11);
+    pSolve->setAtolGlobal(1.0E-11);
     retn = pSolve->solve(solveProb::RESIDUAL, 1.0E-6, 1.0E-3);
     if (retn == 0) {
         pSolve->reportState(Xmf_stable);

@@ -10,9 +10,9 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/base/stringUtils.h"
-#include "cantera/base/ctexceptions.h"
-#include "cantera/base/global.h"
+#include "zuzax/base/stringUtils.h"
+#include "zuzax/base/ctexceptions.h"
+#include "zuzax/base/global.h"
 
 #include <iostream>
 #include <new>
@@ -24,11 +24,7 @@
 #include "stdio.h"
 #include "string.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 
 
@@ -42,7 +38,7 @@ int main(int argc, char** argv) {
     double dval;
 
     /*
-     * General Catch block to trap Cantera Errors and print them
+     * General Catch block to trap Zuzax Errors and print them
      */
     try {
       strcpy(hhhs, "34.325d10");
@@ -58,7 +54,7 @@ int main(int argc, char** argv) {
       dval = fpValueCheck(hhh);
       printf("dval = %g\n", dval);
 
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       showErrors(cout);
       return 0;
     }

@@ -15,18 +15,14 @@
 
 
 #include "ElectrolyteKinetics.h"
-#include "cantera/thermo/IdealSolidSolnPhase.h"
-#include "cantera/kinetics/ReactionData.h"
-#include "cantera/kinetics/importKinetics.h"
+#include "zuzax/thermo/IdealSolidSolnPhase.h"
+#include "zuzax/kinetics/ReactionData.h"
+#include "zuzax/kinetics/importKinetics.h"
 
 
 using namespace std;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   /*

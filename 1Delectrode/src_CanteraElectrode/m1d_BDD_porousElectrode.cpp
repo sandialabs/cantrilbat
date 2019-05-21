@@ -21,11 +21,7 @@
 #include "m1d_exception.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -129,22 +125,22 @@ void BDD_porousElectrode::ReadModelDescriptions()
     if (electrodeType_ == 0) {
         retn = Electrode_->electrode_model_create(PSCinput_ptr->anode_input_);
         if (retn == -1) {
-            throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()", "Error initializing the anode electrode object");
+            throw ZuzaxError("BDD_porousElectrode::ReadModelDescriptions()", "Error initializing the anode electrode object");
         }
         retn = Electrode_->setInitialConditions(PSCinput_ptr->anode_input_);
         if (retn == -1) {
-            throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()",
+            throw ZuzaxError("BDD_porousElectrode::ReadModelDescriptions()",
                                "Electrode::setInitialConditions() for anode failed");
         }
     } else if (electrodeType_ == 1) {
         retn = Electrode_->electrode_model_create(PSCinput_ptr->cathode_input_);
         if (retn == -1) {
-            throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()",
+            throw ZuzaxError("BDD_porousElectrode::ReadModelDescriptions()",
                                "Error initializing the cathode electrode object");
         }
         retn = Electrode_->setInitialConditions(PSCinput_ptr->cathode_input_);
         if (retn == -1) {
-            throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()",
+            throw ZuzaxError("BDD_porousElectrode::ReadModelDescriptions()",
                                "Electrode::setInitialConditions() for cathode failed");
         }
     }
@@ -251,7 +247,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
             }
         }
         if (iCN_index_ == npos) {
-            throw CanteraError("sep", "no negative charge species");
+            throw ZuzaxError("sep", "no negative charge species");
         }
     }
 

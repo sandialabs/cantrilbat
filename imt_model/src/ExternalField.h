@@ -3,30 +3,12 @@
 #ifndef _EXTERNAL_FIELD_H
 #define _EXTERNAL_FIELD_H
 
-
-
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
   class IMT_KEY_INPUT;
 }
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
 
 //! Enum type identifying the time behavior of the external fields

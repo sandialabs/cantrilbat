@@ -38,11 +38,7 @@
 #include <fstream>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -92,12 +88,9 @@ ProblemResidEval::ProblemResidEval(double atol) :
                 string rr(resp_str) ;
                 double ff = fpValueCheck(rr);
                 s_printFlagEnv  = ff;
-            } catch (CanteraError& cE) {
-                ZZCantera::showErrors();
-                ZZCantera::popError();
             } catch (ZuzaxError& cE) {
-                ZZCantera::showErrors();
-                ZZCantera::popError();
+                Zuzax::showErrors();
+                Zuzax::popError();
             }
         }
     }
@@ -1123,7 +1116,7 @@ void ProblemResidEval::readSolution(const int iNumber, std::string baseFileName,
  * @param delta_t_next_read delta time step for the next time step if available
  */
 void
-ProblemResidEval::readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
+ProblemResidEval::readSolutionXML(Zuzax::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
                                   Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
                                   double& delta_t_read, double& delta_t_next_read)
 {
@@ -1183,7 +1176,7 @@ ProblemResidEval::readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vecto
  *    @param   globalRecordNumbe   Time step record number to select
  *
  */
-ZZCantera::XML_Node* ProblemResidEval::selectSolutionRecordNumber(ZZCantera::XML_Node* xmlTop, int globalRecordNumber)
+Zuzax::XML_Node* ProblemResidEval::selectSolutionRecordNumber(Zuzax::XML_Node* xmlTop, int globalRecordNumber)
 {
     /*
      *  Search for a particular global step number
@@ -1216,7 +1209,7 @@ ZZCantera::XML_Node* ProblemResidEval::selectSolutionRecordNumber(ZZCantera::XML
  *    @param   timeStepID          Time step number to select
  *
  */
-ZZCantera::XML_Node* ProblemResidEval::selectSolutionTimeStepID(ZZCantera::XML_Node* xSoln, std::string timeStepID)
+Zuzax::XML_Node* ProblemResidEval::selectSolutionTimeStepID(Zuzax::XML_Node* xSoln, std::string timeStepID)
 {
     /*
      *  Search for a particular global step number

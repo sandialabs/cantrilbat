@@ -19,11 +19,7 @@
 #include "Electrode_input.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
   class Electrode;
   class Transport;
@@ -78,7 +74,7 @@ public:
   /*!
    *  This procedure is done before the Equations anv variable list are set up.
    *  Needed information about what is possible is input here.
-   *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+   *  We read the Zuzax ThermoPhase and transport object into DomainDescriptions here.
    *
    *   We loop over volume and then surface domains.
    */
@@ -114,13 +110,13 @@ public:
   /*!
    *  We own the electrode object.
    */
-  ZZCantera::Electrode* Electrode_;
+  Zuzax::Electrode* Electrode_;
 
   //! Pointer to the metal phase that does electrical conduction within the solid
   /*!
    *  We own this object
    */
-  ZZCantera::ThermoPhase* metalPhase_;
+  Zuzax::ThermoPhase* metalPhase_;
 
   //! Type of the electrode
   /*!

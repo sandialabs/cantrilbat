@@ -10,33 +10,23 @@
 
 // Include cantera header files. They should be included in the form
 // These headers are designed for use in C++ programs and provide a
-// simplified interface to the Cantera kernel header files. If you
+// simplified interface to the Zuzax kernel header files. If you
 // need to include kernel headers directly, use the format
-// <cantera/kernel/*.h>.  /* n */
+// <zuzax/kernel/*.h>.  /* n */
 
-#include <cantera/thermo.h>
-#include <cantera/thermo/MargulesVPSSTP.h>
+#include <zuzax/thermo.h>
+#include <zuzax/thermo/MargulesVPSSTP.h>
 
-#include "cantera/equilibrium.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/base/logger.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/base/logger.h"
 
 #include <iomanip>
 #include <cmath>
 #include <fstream>
 
 using namespace std;
-// All Cantera kernel names are in namespace Cantera. You can either
-// reference everything as ZZCantera::<name>, or include the following
-// 'using namespace' line.
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#define ZZCantera Zuzax
-#else
-using namespace Cantera;
-#define ZZCantera Cantera
-#endif
-
 
 // The program is put into a function so that error handling code can
 // be conveniently put around the whole thing. See main() below.
@@ -246,9 +236,9 @@ int main() {
 
   try {
     createPhaseDiagram();
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(std::cout);
   }
 

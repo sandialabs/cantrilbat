@@ -7,15 +7,15 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equil/vcs_prob.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 //#include "Electrode_SimpleDiff.h"
 //#include "Electrode_RadialDiffRegions.h"  
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 #include "ReactingSurDomain.h"
 
 #include <sstream>
@@ -358,7 +358,7 @@ int main(int argc, char **argv)
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

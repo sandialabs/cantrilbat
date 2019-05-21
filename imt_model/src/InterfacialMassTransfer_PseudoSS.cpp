@@ -10,10 +10,10 @@
 
 
 #include "mdp_allo.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/solvers.h"
-#include "cantera/kinetics/ImplicitSurfChem.h"
+#include "zuzax/solvers.h"
+#include "zuzax/kinetics/ImplicitSurfChem.h"
 #include "ReactingSurDomain.h"
 
 //#include "PhaseList.h"
@@ -26,15 +26,7 @@
 
 #include "ApplBase_print.h"
 
-#ifdef useZuzaxNamespace
-using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
-
 using namespace std;
-
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -43,11 +35,7 @@ using namespace std;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif  
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
   //======================================================================================================================
   /*
@@ -129,7 +117,7 @@ namespace Cantera
       InterfaceKinetics *ik_ptr = dynamic_cast<InterfaceKinetics *>(RSD_List_[i]);
       IK_List.push_back(ik_ptr);
     }
-    isc_prob = new ZZCantera::ImplicitSurfChem(IK_List);
+    isc_prob = new Zuzax::ImplicitSurfChem(IK_List);
 
     neq_isc_prob_ = isc_prob->neq();
 
@@ -186,7 +174,7 @@ namespace Cantera
     tbase = MAX(Tinitial, tbase);
     tbase = MAX(tbase, t_final_final_);
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-      throw CanteraError("InterfacialMassTransfer_PseudoSS::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
+      throw ZuzaxError("InterfacialMassTransfer_PseudoSS::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
 			 + fp2str(t_final_final_));
     }
 

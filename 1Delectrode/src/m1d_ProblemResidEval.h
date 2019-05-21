@@ -22,8 +22,8 @@
 #include "Epetra_IntVector.h"
 #include "Epetra_VbrMatrix.h"
 
-#include "cantera/numerics/ResidJacEval.h"
-#include "cantera/base/xml.h"
+#include "zuzax/numerics/ResidJacEval.h"
+#include "zuzax/base/xml.h"
 
 #include "m1d_LocalNodeIndices.h"
 
@@ -745,7 +745,7 @@ public:
      *  @param[out]          delta_t_read        delta time step for the last time step.
      *  @param[out]          delta_t_next_read   delta time step for the next time step if available
      */
-    void readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
+    void readSolutionXML(Zuzax::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
                          Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
                          double& delta_t_read, double& delta_t_next_read);
 
@@ -756,7 +756,7 @@ public:
      *
      *   @return                                 Returns a pointer to the selected record.
      */
-    ZZCantera::XML_Node* selectSolutionRecordNumber(ZZCantera::XML_Node* xSoln, int globalTimeStepNum);
+    Zuzax::XML_Node* selectSolutionRecordNumber(Zuzax::XML_Node* xSoln, int globalTimeStepNum);
 
     //! Select the global time step increment record by the consequatively numbered record index number
     /*!
@@ -765,7 +765,7 @@ public:
      *
      *  @return                                  Returns a pointer to the selected record.
      */
-    ZZCantera::XML_Node* selectSolutionTimeStepID(ZZCantera::XML_Node* xSoln, std::string solnTimeStepID);
+    Zuzax::XML_Node* selectSolutionTimeStepID(Zuzax::XML_Node* xSoln, std::string solnTimeStepID);
 
     //! Write the solution to either the screen or to a log file
     /*!

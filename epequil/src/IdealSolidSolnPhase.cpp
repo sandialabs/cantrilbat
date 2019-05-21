@@ -6,7 +6,7 @@
  *
  *      The class is used
  *      within CADS to represent the condensed phase of an aerosol.
- *      This class inherits from the Cantera class ThermoPhase
+ *      This class inherits from the Zuzax class ThermoPhase
  *      and implements an ideal solid solution model with incompressible
  *      thermodynamics.
  *
@@ -36,10 +36,10 @@
 #include "utilities.h"
 #include "ThermoFactory.h"
 #else 
-#include "cantera/thermo.h"
-#include "cantera/thermo/SpeciesThermo.h"
-#include "cantera/base/utilities.h"
-#include "cantera/base/ctml.h"
+#include "zuzax/thermo.h"
+#include "zuzax/thermo/SpeciesThermo.h"
+#include "zuzax/base/utilities.h"
+#include "zuzax/base/ctml.h"
 #endif
 
 #include "IdealSolidSolnPhase.h"
@@ -71,7 +71,7 @@ namespace Cantera
 	m_tlast(0.0)
     {
 	if (formGC < 0 || formGC > 2) {
-	  throw CanteraError(" IdealSolidSolnPhase Constructor",
+	  throw ZuzaxError(" IdealSolidSolnPhase Constructor",
 			     " Illegal value of formGC");
 	}
     }
@@ -87,7 +87,7 @@ namespace Cantera
 	m_tlast(0.0)
     {	
 	if (formGC < 0 || formGC > 2) {
-	  throw CanteraError(" IdealSolidSolnPhase Constructor",
+	  throw ZuzaxError(" IdealSolidSolnPhase Constructor",
 			     " Illegal value of formGC");
 	}
 	initThermo(inputFile, id);
@@ -104,7 +104,7 @@ namespace Cantera
 	m_tlast(0.0)
     {
 	if (formGC < 0 || formGC > 2) {
-	  throw CanteraError(" IdealSolidSolnPhase Constructor",
+	  throw ZuzaxError(" IdealSolidSolnPhase Constructor",
 			     " Illegal value of formGC");
 	}
 	initThermo(root, id);
@@ -127,7 +127,7 @@ namespace Cantera
 	    res = cIdealSolidSolnPhase2;
 	    break;
 	default:
-	    throw CanteraError("eosType", "Unknown type");
+	    throw ZuzaxError("eosType", "Unknown type");
 	    break;
 	}
 	return res;
@@ -286,7 +286,7 @@ namespace Cantera
     setDensity(doublevalue rho) {
 	double dens = density();
 	if (rho != dens) {
-	  throw CanteraError("IdealSolidSolnPhase::setDensity",
+	  throw ZuzaxError("IdealSolidSolnPhase::setDensity",
 			     "Density is not an independent variable");
 	}
     }
@@ -302,7 +302,7 @@ namespace Cantera
      */  
     void IdealSolidSolnPhase::
     setMolarDensity(doublevalue n) {
-	throw CanteraError("IdealSolidSolnPhase::setMolarDensity",
+	throw ZuzaxError("IdealSolidSolnPhase::setMolarDensity",
 			   "Density is not an independent variable");
     }
 
@@ -455,7 +455,7 @@ namespace Cantera
 	    res =  log(1.0/m_speciesMolarVolume[m_kk-1]);
 	    break;
 	default:
-	    throw CanteraError("eosType", "Unknown type");
+	    throw ZuzaxError("eosType", "Unknown type");
 	    break;
 	}
 	return res;
@@ -860,7 +860,7 @@ namespace Cantera
 	if (id.size() > 0) {
 	  string idp = phaseNode.id();
 	  if (idp != id) {
-	    throw CanteraError("initThermo", 
+	    throw ZuzaxError("initThermo", 
 			       "phasenode and Id are incompatible");
 	  }
 	}
@@ -886,7 +886,7 @@ namespace Cantera
 	    } else if (formString == "solvent_volume") {
 	      m_formGC = 2;
 	    } else {
-	      throw CanteraError("IdealSolidSolnPhase::initThermo",
+	      throw ZuzaxError("IdealSolidSolnPhase::initThermo",
 				 "Unknown standardConc model: " + formString);
 	    }
 	  }
@@ -895,7 +895,7 @@ namespace Cantera
 
 	bool m_ok = importPhase(phaseNode, this);
 	if (!m_ok) {
-	  throw CanteraError("initThermo","importPhase failed "); 
+	  throw ZuzaxError("initThermo","importPhase failed "); 
 	}
 	initLengths();
 
@@ -935,13 +935,13 @@ namespace Cantera
     void IdealSolidSolnPhase::
     initThermo(string inputFile, string id) {
 	if (inputFile.size() == 0) {
-	  throw CanteraError("IdealSolidSolnPhase::initThermo",
+	  throw ZuzaxError("IdealSolidSolnPhase::initThermo",
 			     "input file is null");
 	}
 	string path = findInputFile(inputFile);
 	ifstream fin(path.c_str());
 	if (!fin) {
-	  throw CanteraError("initThermo","could not open "
+	  throw ZuzaxError("initThermo","could not open "
 			     +path+" for reading.");
 	}
 	/*

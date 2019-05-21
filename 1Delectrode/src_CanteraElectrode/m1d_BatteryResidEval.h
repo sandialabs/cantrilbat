@@ -18,7 +18,7 @@
 #include "m1d_BoundaryCondition.h"
 #include "m1d_SurDomain1D.h"
 
-#include "cantera/base/Array.h"
+#include "zuzax/base/Array.h"
 #include "Electrode_Polarization.h"
 #include <vector>
 

@@ -18,8 +18,8 @@
 #include "LE_OneDbl.h"
 #include "BE_BlockEntry.h"
 
-//#include "cantera/numerics/NonlinearSolver.h"
-#include "cantera/base/vec_functions.h"
+//#include "zuzax/numerics/NonlinearSolver.h"
+#include "zuzax/base/vec_functions.h"
 
 using namespace std;
 using namespace BEInput;
@@ -39,11 +39,7 @@ using namespace BEInput;
 #endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 ELECTRODE_CSTR_KEY_INPUT::ELECTRODE_CSTR_KEY_INPUT(int printLvl) :
@@ -2899,6 +2895,6 @@ double Electrode_CSTR::calcRelativeExtentRxn_final() const
     return tmp;
 }
 //==================================================================================================================================
-} // End of ZZCantera namespace
+} // End of Zuzax namespace
 //----------------------------------------------------------------------------------------------------------------------------------
 

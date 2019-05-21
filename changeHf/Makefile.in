@@ -14,7 +14,7 @@
 #
 
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 #########################################################################
 
 VCS_SRC=../../vcs/src
@@ -25,9 +25,9 @@ CANTERA_INCROOT =  @ct_incroot@
 
 
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 
 
 
@@ -95,7 +95,7 @@ CC = @CC@
 CFLAGS = @CXXFLAGS@
 #
 #
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 
 #
 # Both the C and C++ compiler predefines

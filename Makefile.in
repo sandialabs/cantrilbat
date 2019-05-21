@@ -18,7 +18,7 @@ CT_INCROOT = @ct_incroot@
 #
 # Bring in the Zuzax includes through the .mak file: Here is the entry
 #
-include $(CT_INCROOT)/cantera/Zuzax.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 #
 #  Flag to indicate whether Zuzax was compiled with DEBUG_MODE enabled
 #

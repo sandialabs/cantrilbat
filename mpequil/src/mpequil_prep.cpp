@@ -8,12 +8,7 @@
 
 #include <string>
 using std::string;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
-
 
                               
 /*****************************************************************************

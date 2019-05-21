@@ -9,7 +9,7 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/base/ctml.h"
+#include "zuzax/base/ctml.h"
 
 #include "EState_RadialDistrib.h"
 
@@ -23,11 +23,7 @@
 using namespace std;
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //======================================================================================================================
 EState_RadialDistrib::EState_RadialDistrib(const std::string& modelEState, const std::string& electrodeType) :
@@ -173,7 +169,7 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
     ZZctml::getFloatArray(xmlEState, spMoles_KRsolid_Cell_, true, "", "spMoles_KRsolid_Cell");
 }
 //==================================================================================================================================
-void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp, bool doFinal)
+void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const Zuzax::Electrode_SimpleDiff* const emp, bool doFinal)
 {
     EState::copyElectrode_intoState(emp, doFinal);
 
@@ -184,7 +180,7 @@ void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const ZZCantera::E
     spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
 }
 //==================================================================================================================================
-void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp, bool doFinal)
+void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const Zuzax::Electrode_DiffTALE* const emp, bool doFinal)
 {
     EState::copyElectrode_intoState(emp, doFinal);
 
@@ -208,13 +204,13 @@ void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const ZZCantera::Ele
  *             to choose a child object, and then may invoke an error if the match isn't
  *             correct.
  */
-void EState_RadialDistrib::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal)
+void EState_RadialDistrib::copyElectrode_intoState(const Zuzax::Electrode* const e, bool doFinal)
 {
-    const ZZCantera::Electrode_SimpleDiff* const emp = dynamic_cast<const ZZCantera::Electrode_SimpleDiff* const>(e);
+    const Zuzax::Electrode_SimpleDiff* const emp = dynamic_cast<const Zuzax::Electrode_SimpleDiff* const>(e);
     if (emp) {
         copyElectrode_SimpleDiff_intoState(emp, doFinal);
     } else {
-       const ZZCantera::Electrode_DiffTALE* const edt = dynamic_cast<const ZZCantera::Electrode_DiffTALE* const>(e);
+       const Zuzax::Electrode_DiffTALE* const edt = dynamic_cast<const Zuzax::Electrode_DiffTALE* const>(e);
        if (edt) {
           copyElectrode_DiffTALE_intoState(edt, doFinal);
        } else {
@@ -224,7 +220,7 @@ void EState_RadialDistrib::copyElectrode_intoState(const ZZCantera::Electrode* c
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object
-void EState_RadialDistrib::setStateElectrode_SimpleDiff_fromEState(ZZCantera::Electrode_SimpleDiff* const emp) const
+void EState_RadialDistrib::setStateElectrode_SimpleDiff_fromEState(Zuzax::Electrode_SimpleDiff* const emp) const
 {
     EState::copyEState_toElectrode(emp);
 
@@ -243,7 +239,7 @@ void EState_RadialDistrib::setStateElectrode_SimpleDiff_fromEState(ZZCantera::El
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object
-void EState_RadialDistrib::setStateElectrode_DiffTALE_fromEState(ZZCantera::Electrode_DiffTALE* const emp) const
+void EState_RadialDistrib::setStateElectrode_DiffTALE_fromEState(Zuzax::Electrode_DiffTALE* const emp) const
 {
     EState::copyEState_toElectrode(emp);
 
@@ -263,13 +259,13 @@ void EState_RadialDistrib::setStateElectrode_DiffTALE_fromEState(ZZCantera::Elec
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object
-void EState_RadialDistrib::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
+void EState_RadialDistrib::setStateElectrode_fromEState(Zuzax::Electrode* const e) const
 {
     Electrode_SimpleDiff* emp = dynamic_cast<Electrode_SimpleDiff*>(e);
     if (emp) {
 	setStateElectrode_SimpleDiff_fromEState(emp); 
     } else {
-       ZZCantera::Electrode_DiffTALE* edt = dynamic_cast<ZZCantera::Electrode_DiffTALE*>(e);
+       Zuzax::Electrode_DiffTALE* edt = dynamic_cast<Zuzax::Electrode_DiffTALE*>(e);
        if (edt) {
 	   setStateElectrode_DiffTALE_fromEState(edt);
        } else {
@@ -357,5 +353,5 @@ bool EState_RadialDistrib::compareOtherState(const EState* const ESguest, double
      return btotal;
 }
 //====================================================================================================================
-} // End of ZZCantera namespace
+} // End of Zuzax namespace
 //----------------------------------------------------------------------------------------------------------------------------------

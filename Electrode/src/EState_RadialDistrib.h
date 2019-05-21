@@ -15,11 +15,7 @@
 
 #include "EState.h"
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class Electrode_SimpleDiff;
@@ -116,7 +112,7 @@ public:
      *  @param[in]           doFinal             Copy the final quantities. Defaults to true
      *                                           If false it copies the init quantitites.
      */
-    void copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp, bool doFinal = true);
+    void copyElectrode_SimpleDiff_intoState(const Zuzax::Electrode_SimpleDiff* const emp, bool doFinal = true);
 
     //! Copy the current contents of a SimpleDiff Electrode into this state
     /*!
@@ -125,7 +121,7 @@ public:
      *  @param[in]           doFinal             Copy the final quantities. Defaults to true
      *                                           If false it copies the init quantitites.
      */
-    void copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp, bool doFinal = true);
+    void copyElectrode_DiffTALE_intoState(const Zuzax::Electrode_DiffTALE* const emp, bool doFinal = true);
 
     //! Set the State of this object from the state of the Electrode object
     /*!
@@ -143,21 +139,21 @@ public:
      *  @param[in]           doFinal             Copy the final quantities. Defaults to true
      *                                           If false it copies the init quantitites.
      */
-    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal = true) override;
+    virtual void copyElectrode_intoState(const Zuzax::Electrode* const e, bool doFinal = true) override;
 
     //! Set the state of a SimpleDiff electrode object from the contents of this object
     /*!
      *  @param[in]           emp                 Pointer to to a SimpleDiff electrode whose state will be set to the state
      *                                           contained within this object.
      */
-    void setStateElectrode_SimpleDiff_fromEState(ZZCantera::Electrode_SimpleDiff* const emp) const;
+    void setStateElectrode_SimpleDiff_fromEState(Zuzax::Electrode_SimpleDiff* const emp) const;
 
     //! Set the state of a DiffTALE electrode object from the contents of this object
     /*!
      *  @param[in]           emp                 Pointer to to a DiffTALE electrode whose state will be set to the state
      *                                           contained within this object.
      */
-    void setStateElectrode_DiffTALE_fromEState(ZZCantera::Electrode_DiffTALE* const emp) const;
+    void setStateElectrode_DiffTALE_fromEState(Zuzax::Electrode_DiffTALE* const emp) const;
 
     //! Set the state of the Electrode from the state of this object
     /*!
@@ -176,7 +172,7 @@ public:
      *  @param  e  Changeable pointer to the base class Electrode object. This function may
      *             do dynamic casting to get the correct child Electrode object.
      */
-    virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const override;
+    virtual void setStateElectrode_fromEState(Zuzax::Electrode* const e) const override;
 
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!
@@ -254,9 +250,9 @@ protected:
     /*!
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
-    //friend class ZZCantera::Electrode;
-    friend class ZZCantera::Electrode_SimpleDiff;
-    friend class ZZCantera::Electrode_DiffTALE;
+    //friend class Zuzax::Electrode;
+    friend class Zuzax::Electrode_SimpleDiff;
+    friend class Zuzax::Electrode_DiffTALE;
 };
 //==================================================================================================================================
 }

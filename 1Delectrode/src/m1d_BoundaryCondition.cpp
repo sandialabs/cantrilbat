@@ -23,17 +23,13 @@
 #define CANTERA_APP
 #endif
 
-#include "cantera/base/ct_defs.h" 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ct_defs.h" 
+#include "zuzax/base/ctexceptions.h"
 #include "m1d_BoundaryCondition.h" 
 
 #include <cstdio>
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
 
@@ -92,7 +88,7 @@ BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
     return *this;
 }
 //==================================================================================================================================
-void BoundaryCondition::useXML(ZZCantera::XML_Node& bcNode)
+void BoundaryCondition::useXML(Zuzax::XML_Node& bcNode)
 {
     if (bcNode.name() != "BoundaryCondition") {
         m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
@@ -283,8 +279,8 @@ double BCconstant::nextStep() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //==================================================================================================================================
 // Constructor taking two vectors of floats representing the independent variable and the dependent  variable
-BCsteptable::BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, 
-                         const ZZCantera::vector_fp& compareValue, const std::string& titleName, const std::string& indepUnits, 
+BCsteptable::BCsteptable(const Zuzax::vector_fp& indValue, const Zuzax::vector_fp& depValue, 
+                         const Zuzax::vector_fp& compareValue, const std::string& titleName, const std::string& indepUnits, 
                          const std::string& depenUnits) :
     BoundaryCondition()
 {
@@ -325,7 +321,7 @@ BCsteptable::BCsteptable(std::string filename) :
 }
 //=====================================================================================================================
 //! construct from XMLnode
-BCsteptable::BCsteptable(ZZCantera::XML_Node& baseNode) :
+BCsteptable::BCsteptable(Zuzax::XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
@@ -335,7 +331,7 @@ BCsteptable::~BCsteptable()
 {
 }
 //=====================================================================================================================
-void BCsteptable::useXML(ZZCantera::XML_Node& bcNode)
+void BCsteptable::useXML(Zuzax::XML_Node& bcNode)
 {
     if (bcNode.name() != "BoundaryCondition") {
         m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
@@ -416,8 +412,8 @@ double BCsteptable::nextStep() const
  */
 //==================================================================================================================================
 // constructor taking vectors of floats
-BClineartable::BClineartable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, 
-                             ZZCantera::vector_fp compareValue, std::string titleName,
+BClineartable::BClineartable(Zuzax::vector_fp indValue, Zuzax::vector_fp depValue, 
+                             Zuzax::vector_fp compareValue, std::string titleName,
                              std::string indepUnits, std::string depenUnits) :
     BoundaryCondition()
 {
@@ -450,7 +446,7 @@ BClineartable::BClineartable(std::string filename) :
     close_XML_File(filename);
 }
 //=====================================================================================================================
-BClineartable::BClineartable(ZZCantera::XML_Node& baseNode) :
+BClineartable::BClineartable(Zuzax::XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
@@ -461,7 +457,7 @@ BClineartable::~BClineartable()
 }
 //=====================================================================================================================
 // fill independent and dependent values from XML_Node
-void BClineartable::useXML(ZZCantera::XML_Node& bcNode)
+void BClineartable::useXML(Zuzax::XML_Node& bcNode)
 {
     if (bcNode.name() != "BoundaryCondition") {
         m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
@@ -569,14 +565,14 @@ BCsinusoidal::~BCsinusoidal()
 }
 //=====================================================================================================================
 // construct from XMLnode
-BCsinusoidal::BCsinusoidal(ZZCantera::XML_Node& baseNode) :
+BCsinusoidal::BCsinusoidal(Zuzax::XML_Node& baseNode) :
     BoundaryCondition()
 {
     useXML(baseNode);
 }
 //=====================================================================================================================
 // Fill independent and dependent values from XML_Node
-void BCsinusoidal::useXML(ZZCantera::XML_Node& bcNode)
+void BCsinusoidal::useXML(Zuzax::XML_Node& bcNode)
 {
     if (bcNode.name() != "BoundaryCondition") {
         m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");

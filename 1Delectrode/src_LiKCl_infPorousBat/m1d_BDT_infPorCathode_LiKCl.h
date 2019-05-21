@@ -9,9 +9,9 @@
 #include "m1d_BulkDomainTypes.h"
 #include "m1d_BDD_porousElectrode.h"
 
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include <zuzax/transport.h>      // transport properties
+#include <zuzax/thermo.h>      // transport properties
+#include <zuzax/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include "Electrode.h"
 
 namespace m1d
@@ -60,7 +60,7 @@ public:
   /*!
    *  This procedure is done before the Equations anv variable list are set up.
    *  Needed information about what is possible is input here.
-   *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+   *  We read the Zuzax ThermoPhase and transport object into DomainDescriptions here.
    *
    *   We loop over volume and then surface domains.
    */
@@ -96,13 +96,13 @@ public:
   /*!
    *   We own this object
    */
-  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
+  Zuzax::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We own this object
    */
-  //ZZCantera::Transport* trans_;
+  //Zuzax::Transport* trans_;
 
   //! top or bottom of the domain
   /*!
@@ -115,7 +115,7 @@ public:
   /*!
    * We own the electrode object.
    */
-  //ZZCantera::Electrode *Electrode_;
+  //Zuzax::Electrode *Electrode_;
 
 };
 

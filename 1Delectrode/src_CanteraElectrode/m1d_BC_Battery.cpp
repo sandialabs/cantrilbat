@@ -18,8 +18,8 @@
  * See file License.txt for licensing information.
  */
 
-#include "cantera/base/ct_defs.h" 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ct_defs.h" 
+#include "zuzax/base/ctexceptions.h"
 #include "m1d_BC_Battery.h" 
 #include "m1d_materials.h"
 

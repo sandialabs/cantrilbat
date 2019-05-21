@@ -15,14 +15,10 @@
 #define _ELECTRODE_FUNCCURRENT_H
 
 #include "Electrode_Integrator.h"
-#include "cantera/numerics/ResidEval.h"
+#include "zuzax/numerics/ResidEval.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 //! Rootfinder class that calculates the current given the voltage
@@ -35,7 +31,7 @@ namespace Cantera
  *
  *  It takes as its primary object, a pointer to an Electrode object
  */
-class Electrode_ECurr : public ZZCantera::ResidEval
+class Electrode_ECurr : public Zuzax::ResidEval
 {
 public:
 
@@ -165,7 +161,7 @@ public:
  *  the open circuit voltage.
  *
  */
-class RSD_ElectronProduction : public ZZCantera::ResidEval
+class RSD_ElectronProduction : public Zuzax::ResidEval
 {
 public:
 

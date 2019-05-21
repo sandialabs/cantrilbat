@@ -11,8 +11,8 @@
 
 #include "ReactingVolDomain.h"
 #include "importAllCTML.h"
-#include "cantera/multiphase/PhaseList.h"
-#include "cantera/base/ctml.h"
+#include "zuzax/multiphase/PhaseList.h"
+#include "zuzax/base/ctml.h"
 
 #include <cstdio>
 
@@ -20,11 +20,7 @@ extern int DebugPrinting;
 
 using namespace std;
 //---------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 ReactingVolDomain::ReactingVolDomain() :
@@ -76,7 +72,7 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
             TopCTML = phaseRoot.findNameID("ctml", "");
         }
         if (!TopCTML) {
-            throw CanteraError("ReactingVolDomain::importFromXML","ctml not found");
+            throw ZuzaxError("ReactingVolDomain::importFromXML","ctml not found");
         }
 
         std::vector<XML_Node*> phaseChildren;
@@ -132,7 +128,7 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
                         }
                     }
                     if (!found) {
-                        throw CanteraError("import", "phase not found");
+                        throw ZuzaxError("import", "phase not found");
                     }
                 }
             }
@@ -156,7 +152,7 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
             for (size_t iph = 0; iph < nPhasesFound - numPhases; iph++) {
                 int jph = numPhases + iph;
                 if (tpList[jph] != 0) {
-                    throw CanteraError(" ReactingVolDomain::importFromXML" , "Confused tpList[]");
+                    throw ZuzaxError(" ReactingVolDomain::importFromXML" , "Confused tpList[]");
                 }
             }
             tpList.resize(numPhases);
@@ -188,9 +184,9 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
         }
         return true;
 
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
         showErrors(cout);
-        throw CanteraError("ReactingVolDomain::importFromXML", "error encountered");
+        throw ZuzaxError("ReactingVolDomain::importFromXML", "error encountered");
         return false;
     }
 }
@@ -235,7 +231,7 @@ bool ReactingVolDomain::importSurKinFromPL(PhaseList* pl, size_t iphSurKin)
                 }
             }
             if (jph == npos) {
-                throw CanteraError("ElectrodeKinetics_intoPL::importFromPL()", "phase not found");
+                throw ZuzaxError("ElectrodeKinetics_intoPL::importFromPL()", "phase not found");
             }
             kinOrder[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
@@ -245,7 +241,7 @@ bool ReactingVolDomain::importSurKinFromPL(PhaseList* pl, size_t iphSurKin)
             size_t kstart = m_InterfaceKinetics->kineticsSpeciesIndex(kph, 0);
             for (size_t k = 0; k < nspPhase; k++) {
                 if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
-                    throw CanteraError("ElectrodeKinetics_intoPL::importFromPL()",
+                    throw ZuzaxError("ElectrodeKinetics_intoPL::importFromPL()",
                                        "Indexing error found while initializing  PLtoKinSpeciesIndex_");
                 }
                 
@@ -304,7 +300,7 @@ bool ReactingVolDomain::importVolKinFromPL(PhaseList* pl, size_t iphVolKin)
                 }
             }
             if (jph == npos) {
-                throw CanteraError("ElectrodeKinetics_intoPL::importFromPL()", "phase not found");
+                throw ZuzaxError("ElectrodeKinetics_intoPL::importFromPL()", "phase not found");
             }
             kinOrder[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
@@ -314,16 +310,16 @@ bool ReactingVolDomain::importVolKinFromPL(PhaseList* pl, size_t iphVolKin)
             size_t kstart = m_kinetics->kineticsSpeciesIndex(kph, 0);
             for (size_t k = 0; k < nspPhase; k++) {
                 if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
-                    throw CanteraError("ElectrodeKinetics_intoPL::importFromPL()",
+                    throw ZuzaxError("ElectrodeKinetics_intoPL::importFromPL()",
                                        "Indexing error found while initializing  PLtoKinSpeciesIndex_");
                 }
                 PLtoKinSpeciesIndex_[k + PLkstart] = kstart + k;
                 KintoPLSpeciesIndex_[kstart + k] = k + PLkstart;
             }
         }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
         showErrors(cout);
-        throw CanteraError("ReactingVolDomain::importFromXML", "error encountered");
+        throw ZuzaxError("ReactingVolDomain::importFromXML", "error encountered");
         return false;
     }
     return true;

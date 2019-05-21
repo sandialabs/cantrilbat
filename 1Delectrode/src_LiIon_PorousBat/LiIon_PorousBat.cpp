@@ -487,7 +487,7 @@ main(int argc, char** argv)
         /*
          * Cleanup
          */
-        ZZCantera::appdelete();
+        Zuzax::appdelete();
         safeDelete(jac);
         safeDelete(ps);
 
@@ -507,18 +507,18 @@ main(int argc, char** argv)
 #endif // PRECIPITATE
 #undef PRECIPITATE
 
-        ZZCantera::appdelete();
+        Zuzax::appdelete();
 
 	//#ifdef HAVE_MPI
         MPI_Finalize();
 	//#endif
     }
     /*
-     *  If we have thrown a CanteraError of some sort, we catch it here and print out
+     *  If we have thrown a ZuzaxError of some sort, we catch it here and print out
      *  an informative error message.
      */
-    catch (ZZCantera::CanteraError) {
-        ZZCantera::showErrors();
+    catch (Zuzax::ZuzaxError) {
+        Zuzax::showErrors();
         return -1;
     }
     /*

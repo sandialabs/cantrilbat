@@ -9,7 +9,7 @@
  */
 
 
-#include "cantera/equil/vcs_internal.h"
+#include "zuzax/equil/vcs_internal.h"
 
 #include "electrodeCell_prep.h"
 #include "electrodeCell_kin.h"
@@ -17,11 +17,7 @@
 #include <stdio.h>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 
 double findV(Electrode *electrode, double Itarget,
@@ -132,7 +128,7 @@ double findV(Electrode *electrode, double Itarget,
       electrode->setVoltages(Enew, 0.0);
 
     }
-    catch (CanteraError err) {
+    catch (ZuzaxError err) {
    
       Enew = 0.5*(Enow + Ehigh);
       if (fabs(Enew - Enow) < 1.0) Enew = Enow + 1.0;
@@ -142,7 +138,7 @@ double findV(Electrode *electrode, double Itarget,
 
   }
 
-  throw CanteraError("ELECTRODE_MODEL:findV","No convergence for I");
+  throw ZuzaxError("ELECTRODE_MODEL:findV","No convergence for I");
  done:;
   deltaVoltage = electrode->voltage();
   return deltaVoltage;

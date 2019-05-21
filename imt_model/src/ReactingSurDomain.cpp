@@ -12,24 +12,15 @@
 
 #include "ReactingSurDomain.h"
 
-#include "cantera/multiphase/PhaseList.h"
-#include "cantera/kinetics/RxnMolChange.h"
-#include "cantera/kinetics.h"
-#include "cantera/base/ctml.h"
+#include "zuzax/multiphase/PhaseList.h"
+#include "zuzax/kinetics/RxnMolChange.h"
+#include "zuzax/kinetics.h"
+#include "zuzax/base/ctml.h"
 
 
-#ifdef useZuzaxNamespace
-#define ZZctml ztml
-#else
-#define ZZctml ctml
-#endif
 
 using namespace std;
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
   //====================================================================================================================
   /*
@@ -210,7 +201,7 @@ namespace Cantera
    *  call the Cantera's report function, which takes a ThermoPhase
    *  object as its arugment.
    *  This is a "friend" function to the class IdealReactingGas.
-   *  Both this function and report are in the Cantera namespace.
+   *  Both this function and report are in the Zuzax namespace.
    *
    *  Note -> The output doesn't cover kinetics.
    */
@@ -262,7 +253,7 @@ namespace Cantera
 	iphaseKin = iskin + pl->nVolPhases();
 	m_DoSurfKinetics = true;
       } else if (ivkin >= 0) {
-	throw CanteraError("", "err");
+	throw ZuzaxError("", "err");
       }
   
 
@@ -285,7 +276,7 @@ namespace Cantera
 	phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
 	if (phaseArrayXML) {
 	  std::vector<std::string> phase_ids;
-	  ZZctml::getTokenArray(*phaseArrayXML, phase_ids);
+	  ztml::getTokenArray(*phaseArrayXML, phase_ids);
 	  size_t npToFind = phase_ids.size();
 	  for (size_t iph = 0; iph < npToFind; iph++) {
 	    std::string phaseID = phase_ids[iph];
@@ -318,7 +309,7 @@ namespace Cantera
 	    }
 
 	    if (!found) {
-	      throw CanteraError("ReactingSurDomain::importFromPL",
+	      throw ZuzaxError("ReactingSurDomain::importFromPL",
 				 "Phase, requested in phaseArray, was not found: " 
 				 + phaseID);
 	    }
@@ -348,7 +339,7 @@ namespace Cantera
       XML_Node *xmlPhase = &( pl->surPhaseXMLNode(iskin) );
       bool ok = importKinetics(*xmlPhase, tpList, this);
       if (!ok) {
-	throw CanteraError("", "err");
+	throw ZuzaxError("", "err");
       }
  
       /*
@@ -372,7 +363,7 @@ namespace Cantera
 	  }
 	}
 	if (jph == npos) {
-	  throw CanteraError("importFromPL", "not found");
+	  throw ZuzaxError("importFromPL", "not found");
 	}
 	kinOrder[kph] = jph;
 	PLtoKinPhaseIndex_[jph] = kph;
@@ -381,7 +372,7 @@ namespace Cantera
         size_t nspPhase = tt.nSpecies(); 
 	for (size_t k = 0; k < nspPhase; k++) {
           if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
-             throw CanteraError("ReactingSurDomain::importFromPL()",
+             throw ZuzaxError("ReactingSurDomain::importFromPL()",
                                 "Indexing error found while initializing  PLtoKinSpeciesIndex_");
           }
           PLtoKinSpeciesIndex_[k + PLkstart] = m_start[kph] + k;
@@ -403,9 +394,9 @@ namespace Cantera
       return true;
 
     }
-    catch (CanteraError) {
+    catch (ZuzaxError) {
       showErrors(cout);
-      throw CanteraError("ReactingSurDomain::importFromXML", "error encountered");
+      throw ZuzaxError("ReactingSurDomain::importFromXML", "error encountered");
       return false;
     }
   }

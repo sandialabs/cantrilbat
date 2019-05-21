@@ -21,11 +21,7 @@
 
 using namespace std;
 //-----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //===================================================================================================================================
 // Specifies the amount of output that the Electrode object writes to its solution file
@@ -445,9 +441,9 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
     /*
      *  Start a new root XML element and put the top elements in
      */
-    ZZCantera::XML_Node root("--");
-    ZZCantera::XML_Node& ct = root.addChild("ctml");
-    ZZCantera::XML_Node& soln = ct.addChild("electrodeOutput");
+    Zuzax::XML_Node root("--");
+    Zuzax::XML_Node& ct = root.addChild("ctml");
+    Zuzax::XML_Node& soln = ct.addChild("electrodeOutput");
 
     /*
      *  Add the integer attribute, index, to the electrodeOutput element.
@@ -476,7 +472,7 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
      *  Add the globalTimeStep XML element with the global time step number as an attribute
      */
     const std::string fmt = "%22.14E";
-    ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
+    Zuzax::XML_Node& gts = soln.addChild("globalTimeStep");
     gts.addAttribute("index", int2str(globalTimeStepNumber_));
     gts.addAttribute("windex", int2str(stepNum));
     gts.addAttribute("t_init_init", fp2str(t_init_init_, fmt));
@@ -605,9 +601,9 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
     std::string fname = (bname + "_" + int2str(electrodeDomainNumber_) + "_" + int2str(electrodeCellNumber_) + ".xml");
     
     //  Start a new root XML element and put the top elements in
-    ZZCantera::XML_Node root("--");
-    ZZCantera::XML_Node& ct = root.addChild("ctml");
-    ZZCantera::XML_Node& xsoln = ct.addChild("electrodeOutput");
+    Zuzax::XML_Node root("--");
+    Zuzax::XML_Node& ct = root.addChild("ctml");
+    Zuzax::XML_Node& xsoln = ct.addChild("electrodeOutput");
 
     /*
      *  Add the integer attribute, index, to the electrodeOutput element.
@@ -629,7 +625,7 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
     
     //  Add the globalTimeStep XML element with the global time step number as an attribute
     const std::string fmt = "%22.14E";
-    ZZCantera::XML_Node& gts = xsoln.addChild("globalTimeStep");
+    Zuzax::XML_Node& gts = xsoln.addChild("globalTimeStep");
 
     gts.addAttribute("index", int2str(globalTimeStepNumber_));
     gts.addAttribute("windex", int2str(stepNum));

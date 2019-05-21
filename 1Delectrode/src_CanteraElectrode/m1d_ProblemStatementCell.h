@@ -16,21 +16,8 @@
 #include "Electrode_input.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
-#ifndef ZZCantera
-#define ZZCantera Zuzax
-#endif
-#else
-#ifndef ZZCantera
-#define ZZCantera Cantera
-#endif
-#endif
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 class Electrode_Factory;
 class ThermoPhase;
@@ -52,7 +39,7 @@ struct ExtraPhase {
     ExtraPhase(const ExtraPhase& right);
     //!  Name of the phase in the cantera file and in this
     std::string phaseName;
-    //! Name of the Cantera file
+    //! Name of the Zuzax file
     std::string canteraFileName;
     //! Regions (all, anode, separator, cathode)
     std::string regions;
@@ -62,7 +49,7 @@ struct ExtraPhase {
     size_t bregionID[10];
     size_t sregionID[10];
     //! ThermoPhase pointer for the phase
-    ZZCantera::ThermoPhase* tp_ptr;
+    Zuzax::ThermoPhase* tp_ptr;
 };
 //===================================================================================================================================
 //! Storage for Command file input
@@ -83,12 +70,12 @@ public:
 
     /**
      * The first pass through the input file determines
-     *  the number of Cantera files.
+     *  the number of Zuzax files.
      */
     virtual void setup_input_pass1(BEInput::BlockEntry* cf);
 
     /**
-     * The second pass through the input file parses the Cantera files.
+     * The second pass through the input file parses the Zuzax files.
      */
     virtual void setup_input_pass2(BEInput::BlockEntry* cf);
 
@@ -101,7 +88,7 @@ public:
 
     //! other preparation steps
     /**
-     * This processes the phases in the Cantera input files,
+     * This processes the phases in the Zuzax input files,
      * fills the PhaseList_ object and other auxiliary data like
      * the numbers and names of species, elements and phases.
      */
@@ -114,8 +101,8 @@ public:
     virtual void post_process_input(BEInput::BlockEntry* cf);
 
     //! Read the input file
-    virtual void readAnodeInputFile(ZZCantera::Electrode_Factory* f = 0);
-    virtual void readCathodeInputFile(ZZCantera::Electrode_Factory* f = 0);
+    virtual void readAnodeInputFile(Zuzax::Electrode_Factory* f = 0);
+    virtual void readCathodeInputFile(Zuzax::Electrode_Factory* f = 0);
 
     //!  Test whether the anode and the cathode are compatible
     /*!
@@ -211,7 +198,7 @@ public:
     //! Name of Cathode input file
     std::string cathodeFile_;
 
-    //! Name of Electrolyte Cantera phase
+    //! Name of Electrolyte Zuzax phase
     std::string electrolytePhase_;
 
     //! Mole fractions of electrolyte
@@ -291,7 +278,7 @@ public:
     //    (not directly specified in input file)
 
     //! Master PhaseList object
-    ZZCantera::PhaseList* PhaseList_;
+    Zuzax::PhaseList* PhaseList_;
 
     //! total number of phases in PhaseList_
     int nTotPhases_;
@@ -320,8 +307,8 @@ public:
      * electrolyte transport algorithms including information
      * required to compute the porosity
      */
-    ZZCantera::ELECTRODE_KEY_INPUT* anode_input_;
-    ZZCantera::ELECTRODE_KEY_INPUT* cathode_input_;
+    Zuzax::ELECTRODE_KEY_INPUT* anode_input_;
+    Zuzax::ELECTRODE_KEY_INPUT* cathode_input_;
 
     //! Initial number of nodes
     int initDefaultNumCVsAnode_;

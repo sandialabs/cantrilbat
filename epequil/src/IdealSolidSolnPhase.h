@@ -39,9 +39,9 @@
 #include "SpeciesThermo.h"
 #else
 /*            Compile against Cantera's application environment */
-#include "cantera/thermo/mix_defs.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "cantera/thermo/SpeciesThermo.h"
+#include "zuzax/thermo/mix_defs.h"
+#include "zuzax/thermo/ThermoPhase.h"
+#include "zuzax/thermo/SpeciesThermo.h"
 #endif
 #ifdef useZuzaxNamespace
 namespace Zuzax

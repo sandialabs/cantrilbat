@@ -19,9 +19,9 @@
 #define _ELECTRODE_PHASESTABILITY_H
 
 
-#include "cantera/equilibrium.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/ResidJacEval.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/ResidJacEval.h"
 
 #include "tok_input_util.h"
 
@@ -34,11 +34,7 @@
 #include <string>
 #include <vector>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //! Class which determines the stability of phases due to kinetics
@@ -115,7 +111,7 @@ public:
      *   object uses.  This interface is mostly a self-directed passthrough to routines that
      *   are members of this object.
      */
-    class calcPhaseStabFunc_ResidJacEval : public ZZCantera::ResidJacEval
+    class calcPhaseStabFunc_ResidJacEval : public Zuzax::ResidJacEval
     {
     public:
 
@@ -239,7 +235,7 @@ protected:
     std::vector<double> yval_;
 
     SquareMatrix* jac_;
-    ZZCantera::NonlinearSolver_Jac* pSolve_;
+    Zuzax::NonlinearSolver_Jac* pSolve_;
 
     std::vector<double> phaseMoles_final_Orig_;
     int printLvl_;

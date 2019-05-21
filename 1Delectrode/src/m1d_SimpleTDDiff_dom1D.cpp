@@ -15,7 +15,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_exception.h"
 
-#include "cantera/base/ctml.h"
+#include "zuzax/base/ctml.h"
 
 #include "stdio.h"
 #include "stdlib.h"
@@ -217,7 +217,7 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
 
         // Calculate concentrations
 
-        // Set the Cantera state
+        // Set the Zuzax state
 
         // Calculate the density of the fluid
 
@@ -271,7 +271,7 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
 
     // Calculate concentrations
 
-    // Set the Cantera state
+    // Set the Zuzax state
 
     // Calculate the density of the fluid
 
@@ -311,7 +311,7 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
 
       // Calculate concentrations
 
-      // Set the Cantera state
+      // Set the Zuzax state
 
       // Calculate the density of the fluid
 
@@ -335,7 +335,7 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
 
       // Calculate concentrations
 
-      // Set the Cantera state
+      // Set the Zuzax state
 
       // Calculate the density of the fluid
 
@@ -378,7 +378,7 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-SimpleTDDiff_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
+SimpleTDDiff_dom1D::saveDomain(Zuzax::XML_Node& oNode,
                              const Epetra_Vector *soln_GLALL_ptr,
                              const Epetra_Vector *solnDot_GLALL_ptr,
                              const double t,
@@ -388,7 +388,7 @@ SimpleTDDiff_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
   // Add a child for this domain
-  ZZCantera::XML_Node& bdom = oNode.addChild("domain");
+  Zuzax::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
   int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -409,7 +409,7 @@ SimpleTDDiff_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
   bdom.addAttribute("numVariables", numEquationsPerNode);
 
   // Dump out the coordinates
-  ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
+  Zuzax::XML_Node& gv = bdom.addChild("grid_data");
 
   std::vector<double> varContig(numNodes);
 

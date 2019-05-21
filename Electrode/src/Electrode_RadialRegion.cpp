@@ -9,7 +9,7 @@
 #include "tok_input_util.h"
 
 #include "Electrode_RadialRegion.h"
-#include "cantera/integrators.h"
+#include "zuzax/integrators.h"
 
 #include "Electrode_RadialDiffRegions.h"
 
@@ -27,11 +27,7 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //====================================================================================================================

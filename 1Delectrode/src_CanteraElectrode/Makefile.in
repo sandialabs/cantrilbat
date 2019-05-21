@@ -45,9 +45,9 @@ CANTERA_INSTALL_DIR = @ct_prefix@
 CANTERA_APPS_INSTALL_DIR = @cta_prefix@
 
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 #
 #
 TRILINOS_DIR=@trilinos_root@
@@ -81,7 +81,7 @@ os_is_win = @OS_IS_WIN@
 CXX = @MPICXX@ 
 #CXX = @CXX@
 #
-# The directory where Cantera include files may be found.
+# The directory where Zuzax include files may be found.
 #
 
 INCLUDE_DIRS = -I../src \

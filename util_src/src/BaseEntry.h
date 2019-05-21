@@ -60,12 +60,12 @@ public:
 
     //! Base Constructor
     /*!
-     *   @param entryName  keyline Name of the Base entry (required parameter)
-     *   @param numTR      Number of times this card must be found
-     *                     in the input deck.
-     *   @param timesRequiredType Sets the value of m_TimesRequiredType in the
-     *                            object. This determines the type of requirement
-     *                            for the number of times processed.
+     *  @param[in]           entryName           keyline Name of the Base entry (required parameter)
+     *  @param[in]           numTR               Number of times this card must be found
+     *                                           in the input deck.
+     *  @param[in]           timesRequiredType   Sets the value of m_TimesRequiredType in the
+     *                                           object. This determines the type of requirement
+     *                                           for the number of times processed.
      */
     explicit BaseEntry(const char* entryName, int numTR = 0, int timesRequiredType = 0);
 
@@ -97,29 +97,25 @@ public:
     //! This call zeroes the NumTimesProcessed information out.
     virtual void zeroTimesCounter();
 
-    //! Set the number of times this card is required in the
-    //! input deck
+    //! Set the number of times this card is required in the input deck
     /*!
      *  This can be used to override the entry in the constructor
      *
-     * @param ntr Int value for the number of times this
-     *            card is required
+     *  @param[in]           ntr                 Int value for the number of times this
+     *                                           card is required
      */
     void set_NumTimesRequired(int ntr);
 
-    //! Set the times required type field which determines how
-    //! the NumTimesRequired field will be handled
+    //! Set the times required type field which determines how the NumTimesRequired field will be handled
     /*!
      *   There are four types
-     *          0 = exact match for the number of times required
+     *          0 = exact match for the number of times required (default)
      *          1 = greater than match:  The number of times processed must
-     *                    be greater than or equal to m_numTimesRequired.
-     *          2 = less than or equal match: The number of times processed
-     *                    must be less than or equal to m_numTimesRequired.
-     *                    It may be zero.
-     *          3 = less than or equal match: The number of times processed
-     *                    must be less than or equal to m_numTimesRequired.
-     *                    It must be at least one.
+     *                                   be greater than or equal to m_numTimesRequired.
+     *          2 = less than or equal match: The number of times processed must be less than or equal to m_numTimesRequired.
+     *                                        It may be zero.
+     *          3 = less than or equal match: The number of times processed must be less than or equal to m_numTimesRequired.
+     *                                        It must be at least one.
      *
      *   @param[in]   timesRequiredType    Input parameter for the member function with a value of 0 to 3
      */
@@ -287,8 +283,7 @@ protected:
      */
     int m_TimesRequiredType;
 
-    //! Number of times this object has been called for the current parent
-    //! block.
+    //! Number of times this object has been called for the current parent block.
     int m_numTimesProcessed;
 
     //! This is the keyline name of the BaseEntry

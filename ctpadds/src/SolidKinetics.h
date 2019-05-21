@@ -14,25 +14,21 @@
  * See file License.txt for licensing information.
  */
 
-#ifndef CT_SOLIDKINETICS_H
-#define CT_SOLIDKINETICS_H
+#ifndef ZZ_SOLIDKINETICS_H
+#define ZZ_SOLIDKINETICS_H
 
-#include "cantera/base/ct_defs.h"
-#include "cantera/base/Array.h"
-#include "cantera/base/xml.h"
-#include "cantera/kinetics/BulkKinetics.h"
-#include "cantera/kinetics/Kinetics.h"
-#include "cantera/kinetics/StoichManager.h"
-#include "cantera/kinetics/RateCoeffMgr.h"
-#include "cantera/kinetics/importKinetics.h"
+#include "zuzax/base/ct_defs.h"
+#include "zuzax/base/Array.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/kinetics/BulkKinetics.h"
+#include "zuzax/kinetics/Kinetics.h"
+#include "zuzax/kinetics/StoichManager.h"
+#include "zuzax/kinetics/RateCoeffMgr.h"
+#include "zuzax/kinetics/importKinetics.h"
 
 #include <map>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   // forward references

@@ -8,26 +8,22 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"
+#include "zuzax/numerics/ResidEval.h"
 
 #include "Electrode_input.h"
 #include "Electrode.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -195,7 +191,7 @@ int main(int argc, char **argv)
     int inLi7Si3 = electrodeA->globalSpeciesIndex("Li7Si3(S)");
     int inLi_i_ = electrodeA->globalSpeciesIndex("Li(i)");
     if (inLi13Si4 < 0) {
-      throw CanteraError("main", "species not found");
+      throw ZuzaxError("main", "species not found");
     }
 
     int nspGlobal = electrodeA->nSpecies();
@@ -341,7 +337,7 @@ int main(int argc, char **argv)
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

@@ -13,27 +13,27 @@ MPIHOME  = /usr/local/mpich
 MPI_INC = -I$(MPIHOME)/include
 MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
 #
-# Setup The Cantera Interface
+# Setup The Zuzax Interface
 CANTERA_LIBDIR=@ct_libdir@
 
 CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
 
-# The directory where Cantera include files may be found.
+# The directory where Zuzax include files may be found.
 CT_INCROOT=@ct_incroot@
 
-# Bring in the Cantera includes through the .mak file
-include $(CT_INCROOT)/cantera/Cantera.mak
+# Bring in the Zuzax includes through the .mak file
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 PURIFY=@PURIFY@
 
-# Find the Build root for Cantera
+# Find the Build root for Zuzax
 #
 CANTERA_BUILD_ROOT=@ctb_root@
 #
 UTILSRC_DIR=../../util_src/src
 
 
-F2C_INC=$(CT_INCROOT)/cantera
+F2C_INC=$(CT_INCROOT)/zuzax
 #
 # Set up the various local and global defines
 #
@@ -96,7 +96,7 @@ all: .depends libctpadds.a $(OBJS_UNUSED)
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
 # 
-# These classes compile against the Cantera kernel
+# These classes compile against the Zuzax kernel
 # format
 #
 

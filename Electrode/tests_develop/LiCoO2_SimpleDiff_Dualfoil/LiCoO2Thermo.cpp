@@ -7,11 +7,11 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equil/vcs_prob.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_SimpleDiff.h"
 #include "Electrode_RadialDiffRegions.h"  
@@ -25,11 +25,7 @@
 #include <iomanip>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -161,7 +157,7 @@ int main(int argc, char **argv)
      // Set up the override model
      // 
 
-     OCV_Override_input* ocv_input_ptr = new  ZZCantera::OCV_Override_input();
+     OCV_Override_input* ocv_input_ptr = new  Zuzax::OCV_Override_input();
 
      ocv_input_ptr->OCVModel = "CoO2_dualfoil";
      ocv_input_ptr->replacedSpeciesName = "LiCoO2";
@@ -237,11 +233,11 @@ int main(int argc, char **argv)
 	 printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
      }
      
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

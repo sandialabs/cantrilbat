@@ -9,8 +9,8 @@
  */
 #include "gtest/gtest.h"
 
-#include "cantera/numerics/NonlinearSolver_JAC.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equilibrium.h"
 #include "Electrode_Factory.h"
 #include "importPL.h"
 #include "BE_BlockEntry.h"
@@ -18,11 +18,7 @@
 #include "EState_XML.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace esmodel;
 
 // a lvl of one prints out the .csv file
@@ -148,8 +144,8 @@ public:
 protected:
 
 
-    ZZCantera::EState* es1;
-    ZZCantera::EState* es2;
+    Zuzax::EState* es1;
+    Zuzax::EState* es2;
     bool includeHist;
     int printLvl;
     int nDigits;
@@ -218,16 +214,16 @@ int main(int argc, char **argv)
   NonlinearSolver_JAC::s_print_NumJac = true;
 
 
-  ZZCantera::XML_Node* xEout = getElectrodeOutputFile("solnSaveA_0_0.xml", 1);
+  Zuzax::XML_Node* xEout = getElectrodeOutputFile("solnSaveA_0_0.xml", 1);
   if (!xEout) {
       throw Electrode_Error("getElectrodeOutputFile", "Error");
   }
   std::string file1 = "solnSaveA_0_0.xml";
   std::string file2 = "solnSaveB_0_0.xml";
 
-  ZZCantera::EState* es1 = readEState_XMLFile_LastStep("solnSaveA_0_0.xml", time1);
+  Zuzax::EState* es1 = readEState_XMLFile_LastStep("solnSaveA_0_0.xml", time1);
 
-  ZZCantera::EState* es2 = readEState_XMLFile_LastStep("solnSaveB_0_0.xml", time2);
+  Zuzax::EState* es2 = readEState_XMLFile_LastStep("solnSaveB_0_0.xml", time2);
   bool includeHist = false;
   int printLvl = 5;
   int nDigits = 6;
@@ -252,10 +248,10 @@ int main(int argc, char **argv)
   es->readIdentificationFromXML(*xEout); 
 
   int globalTimeStepNum = 0;
-  ZZCantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
+  Zuzax::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
 
   double timeVal;
-  ZZCantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
+  Zuzax::XML_Node* xSt = locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
   es->readStateFromXML(*xSt);
 
   delete es; 
@@ -268,7 +264,7 @@ int main(int argc, char **argv)
   testing::InitGoogleTest(&argc, argv);
   int res = RUN_ALL_TESTS();
   
-  ZZCantera::appdelete();
+  Zuzax::appdelete();
 
 
   return res;

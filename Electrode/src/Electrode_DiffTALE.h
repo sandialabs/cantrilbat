@@ -14,11 +14,7 @@
 
 #include "Electrode_Integrator.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //! anode type of electrode
@@ -1397,8 +1393,8 @@ public:
      */
     std::vector<double> numLatticeCBR_final_;
 
-    friend class ZZCantera::EState;
-    friend class ZZCantera::EState_RadialDistrib;
+    friend class Zuzax::EState;
+    friend class Zuzax::EState_RadialDistrib;
 
 };
 //==================================================================================================================================

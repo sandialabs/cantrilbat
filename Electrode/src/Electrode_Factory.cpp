@@ -20,18 +20,13 @@
 #include "Electrode_CSTR.h"
 #include "Electrode_CSTR_MCMBAnode.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
-//#include "Electrode_SuccessiveSubstitution.h"
 #include "Electrode_RadialDiffRegions.h"
 
 #include "RSD_OCVmodel.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //====================================================================================================================
 /*
@@ -77,14 +72,14 @@ static void create_string_maps()
     // Invert the maps automatically.
     for (auto pos = electrode_types_string.begin(); pos != electrode_types_string.end(); ++pos) {
         string_electrode_types[pos->second] = pos->first;
-        std::string lll =  ZZCantera::lowercase(pos->second);
+        std::string lll =  Zuzax::lowercase(pos->second);
         string_electrode_types[lll] = pos->first;
     }
 
     // Invert the maps automatically.
     for (auto pos = gMap_ETEnum_String.OCVmodel_string.begin(); pos != gMap_ETEnum_String.OCVmodel_string.end(); ++pos) {
         gMap_ETEnum_String.string_OCVmodel[pos->second] = pos->first;
-        std::string lll =  ZZCantera::lowercase(pos->second);
+        std::string lll =  Zuzax::lowercase(pos->second);
         gMap_ETEnum_String.string_OCVmodel[lll] = pos->first;
     }
 
@@ -373,5 +368,5 @@ RSD_OCVmodel* newRSD_OCVmodel(std::string smodel, Electrode_Factory *f)
 }
 
 //==================================================================================================================================
-} // End of ZZCantera Namespace
+} // End of Zuzax Namespace
 //----------------------------------------------------------------------------------------------------------------------------------

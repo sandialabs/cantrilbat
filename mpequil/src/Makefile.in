@@ -10,14 +10,14 @@
 .SUFFIXES: .d
 
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 #########################################################################
 #
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
 
-# Bring in the Cantera includes through the .mak file
-include $(CT_INCROOT)/cantera/Cantera.mak
+# Bring in the Zuzax includes through the .mak file
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 # Utility src directory
 UTILSRC_DIR=../../util_src/src

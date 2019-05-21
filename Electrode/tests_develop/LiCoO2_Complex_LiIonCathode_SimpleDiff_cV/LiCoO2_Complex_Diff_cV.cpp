@@ -8,9 +8,9 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/numerics/NonlinearSolver.h"
+#include "zuzax/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_SimpleDiff.h"
@@ -20,12 +20,8 @@
 #include <iomanip>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
-using namespace VCSnonideal;
+using namespace vcs_nonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -110,8 +106,8 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    //ZZCantera::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new ZZCantera::Electrode_CSTR_LiCoO2Cathode();
-    ZZCantera::Electrode *electrodeC  = newElectrodeObject("SimpleDiff");
+    //Zuzax::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new Zuzax::Electrode_CSTR_LiCoO2Cathode();
+    Zuzax::Electrode *electrodeC  = newElectrodeObject("SimpleDiff");
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
@@ -204,11 +200,11 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeC_input;
     delete electrodeC;
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

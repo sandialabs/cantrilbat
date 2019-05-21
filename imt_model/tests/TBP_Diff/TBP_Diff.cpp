@@ -10,12 +10,12 @@
 
 
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 #include "InterfacialMassTransfer_input.h"
 #include "InterfacialMassTransfer.h"
@@ -26,11 +26,7 @@
 #include <iomanip>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace mdpUtil;
 
 
@@ -115,10 +111,10 @@ int main(int argc, char **argv)
     }
   
   
-    ZZCantera::imtPSS_NoSurf_DiffBL* iface  = new ZZCantera::imtPSS_NoSurf_DiffBL();
+    Zuzax::imtPSS_NoSurf_DiffBL* iface  = new Zuzax::imtPSS_NoSurf_DiffBL();
 
     
-    ZZCantera::IMT_KEY_INPUT *face_input = new IMT_KEY_INPUT();
+    Zuzax::IMT_KEY_INPUT *face_input = new IMT_KEY_INPUT();
     
     std::string commandFile = "interface.inp";
   
@@ -172,11 +168,11 @@ int main(int argc, char **argv)
     delete cf;
     delete face_input;
     delete iface;
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

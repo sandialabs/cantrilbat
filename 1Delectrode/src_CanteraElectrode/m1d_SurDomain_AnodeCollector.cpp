@@ -536,7 +536,7 @@ SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid, Epe
 }
 //==================================================================================================================================
 void
-SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GLALL_ptr,
+SurDomain_AnodeCollector::saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GLALL_ptr,
                                      const Epetra_Vector* const solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     // Find the global node number of the node where this domain resides
@@ -547,7 +547,7 @@ SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Ve
     NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     size_t eqnStart = nv->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
-    ZZCantera::XML_Node& inlt = oNode.addChild("domain");
+    Zuzax::XML_Node& inlt = oNode.addChild("domain");
     size_t numVar = nv->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
@@ -556,19 +556,19 @@ SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Ve
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos();
-    ZZctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
 
     for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         std::string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         std::string type = VarType::VarMainName(vv.VariableType);
-        ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
+        ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
     }
     std::string nm = "Volts(AnodeCCVoltage)";
-    ZZctml::addFloat(inlt, nm, phiAnodeCC_, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, nm, phiAnodeCC_, "", "", Zuzax::Undef, Zuzax::Undef);
 }
 //==================================================================================================================================
 } 

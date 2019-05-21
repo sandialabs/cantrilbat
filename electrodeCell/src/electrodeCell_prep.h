@@ -13,24 +13,14 @@
 #ifndef _ELECTRODE_PREP_H
 #define _ELECTRODE_PREP_H
 
-#include "cantera/base/config.h"
+#include "zuzax/base/config.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
   class Electrode;
 }
-#ifdef useZuzaxNamespace
 extern int electrode_prep(Zuzax::Electrode *);
 extern void electrode_query(Zuzax::Electrode *prob);  
-#else
-extern int electrode_prep(Cantera::Electrode *);
-extern void electrode_query(Cantera::Electrode *prob);  
-
-#endif
 
 
 #endif

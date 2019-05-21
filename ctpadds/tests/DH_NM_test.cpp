@@ -11,14 +11,10 @@
 
 #include "../../util_src/src/mdp_allo.h"
 
-#include "cantera/thermo/DebyeHuckel.h"
-#include "cantera/base/Array.h"
+#include "zuzax/thermo/DebyeHuckel.h"
+#include "zuzax/base/Array.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 using namespace mdpUtil;
 using namespace std;
@@ -113,7 +109,7 @@ int main(int argc, char **argv)
      DH = 0;
      appdelete();
 
-   } catch (CanteraError) {
+   } catch (ZuzaxError) {
 
      showErrors();
      return -1;

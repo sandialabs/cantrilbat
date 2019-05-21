@@ -7,7 +7,7 @@
  */
 
 #include "ReactionRate.h"
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ctexceptions.h"
 
 namespace CanteraLite
 {
@@ -59,7 +59,7 @@ ReactionRate::getStoichSpec(int ispec)
 double
 ReactionRate::calculateRate(const double * const y)
 {
-  throw ZZCantera::CanteraError("ReactionRate::calculateRate",
+  throw Zuzax::ZuzaxError("ReactionRate::calculateRate",
                               "base class called -> error");
 }
 

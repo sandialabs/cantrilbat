@@ -41,7 +41,7 @@ DomainLayout::DomainLayout(ProblemStatement* psInput_ptr) :
 }
 //==================================================================================================================================
 DomainLayout::DomainLayout(std::vector<std::string>  domainList, ProblemStatement* psInput_ptr,
-                           std::map<std::string,ZZCantera::MultiPhase*> bulkMap,
+                           std::map<std::string,Zuzax::MultiPhase*> bulkMap,
                            std::map<std::string,int> surfaceMap) :
     NumDomains(0),
     NumBulkDomains(0),
@@ -143,7 +143,7 @@ DomainLayout::InitializeDomainPicture()
      *
      *  This procedure is done before the Equations anv variable list are set up.
      *  Needed information about what is possible is input here.
-     *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+     *  We read the Zuzax ThermoPhase and transport object into DomainDescriptions here.
      */
     ReadModelDescriptions();
 

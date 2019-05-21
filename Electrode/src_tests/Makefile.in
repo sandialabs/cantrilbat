@@ -28,7 +28,7 @@ CANTERA_INCROOT =  @ct_incroot@
 #
 # Bring in the Zuzax's includes through the .mak file
 #
-include $(CANTERA_INCROOT)/cantera/Zuzax.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 #
 # Check to see whether we are in the msvc++ environment
 os_is_win = @OS_IS_WIN@

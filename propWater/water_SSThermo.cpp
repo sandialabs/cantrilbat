@@ -123,8 +123,8 @@ int main()
 	 w.gibbs_mole() * 1.0E-6);
     
     delete phase;
-  } catch(CanteraError &CE) {
-    cout << "ERROR: Cantera threw an error message:" << endl;
+  } catch(ZuzaxError &CE) {
+    cout << "ERROR: Zuzax threw an error message:" << endl;
     cout << CE.errorMessage() << endl;
   } 
 }

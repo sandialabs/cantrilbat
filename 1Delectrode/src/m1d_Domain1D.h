@@ -21,7 +21,7 @@
 
 //#include "Epetra_Vector.h"
 
-#include "cantera/base/xml.h"
+#include "zuzax/base/xml.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
@@ -364,7 +364,7 @@ public:
      *                                             as proc 0. If false, the xml_node info will only exist on proc 0.
      *                                             Defaults to false.
      */
-    virtual void saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
+    virtual void saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
                             const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false);
 
     //! Base Class for reading the solution from the saved file
@@ -376,7 +376,7 @@ public:
      *  @param[out]            solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector that will accept
      *                                             the solution
      */
-    virtual void readSimulation(const ZZCantera::XML_Node& simulationNode, Epetra_Vector* const soln_GlAll_ptr,
+    virtual void readSimulation(const Zuzax::XML_Node& simulationNode, Epetra_Vector* const soln_GlAll_ptr,
                                 Epetra_Vector* const solnDot_GlAll_ptr);
 
     //! Base Class for reading the solution from the saved file
@@ -390,7 +390,7 @@ public:
      *                                           comparison and quality control purposes
      */
     virtual void
-    readDomain(const ZZCantera::XML_Node& domainNode, Epetra_Vector* const soln_GlAll_ptr,
+    readDomain(const Zuzax::XML_Node& domainNode, Epetra_Vector* const soln_GlAll_ptr,
                Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
     //! Method for writing the header for the surface domain to a tecplot file.

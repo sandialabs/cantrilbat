@@ -21,7 +21,7 @@ PROGRAM = TBP_Diff
 OBJ = $(PROGRAM).o
 
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 #########################################################################
 
 PURIFY=@PURIFY@
@@ -30,22 +30,22 @@ PURIFY=@PURIFY@
 CT_INCROOT =  @ct_incroot@
 
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 
 #
-# Set up the Cantera addition library
+# Set up the Zuzax addition library
 #
 CTPADDS_DIR = ../../../ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
 #
-# Set up the Cantera Application Base directory
+# Set up the Zuzax Application Base directory
 #
 CTAPPLBASE_DIR = ../../src
 CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libimt_model.a

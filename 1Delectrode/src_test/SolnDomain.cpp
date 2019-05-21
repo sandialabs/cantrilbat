@@ -9,8 +9,8 @@
 #include "SolnDomain.h"
 #include "SolnLayout.h"
 
-#include "cantera/base/ctml.h"
-#include "cantera/base/stringUtils.h"
+#include "zuzax/base/ctml.h"
+#include "zuzax/base/stringUtils.h"
 
 #include <iostream>
 #include <fstream>
@@ -66,7 +66,7 @@ namespace m1d {
   {
   }
   //====================================================================================================================
-  SolnDomainBulk::SolnDomainBulk(ZZCantera::XML_Node & bulkXML) :
+  SolnDomainBulk::SolnDomainBulk(Zuzax::XML_Node & bulkXML) :
     SolnDomain(),
     NumVariables(0), 
     NumNodes(0)
@@ -95,22 +95,22 @@ namespace m1d {
     return *this;
   }
   //====================================================================================================================
-  void SolnDomainBulk::readXML(ZZCantera::XML_Node & bulkXML) {
+  void SolnDomainBulk::readXML(Zuzax::XML_Node & bulkXML) {
     string sss =  bulkXML["numVariables"];
-    NumVariables = ZZCantera::fpValueCheck(sss);
+    NumVariables = Zuzax::fpValueCheck(sss);
     sss = bulkXML["points"];
-    NumNodes= ZZCantera::fpValueCheck(sss);
+    NumNodes= Zuzax::fpValueCheck(sss);
     
     XML_Node * bulkgXML_ptr = bulkXML.findByName("grid_data");
     if (!bulkgXML_ptr) {
-	throw CanteraError(" SolnDomainBulk::readXML", "Can't find grid_data");
+	throw ZuzaxError(" SolnDomainBulk::readXML", "Can't find grid_data");
     }
 
  
     ZZctml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
     int sz = X0NodePos.size();
     if (sz != NumNodes) {
-      throw CanteraError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + ZZCantera::int2str(sz) + "  " + ZZCantera::int2str(NumNodes));
+      throw ZuzaxError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + Zuzax::int2str(sz) + "  " + Zuzax::int2str(NumNodes));
     }
 
     XML_Node *xXML = bulkgXML_ptr->findByName("X");
@@ -118,7 +118,7 @@ namespace m1d {
       ZZctml::getFloatArray(*xXML, XNodePos);
       sz = XNodePos.size();
       if (sz != NumNodes) {
-	throw CanteraError("SolnDomainBulk::readXML", "sz of XNode not right: " + int2str(sz) + "  " + int2str(NumNodes));
+	throw ZuzaxError("SolnDomainBulk::readXML", "sz of XNode not right: " + int2str(sz) + "  " + int2str(NumNodes));
       }
     }
 
@@ -148,7 +148,7 @@ namespace m1d {
       std::vector<double> dataValues;
       size_t sz = ZZctml::getFloatArray(*dataXML, dataValues, false, "", vtitle);
       if (sz != (size_t) NumNodes) {
-	throw CanteraError("SolnDomainBulk::readXML", "sz of data not right: " + int2str(sz) + "  " + int2str(NumNodes));
+	throw ZuzaxError("SolnDomainBulk::readXML", "sz of data not right: " + int2str(sz) + "  " + int2str(NumNodes));
       }
       DataArray.push_back(dataValues);
     } 
@@ -163,7 +163,7 @@ namespace m1d {
   {
   }
   //====================================================================================================================
-  SolnDomainSurf::SolnDomainSurf(ZZCantera::XML_Node & surfXML) :
+  SolnDomainSurf::SolnDomainSurf(Zuzax::XML_Node & surfXML) :
     SolnDomain()
   {
     readXML(surfXML);
@@ -189,13 +189,13 @@ namespace m1d {
     return *this;
   }
   //====================================================================================================================
-  void SolnDomainSurf::readXML(ZZCantera::XML_Node & surfXML) {
+  void SolnDomainSurf::readXML(Zuzax::XML_Node & surfXML) {
     string sss =  surfXML["numVariables"];
-    NumVariables = ZZCantera::fpValueCheck(sss);
+    NumVariables = Zuzax::fpValueCheck(sss);
     sss = surfXML["points"];
-    int numNodes= ZZCantera::fpValueCheck(sss);
+    int numNodes= Zuzax::fpValueCheck(sss);
     if (numNodes != 1) {
-      throw CanteraError("SolnDomainSurf::readXML", "nodes not right: " + int2str(numNodes));
+      throw ZuzaxError("SolnDomainSurf::readXML", "nodes not right: " + int2str(numNodes));
     }
 
 

@@ -15,21 +15,13 @@
 #define IMPORTPL_H
 
 
-#include "cantera/kinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
+#include "zuzax/kinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
 
 
 #include <string>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
 
   class PhaseList;
@@ -46,7 +38,7 @@ namespace Cantera
    *  to the PhaseList object.
    *
    * @param pl             Pointer to the PhaseList object
-   * @param canteraFile    Cantera CTML file
+   * @param canteraFile    Zuzax CTML file
    */
   int importAllCTMLIntoPhaseList(PhaseList *pl, std::string canteraFile);
 

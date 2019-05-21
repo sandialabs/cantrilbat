@@ -11,16 +11,12 @@
 #ifndef IMPORTALLCTML_H
 #define IMPORTALLCTML_H
 
-#include "cantera/base/ct_defs.h"
-#include "cantera/thermo/ThermoPhase.h"
+#include "zuzax/base/ct_defs.h"
+#include "zuzax/thermo/ThermoPhase.h"
 
 #include <string>
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class ThermoPhase;
@@ -44,7 +40,7 @@ class Transport;
  *
  *       For models that we understand, we pop the error off
  *       of the Zuzax stack.
- *       Models that we don't understand, or that cause an error  we rethrow the CanteraError
+ *       Models that we don't understand, or that cause an error  we rethrow the ZuzaxError
  *
  *  @param[in]               xmlphase            XML Node containing the phase to be imported.
  *
@@ -60,7 +56,7 @@ thermo_t_double* processExpandedThermoPhase(XML_Node* const xmlphase);
  *    by the main Zuzax distribution.
  *
  *       For models that we understand, we pop the error off
- *       of the Cantera stack. This includes the "NONE" model.
+ *       of the Zuzax stack. This includes the "NONE" model.
  *       It's ok to return with the null pointer from this routine.
  *
  *  @param[in]               xmlPhase            pointer to the XML node containing the phase information
@@ -73,13 +69,13 @@ thermo_t_double* processExpandedThermoPhase(XML_Node* const xmlphase);
 Kinetics* processExpandedKinetics(XML_Node* const xmlPhase, std::vector<thermo_t_double*> tpList);
 
 //==================================================================================================================================
-//! Process an interface kinetics manager, which may or may not be currently supported by the main Cantera distribution.
+//! Process an interface kinetics manager, which may or may not be currently supported by the main Zuzax distribution.
 /*!
  *    Import an interface Kinetics manager from a CTML description.
  *    Add new Kinetics definitions, ones not currently supported by the main Zuzax distribution.
  *
  *       For models that we understand, we pop the error off
- *       of the Cantera stack. This includes the "NONE" model.
+ *       of the Zuzax stack. This includes the "NONE" model.
  *       It's ok to return with the null pointer from this routine.
  *
  *  @param[in]               xmlPhase            pointer to the XML node containing the phase information
@@ -95,7 +91,7 @@ InterfaceKinetics* processExpandedInterfaceKinetics(XML_Node* const xmlPhase, st
 //! Process transport properties for a phase.
 /*!
  *  Process an expanded set of transport properties for a phase.
- *  This calls the Cantera routine newtransportMgr to process
+ *  This calls the Zuzax routine newtransportMgr to process
  *  Zuzax's transport first. Then, it processes any new transport properties.
  *
  *  @param[in]               xmlPhase            Pointer to the XML node containing the phase information

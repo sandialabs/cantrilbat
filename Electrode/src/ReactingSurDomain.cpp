@@ -12,20 +12,15 @@
 
 #include "ReactingSurDomain.h"
 
-#include "cantera/kinetics.h"
+#include "zuzax/kinetics.h"
 
 #include "Electrode_input.h"
 #include "Electrode_Factory.h"
 
 #include "mdp_allo.h"
 
-//using namespace std;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain() :
@@ -389,10 +384,6 @@ bool ReactingSurDomain::importFromPL(PhaseList* const pl, size_t iskin)
 
         return true;
 
-    } catch (CanteraError) {
-        showErrors(std::cout);
-        throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");
-        return false;
     } catch (ZuzaxError) {
         showErrors(std::cout);
         throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");

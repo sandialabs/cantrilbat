@@ -12,19 +12,15 @@
 #ifndef REACTINGVOLDOMAIN_H
 #define REACTINGVOLDOMAIN_H
 
-#include "cantera/kinetics/GasKinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
-#include "cantera/transport.h"
+#include "zuzax/kinetics/GasKinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
+#include "zuzax/transport.h"
 
 #include <string>
 #include <iostream>
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 // Forward references

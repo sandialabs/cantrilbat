@@ -24,11 +24,7 @@
 
 //! Model for OCV Override functions
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
 class ThermoPhase;

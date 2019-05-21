@@ -13,17 +13,13 @@
 
 #include "cttables.h"
 
-#include "cantera/thermo/speciesThermoTypes.h"
-#include "cantera/thermo/PDSS.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "cantera/thermo/IdealSolidSolnPhase.h"
-#include "cantera/base/PrintCtrl.h"
+#include "zuzax/thermo/speciesThermoTypes.h"
+#include "zuzax/thermo/PDSS.h"
+#include "zuzax/thermo/ThermoPhase.h"
+#include "zuzax/thermo/IdealSolidSolnPhase.h"
+#include "zuzax/base/PrintCtrl.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 #include <cstdio>
 
@@ -33,7 +29,7 @@ using std::cout;
 //===================================================================================================================================
 // Gather the entropy of the elements of a species at 298 K. This is useful for going back and forth from the
 // gibbs free energy of formation and the absolute gibbs free energy in NIST format.
-double entropyElem298(ZZCantera::ThermoPhase* g_ptr, size_t k)
+double entropyElem298(Zuzax::ThermoPhase* g_ptr, size_t k)
 {
     double se;
     double stotal = 0.0;
@@ -450,7 +446,7 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
             } else if (crot == 1.5) {
                 cout <<"This molecule is nonlinear" << endl;
             } else {
-                throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
+                throw ZuzaxError("", "Unknown crot = " + Zuzax::fp2str(crot));
             }
 
         }
@@ -476,7 +472,7 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
             } else if (crot == 1.5) {
                 dnt(1); printf("This molecule is nonlinear\n");
             } else {
-                throw ZuzaxError("printTable()", "Unknown crot = " + ZZCantera::fp2str(crot));
+                throw ZuzaxError("printTable()", "Unknown crot = " + Zuzax::fp2str(crot));
             }
         }
     }

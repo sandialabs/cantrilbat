@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 
-#include "cantera/base/logger.h"
-#include "cantera/thermo.h"
-#include "cantera/thermo/MineralEQ3.h"
+#include "zuzax/base/logger.h"
+#include "zuzax/thermo.h"
+#include "zuzax/thermo/MineralEQ3.h"
 
 
 #include <fstream>

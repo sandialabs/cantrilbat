@@ -15,13 +15,13 @@
 
 #include "m1d_ProblemStatementCell.h"
 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ctexceptions.h"
 
 #include "Electrode.h"
 #include "Electrode_Factory.h"
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include <zuzax/transport.h>      // transport properties
+#include <zuzax/thermo.h>      // transport properties
+#include <zuzax/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 
 
 
@@ -29,22 +29,8 @@
 
 extern m1d::ProblemStatementCell  PSinput;
 
-#ifdef useZuzaxNamespace
-#ifndef ZZCantera
-#define ZZCantera Zuzax
-#endif
-#else
-#ifndef ZZCantera
-#define ZZCantera Cantera 
-#endif
-#endif
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
-
 
 //=====================================================================================================================
 namespace m1d
@@ -58,9 +44,9 @@ SDD_FlatCathode::SDD_FlatCathode(DomainLayout *dl_ptr, int pos) :
     icurrCathodeSpecified_(0.0)
 {
 /*
-  ElectrodeC_ = new ZZCantera::Electrode_SuccessiveSubstitution();
+  ElectrodeC_ = new Zuzax::Electrode_SuccessiveSubstitution();
 
-  ZZCantera::ELECTRODE_KEY_INPUT *electrodeC_input = new ZZCantera::ELECTRODE_KEY_INPUT();
+  Zuzax::ELECTRODE_KEY_INPUT *electrodeC_input = new Zuzax::ELECTRODE_KEY_INPUT();
 
   std::string commandFileC = "cathode.inp";
    // Initialize a block input structure for the command file
@@ -97,7 +83,7 @@ SDD_FlatCathode::SDD_FlatCathode(DomainLayout *dl_ptr, int pos) :
         throw Zuzax::ZuzaxError("SDD_FlatCathode::SDD_FlatCathode", "Can't find the phase in the phase list: " );
     }
     thermo_t_double* ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
-    ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquidIFN_ = dynamic_cast<Zuzax::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
     ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
 
     ELECTRODE_KEY_INPUT *ci = PSinput.cathode_input_;

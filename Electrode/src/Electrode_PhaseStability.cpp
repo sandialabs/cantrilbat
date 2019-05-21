@@ -1,12 +1,8 @@
 /*
- * $Id: Electrode_PhaseStability.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+ * @file Electrode_PhaseStability.cpp 
  */
 
-//#ifndef OLDWAY
-//#define OLDWAY
-//#endif
 
-//#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -14,29 +10,19 @@
 #include <iomanip>
 
 #include "Electrode_MultiPlateau_NoDiff.h"
-#include "cantera/numerics/NonlinearSolver.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
+#include "zuzax/numerics/NonlinearSolver.h"
+#include "zuzax/thermo/FixedChemPotSSTP.h"
 
 #include "Electrode_PhaseStability.h"
 
-using #ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif;
 using namespace std;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
 #endif
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
-
 //====================================================================================================================
 Electrode_PhaseStability::Electrode_PhaseStability(Electrode_MultiPlateau_NoDiff* elect) :
     emp_(elect),
@@ -778,10 +764,6 @@ void  Electrode_PhaseStability::determineBigMoleFractions()
     }
 }
 //==================================================================================================================================
-} // End of #ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
+} 
 //==================================================================================================================================
 

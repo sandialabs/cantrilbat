@@ -6,8 +6,8 @@
 /*
  *     This file contains routines which are global routines, i.e.,
  *     not part of any object. These routine take as input, ctml
- *     pointers to data, and pointers to Cantera objects. The purpose
- *     of these routines is to intialize the Cantera objects with data from the ctml tree structures.
+ *     pointers to data, and pointers to Zuzax objects. The purpose
+ *     of these routines is to intialize the Zuzax objects with data from the ctml tree structures.
  */
 
 /*
@@ -17,18 +17,14 @@
  */
 
 
-#include "cantera/multiphase/PhaseList.h"
-#include "cantera/base/xml.h"
+#include "zuzax/multiphase/PhaseList.h"
+#include "zuzax/base/xml.h"
 
 #include "importPL.h"
 #include "importAllCTML.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 //==================================================================================================================================
 //!  Given an XML_Node pointing to a phase, add the phase to a PhaseList object
@@ -102,9 +98,6 @@ size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canter
     XML_Node* xc = 0;
     try {
         xc = get_XML_File(canteraFile);
-    }  catch (CanteraError) {
-        showErrors();
-        throw ZuzaxError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
     }  catch (ZuzaxError) {
         showErrors();
         throw ZuzaxError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");

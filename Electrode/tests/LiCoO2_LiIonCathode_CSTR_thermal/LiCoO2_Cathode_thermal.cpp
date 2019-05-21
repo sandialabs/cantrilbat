@@ -8,8 +8,8 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/numerics/NonlinearSolver_JAC.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equilibrium.h"
 #include "Electrode_Factory.h"
 #include "importPL.h"
 #include "BE_BlockEntry.h"
@@ -100,8 +100,8 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    //ZZCantera::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new ZZCantera::Electrode_CSTR_LiCoO2Cathode();
-    ZZCantera::Electrode *electrodeC  = newElectrodeObject("CSTR_LiCoO2Cathode");
+    //Zuzax::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new Zuzax::Electrode_CSTR_LiCoO2Cathode();
+    Zuzax::Electrode *electrodeC  = newElectrodeObject("CSTR_LiCoO2Cathode");
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new Zuzax::ELECTRODE_KEY_INPUT();
     
@@ -266,11 +266,11 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeC_input;
     delete electrodeC;
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

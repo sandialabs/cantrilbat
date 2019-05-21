@@ -10,7 +10,7 @@
 
 
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 #include "epequil_input.h"
 
 
@@ -52,7 +52,7 @@ EPEQUIL_KEY_INPUT::EPEQUIL_KEY_INPUT () :
     ElementAbundances(0),
     specifiedElementAbundances(false)
 {
-    Title = "epequil Cantera Problem";
+    Title = "epequil Zuzax Problem";
 }
 /****************************************************************************
  *
@@ -138,7 +138,7 @@ static void setup_input_pass2(BlockEntry *cf)
     LineEntry *sle1 = 0;
     /*
      *  Get the input deck for
-     *  Cantera description of the model.
+     *  Zuzax description of the model.
      */
     LE_MultiCStr *s1 =
 	new LE_MultiCStr("Cantera File Name", &PO.CanteraFileNames,
@@ -424,7 +424,7 @@ epequil_input(EPEQUIL_INPUT *pi, string commandFile)
     /*
      * Process the first pass of the input file ->
      *   We are just after the information needed to initialize
-     *   the Cantera structures and size the problem
+     *   the Zuzax structures and size the problem
      */
     ok = process_input(cf, commandFile, printBIProclevel);
     if (!ok) {

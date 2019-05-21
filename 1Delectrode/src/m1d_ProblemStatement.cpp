@@ -716,7 +716,7 @@ int ProblemStatement::parse_input_3()
     /*
      * Process the first pass of the input file ->
      *   We are just after the information needed to initialize
-     *   the Cantera structures and size the problem
+     *   the Zuzax structures and size the problem
      */
     bool ok = process_input(cf_, commandFile_, printBIProclevel);
     if (!ok) {

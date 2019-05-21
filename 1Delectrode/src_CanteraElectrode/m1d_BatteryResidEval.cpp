@@ -29,11 +29,7 @@
 #include "m1d_NodalVars.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
@@ -53,12 +49,12 @@ bool polIndecisesCurrent = false;
 static void drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
-        ZZCantera::writelog(" ");
+        Zuzax::writelog(" ");
     }
     for (int i = 0; i < ll; i++) {
-        ZZCantera::writelog("-");
+        Zuzax::writelog("-");
     }
-    ZZCantera::writelog("\n");
+    Zuzax::writelog("\n");
 }
 //==================================================================================================================================
 // Default constructor
@@ -618,40 +614,40 @@ BatteryResidEval::showProblemSolution(const int ievent,
     if (!mypid || duplicateOnAllProcs) {
         sprintf(buf, "%s", ind);
         sprint_line(buf, "-", 100);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         if (solveType == Zuzax::Solve_Type::TimeDependentInitial_Solve) {
             sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind,
                     delta_t);
         } else {
             sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
         }
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Capacity_Anode        %-12.3E  Amp hr / m2\n", ind, capacityAnodePA_ / 3600.);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Capacity_Anode_Left   %-12.3E  Amp hr / m2\n", ind,
                 capacityLeftAnodePA_ / 3600.);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       DepthDischarge_Anode  %-12.3E  Amp hr / m2\n", ind, dodAnodePA_ / 3600.);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Capacity_Cathode      %-12.3E  Amp hr / m2\n", ind, capacityCathodePA_ / 3600.);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Capacity_Cathode_Left %-12.3E  Amp hr / m2\n", ind,
                 capacityLeftCathodePA_ / 3600.);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       DepthDischarge_Cathode%-12.3E  Amp hr / m2\n", ind, dodCathodePA_ / 3600.);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Crate_current         %-12.3E  \n", ind, Crate_current_);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
 
         sprintf(buf, "%s", ind);
         sprint_line(buf, "-", 100);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
     }
 
     Domain1D* d_ptr = DL.SurDomain1D_List[0];
@@ -685,7 +681,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
     if (!mypid || duplicateOnAllProcs) {
         sprintf(buf, "%s", ind);
         sprint_line(buf, "-", 100);
-        ZZCantera::writelog(buf);
+        Zuzax::writelog(buf);
     }
 
     Epetra_Comm* c = LI_ptr_->Comm_ptr_;

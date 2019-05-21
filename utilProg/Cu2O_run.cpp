@@ -2,12 +2,12 @@
  *
  */
 
-#include "cantera/base/ct_defs.h"
-#include "cantera/equilibrium.h"
-#include "cantera/thermo.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/thermo/HMWSoln.h"
-#include "cantera/IdealGasMix.h"
+#include "zuzax/base/ct_defs.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/thermo/HMWSoln.h"
+#include "zuzax/IdealGasMix.h"
 
 #include <cstdio>
 #include <cstring>
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     double pres = OneAtm;
     
 #ifdef USE_VCSNONIDEAL
-    ZZVCSnonideal::vcs_timing_print_lvl = 0;
+    vcs_nonideal::vcs_timing_print_lvl = 0;
 #endif
     int printLvl = 2;
     int estimateEquil = 0;
@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
     
     return 0;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

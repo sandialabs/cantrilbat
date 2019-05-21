@@ -25,11 +25,11 @@
 
 #include "changeHf.h"
 
-#include "cantera/kernel/GeneralSpeciesThermo.h"
-#include "cantera/kernel/SpeciesThermoFactory.h"
-#include "cantera/kernel/Mu0Poly.h"
-#include "cantera/base/ctml.h"
-#include "cantera/thermo/SpeciesThermo.h"
+#include "zuzax/kernel/GeneralSpeciesThermo.h"
+#include "zuzax/kernel/SpeciesThermoFactory.h"
+#include "zuzax/kernel/Mu0Poly.h"
+#include "zuzax/base/ctml.h"
+#include "zuzax/thermo/SpeciesThermo.h"
 
 using namespace Cantera;
 using namespace std;
@@ -156,7 +156,7 @@ static void installNasa2ThermoFromXML(string speciesName,
       getFloatArray(f0.child("floatArray"), c1, false);
     }
     else {
-      throw CanteraError("installNasaThermo",
+      throw ZuzaxError("installNasaThermo",
 			 "non-continuous temperature ranges.");
     }
     vector_fp c(15);
@@ -216,7 +216,7 @@ static void installNasa96ThermoFromXML(string speciesName,
       getFloatArray(f0.child("floatArray"), c1, false);
     }
     else {
-      throw CanteraError("installNasaThermo",
+      throw ZuzaxError("installNasaThermo",
 			 "non-continuous temperature ranges.");
     }
     array_fp c(15);
@@ -277,7 +277,7 @@ static void installShomateThermoFromXML(string speciesName,
       getFloatArray(f0.child("floatArray"), c1, false);
     }
     else {
-      throw CanteraError("installShomateThermo",
+      throw ZuzaxError("installShomateThermo",
 			 "non-continuous temperature ranges.");
     }
     vector_fp c(15);
@@ -462,7 +462,7 @@ int main(int argc, char** argv) {
     string path = findInputFile(fn);
     ifstream fin(path.c_str());
     if (!fin) {
-      throw CanteraError("changeHf","could not open "
+      throw ZuzaxError("changeHf","could not open "
 			 +path+" for reading.");
     }
     /*

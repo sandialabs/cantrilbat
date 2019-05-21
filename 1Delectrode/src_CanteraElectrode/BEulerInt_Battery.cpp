@@ -16,11 +16,7 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler
@@ -206,7 +202,7 @@ int BEulerInt_Battery::calcConsistentInitialDerivs_Inner()
      *  to end the calculation in failure. We may change this behavior in the future, I don't know.
      */
     if (ierror < 0) {
-        throw CanteraError("BEulerInt::calcConsistentInitialDerivs_Inner", "Nonlinear solver failed to converge");
+        throw ZuzaxError("BEulerInt::calcConsistentInitialDerivs_Inner", "Nonlinear solver failed to converge");
     }
 
     /*

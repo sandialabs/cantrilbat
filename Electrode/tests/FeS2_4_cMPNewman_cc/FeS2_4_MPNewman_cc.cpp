@@ -8,18 +8,18 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_prob.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/equil/vcs_internal.h"
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/RootFind.h"
+#include "zuzax/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_MP_RxnExtent_FeS2.h"
@@ -27,11 +27,7 @@
 #include <sstream>
 #include <iomanip>
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 using namespace std;
 
@@ -65,7 +61,7 @@ int main(int argc, char **argv)
   string commandFileC = "cathode.inp";
   // printed usage
 
-  ZZVCSnonideal::vcs_timing_print_lvl = 0;
+  vcs_nonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 
@@ -122,7 +118,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    ZZCantera::Electrode_MP_RxnExtent_FeS2 *electrodeC  = new ZZCantera::Electrode_MP_RxnExtent_FeS2();
+    Zuzax::Electrode_MP_RxnExtent_FeS2 *electrodeC  = new Zuzax::Electrode_MP_RxnExtent_FeS2();
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
@@ -272,7 +268,7 @@ int main(int argc, char **argv)
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

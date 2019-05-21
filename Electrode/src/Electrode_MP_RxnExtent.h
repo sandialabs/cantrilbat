@@ -14,8 +14,6 @@
 
 #include "Electrode_Integrator.h"
 
-//#include "cantera/numerics/NonlinearSolver.h"
-
 /*
  *-----------------------------------------------------------------------------
  *
@@ -26,11 +24,7 @@
  */
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class ELECTRODE_KEY_INPUT;
@@ -154,7 +148,7 @@ public:
  *   that is current calculated, and then translated into a relative radius of the external radius value.
  *
  */
-class Electrode_MP_RxnExtent : public ZZCantera::Electrode_Integrator
+class Electrode_MP_RxnExtent : public Zuzax::Electrode_Integrator
 {
 public:
 
@@ -1620,7 +1614,7 @@ protected:
 public:
 
     //! Hook for the nonlinear solver
-    //   ZZCantera::NonlinearSolver *pSolve_;
+    //   Zuzax::NonlinearSolver *pSolve_;
 
     //  calcRate_ResidJacEval  *pSolve_Res_;
 

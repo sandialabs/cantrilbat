@@ -17,24 +17,16 @@
 #ifndef REACTINGSURDOMAIN_H
 #define REACTINGSURDOMAIN_H
  
-#include "cantera/thermo/IdealGasPhase.h"
-#include "cantera/kinetics/GasKinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
-#include "cantera/kinetics/RxnMolChange.h"
-#include "cantera/transport.h"
+#include "zuzax/thermo/IdealGasPhase.h"
+#include "zuzax/kinetics/GasKinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
+#include "zuzax/kinetics/RxnMolChange.h"
+#include "zuzax/transport.h"
  
 #include <string>
 #include <iostream>
  
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
  
   class Transport;

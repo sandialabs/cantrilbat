@@ -16,14 +16,10 @@
 #define _ELECTRODE_INTEGRATOR_H
 
 #include "Electrode.h"
-#include "cantera/numerics/ResidJacEval.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/numerics/ResidJacEval.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //class NonlinearSolver;
 class SquareMatrix;
@@ -378,7 +374,7 @@ public:
  *
  *  Therefore, it can be called by any DAE integrator as a residual function evaluator.
  */
-class Electrode_Integrator : public Electrode , public ZZCantera::ResidJacEval
+class Electrode_Integrator : public Electrode , public Zuzax::ResidJacEval
 {
 public:
 
@@ -833,7 +829,7 @@ public:
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
-     * (virtual from ZZCantera::ResidJacEval)
+     * (virtual from Zuzax::ResidJacEval)
      *
      *   There is a default algorithm provided.
      *
@@ -1441,15 +1437,11 @@ protected:
      */
     bool predictDotBetter_;
 
-#ifdef useZuzaxNamespace
     //! Pointer to the nonlinear solver
     /*!
      *  We use Zuzax' nonlinear solver to relax the equations
      */
     Zuzax::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
-#else
-    Cantera::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
-#endif
 
     //! Jacobian matrix
     SquareMatrix* jacPtr_;

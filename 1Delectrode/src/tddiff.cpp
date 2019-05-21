@@ -342,7 +342,7 @@ main(int argc, char** argv)
         safeDelete(v);
         safeDelete(soln);
         safeDelete(res);
-        ZZCantera::appdelete();
+        Zuzax::appdelete();
 
 #ifdef HAVE_MPI
         MPI_Finalize();
@@ -359,8 +359,8 @@ main(int argc, char** argv)
     } catch (m1d::m1d_Error& mE) {
         std::cerr << "caught an error\n" << std::endl;
         m1d::showErrors(std::cerr);
-    } catch (ZZCantera::ZuzaxError& mC) {
-        ZZCantera::showErrors(std::cerr);
+    } catch (Zuzax::ZuzaxError& mC) {
+        Zuzax::showErrors(std::cerr);
     }
 }
 //==================================================================================================================================

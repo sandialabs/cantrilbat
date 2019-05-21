@@ -13,9 +13,9 @@
 #ifndef CTTINPUT_H
 #define CTTINPUT_H
 
-#include "cantera/kinetics.h"
+#include "zuzax/kinetics.h"
 #include "mdp_allo.h"
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 
 namespace BEInput
 {
@@ -23,41 +23,30 @@ class BlockEntry;
 }
 
 /*
- * Use ZZCantera for namespace identification
+ * Use Zuzax for namespace identification
  */
-#ifdef useZuzaxNamespace
-#ifndef ZZCantera
-//! Define a common name for the Zuzax namespace
-#define ZZCantera Zuzax
-#endif
-#else
-#ifndef ZZCantera
-//! Define a common name for the Zuzax namespace
-#define ZZCantera Cantera
-#endif
-#endif
 
 #define UNITS_KCAL_CGS 0
 #define UNITS_KJOULE   1
 #define UNITS_CGS      2
 
 void setup_input_pass1(BEInput::BlockEntry* cf,
-                       ZZCantera::Kinetics* g_kin_ptr,
-                       ZZCantera::ThermoPhase* g_ptr);
+                       Zuzax::Kinetics* g_kin_ptr,
+                       Zuzax::ThermoPhase* g_ptr);
 
 void setup_input_pass2(BEInput::BlockEntry* cf,
-                       ZZCantera::Kinetics* g_kin_ptr,
-                       ZZCantera::ThermoPhase* g_ptr);
+                       Zuzax::Kinetics* g_kin_ptr,
+                       Zuzax::ThermoPhase* g_ptr);
 
 void setup_input_pass3(BEInput::BlockEntry* cf,
-                       ZZCantera::Kinetics* g_kin_ptr,
-                       ZZCantera::ThermoPhase* g_ptr,
-                       ZZCantera::PhaseList* pl);
+                       Zuzax::Kinetics* g_kin_ptr,
+                       Zuzax::ThermoPhase* g_ptr,
+                       Zuzax::PhaseList* pl);
 
 int process_input(BEInput::BlockEntry* cf, std::string commandFile,
-                  ZZCantera::Kinetics* g_kin_ptr,
-                  ZZCantera::ThermoPhase* g_ptr ,
-                  ZZCantera::PhaseList* pl);
+                  Zuzax::Kinetics* g_kin_ptr,
+                  Zuzax::ThermoPhase* g_ptr ,
+                  Zuzax::PhaseList* pl);
 
 bool doubleEqual(double d1, double d2, double atol = 1.0E-100);
 
@@ -217,7 +206,7 @@ public:
     int nTotSpecies;
     int nTotElements;
 
-    void InitForInput(ZZCantera::PhaseList* pl);
+    void InitForInput(Zuzax::PhaseList* pl);
 
     int numExtraGlobalRxns;
     struct EGRInput** m_EGRList;

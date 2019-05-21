@@ -12,14 +12,8 @@
 #include "mdp_allo.h"
 
 #include "InterfacialMassTransfer_Integrator.h"
-#include "cantera/integrators.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
-
-#ifdef useZuzaxNamespace
-using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
+#include "zuzax/integrators.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 using namespace std;
 using namespace BEInput;
@@ -38,11 +32,7 @@ using namespace mdpUtil;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif           
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera 
-#endif
 {
   //======================================================================================================================
   SubIntegrationHistory::SubIntegrationHistory() :
@@ -175,7 +165,7 @@ namespace Cantera
     if (this == &right) return *this;
  
     InterfacialMassTransfer::operator=(right);
-    ZZCantera::ResidJacEval::operator=(right);
+    Zuzax::ResidJacEval::operator=(right);
 
     neq_                                = right.neq_;
     deltaTsubcycleCalc_                 = right.deltaTsubcycleCalc_;
@@ -540,13 +530,13 @@ namespace Cantera
 	attemptSubCycle++;
         if (iterSubCycle == 1) {
 	if (attemptSubCycle > 40) {
-	  throw CanteraError("InterfacialMassTransfer_Integrator::integrate()",
+	  throw ZuzaxError("InterfacialMassTransfer_Integrator::integrate()",
 			     "FAILURE: Number attempted subcycles at first it is greater than 40. Something is wrong");
 	}
 
         } else {
 	if (attemptSubCycle > 10) {
-	  throw CanteraError("InterfacialMassTransfer_Integrator::integrate()",
+	  throw ZuzaxError("InterfacialMassTransfer_Integrator::integrate()",
 			     "FAILURE: Number attempted subcycles is greater than 10. Something is wrong");
 	}
         }
@@ -998,7 +988,7 @@ namespace Cantera
     //! Absolute tolerance for the integrated global src term vectors
     double sm = totalMoles();
     if (sm <= 1.0E-200) {
-      throw CanteraError(" InterfacialMassTransfer_Integrator::setResidAtolNLS()",
+      throw ZuzaxError(" InterfacialMassTransfer_Integrator::setResidAtolNLS()",
 			 "total moles is small or negative");
     }
     for (size_t i = 0; i <  neq_; i++) {
@@ -1028,7 +1018,7 @@ namespace Cantera
    */
   int  InterfacialMassTransfer_Integrator::predictSoln()
   {
-    throw CanteraError(" InterfacialMassTransfer_Integrator::predictSoln()","unimplemented");
+    throw ZuzaxError(" InterfacialMassTransfer_Integrator::predictSoln()","unimplemented");
   }
   //==================================================================================================================
   // Extract information from cantera's interface kinetics objects
@@ -1145,7 +1135,7 @@ namespace Cantera
    */
   int InterfacialMassTransfer_Integrator::calcResid(doublevalue * const resid, const ResidEval_Type evalType)
   {
-    throw CanteraError(" InterfacialMassTransfer_Integrator::calcResid()",  "unimplemented");
+    throw ZuzaxError(" InterfacialMassTransfer_Integrator::calcResid()",  "unimplemented");
   }
   //==================================================================================================================
   //  Gather the predicted solution values and the predicted integrated source terms
@@ -1302,7 +1292,7 @@ namespace Cantera
    */
   void InterfacialMassTransfer_Integrator::unpackNonlinSolnVector(const double * const y)
   {  
-    throw CanteraError(" InterfacialMassTransfer_Integrator::unpackNonlinSolnVector()", "unimplemented");
+    throw ZuzaxError(" InterfacialMassTransfer_Integrator::unpackNonlinSolnVector()", "unimplemented");
   }
   //====================================================================================================================
   // Check to see that the preceding step is a successful one
@@ -1711,7 +1701,7 @@ namespace Cantera
    */
   void InterfacialMassTransfer_Integrator::initialPackSolver_nonlinFunction()
   {
-    throw CanteraError("InterfacialMassTransfer_Integrator::initialPackSolver_nonlinFunction()",
+    throw ZuzaxError("InterfacialMassTransfer_Integrator::initialPackSolver_nonlinFunction()",
 		       "unimplemented");
   }
   //====================================================================================================================
@@ -1784,7 +1774,7 @@ namespace Cantera
     updateState();
 
     /*
-     *  Query Cantera for all of the rate information at the final state (and the initial state if we are doing higher order)
+     *  Query Zuzax for all of the rate information at the final state (and the initial state if we are doing higher order)
      */
     extractInfo();
 

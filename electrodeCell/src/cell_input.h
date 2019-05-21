@@ -11,7 +11,7 @@
 #ifndef _CELL_INPUT_H
 #define _CELL_INPUT_H
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 #include "tok_input_util.h"
 #include <string>
 #include <vector>

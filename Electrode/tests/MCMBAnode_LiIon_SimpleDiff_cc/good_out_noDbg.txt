@@ -289,6 +289,8 @@ oc[0] = -0.0230978
                            V_C6-bulk               4.780E-01
                            li_site                 0.000E+00
    ==============================================================================================
+Electrode_SimpleDiff::fixCapacityBalances_final() report:
+                         Before Rel moles = 0 no action 
 Electrode_ECurr: call integrate with voltage =                    0
 Electrode_ECurr: Curr(voltage =                    0) =       15868.81783454   nsteps = 165
 Electrode_ECurr: call integrate with voltage =               0.0001

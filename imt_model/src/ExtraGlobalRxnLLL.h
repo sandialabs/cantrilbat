@@ -16,22 +16,18 @@
 #ifndef EXTRAGLOBALRXN_H
 #define EXTRAGLOBALRXN_H
 
-#include "cantera/thermo/IdealGasPhase.h"
-#include "cantera/kinetics/GasKinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
+#include "zuzax/thermo/IdealGasPhase.h"
+#include "zuzax/kinetics/GasKinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
 
 
-#include "cantera/kinetics.h"
+#include "zuzax/kinetics.h"
 #include <string>
 #include <vector>
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif {
-
+{
  
   class PhaseList;
 

@@ -23,7 +23,7 @@
 #include "Electrode.h"
 #include "Electrode_Factory.h"
 
-#include "cantera/transport/Tortuosity.h"
+#include "zuzax/transport/Tortuosity.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -44,12 +44,12 @@ static void
 drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
-        ZZCantera::writelog(" ");
+        Zuzax::writelog(" ");
     }
     for (int i = 0; i < ll; i++) {
-        ZZCantera::writelog("-");
+        Zuzax::writelog("-");
     }
-    ZZCantera::writelog("\n");
+    Zuzax::writelog("\n");
 }
 //===================================================================================================================================
 static void
@@ -119,15 +119,15 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDD_porAnode_LiIon* bdd_anode_p
 
     iECDMC_ = ionicLiquid_->speciesIndex("ECDMC");
     if (iECDMC_ < 0) {
-        throw CanteraError("confused", "confused");
+        throw ZuzaxError("confused", "confused");
     }
     iLip_ = ionicLiquid_->speciesIndex("Li+");
     if (iLip_ < 0) {
-        throw CanteraError("confused", "confused");
+        throw ZuzaxError("confused", "confused");
     }
     iPF6m_ = ionicLiquid_->speciesIndex("PF6-");
     if (iPF6m_ < 0) {
-        throw CanteraError("confused", "confused");
+        throw ZuzaxError("confused", "confused");
     }
 
     conductivityElectrode_ = PSinput.conductivityAnode_;
@@ -240,7 +240,7 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     iPF6m_ = r.iPF6m_;
     solnTemp = r.solnTemp;
 
-    throw CanteraError("", "not implemented");
+    throw ZuzaxError("", "not implemented");
 
     return *this;
 }
@@ -273,7 +273,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
         throw ZuzaxError(" porousLiIon_Anode_dom1D::domain_prep()", "bad dynamic cast ");
     }
 
-    ZZCantera::Electrode* ee = BDD_anode_ptr_->Electrode_;
+    Zuzax::Electrode* ee = BDD_anode_ptr_->Electrode_;
     nSpeciesElectrode_ = ee->nSpecies();
     nSurfsElectrode_ = ee->nSurfaces();
 
@@ -379,7 +379,7 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
         ProblemStatementCell* psc_ptr = dlc->pscInput_ptr_;
         ELECTRODE_KEY_INPUT* ai = psc_ptr->anode_input_;
 
-        ZZCantera::Electrode* ee  = newElectrodeObject(ai->electrodeModelName);
+        Zuzax::Electrode* ee  = newElectrodeObject(ai->electrodeModelName);
         if (!ee) {
             throw  m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()",
                              "Electrode factory method failed");
@@ -513,7 +513,7 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
 		//printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
 		//       porosity, ee->SolidVol(), totalElectrodeGrossVolume);
 		if (porosity <= 0.0) {
-		    throw CanteraError("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "Computed porosity is not positive.");
+		    throw ZuzaxError("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "Computed porosity is not positive.");
 		}
 	    } else {
 		throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()","Unknown Porosity");
@@ -1088,7 +1088,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                         fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_;
                     }
                 }
-                icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+                icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
             }
         } else {  // !doLeftFluxCalc
             /*
@@ -1174,7 +1174,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                     fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
                 }
             }
-            icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+            icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
 
         }
 
@@ -1935,7 +1935,7 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
 	    for (int k = 0; k < nsp_; k++) {
 		icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 	    }
-	    icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+	    icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
 	    icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
 	    /*
              *  Joule heating term in electrolyte
@@ -1972,7 +1972,7 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
             for (int k = 0; k < nsp_; k++) {
                 icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
             }
-            icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+            icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
 	    /*
              *  Joule heating term in electrolyte
              */
@@ -2168,7 +2168,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		for (int k = 0; k < nsp_; k++) {
 		    icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
-		icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+		icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
 		icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
 	    } else {
 		//
@@ -2221,7 +2221,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		for (int k = 0; k < nsp_; k++) {
 		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
 		}
-		icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+		icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
 	    } else {
 		enthConvRight = 0.0;
 		fluxR_JHPhi = 0.0;
@@ -2338,8 +2338,8 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
     double moleFluxRight = 0.0;
     double residAdd = 0.0;
 
-    ZZCantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
-    ZZCantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
 
     std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_Lyte_New;
     std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
@@ -2365,9 +2365,9 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
     std::vector<double> species_jFluxLeft  = dValsB_ptr->species_jFluxLeft;
     std::vector<double>& species_Lyte_Src_Total = dValsB_ptr->species_Lyte_Src_Total;   
    
-    ZZCantera::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
-    ZZCantera::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
-    ZZCantera::Array2D res_Species(nsp_,NumLcCells, 0.0);
+    Zuzax::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D res_Species(nsp_,NumLcCells, 0.0);
 
     /*
      *   Find the species index for the first species in the electrode object pertaining to the electrolyte
@@ -3031,7 +3031,7 @@ porousLiIon_Anode_dom1D::SetupTranShop(const double xdel, const int type)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-porousLiIon_Anode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
+porousLiIon_Anode_dom1D::saveDomain(Zuzax::XML_Node& oNode,
                                     const Epetra_Vector* soln_GLALL_ptr,
                                     const Epetra_Vector* solnDot_GLALL_ptr,
                                     const double t,
@@ -3041,7 +3041,7 @@ porousLiIon_Anode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
     GlobalIndices* gi = LI_ptr_->GI_ptr_;
 
     // Add an XML child for this domain. We will add the data to this child
-    ZZCantera::XML_Node& bdom = oNode.addChild("domain");
+    Zuzax::XML_Node& bdom = oNode.addChild("domain");
 
     // Number of equations per node
     int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -3062,7 +3062,7 @@ porousLiIon_Anode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
     bdom.addAttribute("numVariables", numEquationsPerNode);
 
     // Dump out the coordinates
-    ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
+    Zuzax::XML_Node& gv = bdom.addChild("grid_data");
 
     std::vector<double> varContig(numNodes);
 
@@ -3125,7 +3125,7 @@ porousLiIon_Anode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
 //     We are currently set up for #1. However, that may change. Even #1 will fail
 //     
 void
-porousLiIon_Anode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
+porousLiIon_Anode_dom1D::readDomain(const Zuzax::XML_Node& SimulationNode,
 				    Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr,
                                     double globalTimeRead)
 {
@@ -3133,7 +3133,7 @@ porousLiIon_Anode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
     string ids = id();
-    ZZCantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
+    Zuzax::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
 
     // Number of equations per node
     int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -3165,7 +3165,7 @@ porousLiIon_Anode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
     //
     //  Go get the grid data XML node and read it in
     //
-    const ZZCantera::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
+    const Zuzax::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
 
     std::vector<double> varContig(numNodes);
     ZZctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");

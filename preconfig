@@ -2,7 +2,7 @@
 #
 #######################################################################
 #
-#           Cantera Apps Configuration Issues
+#           Zuzax Apps Configuration Issues
 #
 #  Edit this file to control how the apps are built. 
 #  Parameters can be set
@@ -16,20 +16,20 @@
 #######################################################################
 #
 #----------------------------------------------------------------------
-#     Cantera Interaction Variables
+#     Zuzax Interaction Variables
 #----------------------------------------------------------------------
 #
-# CANTERA_ROOT should be set to the directory that Cantera was first
+# CANTERA_ROOT should be set to the directory that Zuzax was first
 # build in. vcs will build using this directory structure.
 #
 CANTERA_ROOT=${CANTERA_ROOT:="~/Cantera_Build_Dir"}
 #
-# Version number of Cantera. Cantera libraries are storred in 
+# Version number of Cantera. Zuzax libraries are storred in 
 # a directory under the installation directory
 # named after the version number.
 CANTERA_VERSION=${CANTERA_VERSION:="default"}
 #
-#  Cantera will be installed in another location called the 
+#  Zuzax will be installed in another location called the 
 #  CANTERA_INSTALL_DIR. Most applications will build against
 #  this directory. 
 #
@@ -52,7 +52,7 @@ TRILINOS_INSTALL_DIR=${TRILINOS_INSTALL_DIR:="/home/hkmoffa/arch/linux64_gcc444/
 #    CADS Interaction Variables 
 #----------------------------------------------------------------------
 #
-# These applications depend on the Cantera Aerosol Dynamics
+# These applications depend on the Zuzax Aerosol Dynamics
 # Simulator libraries for utilities routines and particle modeling.
 #
 # This directory is where CADS is installed
@@ -65,10 +65,10 @@ CADS_ROOT=${CADS_ROOT:="/home/hkmoffa/Cantera/cads"}
 #         MS-Windows Options
 #----------------------------------------------------------------------
 #
-#  These options only need to be set if you are building Cantera on 
+#  These options only need to be set if you are building Zuzax on 
 #  a Windows PC. 
  
-#  On a PC running MS-Windows, Cantera can be built either using
+#  On a PC running MS-Windows, Zuzax can be built either using
 #  Microsoft Visual Studio, with the Visual C++ and Visual Fortran
 #  compilers, or using the linux-like cygwin environment with the 
 #  g++ and g77 compilers. 
@@ -84,14 +84,14 @@ FORTRAN_LIB_DIR="D:\Program Files\Microsoft Visual Studio\DF98\LIB"
 #         Language Interfaces
 #----------------------------------------------------------------------
 #
-# Cantera provides interfaces for several languages.  Set to 'y' to
+# Zuzax provides interfaces for several languages.  Set to 'y' to
 # build the specified interface.
 #
 #
 #------------ Python -------------------------------------------------
 # 
-# Cantera now requires that the Python interface be built, since it
-# uses Python to process input files, even when Cantera is used from
+# Zuzax now requires that the Python interface be built, since it
+# uses Python to process input files, even when Zuzax is used from
 # another language (e.g. MATLAB or C++). Python 2.0 or greater is
 # required, and the Numeric extensions for Python are needed too. See
 # file INSTALLING for more details.
@@ -107,7 +107,7 @@ FORTRAN_LIB_DIR="D:\Program Files\Microsoft Visual Studio\DF98\LIB"
 #
 #
 #   Use when site packages must be put in system directories
-#   but Cantera tutorials must be put in user space.
+#   but Zuzax tutorials must be put in user space.
 #   (this is pretty much the norm on many multiuser unix systems)
 #
 SET_PYTHON_SITE_PACKAGE_TOPDIR=${SET_PYTHON_SITE_PACKAGE_TOPDIR:="n"}
@@ -125,7 +125,7 @@ BUILD_PYTHON_INTERFACE=${BUILD_PYTHON_INTERFACE:="n"}
 #         BLAS and LAPACK
 #-----------------------------------------------------------------
 #
-# Cantera comes with Fortran versions of those parts of BLAS and
+# Zuzax comes with Fortran versions of those parts of BLAS and
 # LAPACK it requires. But if you have another version of BLAS and/or
 # LAPACK you'd like to use, uncomment one or both of the following
 # lines, and enter here the string that should be added to the link
@@ -229,7 +229,7 @@ DEBUG_MODE_ENABLED=${DEBUG_MODE_ENABLED:='y'}
 # Set this to "n" to never do this on any platform.
 # Note, if set to "y", a fortran compiler is not needed, and
 # all fortran compiler parameters below are irrelevant.
-# Cantera has to be built with F2C, and the library libctf2c.a 
+# Zuzax has to be built with F2C, and the library libctf2c.a 
 # created for this to work.
 #                                                                                                                 
 BUILD_WITH_F2C=${BUILD_WITH_F2C:="n"}
@@ -272,7 +272,7 @@ MPI_REPLACE_ALL_COMPILERS=${MPI_REPLACE_ALL_COMPILERS:=n}
 #          Purify
 #---------------------------------------------------------------------
 #
-#  Add entries here for compiling Cantera with Purify extensions
+#  Add entries here for compiling Zuzax with Purify extensions
 #  This command is put in front of every compilation and linking
 #  step
 PURIFY=${PURIFY:=""}
@@ -283,7 +283,7 @@ PURIFY=${PURIFY:=""}
 # the command to create a static library
 ARCHIVE=${ARCHIVE:="ar ruv"}
 #
-# the command to run the 'make' utility. The Cantera Makefiles are
+# the command to run the 'make' utility. The Zuzax Makefiles are
 # compatible with the GNU make utility, so if your make utility
 # doesn't work, try GNU make.
 MAKE=${MAKE:=make}

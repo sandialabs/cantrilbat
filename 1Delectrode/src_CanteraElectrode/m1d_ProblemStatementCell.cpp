@@ -28,11 +28,7 @@ using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
@@ -124,7 +120,7 @@ ProblemStatementCell::ProblemStatementCell() :
     artificialCompressibilityInvAtm_(0.0),
     numExtraPhases_(0)
 {
-    PhaseList_ = new ZZCantera::PhaseList();
+    PhaseList_ = new Zuzax::PhaseList();
 
     struct ExtraPhase* ep = new ExtraPhase();
     ExtraPhaseList_.push_back(ep);
@@ -241,7 +237,7 @@ ProblemStatementCell::setup_input_pass2(BlockEntry* cf)
     LineEntry* sle1 = 0;
     /*
      *  Get the input deck for
-     *  Cantera description of the model.
+     *  Zuzax description of the model.
      */
     LE_MultiCStr* s1 = new LE_MultiCStr("Cantera File Name", &CanteraFileNames, 1, 1, 0, "CanteraFileNames");
     s1->set_default("gas.cti");
@@ -457,7 +453,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry* cf)
 
     /* ------------------------------------------------------------------------
      * Name of Electrolyte phase
-     * This phase should be found in one of the listed Cantera files.
+     * This phase should be found in one of the listed Zuzax files.
      */
     reqd = 0;
     LE_OneStr* s1 = new LE_OneStr("Electrolyte Phase",
@@ -514,7 +510,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry* cf)
 
     /* -------------------------------------------------------------------------
      * Separator Mass
-     * This phase should be found in one of the listed Cantera files.
+     * This phase should be found in one of the listed Zuzax files.
      */
     BE_UnitConversion* ucMass = new BE_UnitConversion();
     reqd = 0;
@@ -1016,7 +1012,7 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
 
     if (! doubleEqual(electrodeGrossAreaA, electrodeGrossAreaC, 1.0E-13, 10)) {
         throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()",
-                        " areas differ: " + ZZCantera::fp2str(electrodeGrossAreaA) + " " + ZZCantera::fp2str(electrodeGrossAreaC));
+                        " areas differ: " + Zuzax::fp2str(electrodeGrossAreaA) + " " + Zuzax::fp2str(electrodeGrossAreaC));
     } else {
         cathode_input_->electrodeGrossArea = electrodeGrossAreaA;
     }
@@ -1025,7 +1021,7 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
 }
 //===================================================================================================================================
 /**
- *  This processes the phases in the Cantera input files,
+ *  This processes the phases in the Zuzax input files,
  * fills the PhaseList_ object and other auxiliary data like
  * the numbers and names of species, elements and phases.
  */
@@ -1034,7 +1030,7 @@ ProblemStatementCell::InitForInput()
 {
     ProblemStatement::InitForInput();
 
-    /* Count number of Cantera files found and make sure we
+    /* Count number of Zuzax files found and make sure we
      * found the number expected
      */
     int ifiles = 0;
@@ -1049,7 +1045,7 @@ ProblemStatementCell::InitForInput()
      * Read in all of the phase specifications from the cantera
      * input files into the PhaseList structure.
      */
-    ZZCantera::PhaseList* pl = PhaseList_;
+    Zuzax::PhaseList* pl = PhaseList_;
     std::string fn;
     bool surNotFound = true;
     for (int i = 0; i < NumberCanteraFiles; i++) {
@@ -1075,7 +1071,7 @@ ProblemStatementCell::InitForInput()
      */
     int kT = 0;
     for (int iphase = 0; iphase < nTotPhases_; iphase++) {
-        ZZCantera::ThermoPhase* tPhase = &(pl->thermo(iphase));
+        Zuzax::ThermoPhase* tPhase = &(pl->thermo(iphase));
 
         std::string id = tPhase->id();
         strncpy(PhaseNames_[iphase], id.c_str(), MPEQUIL_MAX_NAME_LEN);
@@ -1087,7 +1083,7 @@ ProblemStatementCell::InitForInput()
         }
     }
 
-    const ZZCantera::Elements* eObj = pl->globalElements();
+    const Zuzax::Elements* eObj = pl->globalElements();
 
     for (int e = 0; e < nTotElements_; e++) {
         string eName = eObj->elementName(e);

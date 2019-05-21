@@ -28,19 +28,19 @@
 
 #include "mdp_allo.h"
 
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 
 //#include "IdealSolidSolnPhase.h"
 
 
-#include "cantera/numerics/DenseMatrix.h"
+#include "zuzax/numerics/DenseMatrix.h"
 
 // Kinetics includes
-#include "cantera/kinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
-#include "cantera/thermo/SurfPhase.h"
+#include "zuzax/kinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
+#include "zuzax/thermo/SurfPhase.h"
 //#include "SolidKinetics.h"
-#include "cantera/kinetics/KineticsFactory.h"
+#include "zuzax/kinetics/KineticsFactory.h"
 #include "ApplBase_print.h"
 
 #include "Electrode.h"
@@ -54,11 +54,7 @@
 
 
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 using namespace ca_ab;
 
@@ -166,7 +162,7 @@ void calcBF(double i1, double V1, double i2,
         i1 = -i1;
         i2 = -i2;
       } else {
-        throw CanteraError("calcBF"," two currents have different signs");
+        throw ZuzaxError("calcBF"," two currents have different signs");
       }
     }
     double alpha_prime = (log(i1) - log(i2)) / (n1 - n2);
@@ -180,7 +176,7 @@ void calcBF(double i1, double V1, double i2,
         i1 = -i1;
         i2 = -i2;
       } else {
-        throw CanteraError("calcBF"," two currents have different signs");
+        throw ZuzaxError("calcBF"," two currents have different signs");
       }
     }
     double alpha_prime = - (log(i1) - log(i2)) / (n1 - n2);
@@ -199,7 +195,7 @@ void calcBF(double i1, double V1, double i2,
  */
 void
 getKineticsTables(TemperatureTable& TT, Electrode *electrode,
-		  ZZCantera::Kinetics &kin,
+		  Zuzax::Kinetics &kin,
 		  DenseMatrix& kfwd_Table, 
 		  DenseMatrix& krev_Table,
 		  DenseMatrix& deltaG_Table,
@@ -218,8 +214,8 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
   double deltaT = 0.001;
   double Afac, EadivR, csc;
   int kindex;
-  //ZZCantera::MultiPhase *mp = electrode->m_mp;
-  ZZCantera::PhaseList *pl = electrode;
+  //Zuzax::MultiPhase *mp = electrode->m_mp;
+  Zuzax::PhaseList *pl = electrode;
 
   double *electrodeMF = new double[electrode->nSpecies()];
   electrode->getMoleFractions(electrodeMF);
@@ -477,7 +473,7 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
  */
 void printKineticsTable(Electrode *electrode, int j,
 			TemperatureTable &TT,
-			ZZCantera::Kinetics &kin, 
+			Zuzax::Kinetics &kin, 
 			DenseMatrix& kfwd_Table, 
 			DenseMatrix& krev_Table,
 			DenseMatrix& deltaG_Table,
@@ -489,7 +485,7 @@ void printKineticsTable(Electrode *electrode, int j,
 			DenseMatrix& EarevdivR_Table,
 			DenseMatrix& kfwdPrime_Table, 
 			DenseMatrix& krevPrime_Table,
-			ZZCantera::RxnMolChange *rmc) {
+			Zuzax::RxnMolChange *rmc) {
 
     /*
      *  Get the species data object from the Mixture object
@@ -801,11 +797,11 @@ void doKineticsTablesHetero(Electrode *electrode,
 		      Arev_Table, EarevdivR_Table,
 		      kfwdPrime_Table, krevPrime_Table);
 
-    std::vector<ZZCantera::RxnMolChange *> rmcVector;
+    std::vector<Zuzax::RxnMolChange *> rmcVector;
     rmcVector.resize(nReactions,0);
 
     for (int i = 0; i < nReactions; i++) {
-      rmcVector[i] = new ZZCantera::RxnMolChange(gKinetics, i);
+      rmcVector[i] = new Zuzax::RxnMolChange(gKinetics, i);
 
       printKineticsTable(electrode, i, TT,
 			 *gKinetics, kfwd_Table, krev_Table,
@@ -847,7 +843,7 @@ void doKineticsTablesHetero(Electrode *electrode,
       */
 
       ExtraGlobalRxn *egr = electrode->extraGlobalRxnPathway(iextra);
-      ZZCantera::RxnMolChange *rmcEGR =  electrode->rxnMolChangesEGR(iextra);
+      Zuzax::RxnMolChange *rmcEGR =  electrode->rxnMolChangesEGR(iextra);
       RxnTempTableStuff * rts = new RxnTempTableStuff(-1,0);
       getGERKineticsTables(TT, electrode, *gKinetics, *egr, *rts); 
       setAllBathSpeciesConditions(electrode);
@@ -872,7 +868,7 @@ void doKineticsTablesHetero(Electrode *electrode,
 }
 
 
-void doKineticsTablesHomog(Electrode *electrode, ZZCantera::Kinetics *gKinetics,   
+void doKineticsTablesHomog(Electrode *electrode, Zuzax::Kinetics *gKinetics,   
 			   TemperatureTable &TT) {
     
   int nReactions = gKinetics->nReactions();
@@ -894,10 +890,10 @@ void doKineticsTablesHomog(Electrode *electrode, ZZCantera::Kinetics *gKinetics,
 		    Afwd_Table, EafwddivR_Table, 
 		    Arev_Table, EarevdivR_Table,
 		    kfwdPrime_Table, krevPrime_Table);
-  vector<ZZCantera::RxnMolChange *> rmcVector;
+  vector<Zuzax::RxnMolChange *> rmcVector;
   rmcVector.resize(nReactions,0);
   for (int i = 0; i < nReactions; i++) {
-    rmcVector[i] = new ZZCantera::RxnMolChange(gKinetics, i);
+    rmcVector[i] = new Zuzax::RxnMolChange(gKinetics, i);
     printKineticsTable(electrode, i, TT,
 		       *gKinetics, kfwd_Table, krev_Table,
 		       deltaG_Table, deltaH_Table, deltaS_Table,
@@ -913,7 +909,7 @@ void doKineticsTablesHomog(Electrode *electrode, ZZCantera::Kinetics *gKinetics,
 
 
 /*************************************************************************/
-void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
+void processCurrentVsPotTable(Zuzax::RxnMolChange *rmc,
 			      Electrode *electrode, int irxn,
 			      TemperatureTable &TT,
 			      Kinetics &kin, 
@@ -942,7 +938,7 @@ void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
 
   InterfaceKinetics *iK = dynamic_cast<InterfaceKinetics *>(&kin);
   if (!iK) {
-    throw CanteraError("RxnMolChange", "unknown condition on charge");
+    throw ZuzaxError("RxnMolChange", "unknown condition on charge");
   }
   /*
    * First thing is to figure out how to calculate the voltage
@@ -1187,7 +1183,7 @@ RxnTempTableStuff::~RxnTempTableStuff() {
  */
 void
 getGERKineticsTables(TemperatureTable& TT, Electrode *electrode,
-		     ZZCantera::Kinetics &kin,
+		     Zuzax::Kinetics &kin,
 		     ExtraGlobalRxn &egr,
 		     RxnTempTableStuff &rts) {
   
@@ -1354,9 +1350,9 @@ getGERKineticsTables(TemperatureTable& TT, Electrode *electrode,
  */
 void printGERKineticsTable(Electrode *electrode, int iGER,
 			   TemperatureTable& TT,
-			   ZZCantera::Kinetics &kin,
+			   Zuzax::Kinetics &kin,
 			   ExtraGlobalRxn &egr,
-			   ZZCantera::RxnMolChange *rmc,
+			   Zuzax::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts) {
   
   // vector<double> & kfwd_Table      = rts.kfwd_Table;
@@ -1621,7 +1617,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
 /*
  *
  */
-double processGERCurrent(ZZCantera::RxnMolChange *rmc,
+double processGERCurrent(Zuzax::RxnMolChange *rmc,
 			 Electrode *electrode, int iGERrxn,
 			 Kinetics &kin,
 			 ExtraGlobalRxn &egr)
@@ -1868,7 +1864,7 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
 }
 
 /*************************************************************************/
-void processGERCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
+void processGERCurrentVsPotTable(Zuzax::RxnMolChange *rmc,
 				 Electrode *electrode, int iGERrxn,
 				 TemperatureTable &TT,
 				 Kinetics &kin,  
@@ -1888,7 +1884,7 @@ void processGERCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
 
   InterfaceKinetics *iK = dynamic_cast<InterfaceKinetics *>(&kin);
   if (!iK) {
-    throw CanteraError("RxnMolChange", "unknown condition on charge");
+    throw ZuzaxError("RxnMolChange", "unknown condition on charge");
   }
   /*
    * First thing is to figure out how to calculate the voltage

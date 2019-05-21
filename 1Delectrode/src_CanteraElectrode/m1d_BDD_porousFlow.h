@@ -14,11 +14,7 @@
 
 #include "m1d_BulkDomainDescription.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
   class Electrode;
   class Transport;
@@ -77,7 +73,7 @@ public:
      *
      *  This procedure is done before the Equations anv variable list are set up.
      *  Needed information about what is possible is input here.
-     *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+     *  We read the Zuzax ThermoPhase and transport object into DomainDescriptions here.
      */
     virtual void ReadModelDescriptions() override;
 
@@ -117,19 +113,19 @@ public:
     /*!
      *   We own this object
      */
-    ZZCantera::ThermoPhase *ionicLiquid_;
+    Zuzax::ThermoPhase *ionicLiquid_;
 
     //! Pointer to the transport object for the electrolyte
     /*!
      * we own this object
      */
-    ZZCantera::Transport* trans_;
+    Zuzax::Transport* trans_;
 
     //! Pointer to the thermo object for the porous solid comprising the solid skeleton phase
     /*!
      * We own this object
      */
-    ZZCantera::ThermoPhase* solidSkeleton_;
+    Zuzax::ThermoPhase* solidSkeleton_;
 
     //!  Total number of species in the electrolyte
     size_t nSpeciesElectrolyte_;

@@ -5,24 +5,24 @@
  *
  */
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 
 #include <cstdio>
 
 using namespace std;
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
-#define ZZCantera Zuzax
+#define Zuzax Zuzax
 #else
 using namespace Cantera;
-#define ZZCantera Cantera
+#define Zuzax Cantera
 #endif
 
 int main(int argc, char **argv) {
   try {
 #ifdef DEBUG_BASISOPTIMIZE
-    ZZCantera::BasisOptimize_print_lvl = 1;
+    Zuzax::BasisOptimize_print_lvl = 1;
 #endif
     IdealGasMix g("gri30.xml", "gri30_mix");
 
@@ -39,13 +39,13 @@ int main(int argc, char **argv) {
     bool doFormMatrix = false;
     vector_fp formRxnMatrix;
 
-    int nc = ZZCantera::BasisOptimize(&usedZeroedSpecies, doFormMatrix,
+    int nc = Zuzax::BasisOptimize(&usedZeroedSpecies, doFormMatrix,
 			   &mphase, orderVectorSpecies, orderVectorElements,
 			   formRxnMatrix);
     cout << "number of components = " << nc << endl;
 
     vector_fp elementAbundances;
-    int nct = ZZCantera::ElemRearrange(nc, elementAbundances, &mphase, 
+    int nct = Zuzax::ElemRearrange(nc, elementAbundances, &mphase, 
 				     orderVectorSpecies, orderVectorElements);
     if (nc != nct) {
       printf("ERROR\n");
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 
     return 0;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

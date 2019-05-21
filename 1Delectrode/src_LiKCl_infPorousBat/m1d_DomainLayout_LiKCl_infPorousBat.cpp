@@ -36,7 +36,7 @@ DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat( ProblemStateme
 {
   pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
   if (!pscInput_ptr_) {
-    ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
+    Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
 			  "Bad dynamic cast");
   }
   InitializeDomainPicture();
@@ -49,7 +49,7 @@ DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat(int probNum,  P
 {
   pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
   if (!pscInput_ptr_) {
-    ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
+    Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
 			  "Bad dynamic cast");
   }
   if (probNum == 1) {
@@ -102,13 +102,13 @@ DomainLayout_LiKCl_infPorousBat::malloc_domains()
      */
     // First check to see if we have thickness for each layer
     if ( !( PSinput.separatorThickness_ > 0.0 ) ) 
-      throw ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::malloc_domains()",
+      throw Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::malloc_domains()",
 			 "separator thickness not specified");
     if (!(PSinput.anode_input_->electrodeGrossThickness > 0.0 ) ) 
-      throw ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::malloc_domains()",
+      throw Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::malloc_domains()",
 			 "anode thickness not specified");
     if ( !( PSinput.cathode_input_->electrodeGrossThickness > 0.0)) 
-      throw ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::malloc_domains()",
+      throw Zuzax::ZuzaxError("DomainLayout_LiKCl_infPorousBat::malloc_domains()",
 			 "cathode thickness not specified");
 
     double startZ = 0.0;

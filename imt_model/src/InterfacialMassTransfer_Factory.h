@@ -1,7 +1,7 @@
 /**
  *  @file ThermoFactory.h
  *     Headers for the factory class that can create known %ThermoPhase objects
- *     (see \ref thermoprops and class \link ZZCantera::ThermoFactory ThermoFactory\endlink).
+ *     (see \ref thermoprops and class \link Zuzax::ThermoFactory ThermoFactory\endlink).
  *
  */
 
@@ -20,14 +20,14 @@
 
 
 #include "mdp_allo.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/thermo/MolalityVPSSTP.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
+#include "zuzax/thermo/FixedChemPotSSTP.h"
 
-#include "cantera/numerics/solveProb.h"
+#include "zuzax/numerics/solveProb.h"
 
-#include "cantera/solvers.h"
+#include "zuzax/solvers.h"
 
 //#include "PhaseList.h"
 #include "BlockEntryGlobal.h"
@@ -46,19 +46,11 @@
 #include <boost/thread/mutex.hpp>
 #endif
 
-#include "cantera/base/FactoryBase.h"
+#include "zuzax/base/FactoryBase.h"
 
 using namespace std;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
 
   class SpeciesThermoFactory;

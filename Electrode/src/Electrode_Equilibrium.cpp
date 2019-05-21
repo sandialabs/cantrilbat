@@ -4,8 +4,8 @@
 
 #include "Electrode_Equilibrium.h"
 
-#include "cantera/thermo/FixedChemPotSSTP.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/thermo/FixedChemPotSSTP.h"
+#include "zuzax/equilibrium.h"
 
 
 using namespace std;
@@ -13,16 +13,9 @@ using namespace std;
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
 #endif
-//#ifndef MAX
-//#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-//#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 //==================================================================================================================================
 Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
@@ -73,7 +66,7 @@ Electrode_Equilibrium& Electrode_Equilibrium::operator=(const Electrode_Equilibr
     setupEquilibriumProblem();
 
     if (right.LiFixed_) {
-        LiFixed_ = (ZZCantera::FixedChemPotSSTP*) (right.LiFixed_)->duplMyselfAsThermoPhase();
+        LiFixed_ = (Zuzax::FixedChemPotSSTP*) (right.LiFixed_)->duplMyselfAsThermoPhase();
     }
 
     printLvl_ = right.printLvl_;

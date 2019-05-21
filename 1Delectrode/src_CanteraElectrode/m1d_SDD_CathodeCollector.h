@@ -16,11 +16,7 @@
 #include "m1d_SurDomain_CathodeCollector.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 class ELECTRODE_MODEL;
 }

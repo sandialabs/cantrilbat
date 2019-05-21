@@ -9,13 +9,9 @@
 
 #include "mdp_allo.h"
 
-#include "cantera/thermo/DebyeHuckel.h"
+#include "zuzax/thermo/DebyeHuckel.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 using namespace mdpUtil;
 
@@ -218,7 +214,7 @@ int main(int argc, char **argv)
     DH = 0;
     appdelete();
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

@@ -4,28 +4,17 @@
  * Header for class DakotaInterface and subclasses.
  */
 
-/*  $Author: hkmoffa $
- *  $Revision: 508 $
- *  $Date: 2013-01-07 15:54:04 -0700 (Mon, 07 Jan 2013) $
- *
- */
 // Copyright 2010 Sandia National Laboratories
 
 #ifndef EXP_DAKOTAINTERFACE
 #define EXP_DAKOTAINTERFACE
 
-#include "cantera/base/ct_defs.h" 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ct_defs.h" 
+#include "zuzax/base/ctexceptions.h"
 
 #include <fstream>
 #include <iostream>
 
-//#include "cantera/base/xml.h"
-//#include "cantera/base/ctml.h"
-//using namespace ctml;
-
-
-//namespace Cantera {
 
 /** 
  * This class deals with parsing a parameter input file 
@@ -146,6 +135,5 @@ class DakotaInterface {
 
 };
 
-//} //namespace Cantera
 
 #endif // EXP_BOUNDARYCONDITION

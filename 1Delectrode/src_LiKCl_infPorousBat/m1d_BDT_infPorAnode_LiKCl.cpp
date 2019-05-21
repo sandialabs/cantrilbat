@@ -60,7 +60,7 @@ BDT_infPorAnode_LiKCl::operator=(const BDT_infPorAnode_LiKCl &r)
 
   BDD_porousElectrode::operator=(r);
 
-  ionicLiquidIFN_ = (ZZCantera::IonsFromNeutralVPSSTP*) ionicLiquid_;
+  ionicLiquidIFN_ = (Zuzax::IonsFromNeutralVPSSTP*) ionicLiquid_;
   m_position = r.m_position;
 
   return *this;
@@ -72,7 +72,7 @@ BDT_infPorAnode_LiKCl::operator=(const BDT_infPorAnode_LiKCl &r)
 
      BDD_porousElectrode::ReadModelDescriptions();
 
-     ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
+     ionicLiquidIFN_ = dynamic_cast<Zuzax::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
  }
 //=====================================================================================================================
 void
@@ -155,7 +155,7 @@ BDT_infPorAnode_LiKCl::DetermineConstitutiveModels()
     /*
      *  Create and Store a pointer to the Transport Manager
      */
-    trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+    trans_ = Zuzax::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //=====================================================================================================================
 } /* End of Namespace */

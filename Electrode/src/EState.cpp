@@ -1,6 +1,3 @@
-/*
- * $Id: EState.cpp 584 2013-04-03 00:29:38Z hkmoffa $
- */
 
 #include "EState.h"
 #include "Electrode.h"
@@ -14,11 +11,7 @@
 #include <string>
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 EState_Identification::EState_Identification() :
@@ -33,7 +26,7 @@ EState_Identification::EState_Identification() :
 {
 }
 //==================================================================================================================================
-ZZCantera::XML_Node* EState_Identification::writeIdentificationToXML() const
+Zuzax::XML_Node* EState_Identification::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
     ZZctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString);
@@ -406,7 +399,7 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
     std::string EState_Type_String;
     if (x->hasChild("EState_Type_String")) {
 	ZZctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String, typeSS);
-	ZZCantera::EState_Type_Enum echeck = esmodel::string_to_EState_Type_Enum(EState_Type_String);
+	Zuzax::EState_Type_Enum echeck = esmodel::string_to_EState_Type_Enum(EState_Type_String);
 	if (echeck != EST_lastFileRead_ ) {
 	    throw Electrode_Error("EState::readIdentificationFromXM",
 				  "Incompatibility between EState_Type and EState_Type_String ");
@@ -499,7 +492,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     relativeElectronsDischargedPerMole_ = ZZctml::getFloat(xmlEState, "relativeElectronsDischargedPerMole", "toSI");
     relativeDepthOfDischarge_ = ZZctml::getFloat(xmlEState, "relativeDepthOfDischarge", "toSI");
     capacityDischargedToDate_ = ZZctml::getFloat(xmlEState, "capacityDischargedToDate", "toSI");
-    electronKmolDischargedToDate_ =  capacityDischargedToDate_ / ZZCantera::Faraday;
+    electronKmolDischargedToDate_ =  capacityDischargedToDate_ / Zuzax::Faraday;
     if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
 	electronKmolDischargedToDate_ *= -1.0;
     }
@@ -608,7 +601,7 @@ void EState::copyEState_toElectrode(Electrode* const e) const
     // relativeElectronsDischargedPerMole_
     // relativeDeptOfDischarge_
     // capacityDischargedToDate_
-    // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
+    // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Zuzax::Faraday;
     e->electronKmolDischargedToDate_      = electronKmolDischargedToDate_;
 
     for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {

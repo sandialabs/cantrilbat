@@ -11,10 +11,10 @@
 #ifndef ZZ_M1D_BEULERINT_H
 #define ZZ_M1D_BEULERINT_H
 
-#include "cantera/base/config.h"
-//#include "cantera/numerics/DAE_Solver.h"
-#include "cantera/numerics/Integrator.h"
-#include "cantera/numerics/SquareMatrix.h"
+#include "zuzax/base/config.h"
+//#include "zuzax/numerics/DAE_Solver.h"
+#include "zuzax/numerics/Integrator.h"
+#include "zuzax/numerics/SquareMatrix.h"
 
 #include "m1d_defs.h"
 
@@ -44,7 +44,7 @@ enum BEulerMethodType
 /*!
  *
  */
-class BEulerErr: public ZZCantera::ZuzaxError
+class BEulerErr: public Zuzax::ZuzaxError
 {
 public:
     //! Constructor
@@ -86,8 +86,8 @@ public:
  *  todo Change the base type to DAE_Solve. That's what this actually does
  *
  */
-class BEulerInt: public ZZCantera::Integrator
-//class BEulerInt: public ZZCantera::DAE_Solver
+class BEulerInt: public Zuzax::Integrator
+//class BEulerInt: public Zuzax::DAE_Solver
 {
 
 public:
@@ -192,7 +192,7 @@ public:
      *  @param[in]           t0                  initial time
      *  @param[in]           func                RHS evaluator object for system of equations.
      */
-    virtual void initialize(double t0, ZZCantera::FuncEval& func)
+    virtual void initialize(double t0, Zuzax::FuncEval& func)
     {
         throw m1d::m1d_Error("initilize", "error");
     }
@@ -204,7 +204,7 @@ public:
      * @param t0   initial time
      * @param func RHS evaluator object for system of equations.
      */
-    virtual void reinitialize(double t0, ZZCantera::FuncEval& func)
+    virtual void reinitialize(double t0, Zuzax::FuncEval& func)
     {
         throw m1d::m1d_Error("initilize", "error");
     }

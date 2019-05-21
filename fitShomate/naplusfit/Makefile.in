@@ -21,8 +21,6 @@ CANTERA_INCROOT=@ct_incroot@
 #
 CANTERA_BUILD_ROOT=@ctb_root@
 #
-CADS_ROOT=@cads_root@
-CADS_UTILSRC_DIR=$(CADS_ROOT)/util_src
 #
 # Set up the various local and global defines
 #

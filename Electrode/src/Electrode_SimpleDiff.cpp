@@ -16,10 +16,10 @@
 #include "tok_input_util.h"
 
 #include "Electrode_SimpleDiff.h"
-#include "cantera/integrators.h"
+#include "zuzax/integrators.h"
 #include "Electrode_RadialDiffRegions.h"
 #include "EState_RadialDistrib.h"
-#include "cantera/base/vec_functions.h"
+#include "zuzax/base/vec_functions.h"
 
 using namespace std;
 using namespace BEInput;
@@ -33,11 +33,7 @@ using namespace TKInput;
 //! Value of 1/3
 static const double ONE_THIRD = 1.0 / 3.0;
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 /*
@@ -3978,7 +3974,7 @@ void Electrode_SimpleDiff::setState_EState(const EState& esb)
         // relativeElectronsDischargedPerMole_
         // relativeDeptOfDischarge_
         // capacityDischargedToDate_
-        // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
+        // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Zuzax::Faraday;
         electronKmolDischargedToDate_      = es.electronKmolDischargedToDate_;
 
         //for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {
@@ -4542,6 +4538,6 @@ double Electrode_SimpleDiff::netElectrons()
 }
 #endif
 //==================================================================================================================================
-} // End of namespace
+} 
 //----------------------------------------------------------------------------------------------------------------------------------
 

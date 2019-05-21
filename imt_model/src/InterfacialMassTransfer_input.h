@@ -11,11 +11,11 @@
 #ifndef _INTERFACIALMASSTRANSFER_INPUT_H
 #define _INTERFACIALMASSTRANSFER_INPUT_H
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 #include "tok_input_util.h"
 
 
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 #include "ReactingSurDomain.h"
 
 
@@ -40,22 +40,9 @@
 
 #define MPEQUIL_SUCCESS 0
 
-#ifdef useZuzaxNamespace
-#define ZZCantera Zuzax
-#else
-#define ZZCantera Cantera
-#endif
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
   class Electrode;
 }
@@ -96,15 +83,7 @@ public:
   }
 } ;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
-#endif 
 {
 
 
@@ -126,7 +105,7 @@ public:
   /*!
    *
    */
-  void InitForInput(const ZZCantera::PhaseList  * const pl);
+  void InitForInput(const Zuzax::PhaseList  * const pl);
 
   int NumberCanteraFiles;
   char **CanteraFileNames;
@@ -217,7 +196,7 @@ public:
    * this includes all of the phases, "period".
    *  In particular this includes the surface phases
    */
-  ZZCantera::PhaseList *m_pl;
+  Zuzax::PhaseList *m_pl;
 
 	
 };

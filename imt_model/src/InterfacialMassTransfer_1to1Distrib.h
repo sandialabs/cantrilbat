@@ -27,11 +27,7 @@
 
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
   class InterfacialMassTransfer_1to1Distrib : public InterfacialMassTransfer {

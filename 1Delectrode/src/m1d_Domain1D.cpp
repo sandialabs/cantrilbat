@@ -10,7 +10,7 @@
 #include "m1d_DomainDescription.h"
 #include "m1d_exception.h"
 
-//#include "cantera/base/ctml.h"
+//#include "zuzax/base/ctml.h"
 #include "m1d_globals.h"
 #include "m1d_ProblemStatement.h"
 
@@ -176,18 +176,18 @@ Domain1D::revertToInitialGlobalTime()
 }
 //==================================================================================================================================
 void
-Domain1D::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GLALL_ptr,
+Domain1D::saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GLALL_ptr,
                      const Epetra_Vector* const solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     err("saveDomain()");
 }
 //==================================================================================================================================
 void
-Domain1D::readSimulation(const ZZCantera::XML_Node& simulationNode, Epetra_Vector* const soln_GLALL_ptr,
+Domain1D::readSimulation(const Zuzax::XML_Node& simulationNode, Epetra_Vector* const soln_GLALL_ptr,
                          Epetra_Vector* const solnDot_GLALL_ptr)
 {
     std::string ida = id();
-    ZZCantera::XML_Node* domainNode = simulationNode.findNameID("domain", ida);
+    Zuzax::XML_Node* domainNode = simulationNode.findNameID("domain", ida);
     if (!domainNode) {
         throw m1d_Error("Domain1D::readSimulation()", "cant find domain node" + ida);
     }
@@ -195,7 +195,7 @@ Domain1D::readSimulation(const ZZCantera::XML_Node& simulationNode, Epetra_Vecto
 }
 //==================================================================================================================================
 void
-Domain1D::readDomain(const ZZCantera::XML_Node& oNode, Epetra_Vector* const soln_GLALL_ptr,
+Domain1D::readDomain(const Zuzax::XML_Node& oNode, Epetra_Vector* const soln_GLALL_ptr,
                      Epetra_Vector* const solnDot_GLALL_ptr, double globalTimeRead)
 {
     err("readDomain()");

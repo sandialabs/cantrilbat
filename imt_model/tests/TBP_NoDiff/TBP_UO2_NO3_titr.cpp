@@ -13,17 +13,13 @@
 #include "PureFluid.h"
 
 #include "thermo.h"
-#include "cantera/equil/vcs_internal.h"
+#include "zuzax/equil/vcs_internal.h"
 #include "kernel/logger.h"
 #include "kernel/HMWSoln.h"
 #include "kernel/IdealSolidSolnPhase.h"
 
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 
 void printUsage() {
@@ -103,9 +99,9 @@ int main(int argc, char **argv) {
     HMWSoln *HMW = new HMWSoln("HMW_TBP_UO2_HNO3.xml", "HNO3_electrolyte");
     IdealSolidSolnPhase *tbpLiquid = new IdealSolidSolnPhase("TBP_liquid.xml", "TBP_liquid");
 //    IdealSolidSolnPhase *tbpLiquid = new IdealSolidSolnPhase("TBP_liquid_TBPorg_only.xml", "TBP_liquid");
- //   ZZCantera::ThermoPhase *tbpLiquid = ZZCantera::newPhase("TBP_liquid_StoichSubs.xml", "TBP_liquid");
-//     ZZCantera::ThermoPhase *tbpLiquid = ZZCantera::newPhase("TBP_liquid_StoichSubs.xml", "TBP(org)");
-//    ZZCantera::ThermoPhase *tbpLiquid = ZZCantera::newPhase("TBP_liquid_TBPorg_only.xml", "TBP_liquid");
+ //   Zuzax::ThermoPhase *tbpLiquid = Zuzax::newPhase("TBP_liquid_StoichSubs.xml", "TBP_liquid");
+//     Zuzax::ThermoPhase *tbpLiquid = Zuzax::newPhase("TBP_liquid_StoichSubs.xml", "TBP(org)");
+//    Zuzax::ThermoPhase *tbpLiquid = Zuzax::newPhase("TBP_liquid_TBPorg_only.xml", "TBP_liquid");
     HMW->setState_TP(298.15, pres);
     // HMW->setState_TPX(298.15, pres, "H2O(L):0.9339, TBP(org):0.0661");
  //   tbpLiquid->setState_TPX(298.15, pres, "TBP(org):0.75");
@@ -121,7 +117,7 @@ int main(int argc, char **argv) {
 //     tbpLiquid->setState_TPX(298.15, pres, "AMSCO:0.73, TBP(org):0.27");   // for 1:1 moles of addPhase for org liquid & electrolyte
  //   tbpLiquid->setState_TP(298.15, pres);
 
-    ZZCantera::MultiPhase mmm;
+    Zuzax::MultiPhase mmm;
     
 //    mmm.addPhase(HMW, 8.0);
 //    mmm.addPhase(HMW, 5.0);
@@ -226,7 +222,7 @@ int main(int argc, char **argv) {
     return 0;
   }
   
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "program terminating." << endl;
     return -1;

@@ -8,8 +8,8 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/numerics/NonlinearSolver_JAC.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equilibrium.h"
 #include "Electrode_Factory.h"
 #include "importPL.h"
 #include "BE_BlockEntry.h"
@@ -17,11 +17,7 @@
 #include "EState_XML.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace esmodel;
 
 // a lvl of one prints out the .csv file
@@ -52,7 +48,7 @@ int main(int argc, char **argv)
   NonlinearSolver_JAC::s_print_NumJac = true;
 
 
-  ZZCantera::XML_Node* xEout =  getElectrodeOutputFile("solnSave_0_0.xml", 1);
+  Zuzax::XML_Node* xEout =  getElectrodeOutputFile("solnSave_0_0.xml", 1);
   
   EState_ID_struct e_id;
   e_id.readIdentificationFromXML(*xEout);
@@ -61,10 +57,10 @@ int main(int argc, char **argv)
   es->readIdentificationFromXML(*xEout); 
 
   int globalTimeStepNum = 0;
-  ZZCantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
+  Zuzax::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
 
   double timeVal;
-  ZZCantera::XML_Node* xSt =  locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
+  Zuzax::XML_Node* xSt =  locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
   es->readStateFromXML(*xSt);
   //es->readStateFromXML(*x);
 

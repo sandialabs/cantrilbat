@@ -9,18 +9,14 @@
 #include "tok_input_util.h"
 
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
 #include "mpequil_input.h"
 #include "mdp_allo.h"
 #include "BlockEntryGlobal.h"
 #include "importAllPhases.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -51,7 +47,7 @@ MPEQUIL_KEY_INPUT::MPEQUIL_KEY_INPUT () :
     ElementAbundances(0),
     specifiedElementAbundances(false)
 {
-    Title = "mpequil Cantera Problem";
+    Title = "mpequil Zuzax Problem";
 }
 /****************************************************************************
  *
@@ -137,7 +133,7 @@ static void setup_input_pass2(BlockEntry *cf)
     LineEntry *sle1 = 0;
     /*
      *  Get the input deck for
-     *  Cantera description of the model.
+     *  Zuzax description of the model.
      */
     LE_MultiCStr *s1 =
 	new LE_MultiCStr("Cantera File Name", &PO.CanteraFileNames,
@@ -145,7 +141,7 @@ static void setup_input_pass2(BlockEntry *cf)
     s1->set_default("gas.cti");
 
     /*
-     * Set up a dependency on the input from the Number of cantera
+     * Set up a dependency on the input from the Number of Cantera
      * Files card
      */
     sle1 = cf->searchLineEntry("Number of Cantera Files");
@@ -425,7 +421,7 @@ mpequil_input(MPEQUIL_INPUT *pi, std::string commandFile)
     /*
      * Process the first pass of the input file ->
      *   We are just after the information needed to initialize
-     *   the Cantera structures and size the problem
+     *   the Zuzax structures and size the problem
      */
     ok = process_input(cf, commandFile, printBIProclevel);
     if (!ok) {

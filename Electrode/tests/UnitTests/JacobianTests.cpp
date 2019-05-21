@@ -9,11 +9,7 @@
 #include "Electrode.h"
 #include "Electrode_FD_Jacobian.h"
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class MockThermoPhase_lyte : public ThermoPhase
@@ -165,7 +161,7 @@ protected:
 //! Test that the expected exception occurs if trying to access a jacobian value that is not being computed.
 TEST_F(FDJacobianTest, MissingEntry)
 {
-  EXPECT_THROW( fd_jacobian->get_jacobian_value(current_voltage_pair), CanteraError);
+  EXPECT_THROW( fd_jacobian->get_jacobian_value(current_voltage_pair), ZuzaxError);
 }
 
 //! Test adding an entry to the list of computed jacobian entries.
@@ -180,7 +176,7 @@ TEST_F(FDJacobianTest, RemoveEntry)
 {
   ASSERT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(temp_energy_pair), zero);
   fd_jacobian->remove_entry_to_compute( temp_energy_pair );
-  EXPECT_THROW( fd_jacobian->get_jacobian_value(temp_energy_pair), CanteraError );
+  EXPECT_THROW( fd_jacobian->get_jacobian_value(temp_energy_pair), ZuzaxError );
 }
 
 //! Test computing a single entry of the jacobian

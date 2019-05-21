@@ -33,9 +33,9 @@ CANTERA_INCROOT =  @ct_incroot@
 CANTERA_INSTALL_DIR = @ct_prefix@
 CANTERA_APPS_INSTALL_DIR = @cta_prefix@
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 #
 #####################################################################################################
 #
@@ -106,7 +106,7 @@ os_is_win = @OS_IS_WIN@
 # the C++ compiler
 CXX = @MPICXX@
 #
-# The directory where Cantera include files may be found.
+# The directory where Zuzax include files may be found.
 #
 
 INCLUDE_DIRS = $(M1D_BASE_INC) $(APPL_BASE_INC) \

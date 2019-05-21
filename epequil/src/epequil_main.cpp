@@ -9,7 +9,7 @@
  */
 
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 #include "epequil_input.h"
 #include "epequil_prep.h"
 
@@ -256,7 +256,7 @@ int main(int argc, char **argv)
      }
      ThermoPhase &p_ref = mp->phase(0);
 
-     ZZCantera::ChemEquil ep;
+     Zuzax::ChemEquil ep;
 
      //beginLogGroup("epequil", 10);
 #ifdef DEBUG_HKM_EPEQUIL
@@ -295,11 +295,11 @@ int main(int argc, char **argv)
      delete prob_input;
 
 
-     ZZCantera::appdelete();
+     Zuzax::appdelete();
 
      return retn;
 
-   } catch (CanteraError) {
+   } catch (ZuzaxError) {
 
      showErrors();
      return -1;

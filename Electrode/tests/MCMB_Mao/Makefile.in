@@ -24,7 +24,7 @@ BLESSED_FILES = MCMB_blessed.out  MCMBThermo_blessed.out  MCMBThermo_RSD_Overrid
                 thermo_blessed.csv 
 
 ##########################################################################
-#           Setup The Cantera Directory locations
+#           Setup The Zuzax Directory locations
 #########################################################################
 
 PURIFY=@PURIFY@
@@ -35,9 +35,9 @@ CT_INCROOT =  @ct_incroot@
 # Absolute top directory of the module
 ABSTOP_DIR = @abs_top_builddir@
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 #
 # Utility directory -> use the one in the module
 #
@@ -45,13 +45,13 @@ UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 #
-# Set up the Cantera addition library
+# Set up the Zuzax addition library
 #
 CTPADDS_DIR = ../../../ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
 #
-# Set up the Cantera Application Base directory
+# Set up the Zuzax Application Base directory
 #
 ELECTRODE_DIR = $(ABSTOP_DIR)/Electrode/src
 ELECTRODE_DEP =   $(ELECTRODE_DIR)/libElectrode.a

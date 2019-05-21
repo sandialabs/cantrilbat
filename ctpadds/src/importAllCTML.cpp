@@ -12,12 +12,12 @@
  */
 
 
-#include "cantera/base/ctml.h"
-#include "cantera/thermo/IdealSolidSolnPhase.h"
-#include "cantera/thermo/StoichSubstanceSSTP.h"
-#include "cantera/thermo.h"
-#include "cantera/kinetics.h"
-#include "cantera/transport.h"
+#include "zuzax/base/ctml.h"
+#include "zuzax/thermo/IdealSolidSolnPhase.h"
+#include "zuzax/thermo/StoichSubstanceSSTP.h"
+#include "zuzax/thermo.h"
+#include "zuzax/kinetics.h"
+#include "zuzax/transport.h"
 
 #include "importAllCTML.h"
 #include "ElectrolyteKinetics.h"
@@ -25,18 +25,10 @@
 
 #include <cstring>
 
-#ifdef useZuzaxNamespace
 using namespace ztml;
-#else
-using namespace ctml;
-#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 thermo_t_double* processExpandedThermoPhase(XML_Node* const xmlphase)

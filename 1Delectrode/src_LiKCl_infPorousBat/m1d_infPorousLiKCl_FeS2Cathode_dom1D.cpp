@@ -18,12 +18,12 @@
 
 #include "Epetra_Comm.h"
 
-#include "cantera/base/ctml.h"
-#include "cantera/transport/Tortuosity.h"
+#include "zuzax/base/ctml.h"
+#include "zuzax/transport/Tortuosity.h"
 
 //next two lines added for salt precipitation
-#include "cantera/thermo.h"
-#include "cantera/thermo/MargulesVPSSTP.h"
+#include "zuzax/thermo.h"
+#include "zuzax/thermo/MargulesVPSSTP.h"
 extern int flagPrecipitation;
 
 #include "stdio.h"
@@ -317,7 +317,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()
          */
         xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
 
-	ZZCantera::Electrode* ee  = Electrode_->duplMyselfAsElectrode();
+	Zuzax::Electrode* ee  = Electrode_->duplMyselfAsElectrode();
 	Electrode_Cell_[iCell] = ee;
 
 	//
@@ -371,7 +371,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()
                 //printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
                 //       porosity, ee->SolidVol(), totalElectrodeGrossVolume);
                 if (porosity <= 0.0) {
-                    throw CanteraError("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "Computed porosity is not positive.");
+                    throw ZuzaxError("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "Computed porosity is not positive.");
                 }
             } else {
 		porosity = 0.3;
@@ -824,7 +824,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
             fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_ * porosity_Curr_;
           }
         }
-        icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+        icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
       }
     } else {  // !doLeftFluxCalc
       /*
@@ -894,7 +894,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
           fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_ * porosity_Curr_;
         }
       }
-      icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+      icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
     }
 
 #ifdef DEBUG_HKM_NOT
@@ -1304,7 +1304,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::SetupTranShop(const double xdel, const int typ
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
+infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(Zuzax::XML_Node& oNode,
                                           const Epetra_Vector *soln_GLALL_ptr,
                                           const Epetra_Vector *solnDot_GLALL_ptr,
                                           const double t,
@@ -1314,7 +1314,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
   // Add a child for this domain
-  ZZCantera::XML_Node& bdom = oNode.addChild("domain");
+  Zuzax::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
   int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -1335,7 +1335,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
   bdom.addAttribute("numVariables", numEquationsPerNode);
 
   // Dump out the coordinates
-  ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
+  Zuzax::XML_Node& gv = bdom.addChild("grid_data");
 
   std::vector<double> varContig(numNodes);
 
@@ -1365,12 +1365,12 @@ static void
 drawline(int sp, int ll)
 {
   for (int i = 0; i < sp; i++) {
-    ZZCantera::writelog(" ");
+    Zuzax::writelog(" ");
   }
   for (int i = 0; i < ll; i++) {
-    ZZCantera::writelog("-");
+    Zuzax::writelog("-");
   }
-  ZZCantera::writelog("\n");
+  Zuzax::writelog("\n");
 }
 //=====================================================================================================================
 static void
@@ -2194,13 +2194,13 @@ infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
   string id_salt = "LiKCl_Margules";
   int iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
+    throw ZuzaxError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
   
   MargulesVPSSTP *salt ;
-  salt = dynamic_cast<ZZCantera::MargulesVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
+  salt = dynamic_cast<Zuzax::MargulesVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
   
   int iKCl_l = salt->speciesIndex("KCl(L)");
   int iLiCl_l = salt->speciesIndex("LiCl(L)");
@@ -2211,21 +2211,21 @@ infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
   id_salt = "LiCl(S)";
   iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
+    throw ZuzaxError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-  ZZCantera::ThermoPhase *LiCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
+  Zuzax::ThermoPhase *LiCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
 
   //solid KCl phase
   id_salt = "KCl(S)";
   iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
+    throw ZuzaxError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-  ZZCantera::ThermoPhase *KCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
+  Zuzax::ThermoPhase *KCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
 
 
 
@@ -2240,14 +2240,14 @@ infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
   /*  
   string f_licl = "LiCl_solid.xml";
   string id = "LiCl(S)";
-  ZZCantera::ThermoPhase *LiCl_solid = ZZCantera::newPhase(f_licl, id);
+  Zuzax::ThermoPhase *LiCl_solid = Zuzax::newPhase(f_licl, id);
   */
   LiCl_solid->setState_TP(temp_Curr_, pres_Curr_);
   
   /*  
   string f_kcl = "KCl_solid.xml";
   id = "KCl(S)";
-  ZZCantera::ThermoPhase *KCl_solid = ZZCantera::newPhase(f_kcl, id);
+  Zuzax::ThermoPhase *KCl_solid = Zuzax::newPhase(f_kcl, id);
   */
   KCl_solid->setState_TP(temp_Curr_, pres_Curr_);
   

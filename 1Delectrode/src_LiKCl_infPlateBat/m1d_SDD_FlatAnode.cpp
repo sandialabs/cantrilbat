@@ -18,22 +18,17 @@
 #include "Electrode.h"
 #include "Electrode_input.h"
 #include "Electrode_Factory.h"
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/transport.h"      // transport properties
+#include "zuzax/thermo.h"      // transport properties
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"  // ion properties
+#include "zuzax/base/ctexceptions.h"
 
 extern m1d::ProblemStatementCell PSinput;
-
 
 #include  <string>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
@@ -46,7 +41,7 @@ SDD_FlatAnode::SDD_FlatAnode(DomainLayout* dl_ptr, int pos) :
     ionicLiquidIFN_(nullptr)
 {
 /*
-    ElectrodeA_ = new ZZCantera::Electrode_SuccessiveSubstitution();
+    ElectrodeA_ = new Zuzax::Electrode_SuccessiveSubstitution();
 
     ELECTRODE_KEY_INPUT* electrodeA_input = new ELECTRODE_KEY_INPUT();
 
@@ -81,7 +76,7 @@ SDD_FlatAnode::SDD_FlatAnode(DomainLayout* dl_ptr, int pos) :
         throw Zuzax::ZuzaxError("SDD_FlatAnode::SDD_Anode", "Can't find the phase in the phase list: " );
     }
     thermo_t_double* ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
-    ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquidIFN_ = dynamic_cast<Zuzax::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
     ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
 
     ELECTRODE_KEY_INPUT *ai = PSinput.anode_input_;

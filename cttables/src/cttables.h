@@ -12,11 +12,11 @@
 #ifndef CTTABLES_H
 #define CTTABLES_H
 
-#include "cantera/base/config.h"
-#include "cantera/transport.h"
+#include "zuzax/base/config.h"
+#include "zuzax/transport.h"
 #include "cttInput.h"
 
-#include "cantera/thermo.h"
+#include "zuzax/thermo.h"
 
 #include "TemperatureTable.h"
 #include "VoltageTable.h"
@@ -24,21 +24,11 @@
 #include <cstdio>
 
 
-#ifdef useZuzaxNamepace
-#ifndef ZZCantera
-#define ZZCantera Zuzax
-#endif
-#else
-#ifndef ZZCantera
-#define ZZCantera Cantera
-#endif
-#endif
+const double R_kcalmol = Zuzax::GasConstant / 4.184E6;
+const double R_Jgmol = Zuzax::GasConstant * 1.0E-3;
+const double R_kJgmol = Zuzax::GasConstant * 1.0E-6;
 
-const double R_kcalmol = ZZCantera::GasConstant / 4.184E6;
-const double R_Jgmol = ZZCantera::GasConstant * 1.0E-3;
-const double R_kJgmol = ZZCantera::GasConstant * 1.0E-6;
-
-extern ZZCantera::Transport* GTran;
+extern Zuzax::Transport* GTran;
 
 /*
  * Turn on debug printing from the command line.
@@ -170,13 +160,13 @@ extern void dnt(const int i);
 extern void print_map(const std::map<std::string,double>& m,
                       const std::string& prefix);
 
-extern void setAllBathSpeciesConditions(ZZCantera::PhaseList* pl);
-extern void printAllBathSpeciesConditions(ZZCantera::PhaseList* pl);
-extern void setBathSpeciesConditions(ZZCantera::ThermoPhase& g,
-                                     ZZCantera::PhaseList* pl,
+extern void setAllBathSpeciesConditions(Zuzax::PhaseList* pl);
+extern void printAllBathSpeciesConditions(Zuzax::PhaseList* pl);
+extern void setBathSpeciesConditions(Zuzax::ThermoPhase& g,
+                                     Zuzax::PhaseList* pl,
                                      int printLvl);
-extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g,
-                                       ZZCantera::PhaseList* pl,
+extern void printBathSpeciesConditions(Zuzax::ThermoPhase& g,
+                                       Zuzax::PhaseList* pl,
                                        int printLvl);
 
 // Functions in cttables_thermo.cpp
@@ -195,7 +185,7 @@ extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g,
  *                                               Returns ENTROPY298_UNKNOWN if any of the elements that make up the species 
  *                                               has an unknown entropy.
  */
-double entropyElem298(ZZCantera::ThermoPhase* g_ptr, size_t k);
+double entropyElem298(Zuzax::ThermoPhase* g_ptr, size_t k);
 
 //==================================================================================================================================
 //! Print out volume information about the Standard State
@@ -203,10 +193,10 @@ double entropyElem298(ZZCantera::ThermoPhase* g_ptr, size_t k);
  *  @param[in]               tp                  Pointer to the ThermoPhase
  *  @param[in]               k                   species Index
  */
-void printVolSpecies(ZZCantera::ThermoPhase* tp, size_t k);
+void printVolSpecies(Zuzax::ThermoPhase* tp, size_t k);
 //==================================================================================================================================
 
-extern void printThermoCoeffSpecies(ZZCantera::ThermoPhase*, int);
+extern void printThermoCoeffSpecies(Zuzax::ThermoPhase*, int);
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/

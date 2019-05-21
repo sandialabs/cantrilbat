@@ -11,18 +11,14 @@
 
 
 #include <iostream>
-#include "cantera/base/xml.h"
+#include "zuzax/base/xml.h"
 
 #ifndef safeDelete
 #define safeDelete(ptr) if (ptr) { delete ptr; ptr = 0; }
 #endif
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 namespace m1d
 {
@@ -35,7 +31,7 @@ namespace m1d
   }
   //====================================================================================================================
    //! Constructor with reading
-  SolnLayout::SolnLayout(ZZCantera::XML_Node *xmlSim):
+  SolnLayout::SolnLayout(Zuzax::XML_Node *xmlSim):
    NumDomains(0), NumBulkDomains(0), NumSurfDomains(0), NumGbNodes(0)
   {
     readXML(xmlSim);
@@ -98,8 +94,8 @@ namespace m1d
 
   //====================================================================================================================
   void
-  SolnLayout::readXML(ZZCantera::XML_Node *simXML) {
-    std::vector<ZZCantera::XML_Node*> ccc;
+  SolnLayout::readXML(Zuzax::XML_Node *simXML) {
+    std::vector<Zuzax::XML_Node*> ccc;
     simXML->getChildren("domain", ccc);
 
     NumDomains = ccc.size();
@@ -121,20 +117,20 @@ namespace m1d
 	NumSurfDomains++;
 	surfD->DomOrder = iDom;
       } else {
-	throw ZZCantera::CanteraError("SolnLayout::readXML", "error");
+	throw Zuzax::ZuzaxError("SolnLayout::readXML", "error");
       }
       
     }
   }
  //=====================================================================================================================
-  SolnDomainBulk * SolnLayout::readBulkDomainXML(ZZCantera::XML_Node & domXML) {
+  SolnDomainBulk * SolnLayout::readBulkDomainXML(Zuzax::XML_Node & domXML) {
     SolnDomainBulk *bulkD = new SolnDomainBulk(domXML);
 
 
     return bulkD;
   }
   //=====================================================================================================================
-  SolnDomainSurf * SolnLayout::readSurfDomainXML(ZZCantera::XML_Node & domXML) {
+  SolnDomainSurf * SolnLayout::readSurfDomainXML(Zuzax::XML_Node & domXML) {
    SolnDomainSurf *surfD = new SolnDomainSurf();
 
   

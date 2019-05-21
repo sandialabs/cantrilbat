@@ -14,18 +14,14 @@
 #include "Electrode_MP_RxnExtent.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 //! Reaction extent model constructed for the FeS2 thermal battery system
 /*!
  *
  */
-class Electrode_MP_RxnExtent_FeS2 : public ZZCantera::Electrode_MP_RxnExtent
+class Electrode_MP_RxnExtent_FeS2 : public Zuzax::Electrode_MP_RxnExtent
 {
 public:
 

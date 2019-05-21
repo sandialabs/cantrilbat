@@ -18,7 +18,7 @@ FFLAGS = @FFLAGS@ -Wall
 CT_INCROOT=@ct_incroot@
 
 # Bring in the Cantera includes through the .mak file
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 # Define the include directories
 INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)

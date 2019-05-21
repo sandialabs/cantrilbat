@@ -323,7 +323,7 @@ public:
      *                                             as proc 0. If false, the xml_node info will only exist on proc 0.
      *                                             Defaults to false.
      */
-    virtual void saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
+    virtual void saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
                             const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false) override;
 
     //! Base Class for reading the solution from the saved file
@@ -350,7 +350,7 @@ public:
      * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
      */
     virtual void
-    readDomain(const ZZCantera::XML_Node& domainNode,
+    readDomain(const Zuzax::XML_Node& domainNode,
                Epetra_Vector* const soln_GlAll_ptr,
                Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
@@ -787,7 +787,7 @@ protected:
     // -----------------------------------------------------------------------
     //!  Current Thermo value of quantities at the current point
 
-    ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
+    Zuzax::Array2D mfElectrolyte_Soln_Cell_old_;
 
     //!  Current value of the voltage in the anode
     double phiElectrode_Curr_;

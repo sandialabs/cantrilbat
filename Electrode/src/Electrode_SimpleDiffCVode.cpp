@@ -9,13 +9,9 @@
 #include "tok_input_util.h"
 
 #include "Electrode_SimpleDiff.h"
-#include "cantera/integrators.h"
+#include "zuzax/integrators.h"
 
-using #ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif;
+using namespace Zuzax
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -28,11 +24,7 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //======================================================================================================================
 /*
@@ -1294,9 +1286,5 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
 }
 
 
-} // End of #ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera
-#endif
+} 
 //======================================================================================================================

@@ -7,16 +7,16 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-//#include "cantera/equil/vcs_prob.h"
-//#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+//#include "zuzax/equil/vcs_prob.h"
+//#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_input.h"
 #include "Electrode_SimpleDiff.h"
@@ -26,11 +26,7 @@
 #include <iomanip>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -113,7 +109,7 @@ int main(int argc, char **argv)
      */ 
     Electrode::readEnvironmentalVariables();
   
-    ZZCantera::Electrode_SimpleDiff *electrodeC  = new ZZCantera::Electrode_SimpleDiff();
+    Zuzax::Electrode_SimpleDiff *electrodeC  = new Zuzax::Electrode_SimpleDiff();
 
     ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeC_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     
@@ -204,11 +200,11 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeC_input;
     delete electrodeC;
-    ZZCantera::appdelete();
+    Zuzax::appdelete();
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

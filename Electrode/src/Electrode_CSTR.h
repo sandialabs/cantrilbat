@@ -21,11 +21,7 @@
 #include <string>
 #include <vector>
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //! Definition for an anode type of electrode
 #define ELECTRODETYPE_ANODE   0

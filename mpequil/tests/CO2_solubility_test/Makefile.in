@@ -50,9 +50,9 @@ CXX = @CXX@
 CT_INCROOT =  @ct_incroot@
 
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 #
 # Utility src directory
@@ -71,11 +71,11 @@ CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
 # Ending C++ linking libraries
 LCXX_END_LIBS = @LCXX_END_LIBS@
 
-# the directory where the Cantera libraries are located
+# the directory where the Zuzax libraries are located
 CANTERA_LIBDIR=@ct_libdir@
 
 #
-# Setup The Cantera Interface
+# Setup The Zuzax Interface
 #
 CANTERA_LIBDIR=@ct_libdir@
 

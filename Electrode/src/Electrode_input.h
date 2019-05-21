@@ -15,13 +15,13 @@
 #ifndef _ELECTRODE_INPUT_H
 #define _ELECTRODE_INPUT_H
 
-#include "cantera/base/config.h"
+#include "zuzax/base/config.h"
 #include "Electrode_defs.h"
 
-#include "cantera/multiphase/PhaseList.h"
+#include "zuzax/multiphase/PhaseList.h"
 #include "BE_BlockEntry.h"
 
-#include "cantera/base/ctml.h"
+#include "zuzax/base/ctml.h"
 #include <string>
 #include <vector>
 
@@ -31,11 +31,7 @@
 #define MPEQUIL_MAX_NAME_LEN_P1 81
 
 //-----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class Electrode;
@@ -244,7 +240,7 @@ public:
      *
      *  @param pl   Pointer to the phase list
      */
-    virtual void InitForInput(const ZZCantera::PhaseList* const pl);
+    virtual void InitForInput(const Zuzax::PhaseList* const pl);
 
     //! setup for pass1
     /*!
@@ -383,7 +379,7 @@ public:
     /*!
      *   This includes all of the phases, "period". In particular this includes the surface phases
      */
-    ZZCantera::PhaseList* m_pl;
+    Zuzax::PhaseList* m_pl;
 
     //! Print level
     /*!
@@ -452,7 +448,7 @@ public:
     /*
      *   This is stored as a series of 
      */
-    std::vector<ZZCantera::OCV_Override_input *> OCVoverride_ptrList;
+    std::vector<Zuzax::OCV_Override_input *> OCVoverride_ptrList;
 
     //! level of the xml State information created
     /*!
@@ -677,7 +673,7 @@ public:
  *  @param[in]               iph                 Phase index within the PhaseList
  *  @param[in]               printLvl            Print level   
  */
-void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& tp, ELECTRODE_KEY_INPUT& ei, ElectrodeBath& BG, 
+void setElectrodeBathSpeciesConditions(Zuzax::thermo_t_double& tp, ELECTRODE_KEY_INPUT& ei, ElectrodeBath& BG, 
                                        size_t iph, int printLvl);
 //===================================================================================================================================
 //! Process the electrode input deck using a file

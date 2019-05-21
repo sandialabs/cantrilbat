@@ -17,9 +17,9 @@
  * A porosity/tortuosity is also associated with the domain.
  */
 
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include "zuzax/transport.h"      // transport properties
+#include "zuzax/thermo.h"      // transport properties
+#include "zuzax/thermo/IonsFromNeutralVPSSTP.h"  // ion properties
 #include "m1d_DomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_porousFlow_dom1D.h"
@@ -242,12 +242,12 @@ protected:
 
   m1d::BDD_porousLiKCl* BDT_pms_ptr_;
 
-  //  ZZCantera::MultiPhase * mphase_;
-  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquid_;
-  //   ZZCantera::ThermoPhase * thermo_;
+  //  Zuzax::MultiPhase * mphase_;
+  Zuzax::IonsFromNeutralVPSSTP *ionicLiquid_;
+  //   Zuzax::ThermoPhase * thermo_;
 
 
-  ZZCantera::Transport* trans_;
+  Zuzax::Transport* trans_;
 
   //! Number of phases solved
   int nph_;
@@ -358,7 +358,7 @@ protected:
   std::vector<double> solnTemp;
 
   //! Velocity basis of the transport equations
-  ZZCantera::VelocityBasis ivb_;
+  Zuzax::VelocityBasis ivb_;
 
 private:
   void

@@ -29,6 +29,7 @@ using namespace mdpUtil;
 namespace BEInput
 {
 
+//==================================================================================================================================
 /*
  *
  * BaseEntry static variables
@@ -40,6 +41,7 @@ int BaseEntry::s_SkipUnknownEntries = 1;
  */
 bool BaseEntry::s_PrintProcessedLine = true;
 
+//==================================================================================================================================
 /*
  *  BaseEntry Constructor
  *
@@ -56,7 +58,7 @@ BaseEntry::BaseEntry(const char* entryName, int numTR, int timesRequiredType) :
     EntryDepList(0)
 {
 }
-
+//==================================================================================================================================
 /*
  *
  * BaseEntry(const BaseEntry &b):
@@ -144,7 +146,7 @@ BaseEntry::~BaseEntry(void)
     }
     mdp_safe_free((void**) &EntryDepList);
 }
-
+//==================================================================================================================================
 /*
  * zeroTimesCounter():
  *
@@ -154,37 +156,38 @@ void BaseEntry::zeroTimesCounter()
 {
     m_numTimesProcessed = 0;
 }
-
+//==================================================================================================================================
 void BaseEntry::set_NumTimesRequired(int ntr)
 {
     m_numTimesRequired = ntr;
 }
-
+//==================================================================================================================================
 void BaseEntry::set_TimesRequiredType(int timesRequiredType)
 {
     m_TimesRequiredType = timesRequiredType;
 }
-
+//==================================================================================================================================
 int BaseEntry::get_NumTimesProcessed() const
 {
     return m_numTimesProcessed;
 }
-
+//==================================================================================================================================
 std::string BaseEntry::keyname() const
 {
     return std::string(EntryName.orig_str);
 }
-
+//==================================================================================================================================
 // Return the multiContribIndex value
 int BaseEntry::multiContribIndex() const
 {
     return m_multiContribIndex;
 }
-
+//==================================================================================================================================
 void BaseEntry::set_multiContribIndex(int contribValue)
 {
     m_multiContribIndex = contribValue;
 }
+//==================================================================================================================================
 /*
  * Declare a dependency for this entry on another entry.
  * And declare a type.

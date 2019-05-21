@@ -14,30 +14,15 @@
 #ifndef ZZ_ELECTRODE_DEFS_H
 #define ZZ_ELECTRODE_DEFS_H
 
-#include "cantera/base/config.h"
+#include "zuzax/base/config.h"
 
 #include <vector>
 
 /*
- * Use ZZCantera for namespace identification
+ * Use Zuzax for namespace identification
  */
-#ifdef useZuzaxNamespace
-#ifndef ZZCantera
-//! Define a common name for the Zuzax namespace
-#define ZZCantera Zuzax
-#endif
-#else
-#ifndef ZZCantera
-//! Define a common name for the Zuzax namespace
-#define ZZCantera Cantera
-#endif
-#endif
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 /*!

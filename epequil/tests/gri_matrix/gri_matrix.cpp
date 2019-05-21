@@ -7,15 +7,11 @@
  *
  */
 
-#include "cantera/IdealGasMix.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/IdealGasMix.h"
+#include "zuzax/equilibrium.h"
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 int main(int argc, char **argv) {
   int numSucc = 0;
@@ -55,7 +51,7 @@ int main(int argc, char **argv) {
 	     << endl;
 	exit(-1);
       }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       cout << g;
       showErrors(cerr);
       cerr << "ERROR: equilibration step failed at " 
@@ -91,7 +87,7 @@ int main(int argc, char **argv) {
 	     << endl;
 	exit(-1);
       }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       cout << g;
       showErrors(cerr);
       cerr << "ERROR: equilibration step failed at " 
@@ -129,7 +125,7 @@ int main(int argc, char **argv) {
 	     << endl;
 	exit(-1);
       }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       cout << g;
       showErrors(cerr);
       cerr << "ERROR: equilibration step failed at " 
@@ -167,7 +163,7 @@ int main(int argc, char **argv) {
 	     << endl;
 	exit(-1);
       }
-    } catch (CanteraError) {
+    } catch (ZuzaxError) {
       cout << g;
       showErrors(cerr);
       cerr << "ERROR: equilibration step failed at " 
@@ -211,7 +207,7 @@ int main(int argc, char **argv) {
 		   << " Pres = " << pres
 		   << endl;
 	    }
-	  } catch (CanteraError) {
+	  } catch (ZuzaxError) {
 	    showErrors(cerr);
 	    cerr << "ERROR: equilibration step failed at " 
 		 << " T    = " << T 
@@ -240,7 +236,7 @@ int main(int argc, char **argv) {
 
     return numFail;
   }
-  catch (CanteraError) {
+  catch (ZuzaxError) {
     showErrors(cerr);
     cerr << "ERROR: program terminating due to unforeseen circumstances." << endl;
     return -1;

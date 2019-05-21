@@ -27,9 +27,9 @@ LINK_OPTIONS =
 # These links are to Cantera's install space
 CANTERA_INCROOT =  @ct_incroot@
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/cantera/Cantera.mak
+include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
 #
 # Check to see whether we are in the msvc++ environment
 os_is_win = @OS_IS_WIN@
@@ -38,7 +38,7 @@ os_is_win = @OS_IS_WIN@
 # the C++ compiler
 CXX = @MPICXX@
 #
-# The directory where Cantera include files may be found.
+# The directory where Zuzax include files may be found.
 #
 INCLUDE_DIRS = -I$(CANTERA_INCROOT) 
 

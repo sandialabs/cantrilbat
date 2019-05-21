@@ -10,9 +10,9 @@
 
 
 #include "mdp_allo.h"
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 
-#include "cantera/solvers.h"
+#include "zuzax/solvers.h"
 
 
 //#include "PhaseList.h"
@@ -22,11 +22,6 @@
 
 #include "ApplBase_print.h"
 
-#ifdef useZuzaxNamespace
-using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace std;
 
 
@@ -38,11 +33,7 @@ using namespace std;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif  
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera 
-#endif
 {
   //======================================================================================================================
   /*
@@ -230,7 +221,7 @@ namespace Cantera
 
       tranA_ = newTransportMgr(transportModel, tpA, 0);
     } else {
-      throw CanteraError("  imtPSS_NoSurf_DiffBL::model_create()",
+      throw ZuzaxError("  imtPSS_NoSurf_DiffBL::model_create()",
 			 "Phase A needs a transport model");
     }
     tranA_->setNDim(1);
@@ -246,7 +237,7 @@ namespace Cantera
 
       tranB_ = newTransportMgr(transportModelB, tpB, 0);
     } else {
-      throw CanteraError("  imtPSS_NoSurf_DiffBL::model_create()",
+      throw ZuzaxError("  imtPSS_NoSurf_DiffBL::model_create()",
 			 "Phase B needs a transport model");
     }
     tranB_->setNDim(1);
@@ -580,7 +571,7 @@ namespace Cantera
     updateState();
 
     /*
-     *  Query Cantera for all of the rate information at the final state (and the initial state if we are doing higher order)
+     *  Query Zuzax for all of the rate information at the final state (and the initial state if we are doing higher order)
      */
     extractInfo();
 
@@ -825,7 +816,7 @@ namespace Cantera
     tbase = MAX(Tinitial, tbase);
     tbase = MAX(tbase, t_final_final_);
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-      throw CanteraError("imtPSS_NoSurf_DiffBL::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
+      throw ZuzaxError("imtPSS_NoSurf_DiffBL::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
 			 + fp2str(t_final_final_));
     }
 
@@ -981,7 +972,7 @@ namespace Cantera
     }
 
     if (sum <= 0.0) {
-      throw CanteraError(" imtPSS_NoSurf_DiffBL::initialPackSolver_nonlinFunction()",
+      throw ZuzaxError(" imtPSS_NoSurf_DiffBL::initialPackSolver_nonlinFunction()",
 			 "sum <= 0.0");
     }
 

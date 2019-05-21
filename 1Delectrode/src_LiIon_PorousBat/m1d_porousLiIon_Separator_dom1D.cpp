@@ -19,7 +19,7 @@
 #include "m1d_SurfDomainDescription.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
-#include "cantera/transport/Tortuosity.h"
+#include "zuzax/transport/Tortuosity.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -35,12 +35,12 @@ static void
 drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
-        ZZCantera::writelog(" ");
+        Zuzax::writelog(" ");
     }
     for (int i = 0; i < ll; i++) {
-        ZZCantera::writelog("-");
+        Zuzax::writelog("-");
     }
-    ZZCantera::writelog("\n");
+    Zuzax::writelog("\n");
 }
 //==================================================================================================================================
 static void
@@ -84,15 +84,15 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDD_porSeparator_LiIon*
 
     iECDMC_ = ionicLiquid_->speciesIndex("ECDMC");
     if (iECDMC_ < 0) {
-        throw CanteraError("confused", "confused");
+        throw ZuzaxError("confused", "confused");
     }
     iLip_ = ionicLiquid_->speciesIndex("Li+");
     if (iLip_ < 0) {
-        throw CanteraError("confused", "confused");
+        throw ZuzaxError("confused", "confused");
     }
     iPF6m_ = ionicLiquid_->speciesIndex("PF6-");
     if (iPF6m_ < 0) {
-        throw CanteraError("confused", "confused");
+        throw ZuzaxError("confused", "confused");
     }
 
 }
@@ -689,7 +689,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_;
 	  }
 	}
-	icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+	icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
       }
     } else {
       /*
@@ -769,7 +769,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
 	}
       }
-      icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+      icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
     }
 
 #ifdef DEBUG_HKM_NOT
@@ -1517,7 +1517,7 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 	    for (int k = 0; k < nsp_; k++) {
 		icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 	    }
-	    icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+	    icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
             if (nodeRight == 0) {
                  icurrElectrolyte_CBR_[iCell] = icurrElectrolyte_CBL_[iCell];
             }
@@ -1549,7 +1549,7 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
             for (int k = 0; k < nsp_; k++) {
                 icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
             }
-            icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+            icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
             if (nodeLeft == 0) {
                  icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell];
             }
@@ -1723,7 +1723,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		for (int k = 0; k < nsp_; k++) {
 		    icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
-		icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
+		icurrElectrolyte_CBL_[iCell] *= (Zuzax::Faraday);
 		if (nodeRight == 0) {
 		    icurrElectrolyte_CBR_[iCell] = icurrElectrolyte_CBL_[iCell];
 		}
@@ -1787,7 +1787,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		for (int k = 0; k < nsp_; k++) {
 		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
-		icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
+		icurrElectrolyte_CBR_[iCell] *= (Zuzax::Faraday);
 		if (nodeLeft == 0) {
 		    icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell];
 		}
@@ -1923,8 +1923,8 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     double moleFluxRight = 0.0;
     double residAdd = 0.0;
 
-    ZZCantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
-    ZZCantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
 
     std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_Lyte_New;
     std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
@@ -1947,9 +1947,9 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     std::vector<double> species_jFluxLeft  = dValsB_ptr->species_jFluxLeft;
 
    
-    ZZCantera::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
-    ZZCantera::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
-    ZZCantera::Array2D res_Species(nsp_,NumLcCells, 0.0);
+    Zuzax::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    Zuzax::Array2D res_Species(nsp_,NumLcCells, 0.0);
   
     for (int itimes = 0; itimes < doTimes; itimes++) {
 	if (doPrint) {
@@ -2386,7 +2386,7 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-porousLiIon_Separator_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
+porousLiIon_Separator_dom1D::saveDomain(Zuzax::XML_Node& oNode,
                                     const Epetra_Vector* const soln_GLALL_ptr,
                                     const Epetra_Vector* const solnDot_GLALL_ptr,
                                     const double t,
@@ -2396,7 +2396,7 @@ porousLiIon_Separator_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
     GlobalIndices* gi = LI_ptr_->GI_ptr_;
 
     // Add an XML child for this domain. We will add the data to this child
-    ZZCantera::XML_Node& bdom = oNode.addChild("domain");
+    Zuzax::XML_Node& bdom = oNode.addChild("domain");
 
     // Number of equations per node
     int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -2417,7 +2417,7 @@ porousLiIon_Separator_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
     bdom.addAttribute("numVariables", numEquationsPerNode);
 
     // Dump out the coordinates
-    ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
+    Zuzax::XML_Node& gv = bdom.addChild("grid_data");
 
     std::vector<double> varContig(numNodes);
 

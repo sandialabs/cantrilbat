@@ -22,12 +22,12 @@ MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
 # These links are to Cantera's install space
 CT_INCROOT = @ct_incroot@
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 #
-# Setup The Cantera Interface
+# Setup The Zuzax Interface
 CANTERA_LIBDIR=@ct_libdir@
 CANTERA_LIBS= -lkinetics -ltransport -lthermo -lctnumerics -lctbase -lctmath -lctlapack -lctcxx -ltpx
 
@@ -85,7 +85,7 @@ all: .depends libimt_model.a
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
 # 
-# These classes compile against the Cantera kernel
+# These classes compile against the Zuzax kernel
 # format
 #
 

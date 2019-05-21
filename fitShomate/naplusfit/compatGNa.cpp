@@ -16,14 +16,14 @@
 
 #include "vcs_Cantera_input.h"
 #include "vcs_Cantera_convert.h"
-#include "cantera/base/logger.h"
-#include "cantera/thermo.h"
+#include "zuzax/base/logger.h"
+#include "zuzax/thermo.h"
 
 
 #include "TemperatureTable.h"
 #include "HMWSoln.h"
 
-using namespace Cantera;
+using namespace Zuzax; 
 
 class fileLog: public Logger {
 public:

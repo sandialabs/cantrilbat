@@ -12,7 +12,7 @@
  */
 
 #include "Electrode_Integrator.h"
-#include "cantera/numerics/NonlinearSolver_JAC.h"
+#include "zuzax/numerics/NonlinearSolver_JAC.h"
 
 #ifndef SAFE_DELETE
 //! Define a delete and set to null operation
@@ -32,11 +32,7 @@
 // #define DEBUG_CHECK_XML
 
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory() :
@@ -103,7 +99,7 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
 	TimeStepHistory& tshPrevious =  TimeStepList_[iCounter-1];
 	double t_final_calc_Previous =  tshPrevious.t_final_calc_;
 	if (fabs(t_init - t_final_calc_Previous) > 1.0E-13) {
-	    throw ZZCantera::Electrode_Error("Shouldn't be here","");
+	    throw Zuzax::Electrode_Error("Shouldn't be here","");
 	}
     }
     if (timeTypeSoln != 2) {
@@ -355,7 +351,7 @@ bool SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
 //==================================================================================================================================
 Electrode_Integrator::Electrode_Integrator() :
     Electrode(),
-    ZZCantera::ResidJacEval(),
+    Zuzax::ResidJacEval(),
     deltaTsubcycleCalc_(0.0),
     rtolResidNLS_(1.0E-6),
     haveGood_solnDot_init_(false),
@@ -387,7 +383,7 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     }
 
     Electrode::operator=(right);
-    ZZCantera::ResidJacEval::operator=(right);
+    Zuzax::ResidJacEval::operator=(right);
 
     //neq_                                = right.neq_;
     deltaTsubcycleCalc_                 = right.deltaTsubcycleCalc_;

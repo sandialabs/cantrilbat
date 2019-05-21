@@ -119,8 +119,8 @@ void print_sync_start(int do_print_line, Epetra_Comm& comm)
         int from = procID - 1;
         err = M1D::md_wrap_iread((void*) &flag, sizeof(int), &from, &type, &request);
         if (err) {
-            throw m1d_Error("print_sync_start ERROR proc " + ZZCantera::int2str(procID), "Error returned from iread: "
-                            + ZZCantera::int2str(err));
+            throw m1d_Error("print_sync_start ERROR proc " + Zuzax::int2str(procID), "Error returned from iread: "
+                            + Zuzax::int2str(err));
         }
         //bytes = M1D::md_wrap_wait(&from, &type, &request);
         M1D::md_wrap_wait(&from, &type, &request);
@@ -174,8 +174,8 @@ void print_sync_end(int do_print_line, Epetra_Comm& comm)
         from = nprocs - 1;
         err = M1D::md_wrap_iread((void*) &flag, sizeof(int), &from, &type, &request2);
         if (err) {
-            throw m1d_Error("print_sync_start ERROR proc " + ZZCantera::int2str(procID), "Error returned from iread: " +
-                            ZZCantera::int2str(err));
+            throw m1d_Error("print_sync_start ERROR proc " + Zuzax::int2str(procID), "Error returned from iread: " +
+                            Zuzax::int2str(err));
         }
         M1D::md_wrap_wait(&from, &type, &request2);
     }
@@ -209,7 +209,7 @@ void print0_sync_start(int do_print_line, stream0& ss, const Epetra_Comm& comm)
     M1D_MPI_Request request;
     int procID = comm.MyPID();
     if (statInPrint0SyncBlock) {
-        throw m1d_Error("print0_sync_start ERROR proc " + ZZCantera::int2str(procID), "Already in a print0_sync block");
+        throw m1d_Error("print0_sync_start ERROR proc " + Zuzax::int2str(procID), "Already in a print0_sync block");
     }
     statInPrint0SyncBlock = true;
 
@@ -366,7 +366,7 @@ void print0_sync_end(int do_print_line, stream0& ss, const Epetra_Comm& comm)
     int procID = comm.MyPID();
     int nprocs = comm.NumProc();
     if (!statInPrint0SyncBlock) {
-        throw m1d_Error("print0_sync_end ERROR proc " + ZZCantera::int2str(procID), "Not already in a print0_sync block");
+        throw m1d_Error("print0_sync_end ERROR proc " + Zuzax::int2str(procID), "Not already in a print0_sync block");
     }
     if (procID < nprocs - 1) {
         to = procID + 1;

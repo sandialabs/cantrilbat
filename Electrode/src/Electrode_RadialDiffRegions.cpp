@@ -9,7 +9,7 @@
 #include "tok_input_util.h"
 
 #include "Electrode_RadialDiffRegions.h"
-#include "cantera/integrators.h"
+#include "zuzax/integrators.h"
 
 #include "BlockEntryGlobal.h"
 
@@ -27,11 +27,7 @@ using namespace TKInput;
 
 #include <set>
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //====================================================================================================================
 //====================================================================================================================
@@ -569,5 +565,5 @@ void Electrode_RadialDiffRegions::printElectrodePhase(size_t iph, int pSrc, bool
     delete [] netROP;
 }
 //==================================================================================================================================
-} // End of #ifdef useZuzaxNamespace
+} 
 //----------------------------------------------------------------------------------------------------------------------------------

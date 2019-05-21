@@ -14,12 +14,12 @@
 #ifndef ELECTRODECELL_KIN_H
 #define ELECTRODECELL_KIN_H
 
-#include "cantera/equilibrium.h"
-#include "cantera/kinetics.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
-#include "cantera/thermo/SurfPhase.h"
-#include "cantera/numerics/DenseMatrix.h"
-#include "cantera/kinetics/ExtraGlobalRxn.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/kinetics.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
+#include "zuzax/thermo/SurfPhase.h"
+#include "zuzax/numerics/DenseMatrix.h"
+#include "zuzax/kinetics/ExtraGlobalRxn.h"
 
 #include "TemperatureTable.h"
 #include "Electrode.h"
@@ -27,7 +27,7 @@
 #include <vector>
 
 //#include "PhaseList.h"
-#include "cantera/kinetics/RxnMolChange.h"
+#include "zuzax/kinetics/RxnMolChange.h"
  
 
 
@@ -62,64 +62,64 @@ public:
 
 class TemperatureTable;
 
-namespace Cantera {
+namespace Zuzax {
   class PhaseList;
   class Kinetics;
 }
 
-double findV(ZZCantera::Electrode *electrode, double Itarget, double Elow, double Ehigh, int printLvl, double err, int maxsteps);
+double findV(Zuzax::Electrode *electrode, double Itarget, double Elow, double Ehigh, int printLvl, double err, int maxsteps);
 
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
 
-void doKineticsTablesHomog(ZZCantera::Electrode *electrode,
-			   ZZCantera::Kinetics *gKinetics,
+void doKineticsTablesHomog(Zuzax::Electrode *electrode,
+			   Zuzax::Kinetics *gKinetics,
 			   TemperatureTable &TT);
 
-void doKineticsTablesHetero(ZZCantera::Electrode *electrode,
-			    ZZCantera::InterfaceKinetics *gKinetics,   
+void doKineticsTablesHetero(Zuzax::Electrode *electrode,
+			    Zuzax::InterfaceKinetics *gKinetics,   
 			    TemperatureTable &TT);
 
-void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
-			      ZZCantera::Electrode *electrode, int irxn,
+void processCurrentVsPotTable(Zuzax::RxnMolChange *rmc,
+			      Zuzax::Electrode *electrode, int irxn,
 			      TemperatureTable &TT,
-			      ZZCantera::Kinetics &kin, 
-			      ZZCantera::DenseMatrix& kfwd_Table, 
-			      ZZCantera::DenseMatrix& krev_Table,
-			      ZZCantera::DenseMatrix& deltaG_Table,
-			      ZZCantera::DenseMatrix& deltaH_Table,
-			      ZZCantera::DenseMatrix& deltaS_Table,
-			      ZZCantera::DenseMatrix& Afwd_Table,
-			      ZZCantera::DenseMatrix& EafwddivR_Table,
-			      ZZCantera::DenseMatrix& Arev_Table,
-			      ZZCantera::DenseMatrix& EarevdivR_Table,
-			      ZZCantera::DenseMatrix& kfwdPrime_Table, 
-			      ZZCantera::DenseMatrix& krevPrime_Table);
+			      Zuzax::Kinetics &kin, 
+			      Zuzax::DenseMatrix& kfwd_Table, 
+			      Zuzax::DenseMatrix& krev_Table,
+			      Zuzax::DenseMatrix& deltaG_Table,
+			      Zuzax::DenseMatrix& deltaH_Table,
+			      Zuzax::DenseMatrix& deltaS_Table,
+			      Zuzax::DenseMatrix& Afwd_Table,
+			      Zuzax::DenseMatrix& EafwddivR_Table,
+			      Zuzax::DenseMatrix& Arev_Table,
+			      Zuzax::DenseMatrix& EarevdivR_Table,
+			      Zuzax::DenseMatrix& kfwdPrime_Table, 
+			      Zuzax::DenseMatrix& krevPrime_Table);
 
 void
-getGERKineticsTables(TemperatureTable& TT, ZZCantera::Electrode *electrode,
-		     ZZCantera::Kinetics &kin,
-		     ZZCantera::ExtraGlobalRxn &egr,
+getGERKineticsTables(TemperatureTable& TT, Zuzax::Electrode *electrode,
+		     Zuzax::Kinetics &kin,
+		     Zuzax::ExtraGlobalRxn &egr,
 		     RxnTempTableStuff &rts);
 
-void printGERKineticsTable(ZZCantera::Electrode *electrode, int j,
+void printGERKineticsTable(Zuzax::Electrode *electrode, int j,
 			   TemperatureTable& TT,
-			   ZZCantera::Kinetics &kin,
-			   ZZCantera::ExtraGlobalRxn &egr,
-			   ZZCantera::RxnMolChange *rmc,
+			   Zuzax::Kinetics &kin,
+			   Zuzax::ExtraGlobalRxn &egr,
+			   Zuzax::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts);
 
-double processGERCurrent(ZZCantera::RxnMolChange *rmc,
-			 ZZCantera::Electrode *electrode, int iGERrxn,
-			 ZZCantera::Kinetics &kin,
-			 ZZCantera::ExtraGlobalRxn &egr);
+double processGERCurrent(Zuzax::RxnMolChange *rmc,
+			 Zuzax::Electrode *electrode, int iGERrxn,
+			 Zuzax::Kinetics &kin,
+			 Zuzax::ExtraGlobalRxn &egr);
 
-void processGERCurrentVsPotTable(ZZCantera::RxnMolChange *rmc, ZZCantera::Electrode *electrode,
+void processGERCurrentVsPotTable(Zuzax::RxnMolChange *rmc, Zuzax::Electrode *electrode,
 				 int irxn,
 				 TemperatureTable &TT,
-				 ZZCantera::Kinetics &kin,  
-				 ZZCantera::ExtraGlobalRxn &egr,
+				 Zuzax::Kinetics &kin,  
+				 Zuzax::ExtraGlobalRxn &egr,
 				 RxnTempTableStuff &rts);
 /**********************************************************************/
 /**********************************************************************/

@@ -8,14 +8,14 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
+#include "zuzax/equil/vcs_MultiPhaseEquil.h"
+#include "zuzax/equil/vcs_prob.h"
+#include "zuzax/equil/vcs_solve.h"
+#include "zuzax/equil/vcs_VolPhase.h"
+#include "zuzax/equil/vcs_internal.h"
 
 #include "Electrode_input.h"
 #include "Electrode.h"
@@ -24,16 +24,12 @@
 #include "electrodeCell_prep.h"
 #include "electrodeCell_kin.h"
 #include "cell_input.h"
-#include "cantera/kinetics/RxnMolChange.h"
+#include "zuzax/kinetics/RxnMolChange.h"
 
 //#include <cstdio>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 using namespace mdpUtil;
 
 
@@ -108,7 +104,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
   vprob->setDebugPrintLvl(VCS_Debug_Print_Lvl);
 #endif
   /*
-   * vcs problem input to Cantera conversion
+   * vcs problem input to Zuzax conversion
    */
   int res = mpequil_convert(electrode, vprob, mix);
   if (res != 0) {
@@ -618,7 +614,7 @@ int main(int argc, char **argv)
 
     return retn;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;

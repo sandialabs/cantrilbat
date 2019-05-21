@@ -10,13 +10,9 @@
  */
 
 #include "cttables_kin.h"
-#include "cantera/kinetics/solveSP.h"
+#include "zuzax/kinetics/solveSP.h"
 
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 using std::cout;
 using std::endl;
@@ -112,7 +108,7 @@ void calcBF(double i1, double V1, double i2, double V2, double Erxn, int iform, 
                 i1 = -i1;
                 i2 = -i2;
             } else {
-                throw CanteraError("calcBF"," two currents have different signs");
+                throw ZuzaxError("calcBF"," two currents have different signs");
             }
         }
         double alpha_prime = (log(i1) - log(i2)) / (n1 - n2);
@@ -126,7 +122,7 @@ void calcBF(double i1, double V1, double i2, double V2, double Erxn, int iform, 
                 i1 = -i1;
                 i2 = -i2;
             } else {
-                throw CanteraError("calcBF", " two currents have different signs");
+                throw ZuzaxError("calcBF", " two currents have different signs");
             }
         }
         double alpha_prime = - (log(i1) - log(i2)) / (n1 - n2);
@@ -138,7 +134,7 @@ void calcBF(double i1, double V1, double i2, double V2, double Erxn, int iform, 
     return;
 }
 //=================================================================================================================================
-void getKineticsTables(TemperatureTable& TT, PhaseList* pl, ZZCantera::Kinetics& kin, DenseMatrix& kfwd_Table,
+void getKineticsTables(TemperatureTable& TT, PhaseList* pl, Zuzax::Kinetics& kin, DenseMatrix& kfwd_Table,
                   DenseMatrix& krev_Table, DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table, DenseMatrix& deltaS_Table,
                   DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table, DenseMatrix& Arev_Table, DenseMatrix& EarevdivR_Table,
                   DenseMatrix& kfwdPrime_Table, DenseMatrix& krevPrime_Table)
@@ -385,7 +381,7 @@ std::string formUnitsString(double unitsA[6])
  */
 void printKineticsTable(PhaseList* pl, int j,
                         TemperatureTable& TT,
-                        ZZCantera::Kinetics& kin,
+                        Zuzax::Kinetics& kin,
                         DenseMatrix& kfwd_Table,
                         DenseMatrix& krev_Table,
                         DenseMatrix& deltaG_Table,
@@ -397,7 +393,7 @@ void printKineticsTable(PhaseList* pl, int j,
                         DenseMatrix& EarevdivR_Table,
                         DenseMatrix& kfwdPrime_Table,
                         DenseMatrix& krevPrime_Table,
-                        ZZCantera::RxnMolChange* rmc)
+                        Zuzax::RxnMolChange* rmc)
 {
     /*
      *  Get the species data object from the Mixture object
@@ -827,7 +823,7 @@ void doKineticsTablesHetero(PhaseList* pl,  InterfaceKinetics* gKinetics, Temper
     }
 }
 //==================================================================================================================================
-void doKineticsTablesHomog(PhaseList* pl, ZZCantera::Kinetics* gKinetics, TemperatureTable& TT)
+void doKineticsTablesHomog(PhaseList* pl, Zuzax::Kinetics* gKinetics, TemperatureTable& TT)
 {
     int nReactions = gKinetics->nReactions();
     DenseMatrix kfwd_Table(TT.size(), nReactions);
@@ -925,7 +921,7 @@ RxnMolChangeLocal::RxnMolChangeLocal(Kinetics* kinPtr, int irxn) :
         if (iK) {
             m_beta = iK->electrochem_beta(irxn);
         } else {
-            throw CanteraError("RxnMolChange", "unknown condition on charge");
+            throw ZuzaxError("RxnMolChange", "unknown condition on charge");
         }
     }
 
@@ -985,7 +981,7 @@ RxnMolChangeLocal::RxnMolChangeLocal(Kinetics* kinPtr, ExtraGlobalRxn* egr) :
         if (iK) {
             m_beta = 0.0;
         } else {
-            throw CanteraError("RxnMolChange", "unknown condition on charge");
+            throw ZuzaxError("RxnMolChange", "unknown condition on charge");
         }
     }
 
@@ -1014,7 +1010,7 @@ void processCurrentVsPotTable(RxnMolChange* rmc, PhaseList* pl, int irxn, Temper
 
     InterfaceKinetics* iK = dynamic_cast<InterfaceKinetics*>(&kin);
     if (!iK) {
-        throw CanteraError("RxnMolChange", "unknown condition on charge");
+        throw ZuzaxError("RxnMolChange", "unknown condition on charge");
     }
     /*
      * First thing is to figure out how to calculate the voltage
@@ -1309,7 +1305,7 @@ RxnTempTableStuff::~RxnTempTableStuff()
 {
 }
 //==================================================================================================================================
-void getGERKineticsTables(TemperatureTable& TT, PhaseList* pl, ZZCantera::Kinetics& kin, ExtraGlobalRxn& egr,
+void getGERKineticsTables(TemperatureTable& TT, PhaseList* pl, Zuzax::Kinetics& kin, ExtraGlobalRxn& egr,
                      RxnTempTableStuff& rts)
 {
     int i, iph;
@@ -1493,7 +1489,7 @@ struct StoichVectors {
     std::vector<double> sCoeffV;
 };
 //==================================================================================================================================
-void printAffinityHeader(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int iRxn, TemperatureTable& TT,
+void printAffinityHeader(Zuzax::RxnMolChange* rmc, PhaseList* pl, int iRxn, TemperatureTable& TT,
                          Kinetics& kin,  DenseMatrix& kfwd_Table,   DenseMatrix& krev_Table,
                          DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table,  DenseMatrix& deltaS_Table,
                          DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table,  DenseMatrix& Arev_Table,
@@ -1510,9 +1506,9 @@ void printAffinityHeader(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int iRxn, 
     //double phiSoln;
     double perturb;
     //double deltaM[10];
-    ZZCantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
+    Zuzax::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
     if (!iKin) {
-        throw CanteraError("processAffinityTable", "failure");
+        throw ZuzaxError("processAffinityTable", "failure");
     }
 
 
@@ -1520,7 +1516,7 @@ void printAffinityHeader(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int iRxn, 
     iKin->getActivityConcentrations(actConc);
     bool ok = iKin->getAffinityRxnFormulation(iRxn, affinity, kc, perturb, aj, hasElectricalTerm, betaf);
     if (!ok) {
-        throw CanteraError("printAffinityHeader()",  "error calling getAffinityRxnFormulation");
+        throw ZuzaxError("printAffinityHeader()",  "error calling getAffinityRxnFormulation");
     }
 
     const double affinityPowerFwd = aj.affinityPowerFwd;
@@ -1748,7 +1744,7 @@ void printAffinityHeader(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int iRxn, 
     delete [] actConc;
 }
 //==================================================================================================================================
-void processAffinityTable(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int irxn, TemperatureTable& TT,
+void processAffinityTable(Zuzax::RxnMolChange* rmc, PhaseList* pl, int irxn, TemperatureTable& TT,
                           Kinetics& kin,  DenseMatrix& kfwd_Table,   DenseMatrix& krev_Table,
                           DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table,  DenseMatrix& deltaS_Table,
                           DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table,  DenseMatrix& Arev_Table,
@@ -1764,9 +1760,9 @@ void processAffinityTable(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int irxn,
     //double phiSoln;
     double perturb;
     //double deltaM[10];
-    ZZCantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
+    Zuzax::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
     if (!iKin) {
-        throw CanteraError("processAffinityTable", "failure");
+        throw ZuzaxError("processAffinityTable", "failure");
     }
 
 
@@ -1774,7 +1770,7 @@ void processAffinityTable(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int irxn,
     iKin->getActivityConcentrations(actConc);
     bool ok = iKin->getAffinityRxnFormulation(irxn, affinity, kc, perturb, aj, hasElectricalTerm, betaf);
     if (!ok) {
-        throw CanteraError(" processAffinityTable()",
+        throw ZuzaxError(" processAffinityTable()",
                            " >getAffinityRxnFormulation() failed ");
     }
     /*
@@ -1796,7 +1792,7 @@ void processAffinityTable(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int irxn,
  */
 void printGERKineticsTable(PhaseList* pl, int iGER,
                            TemperatureTable& TT,
-                           ZZCantera::Kinetics& kin,
+                           Zuzax::Kinetics& kin,
                            ExtraGlobalRxn& egr,
                            RxnMolChange* rmc,
                            RxnTempTableStuff& rts)
@@ -2098,7 +2094,7 @@ void processGERCurrentVsPotTable(RxnMolChange* rmc, PhaseList* pl, int iGERrxn, 
 
     InterfaceKinetics* iK = dynamic_cast<InterfaceKinetics*>(&kin);
     if (!iK) {
-        throw CanteraError("RxnMolChange", "unknown condition on charge");
+        throw ZuzaxError("RxnMolChange", "unknown condition on charge");
     }
     /*
      * First thing is to figure out how to calculate the voltage

@@ -11,7 +11,7 @@
 #ifndef _M1D_PS_INFPLATEBAT_H
 #define _M1D_PS_INFPLATEBAT_H
 
-#include "cantera/equilibrium.h"
+#include "zuzax/equilibrium.h"
 #include "tok_input_util.h"
 #include <string>
 #include <vector>

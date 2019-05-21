@@ -25,16 +25,8 @@
  *-----------------------------------------------------------------------------
  */
 
-
-
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
-
-
 
   class imtPSS_NoSurf: public InterfacialMassTransfer_PseudoSS {
   public:

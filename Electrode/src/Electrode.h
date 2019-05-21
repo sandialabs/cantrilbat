@@ -15,9 +15,9 @@
 #ifndef _ELECTRODE_H
 #define _ELECTRODE_H
 
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/ResidJacEval.h"
-#include "cantera/base/Array.h"
+#include "zuzax/numerics/ResidEval.h"
+#include "zuzax/numerics/ResidJacEval.h"
+#include "zuzax/base/Array.h"
 
 #include "ReactingSurDomain.h"
 
@@ -38,11 +38,7 @@ namespace BEInput
     class BlockEntry;
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 //==================================================================================================================================
@@ -246,7 +242,7 @@ class Electrode_Equilibrium;
  *
  *
  */
-class Electrode : public ZZCantera::PhaseList
+class Electrode : public Zuzax::PhaseList
 {
 public:
 
@@ -452,7 +448,7 @@ public:
      *
      *  @return                                  Returns a pointer to a ReactingSurDomain object
      */
-    ZZCantera::ReactingSurDomain* currOuterReactingSurface();
+    Zuzax::ReactingSurDomain* currOuterReactingSurface();
 
     //! Returns a changeable ReactingSurDomain object for a single Electrode surface
     /*!
@@ -464,7 +460,7 @@ public:
      *  @return                                  Returns a pointer to a ReactingSurDomain object.
      *                                           If the surface doesn't have reactions associated with it, a null is returned.
      */
-    ZZCantera::ReactingSurDomain* reactingSurface(size_t iSurf);
+    Zuzax::ReactingSurDomain* reactingSurface(size_t iSurf);
 
     //! Set the temperature and pressure of the electrode's t_final state
     /*!
@@ -1267,7 +1263,7 @@ public:
      *     -  Deprecate??
      *   This is a child of the ResidJacEval class
      */
-    class integrate_ResidJacEval : public ZZCantera::ResidJacEval
+    class integrate_ResidJacEval : public Zuzax::ResidJacEval
     {
     public:
 	//! Constructor
@@ -2441,7 +2437,7 @@ public:
      *
      *  @return                                  Returns a pointer to the ExtraGlobalRxn object
      */
-    ZZCantera::ExtraGlobalRxn* extraGlobalRxnPathway(size_t iegr);
+    Zuzax::ExtraGlobalRxn* extraGlobalRxnPathway(size_t iegr);
 
 private:
     //! Add a global reaction object to the internal list
@@ -3476,7 +3472,7 @@ public:
     /*!
      *       Extra global reactions are described by this object
      */
-    std::vector<ZZCantera::ExtraGlobalRxn*> m_egr;
+    std::vector<Zuzax::ExtraGlobalRxn*> m_egr;
 
     //! Pointer vector of RxmMolChange objects
     /*!
@@ -3555,7 +3551,7 @@ protected:
     mutable std::vector<double> capacityLeftSpeciesCoeff_;
 
     //! Array of discharge Capacity coefficients
-    mutable ZZCantera::Array2D capacityLeftSpeciesCoeffPlat_;
+    mutable Zuzax::Array2D capacityLeftSpeciesCoeffPlat_;
 
     //! Capacity Coefficient for Calculation of theoreteical zero DoD capacity
     /*!
@@ -3578,7 +3574,7 @@ protected:
     mutable std::vector<double> capacityZeroDoDSpeciesCoeff_;
 
     //! Array of capacity coefficients
-    mutable ZZCantera::Array2D capacityZeroDoDSpeciesCoeffPlat_;
+    mutable Zuzax::Array2D capacityZeroDoDSpeciesCoeffPlat_;
 
     //! Initial value of the capacity of the Electrode
     /*!
@@ -3820,7 +3816,7 @@ private:
      *
      *  @todo Make this a separate class, which is a friend class of Electrode.
      */
-    class phasePop_KinResid : public ZZCantera::ResidEval
+    class phasePop_KinResid : public Zuzax::ResidEval
     {
     public:
 
@@ -3881,7 +3877,7 @@ private:
     // -----------------------------------------------------------------------------------------------------------------------------
 
     //! Make the state class a friend
-    friend class ZZCantera::EState;
+    friend class Zuzax::EState;
 
     //! Set the State of this object from the state of the Electrode object
     /*!
@@ -3898,10 +3894,10 @@ private:
      *                                           correct.
      *  @param[in]           doFinal             Copy the final state. Defaults to true. (if false, use init quantities)
      */
-    friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal);
+    friend void Zuzax::EState::copyElectrode_intoState(const Zuzax::Electrode* const e, bool doFinal);
 
     //! make the equilibrium class a friend
-    friend class ZZCantera::Electrode_Equilibrium;
+    friend class Zuzax::Electrode_Equilibrium;
 };
 //==================================================================================================================================
 }

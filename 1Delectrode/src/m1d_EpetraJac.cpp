@@ -27,7 +27,7 @@
 
 #include "BlockEntryGlobal.h"
 
-#include "cantera/base/utilities.h"
+#include "zuzax/base/utilities.h"
 
 #include "Epetra_CrsMatrix.h"
 
@@ -461,7 +461,7 @@ void EpetraJac::eval(const bool doTimeDependentResid, const Epetra_Vector* const
                             int iLcEqn = istart + ie;
                             double value = ((*res)[iLcEqn] - resBase[iLcEqn]) * dd;
 #ifdef DEBUG_MODE
-                            ZZCantera::checkFinite(value);
+                            Zuzax::checkFinite(value);
 #endif
                             (*rowColBlock)(ie, je) = value;
                         }

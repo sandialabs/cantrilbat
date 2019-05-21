@@ -8,11 +8,11 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/equilibrium.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
-#include "cantera/numerics/RootFind.h"
-//#include "cantera/numerics/NonlinearSolver.h"
+#include "zuzax/numerics/RootFind.h"
+//#include "zuzax/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_CSTR_MCMBAnode.h"
@@ -21,11 +21,7 @@
 #include <iomanip>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 
 // a lvl of one prints out the .csv file
@@ -197,8 +193,7 @@ int main(int argc, char **argv)
 
     return 0;
 
-  } catch (CanteraError& ce) {
-
+  } catch (ZuzaxError& ce) {
     showErrors();
     return -1;
   }

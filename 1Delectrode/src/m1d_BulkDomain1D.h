@@ -192,7 +192,7 @@ public:
      *                                             Defaults to false.
      */
     virtual void
-    saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
+    saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
                const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false) override;
 
     //! Base Class for reading the solution from the saved file
@@ -222,7 +222,7 @@ public:
      *                                           comparison and quality control purposes
      */
     virtual void
-    readDomain(const ZZCantera::XML_Node& domainNode, Epetra_Vector* const soln_GlAll_ptr,
+    readDomain(const Zuzax::XML_Node& domainNode, Epetra_Vector* const soln_GlAll_ptr,
                Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead) override;
 
     //! Fill the vector isAlgebraic with the values from the DomainDescription

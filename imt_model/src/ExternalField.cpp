@@ -8,16 +8,12 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-#include "cantera/base/ctexceptions.h"
+#include "zuzax/base/ctexceptions.h"
 
 #include "ExternalField.h"
 
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
   //======================================================================================================================
@@ -70,7 +66,7 @@ namespace Cantera
   {
     t_final_ = t_final;
     if (t_final < t_init_init_) {
-      throw CanteraError("ExternalFieldScalar::calcValue_final",
+      throw ZuzaxError("ExternalFieldScalar::calcValue_final",
 			 " Time periods are confused");
     }
     if (tb_ == EF_TIMEBEHAVIOR_TFINALCONSTANT) {
@@ -99,7 +95,7 @@ namespace Cantera
   void  ExternalFieldScalar::advanceAndEndIntPeriod(double t_final)
   { 
     if (fabs(t_final - t_final_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldScalar::advanceAndEndIntPeriod()",
+      throw ZuzaxError("ExternalFieldScalar::advanceAndEndIntPeriod()",
 			 " Time periods are confused");
     }
     value_init_ = value_final_;
@@ -143,7 +139,7 @@ namespace Cantera
   void  ExternalFieldScalar::advanceAndEndPeriod(double t_final_final)
   {
     if (fabs(t_final_final - t_final_final_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldScalar::advanceAndEndPeriod()",
+      throw ZuzaxError("ExternalFieldScalar::advanceAndEndPeriod()",
 			 " Time periods are confused");
     }
     t_init_init_ = t_final_final_;
@@ -163,11 +159,11 @@ namespace Cantera
   void  ExternalFieldScalar::check_t_globals(double t_init_init, double t_final_final)
   {
       if (fabs(t_final_final - t_final_final_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldScalar::check_t_globals()",
+      throw ZuzaxError("ExternalFieldScalar::check_t_globals()",
 			 " Time periods are confused");
     } 
       if (fabs(t_init_init - t_init_init_) > 1.0E-14) {
-	throw CanteraError("ExternalFieldScalar::check_t_globals()",
+	throw ZuzaxError("ExternalFieldScalar::check_t_globals()",
 			   " Time periods are confused");
     }
   }
@@ -227,7 +223,7 @@ namespace Cantera
   {
     t_final_ = t_final;
     if (t_final < t_init_init_) {
-      throw CanteraError("ExternalFieldVector::calcValue_final",
+      throw ZuzaxError("ExternalFieldVector::calcValue_final",
 			 " Time periods are confused");
     }
     if (tb_ == EF_TIMEBEHAVIOR_TFINALCONSTANT) {
@@ -262,7 +258,7 @@ namespace Cantera
   void  ExternalFieldVector::advanceAndEndIntPeriod(double t_final)
   { 
     if (fabs(t_final - t_final_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldVector::advanceAndEndIntPeriod()",
+      throw ZuzaxError("ExternalFieldVector::advanceAndEndIntPeriod()",
 			 " Time periods are confused");
     }
     value_init_ = value_final_;
@@ -316,7 +312,7 @@ namespace Cantera
   void  ExternalFieldVector::advanceAndEndPeriod(double t_final_final)
   {
     if (fabs(t_final_final - t_final_final_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldVector::advanceAndEndPeriod()",
+      throw ZuzaxError("ExternalFieldVector::advanceAndEndPeriod()",
 			 " Time periods are confused");
     }
     t_init_init_ = t_final_final_;
@@ -341,11 +337,11 @@ namespace Cantera
   void  ExternalFieldVector::check_t_globals(double t_init_init, double t_final_final)
   {
     if (fabs(t_final_final - t_final_final_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldVector::check_t_globals()",
+      throw ZuzaxError("ExternalFieldVector::check_t_globals()",
 			 " Time periods are confused");
     } 
     if (fabs(t_init_init - t_init_init_) > 1.0E-14) {
-      throw CanteraError("ExternalFieldVector::check_t_globals()",
+      throw ZuzaxError("ExternalFieldVector::check_t_globals()",
 			 " Time periods are confused");
     }
   }

@@ -16,7 +16,7 @@
 #include <cmath>
 #include <cstdlib>
 
-#include "cantera/base/ct_defs.h"
+#include "zuzax/base/ct_defs.h"
 
 //==================================================================================================================================
 //! print an indent

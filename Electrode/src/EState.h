@@ -16,11 +16,7 @@
 #include <string>
 #include <vector>
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class Electrode;
@@ -66,7 +62,7 @@ struct EState_Identification
     /*!
      *   @return   Returns a pointer to the malloced XML_Node containing the structure's information
      */
-    ZZCantera::XML_Node* writeIdentificationToXML() const;
+    Zuzax::XML_Node* writeIdentificationToXML() const;
 
     //! Read this structure's information from the XML_Node
     /*!
@@ -87,7 +83,7 @@ struct EState_Identification
     /*!
      *  @deprecated This is a duplicate of the string, EState_Type_String. Use EState_Type_String
      */
-    enum ZZCantera::EState_Type_Enum  EST_Type;
+    enum Zuzax::EState_Type_Enum  EST_Type;
 
     //! String used to identify the EState type. This is used in the factory routine for the EState object.
     /*!
@@ -112,7 +108,7 @@ struct EState_Identification
      *  There is a basic sign issue with capacity that differs between anodes and cathodes.
      *  Capacity left goes down when an anode electrode gives off an electron but increases for a cathode electrode.
      */
-    ZZCantera::Electrode_Capacity_Type_Enum  electrodeCapacityType;
+    Zuzax::Electrode_Capacity_Type_Enum  electrodeCapacityType;
 };
 
 //! Typedef for the EState_ID structure
@@ -584,11 +580,11 @@ protected:
     /*!
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
-    friend class ZZCantera::Electrode;
-    friend class ZZCantera::Electrode_CSTR;
-    friend class ZZCantera::Electrode_Integrator;
-    friend class ZZCantera::Electrode_SimpleDiff;
-    friend class ZZCantera::Electrode_DiffTALE;
+    friend class Zuzax::Electrode;
+    friend class Zuzax::Electrode_CSTR;
+    friend class Zuzax::Electrode_Integrator;
+    friend class Zuzax::Electrode_SimpleDiff;
+    friend class Zuzax::Electrode_DiffTALE;
 };
 //==================================================================================================================================
 }

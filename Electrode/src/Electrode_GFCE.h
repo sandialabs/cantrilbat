@@ -4,7 +4,7 @@
  *
 
 */
-class Electrode_GFCE : public ZZCantera::ResidJacEval
+class Electrode_GFCE : public Zuzax::ResidJacEval
 {
 public:
 

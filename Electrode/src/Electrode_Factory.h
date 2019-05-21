@@ -16,20 +16,16 @@
 
 #include "Electrode.h"
 #include "ApplBase_print.h"
-#include "cantera/base/FactoryBase.h"
+#include "zuzax/base/FactoryBase.h"
 
-#if defined(THREAD_SAFE_CANTERA)
+#if defined(THREAD_SAFE_ZUZAX)
 #include <boost/thread/mutex.hpp>
 #endif
 
 #include <string>
 #include <map>
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 
 class RSD_OCVmodel;
@@ -125,7 +121,7 @@ std::string modelID_to_stringName_RCD_OCVmodel(int modelID);
  *  In order to create a new class, the user can either add to this class or inherit from this class to create their
  *  own proprietary classes.
  */
-class Electrode_Factory : public ZZCantera::FactoryBase
+class Electrode_Factory : public Zuzax::FactoryBase
 {
 
 public:

@@ -10,18 +10,14 @@
 
 #include "GFCEO_Electrode.h"
 
-#include "cantera/numerics/DAE_Solver.h"
+#include "zuzax/numerics/DAE_Solver.h"
 
 //-----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //===================================================================================================================================
 GFCEO_Electrode::GFCEO_Electrode(Electrode_Integrator* ee, double atol, int iOwn) :
-   ZZCantera::ResidJacEval(atol),
+   Zuzax::ResidJacEval(atol),
    ee_(ee),
    iOwnObject_(iOwn),
    integDAE_(nullptr)
@@ -37,7 +33,7 @@ GFCEO_Electrode::~GFCEO_Electrode()
 }
 //===================================================================================================================================
 GFCEO_Electrode::GFCEO_Electrode(const GFCEO_Electrode& right) :
-    ZZCantera::ResidJacEval()
+    Zuzax::ResidJacEval()
 {
     operator=(right);
 }
@@ -47,7 +43,7 @@ GFCEO_Electrode& GFCEO_Electrode::operator=(const GFCEO_Electrode& right)
     if (this == &right) {
         return *this;
     }
-    ZZCantera::ResidJacEval::operator=(right);
+    Zuzax::ResidJacEval::operator=(right);
 
     if (right.iOwnObject_) {
         delete ee_;

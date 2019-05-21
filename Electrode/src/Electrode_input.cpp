@@ -13,7 +13,7 @@
 #include "Electrode_Factory.h"
 #include "importPL.h"
 
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "zuzax/thermo/MolalityVPSSTP.h"
 
 #include "BlockEntryGlobal.h"
 #include "BE_MultiBlockVec.hpp"
@@ -31,11 +31,7 @@ template class BEInput::BE_MultiBlockVec<Zuzax::ERSSpec> ;
 
 //==================================================================================================================================
 //-----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 EGRInput::EGRInput() :
@@ -212,7 +208,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
-    Pressure(ZZCantera::OneAtm),
+    Pressure(Zuzax::OneAtm),
     m_BG(m_pl), 
     ProblemType(TP),
     SpeciesNames(0),
@@ -292,7 +288,7 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      if (m_pl && (m_pl != right.m_pl)) {
 	 delete m_pl;
      }
-     m_pl = new ZZCantera::PhaseList(*(right.m_pl));
+     m_pl = new Zuzax::PhaseList(*(right.m_pl));
 
      printLvl_                       = right.printLvl_;
      commandFile_                    = right.commandFile_;
@@ -460,7 +456,7 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
  *         MoleNumber
  *         MoleNumberIG
  */
-void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
+void ELECTRODE_KEY_INPUT::InitForInput(const Zuzax::PhaseList* const pl)
 {
     nTotPhases  = pl->nPhases();
     nTotSpecies = pl->nGlobalSpecies();
@@ -622,11 +618,10 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
     LineEntry* sle1 = 0;
     /*
      *  Get the input deck for
-     *  Cantera description of the model.
+     *  Zuzax description of the model.
      */
     LE_MultiCStr* s1 = new LE_MultiCStr("Cantera File Name", &(CanteraFileNames), 1, 1,  0, "CanteraFileNames");
     s1->set_default("gas.cti");
-
     /*
      * Set up a dependency on the input from the Number of cantera
      * Files card
@@ -901,7 +896,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *  Create a Molalities Block for entering molalities directly
          */
         if (tp->activityConvention() == cAC_CONVENTION_MOLALITY) {
-            ZZCantera::MolalityVPSSTP* m_ptr = dynamic_cast<ZZCantera::MolalityVPSSTP*>(tp);
+            Zuzax::MolalityVPSSTP* m_ptr = dynamic_cast<Zuzax::MolalityVPSSTP*>(tp);
             if (m_ptr == 0) {
                 printf("Dynamic cast failed for some reason\n");
                 exit(-1);
@@ -1225,7 +1220,7 @@ bool process_electrode_input(BlockEntry* cf, std::string fileName, int printFlag
 /*
  *  Set the bath conditions for the one ThermoPhase
  */
-void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& tp, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, size_t iph, int printLvl)
+void setElectrodeBathSpeciesConditions(Zuzax::thermo_t_double& tp, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, size_t iph, int printLvl)
 {
     size_t nsp = tp.nSpecies();
     size_t kstart = BG.m_pl->globalSpeciesIndex(iph, 0);

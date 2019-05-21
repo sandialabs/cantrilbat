@@ -3,8 +3,8 @@
  *
  *     This file contains routines which are global routines, i.e.,
  *     not part of any object. These routine take as input, ctml
- *     pointers to data, and pointers to Cantera objects. The purpose
- *     of these routines is to intialize the Cantera objects with data
+ *     pointers to data, and pointers to Zuzax objects. The purpose
+ *     of these routines is to intialize the Zuzax objects with data
  *     from the ctml tree structures.
  */
 /*
@@ -18,32 +18,32 @@
  */
 
 
-//   Cantera includes
+//   Zuzax includes
 
 #include "importPL.h"
 
 #include "importAllCTML.h"
-#include "cantera/thermo/mix_defs.h"
+#include "zuzax/thermo/mix_defs.h"
 
-#include "cantera/kinetics.h"
+#include "zuzax/kinetics.h"
 
 
-#include "cantera/thermo/speciesThermoTypes.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "cantera/thermo/ThermoFactory.h"
+#include "zuzax/thermo/speciesThermoTypes.h"
+#include "zuzax/thermo/ThermoPhase.h"
+#include "zuzax/thermo/ThermoFactory.h"
 
-#include "cantera/transport.h"
+#include "zuzax/transport.h"
 
-#include "cantera/multiphase/PhaseList.h"
-#include "cantera/thermo/IdealSolidSolnPhase.h"
-#include "cantera/thermo/IdealMolalSoln.h"
-#include "cantera/thermo/DebyeHuckel.h"
-#include "cantera/thermo/StoichSubstanceSSTP.h"
-#include "cantera/thermo/HMWSoln.h"
+#include "zuzax/multiphase/PhaseList.h"
+#include "zuzax/thermo/IdealSolidSolnPhase.h"
+#include "zuzax/thermo/IdealMolalSoln.h"
+#include "zuzax/thermo/DebyeHuckel.h"
+#include "zuzax/thermo/StoichSubstanceSSTP.h"
+#include "zuzax/thermo/HMWSoln.h"
 
-#include "cantera/base/xml.h"
-#include "cantera/base/ctml.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
+#include "zuzax/base/xml.h"
+#include "zuzax/base/ctml.h"
+#include "zuzax/kinetics/InterfaceKinetics.h"
 
 
 #include <vector>
@@ -52,11 +52,7 @@
 //using namespace ctml;
 using namespace std;
 
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif 
 {
 
 
@@ -77,7 +73,7 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
     ThermoPhase* tPhase = processExpandedThermoPhase(xmlphase);
     //ThermoPhase* tPhase = newPhase(*xmlphase);
     if (!tPhase) {
-        throw CanteraError("processPhasePL()",
+        throw ZuzaxError("processPhasePL()",
                            "ERROR: tPhase = 0 while processing phase in file, " + canteraFile);
     }
     std::string dimS = xmlphase->operator[]("dim");
@@ -86,7 +82,7 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
     } else if (dimS == "2") {
         pl->addSurPhase(tPhase);
     } else {
-        throw CanteraError("processPhasePL",
+        throw ZuzaxError("processPhasePL",
                            "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }
 }
@@ -131,21 +127,21 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
    *  to the PhaseList object.
    *
    *      pl -> Pointer to the PhaseList object
-   *      canteraFile -> Cantera CTML file
+   *      canteraFile -> Zuzax CTML file
    *
    */
   int importAllCTMLIntoPhaseList(PhaseList *pl, std::string canteraFile) {
     XML_Node *xc = 0;
     try {
       xc = get_XML_File(canteraFile);
-    }  catch (CanteraError) {
+    }  catch (ZuzaxError) {
       showErrors();
-      throw CanteraError("importAllCTMLIntoPhaseList",
+      throw ZuzaxError("importAllCTMLIntoPhaseList",
 			 string("Could not find/process file, ") +
 			 canteraFile + string(" -> aborting"));
     }
     if (!xc) {
-      throw CanteraError("importAllCTMLIntoPhaseList",
+      throw ZuzaxError("importAllCTMLIntoPhaseList",
 			 string("Could not find/process file, ") +
 			 canteraFile + string(" -> aborting")); 
     }

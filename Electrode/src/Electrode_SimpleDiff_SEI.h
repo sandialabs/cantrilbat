@@ -13,14 +13,10 @@
 
 #include "Electrode.h"
 #include "Electrode_Integrator.h"
-#include "cantera/integrators.h"
-#include "cantera/numerics/ResidJacEval.h"
+#include "zuzax/integrators.h"
+#include "zuzax/numerics/ResidJacEval.h"
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifdef useZuzaxNamespace
 namespace Zuzax
-#else
-namespace Cantera
-#endif
 {
 //==================================================================================================================================
 //! This class is a derived class used to model phase - change electrodes

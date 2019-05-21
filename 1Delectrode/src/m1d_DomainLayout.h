@@ -49,7 +49,7 @@
  *  For our first step we will assume one domain, with no tie regions !
  */
 
-#include <cantera/multiphase/MultiPhase.h>
+#include "zuzax/multiphase/MultiPhase.h"
 
 #include <string>
 #include <vector>
@@ -91,7 +91,7 @@ public:
      *
      */
     DomainLayout(std::vector<std::string> domainList, ProblemStatement* const psInput_ptr,
-                 std::map<std::string, ZZCantera::MultiPhase*> bulkMap,
+                 std::map<std::string, Zuzax::MultiPhase*> bulkMap,
                  std::map<std::string, int> surfaceMap);
 
     //! Copy Constructor
@@ -168,7 +168,7 @@ public:
     /*!
      *  This procedure is done before the Equations anv variable list are set up.
      *  Needed information about what is possible is input here.
-     *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+     *  We read the Zuzax ThermoPhase and transport object into DomainDescriptions here.
      *
      *   We loop over volume and then surface domains.
      */

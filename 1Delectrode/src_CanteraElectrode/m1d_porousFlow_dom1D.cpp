@@ -19,11 +19,7 @@
 
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 //==================================================================================================================================
 //! Global Problem input structure
@@ -570,7 +566,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 
     int iph = pl_ptr->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
     if (iph < 0) {
-	throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
+	throw ZuzaxError("BDD_porousElectrode::BDD_porousElectrode()",
 			   "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
     }
     //ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
@@ -634,15 +630,15 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
          */
         int igECDMC  = PSinput.PhaseList_->globalSpeciesIndex("ECDMC");
         if (igECDMC < 0) {
-            throw CanteraError("confused", "confused");
+            throw ZuzaxError("confused", "confused");
         }
         int igLip = PSinput.PhaseList_->globalSpeciesIndex("Li+");
         if (igLip < 0) {
-            throw CanteraError("confused", "confused");
+            throw ZuzaxError("confused", "confused");
         }
         int igPF6m = PSinput.PhaseList_->globalSpeciesIndex("PF6-");
         if (igPF6m < 0) {
-            throw CanteraError("confused", "confused");
+            throw ZuzaxError("confused", "confused");
         }
 
 

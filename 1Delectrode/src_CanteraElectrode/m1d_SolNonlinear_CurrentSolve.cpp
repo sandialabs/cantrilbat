@@ -23,7 +23,7 @@
 #include "Epetra_DataAccess.h"
 
 #include "m1d_LocalNodeIndices.h"
-#include "cantera/numerics/RootFind.h"
+#include "zuzax/numerics/RootFind.h"
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BatteryResidEval.h"
@@ -37,11 +37,7 @@
 #include <math.h>
 
 using namespace std;
-#ifdef useZuzaxNamespace
 using namespace Zuzax;
-#else
-using namespace Cantera;
-#endif
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
