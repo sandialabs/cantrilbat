@@ -39,17 +39,15 @@ CT_BIN = @ct_bindir@
 CT_LIB = @ct_libdir@
 
 useZuzaxNamespace = 1
-do_immediate_install = 0
 #
 # Bring in the Zuzax includes through the .mak file
 #
-#include $(CT_INCROOT)/cantera/Cantera.mak
+include $(CT_INCROOT)/zuzax/Zuzax.mak
 #
-INCDIR = $(CT_INCROOT)/util_src
+DESTINCDIR = $(CT_INCROOT)/util_src
 
 DESTLIBDIR=$(CT_LIB)/util_src
 
-#INSTALL_TSC = $(CT_BIN)/install_tsc
 INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 have_posix = @have_posix@
 #
@@ -127,14 +125,6 @@ LCXX_FLAGS =  @CXXFLAGS@
 ####################################################################
 
 all:  .depends $(LIBP)
-ifeq ($(do_immediate_install),1)
-	@INSTALL@ -d $(INCDIR)
-	(for lh in $(INCFILES) ; do \
-          $(INSTALL_TSC) "$${lh}" $(INCDIR) ; \
-        done)
-	@INSTALL@ -d $(DESTLIBDIR)
-	$(INSTALL_TSC) $(LIBP) $(DESTLIBDIR)
-endif
 
 
 
@@ -153,9 +143,9 @@ test:
 
 install:
 	$(MAKE) all
-	@INSTALL@ -d $(INCDIR)
+	@INSTALL@ -d $(DESTINCDIR)
 	(for lh in $(INCFILES) ; do \
-          $(INSTALL_TSC) "$${lh}" $(INCDIR) ; \
+          $(INSTALL_TSC) "$${lh}" $(DESTINCDIR) ; \
         done)
 	@INSTALL@ -d $(DESTLIBDIR)
 	$(INSTALL_TSC) $(LIBP) $(DESTLIBDIR)
@@ -166,7 +156,7 @@ clean:
 dist_clean:
 	$(RM) $(LIBOBJS) $(LIBP) *.d .depends
 	(for lh in $(INCFILES) ; do \
-          $(RM)  $(INCDIR)/$${lh} ; \
+          $(RM)  $(DESTINCDIR)/$${lh} ; \
         done)
 	$(RM) $(DESTLIBDIR)/$(LIBP)
 

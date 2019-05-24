@@ -1,5 +1,5 @@
 /*
- * $Id: mpequil_input.cpp 502 2013-01-07 22:25:47Z hkmoffa $
+ * @file:  mpequil_input.cpp 502 2013-01-07 22:25:47Z hkmoffa $
  */
 
 #include <stdio.h>
