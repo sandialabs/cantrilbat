@@ -1703,7 +1703,7 @@ int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type ev
 }
 //==================================================================================================================================
 int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t, const double* const y, const double* const ydot,
-                                            double* const resid, const ResidEval_Type evalType,
+                                            double* const resid, const ResidEval_Type evalType, const Solve_Type solveType,
                                             const int id_x, const double delta_x)
 {
     throw Electrode_Error("Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
@@ -2172,9 +2172,8 @@ double Electrode_Integrator::reportStateVariableIntegrationError(int& maxSV, dou
 //==================================================================================================================================
 int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
                                       const double* const y, const double* const ySolnDot,
-                                      double* const resid,
-                                      const ResidEval_Type evalType, const int id_x,
-                                      const double delta_x)
+                                      double* const resid, const ResidEval_Type evalType, const Solve_Type solveType, 
+                                      const int id_x, const double delta_x)
 {
     int retn = 1;
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {

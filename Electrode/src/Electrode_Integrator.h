@@ -745,25 +745,28 @@ protected:
 public:
     //! Evaluate the residual function
     /*!
-     * (virtual from NonlinearSolver)
+     *  (virtual from ResidEvalJac)
      *
-     * @param t             Time                    (input)
-     * @param delta_t       The current value of the time step (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param resid         Value of the residual that is computed (output)
-     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-     * @param id_x          Index of the variable that is being numerically differenced to find
-     *                      the jacobian (defaults to -1, which indicates that no variable is being
-     *                      differenced or that the residual doesn't take this issue into account)
-     * @param delta_x       Value of the delta used in the numerical differencing
+     *  @param[in]           t                   Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ydot                Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                           the jacobian (defaults to -1, which indicates that no variable is being
+     *                                           differenced or that the residual doesn't take this issue into account)
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
      *
-     * @return                                   Returns a value of 1 if everything went well
-     *                                           Returns negative numbers to indicate types of failures
+     *  @return                                  Returns a value of 1 if everything went well
+     *                                             Returns negative numbers to indicate types of failures
      */
     virtual int evalResidNJ(const double t, const double delta_t, const double* const y,
                             const double* const ydot, double* const resid,
                             const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
                             const int id_x = -1, const double delta_x = 0.0) override;
 
     //! Calculate the residual
@@ -793,27 +796,27 @@ public:
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     * @param t             Time                    (input)
-     * @param delta_t       The current value of the time step (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param resid         Value of the residual that is computed (output)
-     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-     * @param id_x          Index of the variable that is being numerically differenced to find
-     *                      the jacobian (defaults to -1, which indicates that no variable is being
-     *                      differenced or that the residual doesn't take this issue into account)
-     * @param delta_x       Value of the delta used in the numerical differencing
+     *  @param[in]           t                   Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ydot                Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                             the jacobian (defaults to -1, which indicates that no variable is being
+     *                                             differenced or that the residual doesn't take this issue into account)
+     *  @param[in]          delta_x              Value of the delta used in the numerical differencing
      *
-     * @return                                   Returns a value of 1 if everything went well
-     *                                           Returns negative numbers to indicate types of failures
+     *  @return                                  Returns a value of 1 if everything went well
+     *                                             Returns negative numbers to indicate types of failures
      */
-    virtual int GFCEO_evalResidNJ(const double t, const double delta_t,
-                            const double* const y,
-                            const double* const ydot,
-                            double* const resid,
+    virtual int GFCEO_evalResidNJ(const double t, const double delta_t, const double* const y,
+                            const double* const ydot, double* const resid,
                             const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
-                            const int id_x = -1,
-                            const double delta_x = 0.0);
+                            const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
+                            const int id_x = -1, const double delta_x = 0.0);
 
     //! Calculate the residual for the Electrode object for the Global problem
     /*!

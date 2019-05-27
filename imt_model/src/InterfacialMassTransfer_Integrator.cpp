@@ -1714,24 +1714,11 @@ namespace Zuzax
   }
 
   //====================================================================================================================
-  //  Residual calculation for the solution of the Nonlinear integration problem
-  /*
-   * @param t             Time                    (input) 
-   * @param delta_t       The current value of the time step (input)
-   * @param y             Solution vector (input, do not modify)
-   * @param ydot          Rate of change of solution vector. (input, do not modify)
-   * @param resid         Value of the residual that is computed (output)
-   * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-   * @param id_x          Index of the variable that is being numerically differenced to find
-   *                      the jacobian (defaults to -1, which indicates that no variable is being
-   *                      differenced or that the residual doesn't take this issue into account)
-   * @param delta_x       Value of the delta used in the numerical differencing
-   */
   int InterfacialMassTransfer_Integrator::evalResidNJ(const doublevalue t, const doublevalue delta_t,
 					const doublevalue * const y, const doublevalue * const ySolnDot,
 					doublevalue * const resid,
-					const ResidEval_Type evalType, const int id_x,
-					const doublevalue delta_x)
+					const ResidEval_Type evalType, const Solve_Type solveType,
+                                        const int id_x, const doublevalue delta_x)
   {
     int retn = 1;
     if ((evalType == ResidEval_Type::Base_ShowSolution) || (enableExtraPrinting_ && detailedResidPrintFlag_ > 1)) {
@@ -1818,17 +1805,8 @@ namespace Zuzax
     return rr;
   }
   //====================================================================================================================
-  // Fill in the initial conditions
-  /* 
-   * (virtual from NonlinearSolver)
-   *
-   * Values for both the solution and the value of ydot may be provided.
-   *
-   * @param t0            Time                    (input) 
-   * @param y             Solution vector (output)
-   * @param ydot          Rate of change of solution vector. (output)
-   */
-  int InterfacialMassTransfer_Integrator::getInitialConditions(const doublevalue t0, doublevalue * const y, doublevalue * const ydot)
+  int InterfacialMassTransfer_Integrator::getInitialConditionsWithDot(const doublevalue t0, 
+                          doublevalue * const y, doublevalue * const ydot)
   {
     return 0;
   }

@@ -106,19 +106,16 @@ void GFCEO_Electrode::setAlgebraic(const int k)
 }
 //===================================================================================================================================
 int GFCEO_Electrode::evalResidNJ(const double t, const double delta_t,
-                            const double* const y,
-                            const double* const ydot,
-                            double* const resid,
-                            const ResidEval_Type evalType,
-                            const int id_x,
-                            const double delta_x)
+                            const double* const y, const double* const ydot, double* const resid,
+                            const ResidEval_Type evalType, const Solve_Type solveType,
+                            const int id_x, const double delta_x)
 {
-     int retn = ee_->GFCEO_evalResidNJ(t, delta_t, y, ydot, resid, evalType, id_x, delta_x);
+     int retn = ee_->GFCEO_evalResidNJ(t, delta_t, y, ydot, resid, evalType, solveType, id_x, delta_x);
      return retn;
 }
 //===================================================================================================================================
 int GFCEO_Electrode::evalResid(const double t, const double* const y, const double* const ydot,
-                               double* const resid)
+                               double* const resid, const ResidEval_Type evalType, const Solve_Type solveType)
 {
     return 0;
 }
@@ -184,7 +181,7 @@ int GFCEO_Electrode::matrixConditioning(double* const matrix, const int nrows,do
 //===================================================================================================================================
 int GFCEO_Electrode::evalJacobian(const double t, const double delta_t, double cj,
 				  const double* const y, const double* const ydot,
-				  GeneralMatrix& J, double* const resid)
+				  GeneralMatrix& J, double* const resid, const Solve_Type solveType)
 {
     return 0;
 }
@@ -193,7 +190,7 @@ int GFCEO_Electrode::evalJacobianDP(const double t, const double delta_t, double
 				    const double* const y,
 				    const double* const ydot,
 				    double* const* jacobianColPts,
-				    double* const resid)
+				    double* const resid, const Solve_Type solveType)
 {
     return 0;
 }

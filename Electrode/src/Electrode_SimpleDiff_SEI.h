@@ -141,6 +141,8 @@ public:
      * @param ydot          Rate of change of solution vector. (input, do not modify)
      * @param resid         Value of the residual that is computed (output)
      * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
      * @param id_x          Index of the variable that is being numerically differenced to find
      *                      the jacobian (defaults to -1, which indicates that no variable is being
      *                      differenced or that the residual doesn't take this issue into account)
@@ -153,6 +155,7 @@ public:
                             const double* const ydot,
                             double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
                             const int id_x = -1,
                             const double delta_x = 0.0) override;
 

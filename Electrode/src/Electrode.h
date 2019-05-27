@@ -1275,23 +1275,27 @@ public:
 
         //! Evaluate the residual function using a numerical jacobian
         /*!
-         * @param t             Time                    (input)
-         * @param delta_t       The current value of the time step (input)
-         * @param y             Solution vector (input, do not modify)
-         * @param ydot          Rate of change of solution vector. (input, do not modify)
-         * @param resid         Value of the residual that is computed (output)
-         * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-         * @param id_x          Index of the variable that is being numerically differenced to find
-         *                      the jacobian (defaults to -1, which indicates that no variable is being
-         *                      differenced or that the residual doesn't take this issue into account)
-         * @param delta_x       Value of the delta used in the numerical differencing
+         *  (virtual from ResidEvalJac)
+         *
+         *  @param[in]       t                   Time                    (input)
+         *  @param[in]       delta_t             The current value of the time step (input)
+         *  @param[in]       y                   Solution vector (input, do not modify)
+         *  @param[in]       ydot                Rate of change of solution vector. (input, do not modify)
+         *  @param[out]      resid               Value of the residual that is computed (output)
+         *  @param[in]       evalType            Type of the residual being computed (defaults to Base_ResidEval)
+         *  @param[in]       solveType           Type of the problem being solved expressed as a  Solve_Type_Enum.
+         *                                           Defaults to TimeDependentAccurate_Solve
+         *  @param[in]       id_x                Index of the variable that is being numerically differenced to find
+         *                                         the jacobian (defaults to -1, which indicates that no variable is being
+         *                                         differenced or that the residual doesn't take this issue into account)
+         *  @param[in]       delta_x             Value of the delta used in the numerical differencing
 	 *
-	 *  @return             Returns 1 if the residual is ok.
+	 *  @return                              Returns 1 if the residual is ok.
          */
-        virtual int  evalResidNJ(const double t, const double delta_t, const double* const y,
-                         const double* const ydot,
-                         double* const resid,
+        virtual int evalResidNJ(const double t, const double delta_t, const double* const y,
+                         const double* const ydot, double* const resid,
                          const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                         const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
                          const int id_x = -1,
                          const double delta_x = 0.0) override;
 
@@ -3834,30 +3838,35 @@ private:
 	 *   The residuals are based on the relative net production rate of each species being equal to its mole
 	 *   fraction at initial time.
 	 *
-	 *     @param[in]          t              Time of the evaluation
-	 *     @param[in]          y              Vector of unknowns
-	 *     @param[out]         r              Vector of residuals
+	 *  @param[in]           t                   Time of the evaluation
+	 *  @param[in]           y                   Vector of unknowns
+	 *  @param[out]          r                   Vector of residuals
+         *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+         *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+         *                                           Defaults to SteadyState_Solve
 	 *
-	 *     @return                            A return of zero indicates success. Anthing else is a failure
+	 *  @return                                  A return of zero indicates success. Anthing else is a failure
 	 */
-        int evalResidSS(const double t, const double* const y,  double* const r);
+        virtual int evalResidSS(const double t, const double* const y,  double* const r,
+                                const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                                const Solve_Type solveType = Solve_Type::SteadyState_Solve) override;
 
-	//! get the initial conditions for the problem
+	//! Get the initial conditions for the problem
 	/*!
-	 *     @param[in]          t0             Time of the evaluation
-	 *     @param[out]         y              Vector of unknowns
-	 *     @param[out]         ydot           Vector of the time derivatives of the unknowns.
-	 *
-	 *     @return                            A return of zero indicates success. Anthing else is a failure
+	 *  @param[in]          t0             Time of the evaluation
+	 *  @param[out]         y              Vector of unknowns
+	 *  @param[out]         ydot           Vector of the time derivatives of the unknowns.
+	 * 
+	 *  @return                            A return of zero indicates success. Anthing else is a failure
 	 */
-        int getInitialConditions(const double t0, double* const y, double* const ydot);
+        virtual int getInitialConditionsWithDot(const double t0, double* const y, double* const ydot) override;
 
         //! Return the number of equations in the equation system
 	/*!
 	 *     @return                            Returns the number of equations, which is equal to the number of species in 
 	 *                                        the phase to be popped.
 	 */
-        int nEquations() const;
+        virtual int nEquations() const;
 
 	//! Pointer to this %Electrode object
         Electrode* ee_;

@@ -2682,32 +2682,9 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
     }
 }
 //=================================================================================================================================
-//   Evaluate the residual function
-/*
- * Driver for evaluating the residual
- * (virtual from NonlinearSolver)
- *
- * @param t             Time                    (input)
- * @param delta_t       The current value of the time step (input)
- * @param y             Solution vector (input, do not modify)
- * @param ySolnDot      Rate of change of solution vector. (input, do not modify)
- * @param resid         Value of the residual that is computed (output)
- * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
- * @param id_x          Index of the variable that is being numerically differenced to find
- *                      the jacobian (defaults to -1, which indicates that no variable is being
- *                      differenced or that the residual doesn't take this issue into account)
- * @param delta_x       Value of the delta used in the numerical differencing
- *
- * @return              1 successful
- *                      0 or neg failure
- */
-int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
-                                       const double* const y,
-                                       const double* const ySolnDot,
-                                       double* const resid,
-                                       const ResidEval_Type evalType,
-                                       const int id_x,
-                                       const double delta_x)
+int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t, const double* const y,
+                                       const double* const ySolnDot, double* const resid, const ResidEval_Type evalType,
+                                       const Solve_Type solveType, const int id_x, const double delta_x)
 {
     int retn = integrateResid(t, delta_t, y, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;

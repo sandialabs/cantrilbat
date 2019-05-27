@@ -339,30 +339,12 @@ void Electrode_SimpleDiff::updateState()
     throw Electrode_Error("Electrode_SimpleDiff::updateState()", "unfinished");
 }
 //====================================================================================================================
-//   Evaluate the residual function
-/*
- * (virtual from NonlinearSolver)
- *
- * @param t             Time                    (input)
- * @param delta_t       The current value of the time step (input)
- * @param y             Solution vector (input, do not modify)
- * @param ydot          Rate of change of solution vector. (input, do not modify)
- * @param resid         Value of the residual that is computed (output)
- * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
- * @param id_x          Index of the variable that is being numerically differenced to find
- *                      the jacobian (defaults to -1, which indicates that no variable is being
- *                      differenced or that the residual doesn't take this issue into account)
- * @param delta_x       Value of the delta used in the numerical differencing
- *
- * @return              0 for failure
- */
 int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
                                        const double* const y,
                                        const double* const ydot,
                                        double* const resid,
-                                       const ResidEval_Type_Enum evalType,
-                                       const int id_x,
-                                       const double delta_x)
+                                       const ResidEval_Type_Enum evalType, const Solve_Type solveType,
+                                       const int id_x, const double delta_x)
 {
 
     throw Electrode_Error("", "");

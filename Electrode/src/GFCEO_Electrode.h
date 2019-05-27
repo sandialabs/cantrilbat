@@ -115,26 +115,29 @@ public:
 
     //! Evaluate the residual function at the current conditions
     /*!
-     * @param t             Time                    (input)
-     * @param delta_t       The current value of the time step (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param resid         Value of the residual that is computed (output)
-     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-     * @param id_x          Index of the variable that is being numerically differenced to find
-     *                      the jacobian (defaults to -1, which indicates that no variable is being
-     *                      differenced or that the residual doesn't take this issue into account)
-     * @param delta_x       Value of the delta used in the numerical differencing
+     *  @param[in]           t                   Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ydot                Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                             the jacobian (defaults to -1, which indicates that no variable is being
+     *                                             differenced or that the residual doesn't take this issue into account)
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
      *
-     * @return Returns a flag to indicate that operation is successful.
-     *            1  Means a successful operation
-     *           -0 or neg value Means an unsuccessful operation
+     *  @return                                  Returns a flag to indicate that operation is successful.
+     *                                             1  Means a successful operation
+     *                                            -0 or neg value Means an unsuccessful operation
      */
     virtual int evalResidNJ(const double t, const double delta_t,
                             const double* const y,
                             const double* const ydot,
                             double* const resid,
                             const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
                             const int id_x = -1,
                             const double delta_x = 0.0) override;
 
@@ -144,17 +147,21 @@ public:
      *  delta_t is not supplied in this interface.
      *  delta_t is assigned to a value of -1, and evalResidNJ() is then called.
      *
-     * @param[in]         t             Time                    (input)
-     * @param[in]         y             Solution vector (input, do not modify)
-     * @param[in]         ydot          Rate of change of solution vector. (input, do not modify)
-     * @param[out]        resid         Value of the residual that is computed (output)
+     *  @param[in]           t                   Time                    (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ydot                Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
      *
-     * @return Returns a flag to indicate that operation is successful.
-     *            1  Means a successful operation
-     *           -0 or neg value Means an unsuccessful operation
+     *  @return                                  Returns a flag to indicate that operation is successful.
+     *                                             1  Means a successful operation
+     *                                            -0 or neg value Means an unsuccessful operation
      */
-    virtual int evalResid(const double t, const double* const y, const double* const ydot,
-                          double* const resid) override;
+    virtual int evalResid(const double t, const double* const y, const double* const ydot, double* const resid,
+                          const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                          const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve) override;
 
     //! Input the initial conditions for the problem
     /*!
@@ -329,13 +336,15 @@ public:
     /*!
      *  Only called if the jacFormation method is set to analytical
      *
-     * @param t             Time                    (input)
-     * @param delta_t       The current value of the time step (input)
-     * @param cj            Coefficient of yprime used in the evaluation of the jacobian
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param J             Reference to the SquareMatrix object to be calculated (output)
-     * @param resid         Value of the residual that is computed (output)
+     *  @param t             Time                    (input)
+     *  @param delta_t       The current value of the time step (input)
+     *  @param cj            Coefficient of yprime used in the evaluation of the jacobian
+     *  @param y             Solution vector (input, do not modify)
+     *  @param ydot          Rate of change of solution vector. (input, do not modify)
+     *  @param J             Reference to the SquareMatrix object to be calculated (output)
+     *  @param resid         Value of the residual that is computed (output)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
      *
      * @return Returns a flag to indicate that operation is successful.
      *            1  Means a successful operation
@@ -343,7 +352,8 @@ public:
      */
     virtual int evalJacobian(const double t, const double delta_t, double cj,
                              const double* const y, const double* const ydot,
-                             GeneralMatrix& J, double* const resid) override;
+                             GeneralMatrix& J, double* const resid, 
+                             const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve) override;
 
     //! Calculate an analytical jacobian and the residual at the current time and values.
     /*!
@@ -357,6 +367,8 @@ public:
      * @param jacobianColPts   Pointer  to the vector of pts to columns of the SquareMatrix
      *                         object to be calculated (output)
      * @param resid         Value of the residual that is computed (output)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
      *
      * @return Returns a flag to indicate that operation is successful.
      *            1  Means a successful operation
@@ -366,7 +378,8 @@ public:
                                const double* const y,
                                const double* const ydot,
                                double* const* jacobianColPts,
-                               double* const resid) override;
+                               double* const resid,
+                               const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve) override;
 
     //!      Write out to a file or to standard output the current solution
     /*!

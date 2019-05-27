@@ -2656,12 +2656,9 @@ void  Electrode_DiffTALE::setResidAtolNLS()
  * @return
  */
 int  Electrode_DiffTALE::evalResidNJ(const double t, const double delta_t,
-                                       const double* const y,
-                                       const double* const ySolnDot,
-                                       double* const resid,
-                                       const ResidEval_Type evalType,
-                                       const int id_x,
-                                       const double delta_x)
+                                       const double* const y, const double* const ySolnDot, double* const resid,
+                                       const ResidEval_Type evalType, const Solve_Type solveType,
+                                       const int id_x, const double delta_x)
 {
     int retn = integrateResid(t, delta_t, y, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;

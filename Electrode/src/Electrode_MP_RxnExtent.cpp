@@ -3558,7 +3558,7 @@ int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double*
 int Electrode_MP_RxnExtent::evalResidNJ(const double tdummy, const double delta_t_dummy,
                                         const double* const ySoln, const double* const ySolnDot,
                                         double* const resid, const ResidEval_Type evalType,
-                                        const int id_x, const double delta_x)
+                                        const Solve_Type solveType, const int id_x, const double delta_x)
 {
     int retn =  integrateResid(tdummy, delta_t_dummy, ySoln, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;

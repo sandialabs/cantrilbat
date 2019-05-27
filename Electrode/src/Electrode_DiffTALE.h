@@ -678,25 +678,28 @@ public:
 
     //! Evaluate the residual function
     /*!
-     * (virtual from NonlinearSolver)
+     * (virtual from ResidEvalJac)
      *
-     * @param[in]            t                   Time                    (input)
-     * @param[in]            delta_t             The current value of the time step (input)
-     * @param[in]            y                   Solution vector (input, do not modify)
-     * @param[in]            ydot                Rate of change of solution vector. (input, do not modify)
-     * @param[out]           resid               Value of the residual that is computed (output)
-     * @param[in]            evalType            Type of the residual being computed (defaults to Base_ResidEval)
-     * @param[in]            id_x                Index of the variable that is being numerically differenced to find
+     *  @param[in]           t                   Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ydot                Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
      *                                           the jacobian (defaults to -1, which indicates that no variable is being
      *                                           differenced or that the residual doesn't take this issue into account)
-     * @param[in]            delta_x             Value of the delta used in the numerical differencing
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
      *
-     * @return                                   Returns an integer that gets fed back through evalResidNJ() to the
+     *  @return                                  Returns an integer that gets fed back through evalResidNJ() to the
      *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
      *                                           of the nonlinear solver to occur.
      */
     virtual int evalResidNJ(const double t, const double delta_t, const double* const y, const double* const ydot,
                             double* const resid, const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
                             const int id_x = -1, const double delta_x = 0.0) override;
 
     //!  Residual calculation for the solution of the Nonlinear integration problem

@@ -31,7 +31,7 @@ namespace Zuzax
  *
  *  It takes as its primary object, a pointer to an Electrode object
  */
-class Electrode_ECurr : public Zuzax::ResidEval
+class Electrode_ECurr : public ResidEval
 {
 public:
 
@@ -80,7 +80,10 @@ public:
      *
      *  @return                                  Returns 0 if the evaluation was successful
      */
-    virtual int evalResidSS(const double t, const double* const x, double* const r) override {
+    virtual int evalResidSS(const double t, const double* const x, double* const r,
+                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::SteadyState_Solve) override
+    {
         // set the metal and the electrolyte voltage
         m_ee->setVoltages(x[0], 0.0);
         if (printLvl_ > 0) {
@@ -202,10 +205,15 @@ public:
      *                                           across the interface. This is the only input to the routine.
      *  @param[out]          r                   Vector of residual outputs. r[0] is defined as the  rate of production
      *                                           of electrons from the surface.
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to SteadyState_Solve
      *
      *  @return                                  Returns 1 if the evaluation was successful
      */
-    virtual int evalResidSS(const double t, const double* const x, double* const r) override {
+    virtual int evalResidSS(const double t, const double* const x, double* const r,
+                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::SteadyState_Solve) override {
         // set the metal and the electrolyte voltage
 
         ThermoPhase& mtp = m_rsd->thermo(ikMetalPhase_);

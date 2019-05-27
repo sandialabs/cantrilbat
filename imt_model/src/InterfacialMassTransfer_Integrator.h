@@ -250,13 +250,14 @@ namespace Zuzax
       
     //! Accumulate src terms and other results from the local step into the global holding bins.
     /*!
+     *  (virtual from InterfacialMassTransfer_Integrator)
+     *
      *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step and we have satisfied all accuracy requirements.
      *  The step is good. We now accumulate the results before going on to a new local step.
      */
     virtual void accumulateSrcTermsOnCompletedStep();
 
- 
 
     //! Pack the nonlinear solver problem
     /*!
@@ -287,6 +288,8 @@ namespace Zuzax
      * @param ydot          Rate of change of solution vector. (input, do not modify)
      * @param resid         Value of the residual that is computed (output)
      * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
      * @param id_x          Index of the variable that is being numerically differenced to find
      *                      the jacobian (defaults to -1, which indicates that no variable is being
      *                      differenced or that the residual doesn't take this issue into account)
@@ -299,8 +302,9 @@ namespace Zuzax
 			    const doublevalue * const ydot,
 			    doublevalue * const resid,
 			    const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
 			    const int id_x = -1, 
-			    const doublevalue delta_x = 0.0);
+			    const doublevalue delta_x = 0.0) override;
 
     //! Fill in the initial conditions
     /*! 
@@ -312,7 +316,8 @@ namespace Zuzax
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
      */
-    virtual int getInitialConditions(const doublevalue t0, doublevalue * const y, doublevalue * const ydot);
+    virtual int getInitialConditionsWithDot(const doublevalue t0, doublevalue * const y, 
+                                            doublevalue * const ydot) override;
       
       
     //! Return the number of equations in the equation system
@@ -320,7 +325,7 @@ namespace Zuzax
     * (virtual from NonlinearSolver)
      *
      */
-    virtual int nEquations() const;
+    virtual int nEquations() const override;
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian 
     /*!  
@@ -343,7 +348,7 @@ namespace Zuzax
      */
     virtual int calcDeltaSolnVariables(const doublevalue t, const doublevalue * const ySoln,
 				       const doublevalue * const ySolnDot, doublevalue * const deltaYSoln,
-				       const doublevalue *const solnWeights);
+				       const doublevalue *const solnWeights) override;
 
   
     //! Unpack the soln vector

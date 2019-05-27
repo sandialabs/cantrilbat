@@ -3729,13 +3729,14 @@ Electrode::phasePop_KinResid::phasePop_KinResid(Electrode* ee, size_t iphaseTarg
 {
 }
 //==================================================================================================================================
-int Electrode::phasePop_KinResid::evalResidSS(const double t, const double* const y, double* const r)
+int Electrode::phasePop_KinResid::evalResidSS(const double t, const double* const y, double* const r,
+                                              const ResidEval_Type residType, const Solve_Type solveType)
 {
     int retn = ee_->phasePopKinResid(iphaseTarget_, y, deltaTsubcycle_, r);
     return retn;
 }
 //==================================================================================================================================
-int Electrode::phasePop_KinResid::getInitialConditions(const double t0, double* const y, double* const ydot)
+int Electrode::phasePop_KinResid::getInitialConditionsWithDot(const double t0, double* const y, double* const ydot)
 {
     size_t ne = nEquations();
     for (size_t k = 0; k < ne; k++) {
@@ -4030,8 +4031,8 @@ Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
 }
 //  -----------------------------------------------------------------------------------------------------------------
 int Electrode::integrate_ResidJacEval::evalResidNJ(double t, const double deltaT, const double* const y,
-                                                   const double* const ydot, double* const resid, const ResidEval_Type evalType, int id_x,
-                                                   double delta_x)
+                                                   const double* const ydot, double* const resid, const ResidEval_Type evalType,
+                                                   const Solve_Type solveType,  int id_x, double delta_x)
 {
     int retn = ee_->integrateResid(t, deltaT, y, ydot, resid, evalType, id_x, delta_x);
     return retn;
