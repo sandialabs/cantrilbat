@@ -441,12 +441,12 @@ SolNonlinear::res_error_norm(const Epetra_Vector_Owned& resid, const char* title
 }
 //==================================================================================================================================
 int
-SolNonlinear::get_jac(EpetraJac& jac, Epetra_Vector_Owned* const res,
+SolNonlinear::get_jac(EpetraJac& jac, Epetra_Vector_Owned* const resid,
                       const bool doTimeDependentResid, double time_curr, double rdelta_t,
                       const Epetra_Vector_Ghosted* solnBase_ptr, const Epetra_Vector_Ghosted* solnDotBase_ptr)
 {
     m_nfe++;
-    jac.matrixResEval(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, res, time_curr, rdelta_t, solnType_);
+    jac.matrixResEval(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, resid, time_curr, rdelta_t, solnType_);
     // Only print the residual and matrix if print flag is high and static bool is set to true
     if (m_print_flag >= 7 && s_print_NumJac) {
         string ss = "Solution Values";
@@ -454,7 +454,7 @@ SolNonlinear::get_jac(EpetraJac& jac, Epetra_Vector_Owned* const res,
         ss = "Solution Time Derivative";
         m_func->showSolutionVector(ss, time_curr, 1.0/rdelta_t, *solnDotBase_ptr);
         ss = "Residual";
-        m_func->showSolutionVector(ss, time_curr, 1.0/rdelta_t, *res);
+        m_func->showSolutionVector(ss, time_curr, 1.0/rdelta_t, *resid);
         print0_epIntVector(*m_isAlgebraic, "IsAlgebraic");
         print0_epVbrMatrix(*(jac.A_), "Nonlinear matrix");
 #ifdef DEBUG_INIT_CALCULATION
@@ -764,6 +764,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
          */
         double ff = 1.0;
         if (isS[i] == 1) {
+            // If it is arithmetically scaled, we don't care about crossing the origin or small numbers
             if ((y_new - y_curr) > (*m_ewt_deltaDamping)[i]) {
                 ff = ((*m_ewt_deltaDamping)[i]) / (y_new - y_curr);
                 ifbd = 1;

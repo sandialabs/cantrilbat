@@ -403,7 +403,6 @@ public:
 
     //! Return the global equation number given the global block number
     /*!
-     *
      * @param gbBlockNum
      * @param localRowNumInBlock
      * @return  the global equation number
@@ -439,8 +438,8 @@ public:
 
     //!  Find a delta of a solution component for use in the numerical jacobian
     /*!
-     *    @param soln      Reference to the complete solution vector
-     *    @param ieqn      local equation number of the solution vector
+     *   @param soln      Reference to the complete solution vector
+     *   @param ieqn      local equation number of the solution vector
      *
      *  @return returns the delta for the component
      */
@@ -450,7 +449,8 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   Note this is an important routine for the speed of the solution.
+     *  Note this is an important routine for the speed of the solution.
+     *
      *  @param atolDefault  Double containing the default value of atol
      *  @param soln         Current solution vector.
      *  @param atolVector   Optional vector containing the individual entries for the
@@ -484,7 +484,8 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   Note this is an important routine for the speed of the solution.
+     *  Note this is an important routine for the speed of the solution.
+     *
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                current solution vector.
      *  @param[in]           atolDeltaDamping    If non-zero, this copies the vector into the object as input.
@@ -498,6 +499,7 @@ public:
      *  (virtual from ProblemResidEval)
      *
      *  Note this is an important routine for the speed of the solution.
+     *
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                current solution vector.
      *  @param[in]           solnDot             Current solutionDot vector.
@@ -527,13 +529,13 @@ public:
 
     //! Return a const reference to the atolDAEInit vector
     /*!
-     *  @return const reference to the atolDAEInit vector
+     *  @return                                  const reference to the atolDAEInit vector
      */
     const Epetra_Vector_Owned& atolVector_DAEInit() const;
 
     //! Return a const reference to the atol_deltaDamping vector
     /*!
-     *  @return const reference to the atol delta damping vector
+     *  @return                                  const reference to the atol delta damping vector
      */
     const Epetra_Vector_Owned& atolDeltaDamping() const;
 

@@ -161,17 +161,10 @@ void GFCEO_Electrode::calcColumnScales(const double* const y, const double* cons
 }
 //===================================================================================================================================
 void GFCEO_Electrode::user_out2(const int ifunc, const double t,
-				const double delta_t,
+				const double delta_t, int time_step_num,
 				const double* const y,
 				const double* const ydot)
 {
-}
-//===================================================================================================================================
-void  GFCEO_Electrode::user_out(const int ifunc, const double t,
-				const double* y,
-				const double* ydot)
-{
-
 }
 //===================================================================================================================================
 int GFCEO_Electrode::matrixConditioning(double* const matrix, const int nrows,double* const rhs)

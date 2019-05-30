@@ -39,7 +39,8 @@ CANTERA_LIBDIR=@ct_libdir@
 CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
 CTMATH    = -L$(CANTERA_LIBDIR) -lctmath
 
-CANTERA_F2C_LIB = -L$(CANTERA_LIBDIR) -lctf2c
+# Zuzax.mak contains the necessary linking statements
+CANTERA_F2C_LIB = $(CANTERA_F2C_LIBS)
 
 .f.d:
 	@echo "$*.o: $*.f" > $*.d

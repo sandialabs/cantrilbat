@@ -294,20 +294,9 @@ public:
      * @param ydot          Rate of change of solution vector. (input)
      */
     virtual void user_out2(const int ifunc, const double t,
-                           const double delta_t,
+                           const double delta_t, int time_step_num,
                            const double* const y,
                            const double* const ydot) override;
-
-    //! This function may be used to create output at various points in the execution of an application.
-    /*!
-     *  This routine calls user_out2().
-     *
-     *  @param ifunc     identity of the call
-     * @param t             Time                    (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input)
-     */
-    virtual void user_out(const int ifunc, const double t, const double* y, const double* ydot) override;
 
     //! Multiply the matrix by another matrix that leads to better conditioning
     /*!
