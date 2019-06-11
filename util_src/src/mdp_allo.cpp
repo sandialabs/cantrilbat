@@ -98,7 +98,7 @@ const int MDP_ALLOC_INTERFACE_ERROR = -230346;
 static void mdp_alloc_eh(const char* rname, int bytes)
 {
     double cd = 0.0;
-    static char mesg[64];
+    static char mesg[512];
     if (bytes == MDP_ALLOC_INTERFACE_ERROR) {
 #ifdef MDP_MPDEBUGIO
         sprintf(mesg,"MDP_ALLOC Interface ERROR P_%d: %s", MDP_MP_my_proc, rname);
