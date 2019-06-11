@@ -585,10 +585,10 @@ protected:
      *  of the row. Values of the residual for that row can then be normalized by the value of this weight.
      *  When the tolerance in delta x is achieved, the tolerance in the residual is also achieved.
      *
-     * Here a small weighting indicates that the change in solution is
-     * very sensitive to that equation.
+     *  Here a small weighting indicates that the change in solution is
+     *  very sensitive to that equation.
      *
-     * There are several prerequisites.
+     *  There are several prerequisites.
      *    Row and column scaling must be used on the matrix.
      *    The Jacobian must have already been formed.
      */

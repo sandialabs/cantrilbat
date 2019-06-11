@@ -384,7 +384,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
@@ -395,7 +395,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
 	=======================================================================================================================
@@ -516,7 +516,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
@@ -527,7 +527,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
 	=======================================================================================================================
@@ -648,7 +648,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
@@ -659,7 +659,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
 	=======================================================================================================================
@@ -780,7 +780,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
@@ -791,7 +791,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
 	=======================================================================================================================
@@ -912,7 +912,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
@@ -923,7 +923,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
 	=======================================================================================================================

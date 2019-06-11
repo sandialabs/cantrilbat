@@ -25,7 +25,7 @@ clean:
 	cd TBP_Water_HeteroCSTR; $(MAKE) clean
 	cd TBP_Diff; $(MAKE) clean
 
-rebase:
+rebaseline:
 	cd AtoB;    $(MAKE) rebaseline 
 	cd TBP_NoDiff;    $(MAKE) rebaseline 
 	cd TBP_Water_HeteroCSTR; $(MAKE) rebaseline

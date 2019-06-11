@@ -28,5 +28,8 @@ depends:
 install:
 	cd src; $(MAKE) install
 
+rebaseline:
+	cd tests: $(MAKE) rebaseline
+
 # end of file
 

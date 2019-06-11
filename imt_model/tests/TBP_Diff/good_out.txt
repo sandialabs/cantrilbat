@@ -481,7 +481,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.8094, residTrial = 3.58431e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   3.5843E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.2328E-09  
@@ -492,7 +492,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 3.58431e-08, residTrial = 1.99087e-10
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.9909E-10
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.7296E-11  
 	=======================================================================================================================
@@ -738,7 +738,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.72443, residTrial = 2.86992e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   2.8699E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1791E-09  
@@ -749,7 +749,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.86992e-08, residTrial = 7.93882e-10
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.9388E-10
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.7973E-10  
 	=======================================================================================================================
@@ -918,7 +918,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.29046, residTrial = 3.83101e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   3.8310E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.2533E-09  
@@ -929,7 +929,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 3.83101e-08, residTrial = 1.26111e-09
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.2611E-09
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.8324E-11  
 	=======================================================================================================================
@@ -1175,7 +1175,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.85225, residTrial = 1.72756e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   1.7276E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.1941E-09  
@@ -1186,7 +1186,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.72756e-08, residTrial = 1.72961e-09
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.7296E-09
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.7685E-10  
 	=======================================================================================================================
@@ -1355,7 +1355,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 3.40978, residTrial = 1.11941e-07
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   1.1194E-07
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 6.5444E-09  
@@ -1366,7 +1366,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.11941e-07, residTrial = 7.20107e-10
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.2011E-10
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 3.5904E-10  
 	=======================================================================================================================
@@ -1612,7 +1612,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.64469, residTrial = 1.18844e-07
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   1.1884E-07
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 6.0771E-09  
@@ -1623,7 +1623,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.18844e-07, residTrial = 7.5939e-10
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.5939E-10
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.1567E-10  
 	=======================================================================================================================
@@ -1792,7 +1792,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 4.51227, residTrial = 5.04733e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   5.0473E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.2702E-09  
@@ -1803,7 +1803,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 5.04733e-08, residTrial = 1.30124e-09
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.3012E-09
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 5.3483E-10  
 	=======================================================================================================================
@@ -2049,7 +2049,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 5.05734, residTrial = 9.99566e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   9.9957E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 4.0419E-09  
@@ -2060,7 +2060,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 9.99566e-08, residTrial = 5.99099e-10
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   5.9910E-10
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 3.7197E-10  
 	=======================================================================================================================
@@ -2229,7 +2229,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 5.59834, residTrial = 7.79132e-08
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Continuing on ...
 		   residErrorNorm():  Resulting full residual norm =   7.7913E-08
 	   solve_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.8659E-09  
@@ -2240,7 +2240,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 7.79132e-08, residTrial = 1.62093e-09
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.6209E-09
 	   solve_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 6.6414E-10  
 	=======================================================================================================================

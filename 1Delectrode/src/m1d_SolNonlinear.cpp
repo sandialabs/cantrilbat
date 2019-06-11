@@ -1173,7 +1173,6 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
                            double& s1, int& loglevel, int& num_backtracks)
 {
     Epetra_Vector_Owned& step0 = *m_stp;
-    //Epetra_Vector_Owned& step1 = *m_step_2;
     int retnTrial = 0;
     bool residLoweringAccepted = false;
 

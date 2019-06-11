@@ -95,6 +95,9 @@ public:
     //!  Set the level of printing that occurs during the nonlinear solve
     /*!
      *  (virtual from SolGlobalNonlinear)
+     *
+     *  @param[in]           print_flag          Set the level of printing
+     *
      *   0 -> absolutely nothing is printed for a single time step.
      *   1 -> One line summary per time step
      *   2 -> short description, points of interest
@@ -114,6 +117,7 @@ public:
     //! Set the absolute tolerances for the solution variables
     /*!
      *  (virtual from SolGlobalNonlinear)
+     *
      *  Set the absolute tolerances used in the calculation
      *
      *  @param[in]           reltol              relative tolerance used in the nonlinear solver
