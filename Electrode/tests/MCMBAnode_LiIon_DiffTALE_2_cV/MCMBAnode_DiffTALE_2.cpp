@@ -55,7 +55,7 @@ int main(int argc, char **argv)
   // printed usage
 
   NonlinearSolver_JAC::s_TurnOffTiming = true;
-  NonlinearSolver_JAC::s_print_NumJac = true;
+  JacobianManager::s_print_Jac = true;
 
   /*
    * Process the command line arguments

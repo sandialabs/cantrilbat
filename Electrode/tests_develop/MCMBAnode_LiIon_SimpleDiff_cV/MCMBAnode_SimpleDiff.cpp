@@ -61,7 +61,6 @@ int main(int argc, char **argv)
 
   NonlinearSolver_JAC::s_TurnOffTiming = true;
   // print the numerical jacobian
-  NonlinearSolver_JAC::s_print_NumJac = true;
   JacobianManager::s_print_Jac = true;
 
   /*

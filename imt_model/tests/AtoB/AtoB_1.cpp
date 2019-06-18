@@ -58,7 +58,6 @@ int main(int argc, char **argv)
   // printed usage
 
   NonlinearSolver_JAC::s_TurnOffTiming = true;
-  NonlinearSolver_JAC::s_print_NumJac = true;
 
   /*
    * Process the command line arguments

@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Sat May  4 11:24:57 2019
+      Tue Jun 18 13:34:49 2019
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> MP_RxnExtent </electrodeTypeString>

@@ -211,7 +211,7 @@ int main(int argc, char **argv)
   // printed usage
 
   NonlinearSolver_JAC::s_TurnOffTiming = true;
-  NonlinearSolver_JAC::s_print_NumJac = true;
+  JacobianManager::s_print_Jac = true;
 
 
   Zuzax::XML_Node* xEout = getElectrodeOutputFile("solnSaveA_0_0.xml", 1);

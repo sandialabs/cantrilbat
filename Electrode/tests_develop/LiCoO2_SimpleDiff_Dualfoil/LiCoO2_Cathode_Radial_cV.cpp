@@ -55,9 +55,8 @@ int main(int argc, char **argv)
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
 
-  //VCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver_JAC::s_TurnOffTiming = true;
-  NonlinearSolver_JAC::s_print_NumJac = true;
+  JacobianManager::s_print_Jac = true;
 
   /*
    * Process the command line arguments
