@@ -55,23 +55,6 @@ class RecordTree_base;
 //! This is an Epetra_Vector consisting of a global vector of all nodes/equations on all processors.
 //typedef Epetra_Vector Epetra_Vector_GlAll;
 
-//==================================================================================================================================
-//! The types of solution problems that are solved.
-/*
-enum class Solve_Type {
-    //! Steady state solve
-    SteadyState_Solve = 0,
-    //! Time dependent solve that is time accurate
-    TimeDependentAccurate_Solve,
-    //! Specify this when we don't have a previous initially solved solution
-    //!   -> in other words the electrode objects don't have a history for a previous time step
-    TimeDependentInitial,
-    //! We solve a time dependent problem only to relax the system to steady state
-    TimeDependentRelax_Solve,
-    //! Initial conditions for a DAE system
-    DAESystemInitial_Solve
-};
-*/
 // take this out eventually
 //using Zuzax::Solve_Type;
 //==================================================================================================================================

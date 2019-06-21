@@ -29,15 +29,14 @@
 
 #include <cstdio>
 
-using namespace Zuzax;
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
 
 //==================================================================================================================================
 BoundaryCondition::BoundaryCondition() :
     title_(""),
-    lowerLim_(-1.0 * BigNumber),
-    upperLim_(BigNumber),
+    lowerLim_(-1.0 * Zuzax::BigNumber),
+    upperLim_(Zuzax::BigNumber),
     indepUnits_(""),
     depenUnits_(""),
     step_(0),
@@ -54,8 +53,8 @@ BoundaryCondition::~BoundaryCondition()
 //==================================================================================================================================
 BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
     title_(""),
-    lowerLim_(-1.0 * BigNumber),
-    upperLim_(BigNumber),
+    lowerLim_(-1.0 * Zuzax::BigNumber),
+    upperLim_(Zuzax::BigNumber),
     indepUnits_(""),
     depenUnits_(""),
     step_(0),
@@ -311,13 +310,13 @@ BCsteptable::BCsteptable(std::string filename) :
     BoundaryCondition()
 {
     //convert input file name into XML node
-    XML_Node* baseNode = get_XML_File(filename);
+    Zuzax::XML_Node* baseNode = Zuzax::get_XML_File(filename);
     //find the "boundaryCondition" node
     std::string targetName = "boundaryCondition";
-    XML_Node* bcNode = get_XML_NameID(targetName, "", baseNode);
+    Zuzax::XML_Node* bcNode = Zuzax::get_XML_NameID(targetName, "", baseNode);
     //parse this node into class data structures
     useXML(*bcNode);
-    close_XML_File(filename);
+    Zuzax::close_XML_File(filename);
 }
 //=====================================================================================================================
 //! construct from XMLnode
@@ -345,19 +344,19 @@ void BCsteptable::useXML(Zuzax::XML_Node& bcNode)
 
     //get independentVar
     //XML_Node& indVarNode = bcNode.child("independentVar");
-    ZZctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
+    ztml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
 
 
     //get dependentVar
     //XML_Node& depVarNode = bcNode.child("dependentVar");
-    ZZctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
+    ztml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
     //getNamedFloatArray(depVarNode, depenVals_, convert, depenUnits_);
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
         //XML_Node& compVarNode = bcNode.child("compareVar");
         //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
-        ZZctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
+        ztml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
 
     /*
@@ -437,13 +436,13 @@ BClineartable::BClineartable(std::string filename) :
         BoundaryCondition()
 {
     //convert input file name into XML node
-    XML_Node* baseNode = get_XML_File(filename);
+    Zuzax::XML_Node* baseNode = Zuzax::get_XML_File(filename);
     //find the "boundaryCondition" node
     std::string targetName = "boundaryCondition";
-    XML_Node* bcNode = get_XML_NameID(targetName, "", baseNode);
+    Zuzax::XML_Node* bcNode = Zuzax::get_XML_NameID(targetName, "", baseNode);
     //parse this node into class data structures
     useXML(*bcNode);
-    close_XML_File(filename);
+    Zuzax::close_XML_File(filename);
 }
 //=====================================================================================================================
 BClineartable::BClineartable(Zuzax::XML_Node& baseNode) :
@@ -473,18 +472,18 @@ void BClineartable::useXML(Zuzax::XML_Node& bcNode)
     //get independentVar
     //XML_Node& indVarNode = bcNode.child("independentVar");
     //getFloatArray(indVarNode, indepVals_, convert, indepUnits_);
-    ZZctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
+    ztml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
 
     //get dependentVar
     //XML_Node& depVarNode = bcNode.child("dependentVar");
     //getFloatArray(depVarNode, depenVals_, convert, depenUnits_);
-    ZZctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
+    ztml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
         //XML_Node& compVarNode = bcNode.child("compareVar");
         //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
-        ZZctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
+        ztml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
 
     //err("BClineartable::useXML");
@@ -551,13 +550,13 @@ BCsinusoidal::BCsinusoidal(std::string filename) :
         BoundaryCondition()
 {
     //convert input file name into XML node
-    XML_Node* baseNode = get_XML_File(filename);
+    Zuzax::XML_Node* baseNode = Zuzax::get_XML_File(filename);
     //find the "sinusoidalFunction" node
     std::string targetName = "sinusoidalFunction";
-    XML_Node* bcNode = get_XML_NameID(targetName, "", baseNode);
+    Zuzax::XML_Node* bcNode = Zuzax::get_XML_NameID(targetName, "", baseNode);
     //parse this node into class data structures
     useXML(*bcNode);
-    close_XML_File(filename);
+    Zuzax::close_XML_File(filename);
 }
 //=====================================================================================================================
 BCsinusoidal::~BCsinusoidal()
@@ -587,15 +586,15 @@ void BCsinusoidal::useXML(Zuzax::XML_Node& bcNode)
         throw m1d_Error("BCsinusoidal::useXML()", "no frequency XML node.");
     }
     //get base amplitude
-    baseDepValue_ = ZZctml::getFloat(bcNode, "baseDependentValue");
+    baseDepValue_ = ztml::getFloat(bcNode, "baseDependentValue");
     //get oscillation amplitude
-    oscAmplitude_ = ZZctml::getFloat(bcNode, "oscillationAmplitude");
+    oscAmplitude_ = ztml::getFloat(bcNode, "oscillationAmplitude");
     //get frequency of the oscillation
-    frequency_ = ZZctml::getFloat(bcNode, "frequency");
+    frequency_ = ztml::getFloat(bcNode, "frequency");
     // get the phase angle
     phaseAngle_ = 0.0;
     if (bcNode.hasChild("phaseAngle")) {
-        phaseAngle_ = ZZctml::getFloat(bcNode, "phaseAngle");
+        phaseAngle_ = ztml::getFloat(bcNode, "phaseAngle");
     } 
 
     //set 100 steps per period
@@ -608,7 +607,7 @@ void BCsinusoidal::useXML(Zuzax::XML_Node& bcNode)
 //=====================================================================================================================
 double BCsinusoidal::value(double indVar, int interval) const
 {
-    return baseDepValue_ + oscAmplitude_ * cos(2.0 * Pi * indVar * frequency_ + phaseAngle_);
+    return baseDepValue_ + oscAmplitude_ * cos(2.0 * Zuzax::Pi * indVar * frequency_ + phaseAngle_);
 }
 //=====================================================================================================================
 // Return the next value for the independent variable at which the nature of the boundary condition changes.

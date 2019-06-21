@@ -38,7 +38,7 @@
 #include <fstream>
 
 using namespace std;
-using namespace Zuzax;
+//using namespace Zuzax;
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -86,9 +86,9 @@ ProblemResidEval::ProblemResidEval(double atol) :
         } else {
             try {
                 string rr(resp_str) ;
-                double ff = fpValueCheck(rr);
+                double ff = Zuzax::fpValueCheck(rr);
                 s_printFlagEnv  = ff;
-            } catch (ZuzaxError& cE) {
+            } catch (Zuzax::ZuzaxError& cE) {
                 Zuzax::showErrors();
                 Zuzax::popError();
             }
@@ -105,7 +105,7 @@ ProblemResidEval::ProblemResidEval(double atol) :
     } else if (PSinput_ptr->Energy_equation_prob_type_ != 0) {
         throw m1d_Error("ProblemResidEval::ProblemResidEval()",
                         "Energy equation types other than 3 and 0 are unimplemented: "
-                         + int2str(PSinput_ptr->Energy_equation_prob_type_));
+                         + Zuzax::int2str(PSinput_ptr->Energy_equation_prob_type_));
     }
 
     solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
@@ -916,7 +916,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     newtime = localtime(&aclock); /* Convert time to struct tm form */
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if (mypid != 0) {
-        baseFileName += ("_" + int2str(mypid));
+        baseFileName += ("_" + Zuzax::int2str(mypid));
     }
     std::string fname = baseFileName + ".xml";
     if (solNum == 0) {
@@ -941,32 +941,32 @@ ProblemResidEval::saveSolutionEnd(const int itype,
         ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
     }
 
-    XML_Node root("--");
+    Zuzax::XML_Node root("--");
 
-    XML_Node& ct = root.addChild("ctml");
+    Zuzax::XML_Node& ct = root.addChild("ctml");
 
-    XML_Node& sim = ct.addChild("simulation");
+    Zuzax::XML_Node& sim = ct.addChild("simulation");
     //
     // Initially define the
     std::string simulationID = "0";
     if (fname == savedBase) {
-        simulationID = int2str(solNum);
+        simulationID = Zuzax::int2str(solNum);
     } else if (fname == savedAltBase) {
-        simulationID = int2str(solNumAlt);
+        simulationID = Zuzax::int2str(solNumAlt);
     }
     sim.addAttribute("id", simulationID);
-    ZZctml::addString(sim, "timestamp", asctime(newtime));
+    ztml::addString(sim, "timestamp", asctime(newtime));
     // if (desc != "")
     //  addString(sim, "description", desc);
 
-    ZZctml::addFloat(sim, "time", t, "s", "time");
+    ztml::addFloat(sim, "time", t, "s", "time");
     if (delta_t > 0.0) {
-        ZZctml::addFloat(sim, "delta_t", delta_t, "s", "time");
+        ztml::addFloat(sim, "delta_t", delta_t, "s", "time");
     } else {
-        ZZctml::addFloat(sim, "delta_t", 0.0, "s", "time");
+        ztml::addFloat(sim, "delta_t", 0.0, "s", "time");
     }
-    ZZctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
-    ZZctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
+    ztml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
+    ztml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
 
     // Get a local copy of the domain layout
     DomainLayout& DL = *DL_ptr_;
@@ -1041,7 +1041,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     }
 
     if (mypid == 0) {
-        writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
+        Zuzax::writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
     }
     Epetra_Comm* c = LI_ptr_->Comm_ptr_;
     c->Barrier();
@@ -1063,22 +1063,22 @@ void ProblemResidEval::readSolutionRecordNumber(const int iNumber, std::string b
     //
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if (mypid != 0) {
-        baseFileName += ("_" + int2str(mypid));
+        baseFileName += ("_" + Zuzax::int2str(mypid));
     }
     std::string fname = baseFileName + ".xml";
 
     //
     //    Read in the XML file
     //
-    XML_Node* xSavedSoln = get_XML_File(fname);
+    Zuzax::XML_Node* xSavedSoln = Zuzax::get_XML_File(fname);
     if (!xSavedSoln) {
         throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()", "Error could not read the file " + fname);
     }
 
-    XML_Node* simulRecord = selectSolutionRecordNumber(xSavedSoln, iNumber);
+    Zuzax::XML_Node* simulRecord = selectSolutionRecordNumber(xSavedSoln, iNumber);
     if (!simulRecord) {
         throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
-                        "Error could not find the requested record " +  int2str(iNumber));
+                        "Error could not find the requested record " +  Zuzax::int2str(iNumber));
     }
     //
     //  Now call the underlying routine that reads the record
@@ -1086,7 +1086,7 @@ void ProblemResidEval::readSolutionRecordNumber(const int iNumber, std::string b
     readSolutionXML(simulRecord, y_n_ghosted,ydot_n_ghosted, t_read, delta_t_read, delta_t_next_read);
 
     if (mypid == 0) {
-        writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
+        Zuzax::writelog("Read saved solution from  file " + fname + " as solution " + Zuzax::int2str(iNumber) + ".\n");
     }
     Epetra_Comm* c = LI_ptr_->Comm_ptr_;
     c->Barrier();
@@ -1134,9 +1134,9 @@ ProblemResidEval::readSolutionXML(Zuzax::XML_Node* simulRecord, Epetra_Vector_Gh
     // Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
 
 
-    t_read = ZZctml::getFloat(*simulRecord, "time");
-    delta_t_read = ZZctml::getFloat(*simulRecord, "delta_t");
-    delta_t_next_read = ZZctml::getFloat(*simulRecord, "delta_t_np1");
+    t_read = ztml::getFloat(*simulRecord, "time");
+    delta_t_read = ztml::getFloat(*simulRecord, "delta_t");
+    delta_t_next_read = ztml::getFloat(*simulRecord, "delta_t_np1");
 
     //
     //   Loop over the domains reading in the current solution vector
@@ -1181,24 +1181,24 @@ Zuzax::XML_Node* ProblemResidEval::selectSolutionRecordNumber(Zuzax::XML_Node* x
     /*
      *  Search for a particular global step number
      */
-    XML_Node* xctml = xmlTop;
+    Zuzax::XML_Node* xctml = xmlTop;
     if (xctml->name() != "ctml") {
         xctml = xmlTop->findByName("ctml");
         if (!xctml) {
-            throw ZuzaxError("selectSolutionRecordNumber()","Can't find the top ctml node");
+            throw Zuzax::ZuzaxError("selectSolutionRecordNumber()","Can't find the top ctml node");
         }
     }
     //
     //  Get a vector of simulation children, and then pick the record number from that
     //
-    std::vector<XML_Node*> ccc;
+    std::vector<Zuzax::XML_Node*> ccc;
     xctml->getChildren("simulation", ccc);
     int sz = ccc.size();
     if (globalRecordNumber < 0 || globalRecordNumber >= sz) {
-        throw ZuzaxError("selectSolutionRecordNumber()",
-                           "Can't find the global record number " + int2str(globalRecordNumber));
+        throw Zuzax::ZuzaxError("selectSolutionRecordNumber()",
+                           "Can't find the global record number " + Zuzax::int2str(globalRecordNumber));
     }
-    XML_Node* xs = ccc[globalRecordNumber];
+    Zuzax::XML_Node* xs = ccc[globalRecordNumber];
 
     return xs;
 }
@@ -1214,7 +1214,7 @@ Zuzax::XML_Node* ProblemResidEval::selectSolutionTimeStepID(Zuzax::XML_Node* xSo
     /*
      *  Search for a particular global step number
      */
-    XML_Node* eRecord = xSoln->findNameID("simulation", timeStepID);
+    Zuzax::XML_Node* eRecord = xSoln->findNameID("simulation", timeStepID);
     if (!eRecord) {
         throw m1d_Error("selectSolutionTimeStepID()", "Solution record for following id not found : " + timeStepID);
     }
@@ -1284,28 +1284,28 @@ void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependen
     // residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
 
     int indentSpaces = 4;
-    string indent = "    ";
+    std::string indent = "    ";
     const char* ind = indent.c_str();
     if (!mypid || duplicateOnAllProcs) {
         sprintf(buf, "%s", ind);
         sprint_line(buf, "-", 100);
-        writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
-        writelog(buf);
-        if (solveType == Solve_Type::TimeDependentInitial_Solve) {
+        Zuzax::writelog(buf);
+        if (solveType == Zuzax::Solve_Type::TimeDependentInitial_Solve) {
             sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind,
                     delta_t);
         } else {
             sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
         }
-        writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-        writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
-        writelog(buf);
+        Zuzax::writelog(buf);
         sprintf(buf, "%s", ind);
         sprint_line(buf, "-", 100);
-        writelog(buf);
+        Zuzax::writelog(buf);
     }
 
     Domain1D* d_ptr = DL.SurDomain1D_List[0];
@@ -1339,7 +1339,7 @@ void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependen
     if (!mypid || duplicateOnAllProcs) {
         sprintf(buf, "%s", ind);
         sprint_line(buf, "-", 100);
-        writelog(buf);
+        Zuzax::writelog(buf);
     }
 
     Epetra_Comm* c = LI_ptr_->Comm_ptr_;
@@ -1798,12 +1798,12 @@ ProblemResidEval::GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRow
 #ifdef DEBUG_MODE
     if (gbBlockNum < 0 || gbBlockNum >= GI_ptr_->NumGbNodes) {
         throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "gbBlockNum out of range: "
-                        + int2str(gbBlockNum) + "\n");
+                        + Zuzax::int2str(gbBlockNum) + "\n");
     }
     int indexStart = GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum];
     if ((localRowNumInBlock < 0) || (localRowNumInBlock >= GI_ptr_->NumEqns_GbNode[gbBlockNum])) {
         throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "localRowNumInBlock out of range: "
-                        + int2str(localRowNumInBlock) + "\n");
+                        + Zuzax::int2str(localRowNumInBlock) + "\n");
     }
     return indexStart + localRowNumInBlock;
 #else
@@ -2036,7 +2036,7 @@ void ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra
 const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
 {
     if (!m_atolVector) {
-        throw ZuzaxError("ProblemResidEval:: atolVector()",
+        throw Zuzax::ZuzaxError("ProblemResidEval:: atolVector()",
                            "m_atolVector vector hasn't been malloced yet. This is done when an initial guess "
                            "to the solution is supplied");
     }
@@ -2047,7 +2047,7 @@ const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
 const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 {
     if (!m_atolVector_DAEInit) {
-        throw ZuzaxError("ProblemResidEval:: atolVector_DAEInit()",
+        throw Zuzax::ZuzaxError("ProblemResidEval:: atolVector_DAEInit()",
                            "m_atolVector_DAEInit vector hasn't been malloced yet. This is done when an initial guess "
                            "to the solution is supplied");
     }
@@ -2060,7 +2060,7 @@ const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 const Epetra_Vector_Ghosted& ProblemResidEval::atolDeltaDamping() const
 {
     if (!m_atolDeltaDamping) {
-        throw ZuzaxError("ProblemResidEval:: atol_deltaDamping()",
+        throw Zuzax::ZuzaxError("ProblemResidEval:: atol_deltaDamping()",
                            "m_atolDeltaDamping vector hasn't been malloced yet");
     }
     return *m_atolDeltaDamping;

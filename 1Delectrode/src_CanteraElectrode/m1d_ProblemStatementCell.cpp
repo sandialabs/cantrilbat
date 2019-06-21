@@ -28,8 +28,6 @@ using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 
-using namespace Zuzax;
-
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -827,14 +825,14 @@ ProblemStatementCell::post_process_input(BEInput::BlockEntry* cf)
                     le = be->searchLineEntry("Region");
                     le_str = dynamic_cast<LE_OneStr*>(le);
                     ep->regions = le_str->currentTypedValue();
-                    string ss = lowercase(ep->regions);
+                    std::string ss = Zuzax::lowercase(ep->regions);
 
                     le = be->searchLineEntry("Volume Fraction");
                     BEInput::LE_OneDbl*  le_dbl = dynamic_cast<LE_OneDbl*>(le);
                     ep->volFraction = le_dbl->currentTypedValue();
 
                     std::vector<std::string> v;
-                    tokenizeString(ss, v);
+                    Zuzax::tokenizeString(ss, v);
                     for (size_t i = 0; i < v.size(); ++i) {
                         if (v[i] == "all") {
                             ep->bregionID[0] = 0;
@@ -858,7 +856,7 @@ ProblemStatementCell::post_process_input(BEInput::BlockEntry* cf)
             }
         }
         if (!found) {
-            throw m1d_Error("post_process", "didn't find the extra phase " + int2str(k));
+            throw m1d_Error("post_process", "didn't find the extra phase " + Zuzax::int2str(k));
         }
     }
 
@@ -889,12 +887,12 @@ ProblemStatementCell::post_process_input(BEInput::BlockEntry* cf)
     }
 }
 //===================================================================================================================================
-void ProblemStatementCell::readAnodeInputFile(Electrode_Factory* f)
+void ProblemStatementCell::readAnodeInputFile(Zuzax::Electrode_Factory* f)
 {
     /**
      * set up anode ELECTRODE_KEY_INPUT based on anodeFile_
      */
-    ELECTRODE_KEY_INPUT* ei_tmp = new ELECTRODE_KEY_INPUT();
+    Zuzax::ELECTRODE_KEY_INPUT* ei_tmp = new Zuzax::ELECTRODE_KEY_INPUT();
     /**
      * Initialize a block input structure for the command file
      */
@@ -912,7 +910,7 @@ void ProblemStatementCell::readAnodeInputFile(Electrode_Factory* f)
      * Given the electrodeModelName from first parse, go through and
      * recreate this object.  TODO: create it properly the first time...
      */
-    anode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName, f);
+    anode_input_ = Zuzax::newElectrodeKeyInputObject(ei_tmp->electrodeModelName, f);
     // anode_input_->printLvl_ = 3;
     /*
      *  Parse the complete child input file
@@ -929,7 +927,7 @@ void ProblemStatementCell::readAnodeInputFile(Electrode_Factory* f)
         std::cout << "Warning::ProblemStatementCell() : anode thickness not specified" << std::endl;
     }
     if (anode_input_->electrodeGrossDiameter > 0.0) {
-        anode_input_->electrodeGrossArea = 0.25 * Pi
+        anode_input_->electrodeGrossArea = 0.25 * Zuzax::Pi
                                            * anode_input_->electrodeGrossDiameter
                                            * anode_input_->electrodeGrossDiameter;
     }
@@ -939,12 +937,12 @@ void ProblemStatementCell::readAnodeInputFile(Electrode_Factory* f)
 
 }
 //===================================================================================================================================
-void ProblemStatementCell::readCathodeInputFile(Electrode_Factory* f)
+void ProblemStatementCell::readCathodeInputFile(Zuzax::Electrode_Factory* f)
 {
     /**
      * set up cathode ELECTRODE_KEY_INPUT based on cathodeFile_
      */
-    ELECTRODE_KEY_INPUT* ei_tmp = new ELECTRODE_KEY_INPUT();
+    Zuzax::ELECTRODE_KEY_INPUT* ei_tmp = new Zuzax::ELECTRODE_KEY_INPUT();
     /**
      * Initialize a block input structure for the command file
      */
@@ -979,7 +977,7 @@ void ProblemStatementCell::readCathodeInputFile(Electrode_Factory* f)
         std::cout << "Warning::ProblemStatementCell() : cathode thickness not specified" << std::endl;
     }
     if (cathode_input_->electrodeGrossDiameter > 0.0) {
-        cathode_input_->electrodeGrossArea = 0.25 * Pi * cathode_input_->electrodeGrossDiameter *
+        cathode_input_->electrodeGrossArea = 0.25 * Zuzax::Pi * cathode_input_->electrodeGrossDiameter *
                                              cathode_input_->electrodeGrossDiameter;
     }
     if (!(cathode_input_->electrodeGrossArea > 0.0)) {
@@ -995,7 +993,7 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
     if (anode_input_->electrodeGrossArea > 0.0) {
         electrodeGrossAreaA = anode_input_->electrodeGrossArea;
     } else if (anode_input_->electrodeGrossDiameter > 0.0) {
-        electrodeGrossAreaA = Pi * 0.25 * anode_input_->electrodeGrossDiameter * anode_input_->electrodeGrossDiameter;
+        electrodeGrossAreaA = Zuzax::Pi * 0.25 * anode_input_->electrodeGrossDiameter * anode_input_->electrodeGrossDiameter;
     } else {
         throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()","Unknown case");
     }
@@ -1005,7 +1003,7 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
     if (cathode_input_->electrodeGrossArea > 0.0) {
         electrodeGrossAreaC = cathode_input_->electrodeGrossArea;
     } else if (anode_input_->electrodeGrossDiameter > 0.0) {
-        electrodeGrossAreaC = Pi * 0.25 * cathode_input_->electrodeGrossDiameter * cathode_input_->electrodeGrossDiameter;
+        electrodeGrossAreaC = Zuzax::Pi * 0.25 * cathode_input_->electrodeGrossDiameter * cathode_input_->electrodeGrossDiameter;
     } else {
         throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()","Unknown case");
     }
@@ -1086,7 +1084,7 @@ ProblemStatementCell::InitForInput()
     const Zuzax::Elements* eObj = pl->globalElements();
 
     for (int e = 0; e < nTotElements_; e++) {
-        string eName = eObj->elementName(e);
+        std::string eName = eObj->elementName(e);
         strncpy(ElementNames_[e], eName.c_str(), MPEQUIL_MAX_NAME_LEN);
     }
 

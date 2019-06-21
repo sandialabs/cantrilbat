@@ -748,19 +748,19 @@ void SurDomain_CathodeCollector::saveDomain(Zuzax::XML_Node& oNode, const Epetra
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos();
-    ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
+        ztml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
     }
     string nm = "Volts(CurrentCCVoltage)";
-    ZZctml::addFloat(inlt, nm, phiCathodeCC_, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, nm, phiCathodeCC_, "", "", Zuzax::Undef, Zuzax::Undef);
 
 }
 //===================================================================================================================================

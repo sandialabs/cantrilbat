@@ -556,19 +556,19 @@ SurDomain_AnodeCollector::saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos();
-    ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
 
     for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         std::string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         std::string type = VarType::VarMainName(vv.VariableType);
-        ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
+        ztml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
     }
     std::string nm = "Volts(AnodeCCVoltage)";
-    ZZctml::addFloat(inlt, nm, phiAnodeCC_, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, nm, phiAnodeCC_, "", "", Zuzax::Undef, Zuzax::Undef);
 }
 //==================================================================================================================================
 } 

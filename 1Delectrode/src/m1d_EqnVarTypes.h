@@ -104,9 +104,9 @@ public:
   char VariableSubTypeName[24];
 };
 //==================================================================================================================================
-//! This class contains a name of a variable
+//! This class contains a name of an equation
 /*!
- *   The class is used to identify variables.
+ *   The class is used to identify equation
  */
 class EqnType {
 public:

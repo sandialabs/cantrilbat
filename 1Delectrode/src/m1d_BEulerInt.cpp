@@ -35,7 +35,6 @@ extern int iTimeStep_HKM;
 #include <fstream>
 
 using namespace std;
-using namespace Zuzax;
 using namespace m1d;
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler {
@@ -69,7 +68,7 @@ static void print_line(const char *str, int n)
  * Zuzax Error handler in the initialization list
  */
 BEulerErr::BEulerErr(std::string msg) :
-        ZuzaxError("BEulerInt", msg)
+        Zuzax::ZuzaxError("BEulerInt", msg)
 {
 }
 //=====================================================================================================================
@@ -769,8 +768,8 @@ double BEulerInt::soln_error_norm(const Epetra_Vector &delta_y, const int printL
                     int iLcNode;
                     int iGbNode;
                     int iNodeEqnNum;
-                    VarType var;
-                    VAR_TYPE_SUBNUM vtsub;
+                    m1d::VarType var;
+                    m1d::VAR_TYPE_SUBNUM vtsub;
                     std::string vstring = m_func->variableID(i, iLcNode, iGbNode, iNodeEqnNum, var, vtsub);
                     string v16 = var.VariableName(16);
                     ss.print0("\t\t   %4d %24s-%-4d    %12.4e  | %12.4e %12.4e %12.4e %12.4e\n", idGlobalEqnMax, v16.c_str(),
@@ -1266,8 +1265,8 @@ double BEulerInt::time_error_norm() const
                         int iLcNode;
                         int iGbNode;
                         int iNodeEqnNum;
-                        VarType var;
-                        VAR_TYPE_SUBNUM vtsub;
+                        m1d::VarType var;
+                        m1d::VAR_TYPE_SUBNUM vtsub;
                         std::string vstring = m_func->variableID(i, iLcNode, iGbNode, iNodeEqnNum, var, vtsub);
                         string v16 = var.VariableName(16);
                         ss.print0("\t\t  %4d %24s-%-4d  %12.4e | %12.4e %12.4e %12.4e %3s %12.4e\n", idGlobalEqnMax, v16.c_str(),
@@ -2202,7 +2201,7 @@ int BEulerInt::calcConsistentInitialDerivs()
      *  to end the calculation in failure. We may change this behavior in the future, I don't know.
      */
     if (ierror < 0) {
-        throw ZuzaxError("BEulerInt::calcConsistentInitialDerivs", "Nonlinear solver failed to converge");
+        throw Zuzax::ZuzaxError("BEulerInt::calcConsistentInitialDerivs", "Nonlinear solver failed to converge");
     }
 
     /*

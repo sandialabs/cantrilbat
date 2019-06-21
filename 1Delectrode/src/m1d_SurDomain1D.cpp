@@ -404,16 +404,16 @@ void SurDomain1D::saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* const 
     double x0pos = NodalVarPtr->x0NodePos();
     double xpos =  NodalVarPtr->xNodePos();
     double xfrac = NodalVarPtr->xFracNodePos();
-    ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
 
     for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         std::string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         std::string type = VarType::VarMainName(vv.VariableType);
-        ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
+        ztml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
     }
 }
 //==================================================================================================================================
@@ -456,9 +456,9 @@ SurDomain1D::readDomain(const Zuzax::XML_Node& simulationNode, Epetra_Vector* co
         exit(-1);
     }
 
-    double x0pos = ZZctml::getFloat(*domainNode_ptr, "X0", "toSI");
-    double xpos = ZZctml::getFloat(*domainNode_ptr, "X", "toSI");
-    double xfrac = ZZctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");
+    double x0pos = ztml::getFloat(*domainNode_ptr, "X0", "toSI");
+    double xpos = ztml::getFloat(*domainNode_ptr, "X", "toSI");
+    double xfrac = ztml::getFloat(*domainNode_ptr, "Xfraction", "toSI");
     NodalVarPtr->setupInitialNodePosition(x0pos, xfrac);
     NodalVarPtr->changeNodePosition(xpos);
 
@@ -467,7 +467,7 @@ SurDomain1D::readDomain(const Zuzax::XML_Node& simulationNode, Epetra_Vector* co
         std::string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         std::string type = VarType::VarMainName(vv.VariableType);
-        sval = ZZctml::getFloat(*domainNode_ptr, nm, "toSI");
+        sval = ztml::getFloat(*domainNode_ptr, nm, "toSI");
         (*soln_GLALL_ptr)[eqnStart + k] = sval;
     }
 }
@@ -1397,16 +1397,16 @@ void SurBC_Dirichlet::saveDomain(Zuzax::XML_Node& oNode, const Epetra_Vector* co
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos();
-    ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
-    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+    ztml::addFloat(inlt, "Xfraction", xfrac, "", "", Zuzax::Undef, Zuzax::Undef);
 
     for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GlAll_ptr)[eqnStart + k];
         std::string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         std::string type = VarType::VarMainName(vv.VariableType);
-        ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
+        ztml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
     }
 }
 //==================================================================================================================================

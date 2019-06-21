@@ -18,8 +18,9 @@
 #include "m1d_globals.h"
 
 using namespace std;
-using namespace Zuzax;
+//using namespace Zuzax;
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
  
@@ -141,7 +142,7 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
  
     //BDD_porousElectrode* bdde = static_cast<BDD_porousElectrode*>(&BDD_);
-    Electrode* ee =  BDD_PE_ptr_->Electrode_;
+    Zuzax::Electrode* ee =  BDD_PE_ptr_->Electrode_;
     size_t neSolid = ee->nElements();
     size_t nl =  NumLcCells;
     elem_Solid_Old_Cell_.resize(neSolid , nl, 0.0);
@@ -156,7 +157,7 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 //==================================================================================================================================
 enum Zuzax::Electrode_Capacity_Type_Enum porousElectrode_dom1D::capacityType() const
 {
-    Electrode* ee = Electrode_Cell_[0];
+    Zuzax::Electrode* ee = Electrode_Cell_[0];
     if (!ee) {
        throw m1d_Error("porousElectrode_dom1D::capacityType() Error", "Electrodes haven't been instantiated yet");
     }
@@ -230,7 +231,7 @@ porousElectrode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, cons
          * We might at this point do a final integration to make sure we nailed the conditions of the last step.
          * However, we will hold off at implementing this right now
          */
-        Electrode* ee = Electrode_Cell_[iCell];
+        Zuzax::Electrode* ee = Electrode_Cell_[iCell];
         ee->resetStartingCondition(t);
 
         size_t neSolid = ee->nElements();
@@ -355,7 +356,7 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
     
     for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
         ExtraPhase* ep = ExtraPhaseList_[jPhase];
-	ThermoPhase* tp = ep->tp_ptr;
+	Zuzax::ThermoPhase* tp = ep->tp_ptr;
 	tp->setState_TP(temp_Curr_, pres_Curr_);
 	mv = tp->molarVolume();
         volS = moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] / mv;
@@ -369,7 +370,7 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
 void porousElectrode_dom1D::initPolarizationAnalysis()
 {
     for (int iCell = 0; iCell < NumLcCells; ++iCell) {
-         Electrode* ee = Electrode_Cell_[iCell];
+         Zuzax::Electrode* ee = Electrode_Cell_[iCell];
          ee->doPolarizationAnalysis_ = true;
     }
 }
@@ -405,7 +406,7 @@ void porousElectrode_dom1D::doPolarizationAnalysis(const Epetra_Vector_Ghosted& 
 
 
     for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-         Electrode* ee = Electrode_Cell_[iCell];
+         Zuzax::Electrode* ee = Electrode_Cell_[iCell];
          if (ee->doPolarizationAnalysis_) {
             // Need to fill up the state vector
             cIndex_cc_ = iCell;
@@ -447,7 +448,7 @@ void porousElectrode_dom1D::printElectrodePolarizationRecords(bool dischargeDir)
 {
     bool subTimeStep = false;
     for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-         Electrode* ee = Electrode_Cell_[iCell];
+         Zuzax::Electrode* ee = Electrode_Cell_[iCell];
          if (ee->doPolarizationAnalysis_) {
             ee->printElectrodePolarization(subTimeStep);
          }
@@ -461,7 +462,7 @@ void porousElectrode_dom1D::agglomeratePolarizationRecords(bool dischargeDir)
     psr_agglomerate_list_.clear();
     // Create a record of them and add up all of the electon production associated with each (surf,reac)
     for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-         Electrode* ee = Electrode_Cell_[iCell];
+         Zuzax::Electrode* ee = Electrode_Cell_[iCell];
          if (ee->doPolarizationAnalysis_) {
             Zuzax::agglomerate_init(psr_agglomerate_list_ ,ee->polarSrc_list_); 
          }
@@ -477,7 +478,7 @@ void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::Polarizati
 {
     double electronP_total;
     for (size_t j = 0; j < polarSrc_agglom.size(); ++j) {
-        struct PolarizationSurfRxnResults& jpol = polarSrc_agglom[j];
+        struct Zuzax::PolarizationSurfRxnResults& jpol = polarSrc_agglom[j];
 
         // save the initial amount for reference 
         electronP_total = jpol.electronProd_;
@@ -485,7 +486,7 @@ void porousElectrode_dom1D::agglomerate_avg(std::vector<struct Zuzax::Polarizati
         jpol.electronProd_ = 0.0;
         
         for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-             Electrode* ee = Electrode_Cell_[iCell];
+             Zuzax::Electrode* ee = Electrode_Cell_[iCell];
              if (ee->doPolarizationAnalysis_) {
                 Zuzax::agglomerate_IV_add(jpol ,ee->polarSrc_list_);
              }

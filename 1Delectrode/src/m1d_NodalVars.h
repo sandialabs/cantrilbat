@@ -26,7 +26,7 @@ class DomainLayout;
 class LocalNodeIndices;
 
 //==================================================================================================================================
-//! Class that describes the environment at one node in the domain
+//! Class that describes the variable and equation environment at one node in the domain
 /*!
  *   The ordering of the equation at a single node is as follows.
  *
