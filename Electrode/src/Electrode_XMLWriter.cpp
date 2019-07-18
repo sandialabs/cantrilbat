@@ -241,8 +241,8 @@ void Electrode::loadGlobalTimeStepTFinalState(const XML_Node* const xGTS)
     if (ss != "globalTimeStep") {
         throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()", "Expected node named globalTimeStep. got " + ss);
     }
-    double deltaTime_init_init =  ZZctml::getFloat(*xGTS, "deltaTime_init_init");
-    double deltaTime_init_next =  ZZctml::getFloat(*xGTS, "deltaTime_init_next");
+    double deltaTime_init_init =  ztml::getFloat(*xGTS, "deltaTime_init_init");
+    double deltaTime_init_next =  ztml::getFloat(*xGTS, "deltaTime_init_next");
     deltaTsubcycle_init_init_  = deltaTime_init_init;
     deltaTsubcycle_init_next_  = deltaTime_init_next;
     if (xGTS->hasAttrib("index")) {
@@ -277,8 +277,8 @@ void Electrode::loadGlobalTimeStepTInitState(const XML_Node* const xGTS)
     if (ss != "globalTimeStep") {
         throw Electrode_Error("Electrode::loadGlobalTimeStepTInitState()", "Expected node named globalTimeStep. got " + ss);
     }
-    double deltaTime_init_init = ZZctml::getFloat(*xGTS, "deltaTime_init_init");
-    double deltaTime_init_next = ZZctml::getFloat(*xGTS, "deltaTime_init_next");
+    double deltaTime_init_init = ztml::getFloat(*xGTS, "deltaTime_init_init");
+    double deltaTime_init_next = ztml::getFloat(*xGTS, "deltaTime_init_next");
     deltaTsubcycle_init_init_  = deltaTime_init_init;
     deltaTsubcycle_init_next_  = deltaTime_init_next;
     if (xGTS->hasAttrib("index")) {
@@ -314,7 +314,7 @@ double Electrode::loadTimeState(const XML_Node& xTimeState)
     std::string type = xTimeState["type"];
     
     //  Get the time of the solution saved in the 
-    double time = ZZctml::getFloat(xTimeState, "time");
+    double time = ztml::getFloat(xTimeState, "time");
     
     //  Get the XML electrodeState record from the timeState XML element.
     const XML_Node* const xState = xTimeState.findByName("electrodeState");
@@ -462,7 +462,7 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
             doTrunc = true;
         }
 	//  Add a time stamp
-        ZZctml::addString(soln, "timeStamp", asctime(newtime));
+        ztml::addString(soln, "timeStamp", asctime(newtime));
 	//  Add an identification XML element
 	XML_Node* xmlID = eState_save_->writeIdentificationToXML();
 	soln.addChildToTree(xmlID);
@@ -481,17 +481,17 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
     /*
      *  Add the next time step's deltaT as a child XML element
      */
-    ZZctml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
+    ztml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
     /*
      *  Add this time step's initial deltaT try
      */
-    ZZctml::addFloat(gts, "deltaTime_init_init", deltaTsubcycle_init_init_);
+    ztml::addFloat(gts, "deltaTime_init_init", deltaTsubcycle_init_init_);
     //XML_Node& f = gts.addChild("deltaTime_init_next", deltaTsubcycle_init_next_ , fmt);
     //f.addAttribute("vtype", "float"); 
     /*
      *  Add the number of substep integrations as a child element
      */
-    ZZctml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
+    ztml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
     /*
      *  Add the child XML element, timeIncrement, to the globalTimeStep XML element.
      *  This includes the initial state, the final state, and the substep integration states.
@@ -613,7 +613,7 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
     xsoln.addAttribute("index", int2str(solnNum));
 
     //  Add a time stamp
-    ZZctml::addString(xsoln, "timeStamp", asctime(newtime));
+    ztml::addString(xsoln, "timeStamp", asctime(newtime));
 
    //   Add an identification XML element
 #ifdef DEBUG_MODE
@@ -633,13 +633,13 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
     gts.addAttribute("t_final_final", fp2str(t_final_final_, fmt));
 
     //  Add this time step's first delta T attempt
-    ZZctml::addFloat(gts, "deltaTime_init_init", deltaTsubcycle_init_init_);
+    ztml::addFloat(gts, "deltaTime_init_init", deltaTsubcycle_init_init_);
 
     //  Add the next time step's deltaT as a child XML element
-    ZZctml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
+    ztml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
 
     //  Add the number of substep integrations as a child element
-    ZZctml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
+    ztml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
     /*
      *  Add the child XML element, timeIncrement, to the globalTimeStep XML element.
      *  This includes the initial state, the final state, and the substep integration states.

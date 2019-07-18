@@ -118,19 +118,19 @@ XML_Node* EState_RadialDistrib::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
 
-    ZZctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
-    ZZctml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
-    ZZctml::addNamedString(*x, "EState_Type_String", esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_));
-    ZZctml::addInteger(*x, "fileVersionNumber",  EST_Version_lastFileRead_);
-    ZZctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
-    ZZctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
-    ZZctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
+    ztml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
+    ztml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
+    ztml::addNamedString(*x, "EState_Type_String", esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_));
+    ztml::addInteger(*x, "fileVersionNumber",  EST_Version_lastFileRead_);
+    ztml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
+    ztml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
+    ztml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
    if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
-	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
+	ztml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
     } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
-	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
+	ztml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
     } else {
-	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
+	ztml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
     }
 
     return x;
@@ -140,15 +140,15 @@ XML_Node* EState_RadialDistrib::write_electrodeState_ToXML() const
 {
     XML_Node* x = EState::write_electrodeState_ToXML();
 
-    ZZctml::addInteger(*x, "numRCells", numRCells_);
-    ZZctml::addInteger(*x, "numKRSpecies", numKRSpecies_);
-    ZZctml::addInteger(*x, "numSPhases", numSPhases_);
+    ztml::addInteger(*x, "numRCells", numRCells_);
+    ztml::addInteger(*x, "numKRSpecies", numKRSpecies_);
+    ztml::addInteger(*x, "numSPhases", numSPhases_);
 
-    ZZctml::addNamedFloatArray(*x, "rnodePos", numRCells_, DATA_PTR(rnodePos_), "m");
-    ZZctml::addNamedFloatArray(*x, "cellBoundR", numRCells_, DATA_PTR(cellBoundR_), "m");
-    ZZctml::addNamedFloatArray(*x, "concTot_SPhase_Cell", numRCells_ * numSPhases_, DATA_PTR(concTot_SPhase_Cell_), "kmol/m3");
-    ZZctml::addNamedFloatArray(*x, "concKRSpecies_Cell", numRCells_ * numKRSpecies_, DATA_PTR(concKRSpecies_Cell_), "kmol/m3");
-    ZZctml::addNamedFloatArray(*x, "spMoles_KRsolid_Cell", numRCells_ * numKRSpecies_, DATA_PTR(spMoles_KRsolid_Cell_), "kmol");
+    ztml::addNamedFloatArray(*x, "rnodePos", numRCells_, DATA_PTR(rnodePos_), "m");
+    ztml::addNamedFloatArray(*x, "cellBoundR", numRCells_, DATA_PTR(cellBoundR_), "m");
+    ztml::addNamedFloatArray(*x, "concTot_SPhase_Cell", numRCells_ * numSPhases_, DATA_PTR(concTot_SPhase_Cell_), "kmol/m3");
+    ztml::addNamedFloatArray(*x, "concKRSpecies_Cell", numRCells_ * numKRSpecies_, DATA_PTR(concKRSpecies_Cell_), "kmol/m3");
+    ztml::addNamedFloatArray(*x, "spMoles_KRsolid_Cell", numRCells_ * numKRSpecies_, DATA_PTR(spMoles_KRsolid_Cell_), "kmol");
 
     return x;
 }
@@ -157,16 +157,16 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
 {
     EState::readStateFromXML(xmlEState);
 
-    numRCells_ = ZZctml::getInteger(xmlEState, "numRCells");
-    numKRSpecies_ = ZZctml::getInteger(xmlEState, "numKRSpecies");
-    numSPhases_ = ZZctml::getInteger(xmlEState, "numSPhases");
+    numRCells_ = ztml::getInteger(xmlEState, "numRCells");
+    numKRSpecies_ = ztml::getInteger(xmlEState, "numKRSpecies");
+    numSPhases_ = ztml::getInteger(xmlEState, "numSPhases");
 
-    ZZctml::getFloatArray(xmlEState, rnodePos_, true, "", "rnodePos");
-    ZZctml::getFloatArray(xmlEState, cellBoundR_, true, "", "cellBoundR"); 
+    ztml::getFloatArray(xmlEState, rnodePos_, true, "", "rnodePos");
+    ztml::getFloatArray(xmlEState, cellBoundR_, true, "", "cellBoundR"); 
 
-    ZZctml::getFloatArray(xmlEState, concTot_SPhase_Cell_, true, "", "concTot_SPhase_Cell");
-    ZZctml::getFloatArray(xmlEState, concKRSpecies_Cell_, true, "", "concKRSpecies_Cell");
-    ZZctml::getFloatArray(xmlEState, spMoles_KRsolid_Cell_, true, "", "spMoles_KRsolid_Cell");
+    ztml::getFloatArray(xmlEState, concTot_SPhase_Cell_, true, "", "concTot_SPhase_Cell");
+    ztml::getFloatArray(xmlEState, concKRSpecies_Cell_, true, "", "concKRSpecies_Cell");
+    ztml::getFloatArray(xmlEState, spMoles_KRsolid_Cell_, true, "", "spMoles_KRsolid_Cell");
 }
 //==================================================================================================================================
 void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const Zuzax::Electrode_SimpleDiff* const emp, bool doFinal)

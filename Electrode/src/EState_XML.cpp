@@ -284,7 +284,7 @@ void ETimeState::read_ETimeState_fromXML(const Zuzax::XML_Node& xTimeState, cons
     
     std::string typeString;
     std::string timeValStr;
-    ZZctml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
+    ztml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
     time_ = fpValueCheck(timeValStr);
 
     const XML_Node* xEState = xTimeState.findByName("electrodeState");
@@ -432,9 +432,9 @@ Zuzax::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index, int windex 
      double t_final_final = endingTime();
      xtg->addAttribute("t_final_final", fp2str(t_final_final, fmt));
 
-     ZZctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
-     ZZctml::addFloat(*xtg, "deltaTime_init_init", deltaTime_init_init_);
-     ZZctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
+     ztml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
+     ztml::addFloat(*xtg, "deltaTime_init_init", deltaTime_init_init_);
+     ztml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
      XML_Node* xti = new XML_Node("timeIncrement");
      xti->addAttribute("type", "global");
      for (size_t k = 0; k < etsList_.size(); ++k) {
@@ -454,9 +454,9 @@ void ETimeInterval::read_ETimeInterval_fromXML(const Zuzax::XML_Node& xTimeInter
     }
     nn = xTimeInterval["index"];
     index_ = atoi(nn.c_str());
-    numIntegrationSubCycles_ = ZZctml::getInteger(xTimeInterval, "numIntegrationSubCycles");
-    deltaTime_init_next_ = ZZctml::getFloat(xTimeInterval, "deltaTime_init_next");
-    deltaTime_init_init_ = ZZctml::getFloat(xTimeInterval, "deltaTime_init_init");
+    numIntegrationSubCycles_ = ztml::getInteger(xTimeInterval, "numIntegrationSubCycles");
+    deltaTime_init_next_ = ztml::getFloat(xTimeInterval, "deltaTime_init_next");
+    deltaTime_init_init_ = ztml::getFloat(xTimeInterval, "deltaTime_init_init");
     const XML_Node* xTimeIncr = xTimeInterval.findByName("timeIncrement");
     std::vector<XML_Node*> xStatesList = xTimeIncr->getChildren("timeState");
     size_t num = xStatesList.size();
@@ -634,7 +634,7 @@ Zuzax::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOutpu
     }
     XML_Node* xEO = new XML_Node("electrodeOutput");
     xEO->addAttribute("index",  int2str(windex));
-    ZZctml::addString(*xEO, "timeStamp", timeStamp_);
+    ztml::addString(*xEO, "timeStamp", timeStamp_);
     XML_Node* xID = e_ID_.writeIdentificationToXML();
     xEO->addChildToTree(xID);
     for (size_t k = 0; k < etiList_.size(); ++k) {
@@ -657,7 +657,7 @@ void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(con
     nn = xElectrodeOutput["index"];
     index_ = atoi(nn.c_str());
 
-    ZZctml::getNamedStringValue(xElectrodeOutput, "timeStamp", valueString, typeString);
+    ztml::getNamedStringValue(xElectrodeOutput, "timeStamp", valueString, typeString);
     timeStamp_ = valueString;
     const XML_Node* xmlEI = xElectrodeOutput.findByName("ElectrodeIdentification");
     if (! xmlEI) {
@@ -987,7 +987,7 @@ Zuzax::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const Zuzax::XML_N
 	for (size_t n = 0; n <  xTimeStates.size(); ++n) {
 	    XML_Node* xTimeState = xTimeStates[n];
 	    std::string tt = xTimeState->attrib("type");
-	    ZZctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
+	    ztml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
 	    timeVal = Zuzax::fpValueCheck(timeValStr);
 	    printf(" type = %s  time = %g\n", tt.c_str(), timeVal);   
 	}
@@ -1000,7 +1000,7 @@ Zuzax::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const Zuzax::XML_N
 
     // Read the time
    
-    ZZctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
+    ztml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
     timeVal = fpValueCheck(timeValStr);
     XML_Node* eStateX = xTimeState->findByName("electrodeState");
 
@@ -1124,7 +1124,6 @@ esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const Zuzax::XML_N
     }
     /*
      *  Find the correct electrodeOutput XML element.
-     *   
      */
     const XML_Node* xRecord = xCTML->findNameIDIndex("electrodeOutput", "", index);
     if (!xRecord) {
