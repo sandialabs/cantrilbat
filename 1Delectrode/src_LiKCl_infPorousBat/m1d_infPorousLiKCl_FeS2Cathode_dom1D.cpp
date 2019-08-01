@@ -1344,7 +1344,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(Zuzax::XML_Node& oNode,
     NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
     varContig[i] = nv->x0NodePos();
   }
-  ZZctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
+  ztml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
 
   for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
     VarType vt = variableNameList[iVar];
@@ -1356,7 +1356,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(Zuzax::XML_Node& oNode,
       int istart = nv->EqnStart_GbEqnIndex;
       varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
     }
-    ZZctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    ztml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
 
   }
 }

@@ -107,7 +107,7 @@ namespace m1d {
     }
 
  
-    ZZctml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
+    ztml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
     int sz = X0NodePos.size();
     if (sz != NumNodes) {
       throw ZuzaxError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + Zuzax::int2str(sz) + "  " + Zuzax::int2str(NumNodes));
@@ -115,7 +115,7 @@ namespace m1d {
 
     XML_Node *xXML = bulkgXML_ptr->findByName("X");
     if (xXML) {
-      ZZctml::getFloatArray(*xXML, XNodePos);
+      ztml::getFloatArray(*xXML, XNodePos);
       sz = XNodePos.size();
       if (sz != NumNodes) {
 	throw ZuzaxError("SolnDomainBulk::readXML", "sz of XNode not right: " + int2str(sz) + "  " + int2str(NumNodes));
@@ -146,7 +146,7 @@ namespace m1d {
       VarNames.push_back(vtitle);
       VarTypes.push_back(vtype);
       std::vector<double> dataValues;
-      size_t sz = ZZctml::getFloatArray(*dataXML, dataValues, false, "", vtitle);
+      size_t sz = ztml::getFloatArray(*dataXML, dataValues, false, "", vtitle);
       if (sz != (size_t) NumNodes) {
 	throw ZuzaxError("SolnDomainBulk::readXML", "sz of data not right: " + int2str(sz) + "  " + int2str(NumNodes));
       }
@@ -200,8 +200,8 @@ namespace m1d {
 
 
 
-    XNodePos = ZZctml::getFloat(surfXML, "X");
-    X0NodePos = ZZctml::getFloat(surfXML, "X0");
+    XNodePos = ztml::getFloat(surfXML, "X");
+    X0NodePos = ztml::getFloat(surfXML, "X0");
  
     std::vector<XML_Node *> dataList; 
     surfXML.getChildren("", dataList);
@@ -218,7 +218,7 @@ namespace m1d {
       VarNames.push_back(name);
       VarTypes.push_back(type);
       std::vector<double> dataValues;
-      double val = ZZctml::getFloatCurrent(*dataXML);
+      double val = ztml::getFloatCurrent(*dataXML);
       DataValues.push_back(val);
     } 
   }

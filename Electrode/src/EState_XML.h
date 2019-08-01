@@ -139,8 +139,9 @@ private:
 //==================================================================================================================================
 //!  Class representing an EState time state object
 /*!
- *   This represents the information conatined in the "timeState" XML element. Basically, we can translate between the XML
+ *   This represents the information contained in the "timeState" XML element. Basically, we can translate between the XML
  *   representation and this class' contents.
+ *   This represents the state of an electrode at a particular time.
  */
 class ETimeState {
 

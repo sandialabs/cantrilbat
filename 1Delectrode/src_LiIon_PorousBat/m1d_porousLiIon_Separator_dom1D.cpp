@@ -2426,7 +2426,7 @@ porousLiIon_Separator_dom1D::saveDomain(Zuzax::XML_Node& oNode,
         NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
         varContig[i] = nv->x0NodePos();
     }
-    ZZctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
+    ztml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
 
     for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
         VarType vt = variableNameList[iVar];
@@ -2441,12 +2441,12 @@ porousLiIon_Separator_dom1D::saveDomain(Zuzax::XML_Node& oNode,
 	    }
             varContig[i] = (*soln_GLALL_ptr)[istart + offset];
         }
-        ZZctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+        ztml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
     }
 
     if (PS_ptr->doHeatSourceTracking_) {
        std::string nmm = "qSource_Cell_curr_";
-       ZZctml::addNamedFloatArray(gv, nmm, numNodes, &(qSource_Cell_curr_[0]), "Joule/s/m2", "");
+       ztml::addNamedFloatArray(gv, nmm, numNodes, &(qSource_Cell_curr_[0]), "Joule/s/m2", "");
     }
 
 }
