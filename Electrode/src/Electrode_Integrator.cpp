@@ -1158,7 +1158,7 @@ topConvergence:
 	    }
 #endif
             int nonlinearFlag;
-            nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
+            nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0, 0.0,
 			                                        tfinal_, *jacMng_,  num_newt_its, num_linear_solves,
 						                numBacktracks, solverPrintLvl);
             if (nonlinearFlag < 0) {

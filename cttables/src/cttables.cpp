@@ -550,7 +550,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
         P = g.refPressure();
     }
     double* y =  mdp_alloc_dbl_1(nsp, 0.0);
-    g.getReferenceComposition(y);
+    g.getSafeStateComposition(y);
 
     /*
      * We need to set the state here. Note, mass fractions
