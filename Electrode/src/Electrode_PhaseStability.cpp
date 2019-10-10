@@ -250,7 +250,9 @@ int Electrode_PhaseStability::determinePhaseStability(double& retnFunc)
     int numBacktracks = 0;
     double* ydot = 0;
     pSolve_->setRtol(1.0E-8);
-    int nonlinearFlag = pSolve_->solve_nonlinear_problem(NSOLN_TYPE_STEADY_STATE, &yval_[0], ydot, 0.0,
+    Solve_Type solveType = Solve_Type::SteadyState_Solve;
+
+    int nonlinearFlag = pSolve_->solve_nonlinear_problem(solveType, &yval_[0], ydot, 0.0,
                         time_curr, *jac_,  num_newt_its, num_linear_solves,
                         numBacktracks, printLvl_);
     if (nonlinearFlag < 0) {

@@ -1099,9 +1099,8 @@ topConvergence:
             }
 
 
-            int solnType = NSOLN_TYPE_STEADY_STATE;
-            //int solnType = NSOLN_TYPE_TIME_DEPENDENT;
-
+            //int solnType = NSOLN_TYPE_STEADY_STATE;
+            Solve_Type solveType = Solve_Type::SteadyState_Solve;
             /*
              *  Set the tolerances on the solution variables
              */
@@ -1158,7 +1157,7 @@ topConvergence:
 	    }
 #endif
             int nonlinearFlag;
-            nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0, 0.0,
+            nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solveType, &yvalNLS_[0], &ydotNLS_[0], 0.0, 0.0,
 			                                        tfinal_, *jacMng_,  num_newt_its, num_linear_solves,
 						                numBacktracks, solverPrintLvl);
             if (nonlinearFlag < 0) {

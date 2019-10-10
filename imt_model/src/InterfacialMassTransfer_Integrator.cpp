@@ -609,7 +609,6 @@ namespace Zuzax
 	 *
 	 */
 	check_nonlinResidConditions();
-	int solnType = NSOLN_TYPE_STEADY_STATE;
 
 	/*
 	 *  
@@ -642,7 +641,7 @@ namespace Zuzax
 	//loglevelInput = 15;
         pSolve_->setMinNewtIts(2);
 #endif
-	int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], CJ, 0.0,
+	int nonlinearFlag = pSolve_->solve_nonlinear_problem(Solve_Type::SteadyState_Solve, &yvalNLS_[0], &ydotNLS_[0], CJ, 0.0,
 							     time_curr, *jacPtr_,  num_newt_its, num_linear_solves,  numBacktracks, loglevelInput);
 	if (nonlinearFlag < 0) {
 	  if (printLvl_ > 2) {

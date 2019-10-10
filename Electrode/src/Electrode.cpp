@@ -3495,7 +3495,6 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                 netStoichE = rsd->netStoichCoeff(kKin_Electron, iRxn);
                 eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistancePerArea);
                 double ocvSurfRxn = OCV;
-                double ocvSurfRxn_local = ocvSurfRxn;
                 // If this reaction has an electron as a product or reactant, it can be described by an exchange current density formulation,
                 // So, create a record
                 if (eok) {
@@ -3545,6 +3544,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                                                  vpp.voltageDrop);
                         }
                         psr.voltsPol_list.push_back(vpp);
+                        psr.ocvSurfRxnAdj = 0.0;
 
                         /*
                          *  Add a possible film resistance term next.
@@ -3561,7 +3561,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                                 vpp.voltageDrop = fabs(voltsRes);
                             }
                             psr.voltsPol_list.push_back(vpp);
-                            ocvSurfRxn_local -= voltsRes;
+                            psr.ocvSurfRxnAdj -= voltsRes;
                             overPotential -= voltsRes;
                         }
 
@@ -3571,7 +3571,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                             psr.VoltageTotal = -volts;
                         }
                         psr.ocvSurf = ocvSurf;
-                        psr.ocvSurfRxn = ocvSurfRxn_local;
+                        psr.ocvSurfRxn = ocvSurfRxn;
 
                         double sa = 0.5 * (surfaceAreaRS_final_[iSurf] + surfaceAreaRS_init_[iSurf]);
                         psr.electronProd_ = sa * electronsProducedPerArea;

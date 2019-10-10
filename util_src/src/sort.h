@@ -29,6 +29,9 @@ extern void heapsort(std::vector<double>& x, std::vector<int>& y);
  */
 extern void heapsort(std::vector<double>& x,  std::vector<double>& y);
 
+template<typename T >
+void heapsortT(std::vector<double>& x,  std::vector< T >& y);
+
 }
 
 #endif
