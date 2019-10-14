@@ -25,13 +25,13 @@ TOBJS =  $(OBJS)
 
 #############################################################################
 # These links are to Cantera's install space
-CANTERA_INCROOT =  @ct_incroot@
-CANTERA_INSTALL_DIR = @ct_prefix@
-CANTERA_APPS_INSTALL_DIR =  @cta_prefix@
+ZUZAX_INCROOT =  @ct_incroot@
+ZUZAX_INSTALL_DIR = @ct_prefix@
+ZUZAX_APPS_INSTALL_DIR =  @cta_prefix@
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 #
 #############################################################################
 # These links are to Trilinos' install space
@@ -100,7 +100,7 @@ CXX = @MPICXX@
 # The directory where Zuzax include files may be found.
 #
 
-INCLUDE_DIRS = -I../src -I$(CANTERA_INCROOT) \
+INCLUDE_DIRS = -I../src -I$(ZUZAX_INCROOT) \
                $(SEAMS_INC) $(TRILINOS_INC) \
                -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR) -I../..
@@ -134,9 +134,9 @@ all:  .depends $(PROGRAM)
 
 rebaseline:
 
-$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) $(M1D_BASE_DEP)
+$(PROGRAM): $(OBJS)  $(ZUZAX_CORE_LIBS_DEP) $(UTILSRC_DEP) $(M1D_BASE_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(M1D_BASE_LIB)  $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(CANTERA_TOTAL_LIBS) $(UTILSRC_LIB) $(SEAMS_LIBS)  $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
+                  $(ZUZAX_TOTAL_LIBS) $(UTILSRC_LIB) $(SEAMS_LIBS)  $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
 
 install:
 	@INSTALL@ -d @cta_bindir@

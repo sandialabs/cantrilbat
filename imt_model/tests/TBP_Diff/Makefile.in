@@ -6,7 +6,7 @@
 # $Id: Makefile.in,v 1.1 2011/09/14 17:19:42 hkmoffa Exp $
 #
 #
-#  Build mpequil through the CANTERA_INSTALL directories.
+#  Build mpequil through the ZUZAX_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -59,7 +59,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
 all: .depends $(PROGRAM)
 
@@ -133,10 +133,10 @@ rebaseline:
 $(OBJ_MPEQUIL): Makefile
 $(DEPENDS): Makefile
 
-$(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
+$(PROGRAM): $(OBJ) $(OBJ_ZUZAX_ADDONS) $(UTILSRC_DEP) \
+               $(ZUZAX_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 #############################################################################

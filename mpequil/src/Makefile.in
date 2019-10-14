@@ -35,7 +35,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
 
 all: .depends mpequil
 
@@ -47,7 +47,7 @@ CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 OBJ_MPEQUIL= mpequil_main.o mpequil_input.o mpequil_prep.o
 
-OBJ_CANTERA_ADDONS =  importAllPhases.o
+OBJ_ZUZAX_ADDONS =  importAllPhases.o
 
 ############################################################################
 # section to set up compiler rules
@@ -77,7 +77,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 # section to set up depends
 ###########################################################################
 
-DEPENDS = $(OBJ_MPEQUIL:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
+DEPENDS = $(OBJ_MPEQUIL:.o=.d) $(OBJ_ZUZAX_ADDONS:.o=.d)
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -89,13 +89,13 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
-mpequil: $(OBJ_MPEQUIL) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-         $(CANTERA_CORE_LIBS_DEP)
+mpequil: $(OBJ_MPEQUIL) $(OBJ_ZUZAX_ADDONS) $(UTILSRC_DEP) \
+         $(ZUZAX_CORE_LIBS_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o mpequil $(OBJ_MPEQUIL) \
-	          $(OBJ_CANTERA_ADDONS) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+	          $(OBJ_ZUZAX_ADDONS) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-$(OBJ_MPEQUIL) $(OBJ_CANTERA_ADDONS): Makefile
+$(OBJ_MPEQUIL) $(OBJ_ZUZAX_ADDONS): Makefile
 
 $(DEPENDS): Makefile
 

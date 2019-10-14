@@ -61,7 +61,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
 all: .dependsT LiCoO2 LiCoO2Thermo LiCoO2Thermo_M
 
@@ -145,20 +145,20 @@ $(DEPENDS): Makefile
 
 
 LiCoO2Thermo: LiCoO2Thermo.o  $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+               $(ZUZAX_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2Thermo LiCoO2Thermo.o  \
-                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 LiCoO2Thermo_M: LiCoO2Thermo_M.o $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+               $(ZUZAX_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2Thermo_M LiCoO2Thermo_M.o  \
-                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 LiCoO2:	LiCoO2.o
 	 $(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2 LiCoO2.o \
-                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 clean:

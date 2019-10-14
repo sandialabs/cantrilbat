@@ -57,7 +57,7 @@ F2C_INC=$(ZUZAX_INCROOT)/cantera
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) \
                -I$(CTPADDSSRC_DIR) \
                -I$(UTILSRC_DIR) 
 #
@@ -131,9 +131,9 @@ DEPENDS = $(OBJ_CTAPPLBASE:.o=.d)
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 ctmlDiff: ctmlDiff.o $(UTILSRC_DEP) \
-          $(CANTERA_CORE_LIBS_DEP)
+          $(ZUZAX_CORE_LIBS_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o ctmlDiff ctmlDiff.o \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 ############################################################################

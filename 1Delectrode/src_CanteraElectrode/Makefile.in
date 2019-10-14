@@ -40,14 +40,14 @@ LINK_OPTIONS =
 
 #############################################################################
 # These links are to Cantera's install space
-CANTERA_INCROOT =  @ct_incroot@
-CANTERA_INSTALL_DIR = @ct_prefix@
-CANTERA_APPS_INSTALL_DIR = @cta_prefix@
+ZUZAX_INCROOT =  @ct_incroot@
+ZUZAX_INSTALL_DIR = @ct_prefix@
+ZUZAX_APPS_INSTALL_DIR = @cta_prefix@
 
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 #
 #
 TRILINOS_DIR=@trilinos_root@
@@ -85,7 +85,7 @@ CXX = @MPICXX@
 #
 
 INCLUDE_DIRS = -I../src \
-		$(CANTERA_TOTAL_INCLUDES) \
+		$(ZUZAX_TOTAL_INCLUDES) \
 		$(APPL_BASE_INC) \
 	        $(TRILINOS_INC) \
                -I$(MPI_INCLUDE_DIR) \

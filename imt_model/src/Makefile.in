@@ -28,17 +28,17 @@ include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 #
 # Setup The Zuzax Interface
-CANTERA_LIBDIR=@ct_libdir@
-CANTERA_LIBS= -lkinetics -ltransport -lthermo -lctnumerics -lctbase -lctmath -lctlapack -lctcxx -ltpx
+ZUZAX_LIBDIR=@ct_libdir@
+ZUZAX_LIBS= -lkinetics -ltransport -lthermo -lctnumerics -lctbase -lctmath -lctlapack -lctcxx -ltpx
 
-CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
+CT_TRANSPORT_LIBDEP=$(ZUZAX_LIBDIR)/libtransport.a
 
 
 PURIFY=@PURIFY@
 
 # Find the Build root for Cantera
 #
-CANTERA_BUILD_ROOT=@ctb_root@
+ZUZAX_BUILD_ROOT=@ctb_root@
 #
 UTILSRC_DIR=../../util_src/src
 CTPADDSSRC_DIR=../../ctpadds/src
@@ -52,7 +52,7 @@ F2C_INC=$(CT_INCROOT)/cantera
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) \
                -I$(CTPADDSSRC_DIR) \
                -I$(UTILSRC_DIR) 
 #

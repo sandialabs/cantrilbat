@@ -39,7 +39,7 @@ CT_INCROOT=@ct_incroot@
 include $(CT_INCROOT)/zuzax/Zuzax.mak
 
 # Define the include directories
-INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
+INCLUDE_DIRS =  $(ZUZAX_TOTAL_INCLUDES)
 
 # the C++ compiler
 CXX = @CXX@
@@ -68,9 +68,9 @@ PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
 all: $(PROGRAM) .dependsT
 
-$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
+$(PROGRAM): $(OBJS)  $(ZUZAX_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
-	          $(CANTERA_TOTAL_LIBS) \
+	          $(ZUZAX_TOTAL_LIBS) \
 	          $(LCXX_END_LIBS)
 
 $(OBJS): Makefile

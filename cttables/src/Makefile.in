@@ -15,12 +15,12 @@
 #
 
 # These links are to Cantera's install space
-CANTERA_INCROOT =  @ct_incroot@
+ZUZAX_INCROOT =  @ct_incroot@
 
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 
 #
 # Set up the Zuzax addition library
@@ -58,7 +58,7 @@ PURIFY=@PURIFY@
 
 OBJ_CTTABLES= cttables.o cttables_kin.o cttInput.o sortAlgorithms.o cttables_thermo.o 
 
-OBJ_CANTERA_ADDONS =   ReactingVolDomain.o
+OBJ_ZUZAX_ADDONS =   ReactingVolDomain.o
 
 CTTABLES_EXE=cttables$(EXE_EXT)
 ATOFCHECKER_EXE=atofChecker$(EXE_EXT)
@@ -85,7 +85,7 @@ CFLAGS = @CXXFLAGS@
 LDEFINES = -DDEBUG -DDEBUG_HKM_ETABLE -DDEBUG_ROOT1D
 #LDEFINES = -DDEBUG -DDEBUG_JCH_ETABLE -DCENTERED_VOLTAGE_TABLE -DDEBUG_ROOT1D
 
-INCLUDE_DIRS= $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  
+INCLUDE_DIRS= $(ZUZAX_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  
 
 #
 # Both the C and C++ compiler predefines
@@ -97,7 +97,7 @@ CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS)
 .cpp.o: 
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
+DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_ZUZAX_ADDONS:.o=.d)
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -111,7 +111,7 @@ DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
 depends: 
 	$(MAKE) .depends
 
-$(OBJ_CTTABLES) $(OBJ_CANTERA_ADDONS): Makefile
+$(OBJ_CTTABLES) $(OBJ_ZUZAX_ADDONS): Makefile
 
 $(DEPENDS): Makefile
 
@@ -122,16 +122,16 @@ else
 LIBF2C= 
 endif
 
-$(CTTABLES_EXE): $(OBJ_CTTABLES) $(OBJ_CANTERA_ADDONS) $(CTPADDS_DEP) \
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+$(CTTABLES_EXE): $(OBJ_CTTABLES) $(OBJ_ZUZAX_ADDONS) $(CTPADDS_DEP) \
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(CTTABLES_EXE) $(OBJ_CTTABLES) \
-	          $(OBJ_CANTERA_ADDONS) $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+	          $(OBJ_ZUZAX_ADDONS) $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-$(ATOFCHECKER_EXE): atofChecker.o  $(CANTERA_CORE_LIBS_DEP)
+$(ATOFCHECKER_EXE): atofChecker.o  $(ZUZAX_CORE_LIBS_DEP)
 	$(CXXLDR) $(LCXX_FLAGS) -o $(ATOFCHECKER_EXE) atofChecker.o  \
-                  $(CANTERA_TOTAL_LIBS) \
+                  $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 

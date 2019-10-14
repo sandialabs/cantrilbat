@@ -61,7 +61,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 #
 ##################################################################################################################
 #                          SECTION TO SET UP COMPILER RULES 
@@ -95,11 +95,11 @@ LCXX_END_LIBS = @LCXX_END_LIBS@
 #
 $(OBJ_PROG): Makefile
 #
-$(PROGRAM): $(OBJ_PROG) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
+$(PROGRAM): $(OBJ_PROG) $(OBJ_ZUZAX_ADDONS) $(UTILSRC_DEP) \
+               $(ZUZAX_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_PROG) \
-	          $(OBJ_CANTERA_ADDONS)  \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+	          $(OBJ_ZUZAX_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 #
 #######################################################################################################################

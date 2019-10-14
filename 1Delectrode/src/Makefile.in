@@ -37,13 +37,13 @@ TOBJS = Multi1DDomain.o tddiff.o  $(M1D_OBJS) $(BE_OBJS) $(NOBJS)
 
 #############################################################################
 # These links are to Cantera's install space
-CANTERA_INCROOT =  @ct_incroot@
-CANTERA_INSTALL_DIR = @ct_prefix@
-CANTERA_APPS_INSTALL_DIR = @cta_prefix@
+ZUZAX_INCROOT =  @ct_incroot@
+ZUZAX_INSTALL_DIR = @ct_prefix@
+ZUZAX_APPS_INSTALL_DIR = @cta_prefix@
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 #
 ###################################################################################################
 #
@@ -110,7 +110,7 @@ PURIFY=@PURIFY@
 # The directory where Zuzax include files may be found.
 #
 
-INCLUDE_DIRS = -I../.. -I$(CANTERA_INCROOT) \
+INCLUDE_DIRS = -I../.. -I$(ZUZAX_INCROOT) \
 	        $(TRILINOS_INC) \
                -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR)
@@ -162,13 +162,13 @@ libm1d.a: $(M1D_OBJS) $(BE_OBJS)
 	touch libm1d.a
 
 
-Multi1DDomain: Multi1DDomain.o $(M1D_OBJS)  $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
+Multi1DDomain: Multi1DDomain.o $(M1D_OBJS)  $(NOBJS) $(ZUZAX_CORE_LIBS_DEP) $(UTILSRC_DEP)
 	$(PURIFY) $(CXX) -o Multi1DDomain Multi1DDomain.o $(M1D_OBJS)  \
-                 $(APPL_BASE_LIB)  $(CANTERA_TOTAL_LIBS)  $(UTILSRC_LIB)   $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
+                 $(APPL_BASE_LIB)  $(ZUZAX_TOTAL_LIBS)  $(UTILSRC_LIB)   $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
 
-tddiff: tddiff.o $(M1D_OBJS) $(BE_OBJS) $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
+tddiff: tddiff.o $(M1D_OBJS) $(BE_OBJS) $(NOBJS) $(ZUZAX_CORE_LIBS_DEP) $(UTILSRC_DEP)
 	$(PURIFY) $(CXX) -o tddiff tddiff.o $(M1D_OBJS)  $(BE_OBJS)  \
-                  $(CANTERA_TOTAL_LIBS) $(UTILSRC_LIB)  $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
+                  $(ZUZAX_TOTAL_LIBS) $(UTILSRC_LIB)  $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
 
 
 install:
@@ -177,7 +177,7 @@ install:
 	@ @INSTALL@ -d @cta_bindir@
 	@$(INSTALL_TSC) libm1d.a  @cta_libdir@
 	@(for lh in $(M1D_HDRS) $(BE_HDRS) ; do \
-          $(INSTALL_TSC) "$${lh}" $(CANTERA_APPS_INSTALL_DIR)/include ; \
+          $(INSTALL_TSC) "$${lh}" $(ZUZAX_APPS_INSTALL_DIR)/include ; \
         done)
 	@$(INSTALL_TSC)  tddiff @cta_bindir@
 	@$(INSTALL_TSC) Multi1DDomain @cta_bindir@
@@ -208,7 +208,7 @@ clean:
 dist_clean:
 	$(MAKE) clean
 	for fff in $(M1D_HDRS) $(BE_HDRS) ; do \
-           $(RM) $(CANTERA_APPS_INSTALL_DIR)/include/$$fff ; \
+           $(RM) $(ZUZAX_APPS_INSTALL_DIR)/include/$$fff ; \
 	done
 	$(RM) @cta_libdir@/libm1d.a
 	$(RM) @cta_bindir@/tddiff

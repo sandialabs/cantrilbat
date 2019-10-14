@@ -64,7 +64,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
 all: .dependsT MCMB MCMBThermo 
 
@@ -135,16 +135,16 @@ $(OBJ_ALL): Makefile
 $(DEPENDS): Makefile
 $(DEPENDS): MCMBThermo.cpp MCMB.cpp
 
-MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-            $(CANTERA_CORE_LIBS_DEP)
+MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_ZUZAX_ADDONS) $(UTILSRC_DEP) \
+            $(ZUZAX_CORE_LIBS_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBThermo MCMBThermo.o \
-	          $(OBJ_CANTERA_ADDONS)  \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+	          $(OBJ_ZUZAX_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-MCMB: MCMB.o $(CANTERA_CORE_LIBS_DEP)
+MCMB: MCMB.o $(ZUZAX_CORE_LIBS_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMB MCMB.o \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 test_clean:
 	$(RM) err_out.txt out.txt  MCMBThermo_RSD_Override.out MCMB.out diff_csv.txt diff_out.txt \

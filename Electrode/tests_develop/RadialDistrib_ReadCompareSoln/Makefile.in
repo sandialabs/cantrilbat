@@ -63,7 +63,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(ELECTRODE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
 all: .depends $(PROGRAM)
 
@@ -73,7 +73,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
-OBJ_CANTERA_ADDONS =  
+OBJ_ZUZAX_ADDONS =  
 
 ############################################################################
 # section to set up compiler rules
@@ -127,11 +127,11 @@ rebaseline:
 $(OBJ): Makefile
 $(DEPENDS): Makefile
 
-$(PROGRAM):  readEStateTest.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+$(PROGRAM):  readEStateTest.o $(OBJ_ZUZAX_ADDONS) $(UTILSRC_DEP) \
+               $(ZUZAX_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) readEStateTest.o \
-                  $(OBJ_CANTERA_ADDONS)  -lgtest \
-                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(OBJ_ZUZAX_ADDONS)  -lgtest \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 clean:

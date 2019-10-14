@@ -13,9 +13,9 @@ RM = /bin/rm -f
 #
 # The directory where Zuzax include files may be found.
 #
-CANTERA_INCROOT=@ct_incroot@
+ZUZAX_INCROOT=@ct_incroot@
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 #
 CADS_ROOT=@cads_root@
 CADS_UTILSRC_DIR=$(CADS_ROOT)/util_src
@@ -26,7 +26,7 @@ LDEFINES = -DDEBUG  -DDEBUG_TEST
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = -I../../src $(CANTERA_TOTAL_INCLUDES) \
+INCLUDE_DIRS = -I../../src $(ZUZAX_TOTAL_INCLUDES) \
                -I$(CADS_UTILSRC_DIR) 
 #
 # the C++ compiler
@@ -88,10 +88,10 @@ depends:
 #
 phaseDiagram.d: phaseDiagram.cpp
 
-phaseDiagram: phaseDiagram.o  $(CANTERA_CORE_LIBS_DEP) 
+phaseDiagram: phaseDiagram.o  $(ZUZAX_CORE_LIBS_DEP) 
 	$(CXXLDR) $(LCXX_FLAGS) $(FLIB_BSD) -o phaseDiagram \
                   phaseDiagram.o \
-                  $(CANTERA_TOTAL_LIBS)\
+                  $(ZUZAX_TOTAL_LIBS)\
                   $(LCXX_END_LIBS) 
 
 test:

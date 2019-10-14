@@ -15,8 +15,8 @@
 #           Setup The Zuzax Directory locations
 ##########################################################################
 #
-CANTERA_INCROOT=@ct_incroot@
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+ZUZAX_INCROOT=@ct_incroot@
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 #
 #
 UTILSRC_DIR=../../util_src/src
@@ -31,7 +31,7 @@ GDEFINES = -DDEBUG_ROOT1D
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
 
 all: .dependsT epequil
 
@@ -46,7 +46,7 @@ CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 OBJ_EPEQUIL= epequil_main.o epequil_input.o epequil_prep.o
 
 
-OBJ_CANTERA_ADDONS =  importAllPhases.o IdealSolidSolnPhase.o
+OBJ_ZUZAX_ADDONS =  importAllPhases.o IdealSolidSolnPhase.o
 
 #
 # the C++ compiler
@@ -93,9 +93,9 @@ ifeq ($(BUILD_WITH_CTF2C), 1)
 LIBF2C= -lctf2c
 endif
 
-epequil: $(OBJ_EPEQUIL) $(OBJ_CANTERA_ADDONS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) 
+epequil: $(OBJ_EPEQUIL) $(OBJ_ZUZAX_ADDONS) $(ZUZAX_CORE_LIBS_DEP) $(UTILSRC_DEP) 
 	$(CXXLDR) $(LCXX_FLAGS) -o epequil $(OBJ_EPEQUIL) \
-	          $(OBJ_CANTERA_ADDONS) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+	          $(OBJ_ZUZAX_ADDONS) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 clean:

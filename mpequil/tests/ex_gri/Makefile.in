@@ -29,7 +29,7 @@ CT_INCROOT=@ct_incroot@
 # Bring in the Zuzax includes through the .mak file
 include $(CT_INCROOT)/zuzax/Zuzax.mak
 
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES)
 
 # C++ compile flags
 CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS)
@@ -56,9 +56,9 @@ PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
 all: $(PROGRAM) .depends
 
-$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
+$(PROGRAM): $(OBJS)  $(ZUZAX_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(CANTERA_TOTAL_LIBS) \
+                  $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS)
 
 

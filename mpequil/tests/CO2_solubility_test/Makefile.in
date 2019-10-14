@@ -63,7 +63,7 @@ UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES)
 
 # C++ compile flags
 CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
@@ -72,22 +72,22 @@ CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
 LCXX_END_LIBS = @LCXX_END_LIBS@
 
 # the directory where the Zuzax libraries are located
-CANTERA_LIBDIR=@ct_libdir@
+ZUZAX_LIBDIR=@ct_libdir@
 
 #
 # Setup The Zuzax Interface
 #
-CANTERA_LIBDIR=@ct_libdir@
+ZUZAX_LIBDIR=@ct_libdir@
 
 
 
 ifeq (@build_lapack@, 1)
-CANTERA_LAPACK_DEPS = $(CANTERA_LIBDIR)/libctblas.a  $(CANTERA_LIBDIR)/libctlapack.a
+ZUZAX_LAPACK_DEPS = $(ZUZAX_LIBDIR)/libctblas.a  $(ZUZAX_LIBDIR)/libctlapack.a
 endif
 
 
 # flags passed to the C++ compiler/linker for the linking step
-LCXX_FLAGS = -L$(CANTERA_LIBDIR)  @CXXFLAGS@
+LCXX_FLAGS = -L$(ZUZAX_LIBDIR)  @CXXFLAGS@
 
 # How to compile C++ source files to object files
 .cpp.o:
@@ -105,14 +105,14 @@ PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
 all: $(PROGRAM) CO2_solubility_1 .dependsT
 
-$(PROGRAM): CO2_solubility.o $(CANTERA_CORE_LIBS_DEP)
+$(PROGRAM): CO2_solubility.o $(ZUZAX_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) CO2_solubility.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                 $(CANTERA_TOTAL_LIBS)     \
+                 $(ZUZAX_TOTAL_LIBS)     \
                   $(LCXX_END_LIBS)
 
-CO2_solubility_1: CO2_solubility_1.o $(CANTERA_CORE_LIBS_DEP)
+CO2_solubility_1: CO2_solubility_1.o $(ZUZAX_CORE_LIBS_DEP)
 	$(CXX) -o CO2_solubility_1 CO2_solubility_1.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                 $(CANTERA_TOTAL_LIBS)     \
+                 $(ZUZAX_TOTAL_LIBS)     \
                   $(LCXX_END_LIBS)
 
 $(OBJS): Makefile

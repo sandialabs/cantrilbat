@@ -24,13 +24,13 @@ TOBJS =  $(OBJS)
 
 #############################################################################
 # These links are to Cantera's install space
-CANTERA_INCROOT =  @ct_incroot@
-CANTERA_INSTALL_DIR = @ct_prefix@
-CANTERA_APPS_INSTALL_DIR = @cta_prefix@
+ZUZAX_INCROOT =  @ct_incroot@
+ZUZAX_INSTALL_DIR = @ct_prefix@
+ZUZAX_APPS_INSTALL_DIR = @cta_prefix@
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 #
 TRILINOS_DIR=@trilinos_root@
 #
@@ -93,7 +93,7 @@ CXX = @MPICXX@
 #
 
 INCLUDE_DIRS = $(M1D_BASE_INC) -I../src_LiIon_infPorousBat $(APPL_BASE_INC) \
-               $(CANTERA_TOTAL_INCLUDES) \
+               $(ZUZAX_TOTAL_INCLUDES) \
                $(TRILINOS_INC) \
                -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR) -I../..
@@ -136,14 +136,14 @@ $(TOBJS) $(DEPENDS): Makefile
 
 rebaseline:
 
-$(PROGRAM): $(OBJS) $(M1D_BASE_DEP)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
+$(PROGRAM): $(OBJS) $(M1D_BASE_DEP)  $(ZUZAX_CORE_LIBS_DEP) $(UTILSRC_DEP) \
             $(APPL_BASE_DEP) 
 	$(CXX) -o $(PROGRAM) \
 		  $(OBJS)  \
                   $(LCXX_FLAGS) $(LINK_OPTIONS) \
 		  $(M1D_BASE_LIB) \
 		  $(APPL_BASE_LIB) \
-                  $(CANTERA_TOTAL_LIBS) \
+                  $(ZUZAX_TOTAL_LIBS) \
 		  $(UTILSRC_LIB) \
                   $(TRILINOS_LIB_LINE) \
 		  -lgfortran $(LMPICXX_END_LIBS)

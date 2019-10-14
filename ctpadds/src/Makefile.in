@@ -14,9 +14,9 @@ MPI_INC = -I$(MPIHOME)/include
 MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
 #
 # Setup The Zuzax Interface
-CANTERA_LIBDIR=@ct_libdir@
+ZUZAX_LIBDIR=@ct_libdir@
 
-CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
+CT_TRANSPORT_LIBDEP=$(ZUZAX_LIBDIR)/libtransport.a
 
 # The directory where Zuzax include files may be found.
 CT_INCROOT=@ct_incroot@
@@ -28,7 +28,7 @@ PURIFY=@PURIFY@
 
 # Find the Build root for Zuzax
 #
-CANTERA_BUILD_ROOT=@ctb_root@
+ZUZAX_BUILD_ROOT=@ctb_root@
 #
 UTILSRC_DIR=../../util_src/src
 
@@ -37,19 +37,19 @@ F2C_INC=$(CT_INCROOT)/zuzax
 #
 # Set up the various local and global defines
 #
-LDEFINES =   -DDEBUG -DDEBUG_HKM  -DCOMPILE_IN_CANTERA_BUILDTREE
+LDEFINES =   -DDEBUG -DDEBUG_HKM  -DCOMPILE_IN_ZUZAX_BUILDTREE
 #
 # Set up the global include directory macro
 
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) \
                -I$(UTILSRC_DIR) 
 
-ALT_INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
-                   -I$(CANTERA_BUILD_ROOT)/src/base \
-                   -I$(CANTERA_BUILD_ROOT)/src/numerics \
-                   -I$(CANTERA_BUILD_ROOT)/src/thermo \
-                   -I$(CANTERA_BUILD_ROOT)/src/kinetics 
+ALT_INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) \
+                   -I$(ZUZAX_BUILD_ROOT)/src/base \
+                   -I$(ZUZAX_BUILD_ROOT)/src/numerics \
+                   -I$(ZUZAX_BUILD_ROOT)/src/thermo \
+                   -I$(ZUZAX_BUILD_ROOT)/src/kinetics 
 #
 # the C++ compiler
 #
@@ -126,20 +126,20 @@ CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 MDPLIB_DEP = $(UTILSRC_DIR)/libutil_src.a
 MDPLIB     = -L$(UTILSRC_DIR) -lutil_src
 
-CTCVODE_DEP = $(CANTERA_LIBDIR)/libcvode.a
-CTCVODE     = -L$(CANTERA_LIBDIR) -lcvode
+CTCVODE_DEP = $(ZUZAX_LIBDIR)/libcvode.a
+CTCVODE     = -L$(ZUZAX_LIBDIR) -lcvode
 
-CTBLAS_DEP = $(CANTERA_LIBDIR)/libctblas.a
-CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
+CTBLAS_DEP = $(ZUZAX_LIBDIR)/libctblas.a
+CTBLAS    = -L$(ZUZAX_LIBDIR) -lctblas
 
-CTMATH_DEP = $(CANTERA_LIBDIR)/libctmath.a
-CTMATH    = -L$(CANTERA_LIBDIR) -lctmath
+CTMATH_DEP = $(ZUZAX_LIBDIR)/libctmath.a
+CTMATH    = -L$(ZUZAX_LIBDIR) -lctmath
 
-CTLIB_DEP  = $(CANTERA_LIBDIR)/libthermo.a \
-             $(CANTERA_LIBDIR)/libctmath.a \
-             $(CANTERA_LIBDIR)/libctcxx.a \
-             $(CANTERA_LIBDIR)/libtpx.a 
-CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
+CTLIB_DEP  = $(ZUZAX_LIBDIR)/libthermo.a \
+             $(ZUZAX_LIBDIR)/libctmath.a \
+             $(ZUZAX_LIBDIR)/libctcxx.a \
+             $(ZUZAX_LIBDIR)/libtpx.a 
+CTLIB     =  -L$(ZUZAX_LIBDIR) $(ZUZAX_LIBS)
 
 OBJ_CTPADDS =  importAllCTML.o  importPL.o SolidKinetics.o   ElectrolyteKinetics.o 
 
@@ -154,7 +154,7 @@ OBJS_UNUSED = ElectrodeKinetics.o
 # section to set up depends
 ###########################################################################
 DEPENDS = $(OBJ_VCSLIB:.o=.d) $(OBJ_VCSC:.o=.d) \
-          $(OBJ_VCS_CANTERA:.o=.d) $(OBJ_CTPADDS:.o=.d)
+          $(OBJ_VCS_ZUZAX:.o=.d) $(OBJ_CTPADDS:.o=.d)
 .f.d:
 	echo "$*.o: $*.f" > $*.d
 

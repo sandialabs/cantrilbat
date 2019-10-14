@@ -6,7 +6,7 @@
 # $Id: Makefile.in,v 1.1 2012/02/22 20:41:16 hkmoffa Exp $
 #
 #
-#  Build mpequil through the CANTERA_INSTALL directories.
+#  Build mpequil through the ZUZAX_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -80,7 +80,7 @@ GDEFINES =
 #
 # Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
+INCLUDE_DIRS = $(ZUZAX_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
 all: .dependsT LiCoO2_Cathode_Radial_cc
 
@@ -154,11 +154,11 @@ rebaseline:
 
 $(DEPENDS): Makefile
 
-$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+$(PROGRAM): $(OBJ_ANODE) $(OBJ_ZUZAX_ADDONS) $(UTILSRC_DEP) \
+               $(ZUZAX_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
-	          $(OBJ_CANTERA_ADDONS)  \
-                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+	          $(OBJ_ZUZAX_ADDONS)  \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 

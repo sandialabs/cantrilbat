@@ -16,14 +16,14 @@
 #
 
 # These links are to Cantera's install space
-CANTERA_INCROOT =  @ct_incroot@
+ZUZAX_INCROOT =  @ct_incroot@
 INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 
 
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CANTERA_INCROOT)/zuzax/Zuzax.mak
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
 
 #
 # Set up the Zuzax addition library
@@ -88,7 +88,7 @@ CFLAGS = @CXXFLAGS@
 
 LDEFINES = 
 
-INCLUDE_DIRS= $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  
+INCLUDE_DIRS= $(ZUZAX_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  
 
 #
 # Both the C and C++ compiler predefines
@@ -123,54 +123,54 @@ $(DEPENDS): Makefile
 ##############################################################################
 
 $(BarinConversion_EXE): $(PROGB).o  thermoUtilProg.o  \
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(BarinConversion_EXE)  $(PROGB).o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 BarinConversion_Ca: BarinConversion_Ca.o  thermoUtilProg.o\
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Ca BarinConversion_Ca.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 BarinConversion_CaO: BarinConversion_CaO.o  thermoUtilProg.o\
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_CaO BarinConversion_CaO.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 BarinConversion_C: BarinConversion_C.o thermoUtilProg.o \
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_C BarinConversion_C.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 BarinConversion_Cu: BarinConversion_Cu.o thermoUtilProg.o \
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Cu BarinConversion_Cu.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 
 findRefState: findRefState.o thermoUtilProg.o \
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o findRefState  findRefState.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 
 O2_NASAVerification: O2_NASAVerification.o thermoUtilProg.o \
-         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o  O2_NASAVerification O2_NASAVerification.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
-                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
 ##################################################################################
