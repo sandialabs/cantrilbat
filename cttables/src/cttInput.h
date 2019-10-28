@@ -48,7 +48,6 @@ int process_input(BEInput::BlockEntry* cf, std::string commandFile,
                   Zuzax::ThermoPhase* g_ptr ,
                   Zuzax::PhaseList* pl);
 
-bool doubleEqual(double d1, double d2, double atol = 1.0E-100);
 
 struct ERSSpec {
     int m_reactionIndex;

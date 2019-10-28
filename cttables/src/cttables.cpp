@@ -16,6 +16,7 @@
 #include "BlockEntryGlobal.h"
 #include "zuzax/base/accurateClock.h"
 #include "zuzax/base/PrintCtrl.h"
+#include "zuzax/base/zzcompare.h"
 
 // Kinetics includes
 #include "importAllCTML.h"

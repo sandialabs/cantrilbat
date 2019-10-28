@@ -18,6 +18,7 @@
 #include "zuzax/thermo/ThermoPhase.h"
 #include "zuzax/thermo/IdealSolidSolnPhase.h"
 #include "zuzax/base/PrintCtrl.h"
+#include "zuzax/base/zzcompare.h"
 
 using namespace Zuzax;
 

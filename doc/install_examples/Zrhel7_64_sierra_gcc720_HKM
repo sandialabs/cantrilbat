@@ -100,6 +100,7 @@ export Y12M_LIBRARY_NAMES="liby12m.a"
 TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc720_rh7/trilinos_12_10_1_lim_opt"
 export TRILINOS_INSTALL_DIR
 
+# turn on MPI or turn off MPI
 DO_MPI='y'
 export DO_MPI
 

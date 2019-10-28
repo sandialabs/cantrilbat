@@ -656,19 +656,7 @@ int process_input(BlockEntry *cf,
 
   return 1;
 }
-/*****************************************************************/
 
-
-bool doubleEqual(double d1, double d2, double atol) {
-    double sum = fabs(d1) + fabs(d2); 
-    if (sum > 1.0E-275) {
-      double denom = sum + fabs(atol);
-      if (fabs(d1-d2) < denom * 1.0E-10) return true;
-      return false;
-    } 
-    if (fabs(d1-d2) < atol) return true;
-    return false;
-}
 /*****************************************************************/
 /*****************************************************************/
 /*
