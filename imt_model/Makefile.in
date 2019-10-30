@@ -1,10 +1,4 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2011/09/14 17:19:40 $
-#  $Revision: 1.1 $
-#
-###############################################################
 build_python=@BUILD_PYTHON@
 
 all:
@@ -29,7 +23,7 @@ install:
 	cd src; $(MAKE) install
 
 rebaseline:
-	cd tests: $(MAKE) rebaseline
+	cd tests; $(MAKE) rebaseline
 
 # end of file
 

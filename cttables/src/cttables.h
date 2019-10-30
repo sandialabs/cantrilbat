@@ -35,6 +35,11 @@ extern Zuzax::Transport* GTran;
  */
 extern int DebugPrinting;
 
+
+//! Bath is a structure containing the default mixture for the system
+/*!
+ *
+ */
 struct Bath {
     double Temperature;
     double Pressure;
@@ -133,8 +138,8 @@ extern std::vector<double> g_S298_refThermo;
 
 
 /**
- *  This routine will print out a table of information about a species in an ideal gas thermo phse. It explicitly
- *  assumes that a multitransport object has been created for  the phase, and it presumes a NASA polynomial form for the
+ *  This routine will print out a table of information about a species in an ideal gas thermo phase. It explicitly
+ *  assumes that a multitransport object has been created for the phase, and it presumes a NASA polynomial form for the
  *  species thermodynamics.
  */
 extern void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& TT, Zuzax::DenseMatrix& Cp_Table,
@@ -157,8 +162,7 @@ extern void pr_de(const double d, const int w, const int p);
 extern void pr_dg(const double d, const int w, const int p);
 extern void dnt(const int i);
 
-extern void print_map(const std::map<std::string,double>& m,
-                      const std::string& prefix);
+extern void print_map(const std::map<std::string, double>& m, const std::string& prefix);
 
 extern void setAllBathSpeciesConditions(Zuzax::PhaseList* pl);
 extern void printAllBathSpeciesConditions(Zuzax::PhaseList* pl);
