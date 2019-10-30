@@ -48,15 +48,25 @@ public:
      */
     virtual int nEquations() const override;
 
-    //! Function to calculate the current given a voltage
+    //! Evaluate the steady state residual function at time t
     /*!
-     *  @param[in]           t                   Time
-     *  @param[in]           x                   Vector of unknowns
-     *  @param[out]          r                   Residual to be calculated
+     *  (virtual from ResidEval)
      *
-     *  @return                                  Returns 1 if ok
+     *  @param[in]           t                   Time
+     *  @param[in]           y                   Solution vector
+     *  @param[out]          resid               Residual vector
+     *  @param[in]           residType           Residual type. The default is Base_ResidEval.
+     *  @param[in]           solveType           Type of the problem being solved expressed as a Solve_Type_Enum. 
+     *                                           Defaults to Solve_Type::SteadyState_Solve
+     *
+     *  @return                                  Returns a flag to indicate that operation is successful.
+     *                                           -  1 = ZZ_RESIDEVAL_SUCCESS  Means a successful operation
+     *                                           - -1 = ZZ_RESIDEVAL_FAILURE  or neg value means an unsuccessful operation
      */
-    virtual int evalResidSS(const double t, const double* const x, double* const r);
+    virtual int evalResidSS(const doublevalue t, const doublevalue* const y, doublevalue* const resid,
+                            const ResidEval_Type residType = ResidEval_Type::Base_ResidEval,
+                            const Solve_Type solveType = Solve_Type::SteadyState_Solve);
+
 
     void set_deltaT(double deltaT);
 
@@ -64,15 +74,23 @@ public:
     m1d::SolNonlinear* m_solver_constantVoltage;
 
     m1d::ProblemResidEval* m_func_constV;
+
+    //! Current value of the solution vector
     m1d::Epetra_Vector_Ghosted* m_y_comm;
+
+    //! Current value of the solution Dot vector
     m1d::Epetra_Vector_Ghosted* m_ydot_comm;
 
+    //! Current value of deltaT
     double m_deltaT;
 
+    //! multiplier before the time derivative terms
     double m_CJ;
 
+    //! Current time
     double m_time_curr;
 
+    //! Print level
     int printLvl_;
 
     //! used to signal the initialization of ivResultsFile_

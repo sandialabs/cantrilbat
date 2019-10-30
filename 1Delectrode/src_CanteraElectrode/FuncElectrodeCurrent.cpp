@@ -59,7 +59,8 @@ int CurrentFunc::nEquations() const
     return 1;
 }
 //==================================================================================================================================
-int CurrentFunc::evalResidSS(const double t, const double* const x, double* const r)
+int CurrentFunc::evalResidSS(const doublevalue t, const doublevalue* const x, doublevalue* const r,
+                            const ResidEval_Type residType, const Solve_Type solveType)
 {
     /*
      *   Set the cathode collector voltage in the main function
