@@ -22,7 +22,7 @@
     <species name="Hg2Cl2(S)">
       <atomArray> Hg:2 Cl:2 </atomArray>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="1075.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="1075.0" Tmin="250.0">
           <floatArray size="7">
            94.96801, 35.51128, -10.12649,
            0.578555, -0.241285, -295.5469,

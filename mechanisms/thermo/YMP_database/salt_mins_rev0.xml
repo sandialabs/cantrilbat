@@ -3,7 +3,7 @@
     <atomArray> Ca:1 S:1 O:4  </atomArray>
     <charge> 0 </charge>
     <thermo model="MineralEQ3">
-      <MinEQ3 Pref="1 atm" Tmax="1453" Tmin="298.15">
+      <MinEQ3 Pref="1 bar" Tmax="1453" Tmin="298.15">
         <DG0_f_Pr_Tr units="cal/gmol"> -315925 </DG0_f_Pr_Tr>
         <DH0_f_Pr_Tr units="cal/gmol"> -342760 </DH0_f_Pr_Tr>
         <S0_Pr_Tr units="cal/gmol/K"> 25.5 </S0_Pr_Tr>
@@ -28,7 +28,7 @@
     <atomArray> K:1 Cl:1  </atomArray>
     <charge> 0 </charge>
     <thermo model="MineralEQ3">
-      <MinEQ3 Pref="1 atm" Tmax="1043" Tmin="298.15">
+      <MinEQ3 Pref="1 bar" Tmax="1043" Tmin="298.15">
         <DG0_f_Pr_Tr units="cal/gmol"> -97735 </DG0_f_Pr_Tr>
         <DH0_f_Pr_Tr units="cal/gmol"> -104370 </DH0_f_Pr_Tr>
         <S0_Pr_Tr units="cal/gmol/K"> 19.73 </S0_Pr_Tr>
@@ -53,7 +53,7 @@
     <atomArray> Na:1 Cl:1  </atomArray>
     <charge> 0 </charge>
     <thermo model="MineralEQ3">
-      <MinEQ3 Pref="1 atm" Tmax="1073" Tmin="298.15">
+      <MinEQ3 Pref="1 bar" Tmax="1073" Tmin="298.15">
         <DG0_f_Pr_Tr units="cal/gmol"> -91807 </DG0_f_Pr_Tr>
         <DH0_f_Pr_Tr units="cal/gmol"> -98260 </DH0_f_Pr_Tr>
         <S0_Pr_Tr units="cal/gmol/K"> 17.24 </S0_Pr_Tr>
@@ -78,7 +78,7 @@
     <atomArray> K:1 Cl:1  </atomArray>
     <charge> 0 </charge>
     <thermo model="MineralEQ3">
-      <MinEQ3 Pref="1 atm" Tmax="1043" Tmin="298.15">
+      <MinEQ3 Pref="1 bar" Tmax="1043" Tmin="298.15">
 	<DG0_f_Pr_Tr units="cal/gmol"> -97664.518 </DG0_f_Pr_Tr>
 	<DH0_f_Pr_Tr units="cal/gmol"> -104296.747 </DH0_f_Pr_Tr>
 	<S0_Pr_Tr units="cal/gmol/K"> 19.741 </S0_Pr_Tr>
@@ -102,7 +102,7 @@
     <atomArray> Na:1 Cl:1  </atomArray>
     <charge> 0 </charge>
     <thermo model="MineralEQ3">
-      <MinEQ3 Pref="1 atm" Tmax="1073" Tmin="298.15">
+      <MinEQ3 Pref="1 bar" Tmax="1073" Tmin="298.15">
 	<DG0_f_Pr_Tr units="cal/gmol"> -91828.583 </DG0_f_Pr_Tr>
 	<DH0_f_Pr_Tr units="cal/gmol"> -98280.698 </DH0_f_Pr_Tr>
 	<S0_Pr_Tr units="cal/gmol/K"> 17.241 </S0_Pr_Tr>
@@ -126,7 +126,7 @@
     <atomArray> K:1 Mg:1 Cl:3 H:12 O:6  </atomArray>
     <charge> 0 </charge>
     <thermo model="MineralEQ3">
-      <MinEQ3 Pref="1 atm" Tmax="573.15" Tmin="298.15">
+      <MinEQ3 Pref="1 bar" Tmax="573.15" Tmin="298.15">
 	<DG0_f_Pr_Tr units="cal/gmol"> -505445.2839 </DG0_f_Pr_Tr>
 	<DH0_f_Pr_Tr units="cal/gmol"> -597285.717 </DH0_f_Pr_Tr>
 	<S0_Pr_Tr units="cal/gmol/K"> 87.4959757 </S0_Pr_Tr>

@@ -29,7 +29,7 @@
     <species name="Al(L)">
       <atomArray> Al:1  </atomArray>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="2800.0" Tmin="900.0">
+        <Shomate Pref="1 bar" Tmax="2800.0" Tmin="900.0">
           <floatArray size="7">
            31.75104,
             3.935826E-8,

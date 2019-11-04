@@ -149,7 +149,7 @@
       <atomArray> Na:1 E:-1 </atomArray>
       <charge> +1 </charge>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="   593.15" Tmin="   293.15">
+        <Shomate Pref="1 bar" Tmax="   593.15" Tmin="   293.15">
          <floatArray size="7">
            -57993.47558    ,   305112.6040    ,  -592222.1591    ,
             401977.9827    ,   804.4195980    ,   10625.24901    ,
@@ -191,7 +191,7 @@
          <molarVolume> 0.00834 </molarVolume>
       </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <Shomate Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
          <floatArray size="7">
              56696.2042    ,   -297835.978    ,    581426.549    ,
             -401759.991    ,   -804.301136    ,   -10873.8257    ,
@@ -245,7 +245,7 @@
           <molarVolume> 0.00834 </molarVolume>
       </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <Shomate Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
            <floatArray size="7">
             44674.99961    ,  -234943.0414    ,   460522.8260    ,
            -320695.1836    ,  -638.5044716    ,  -8683.955813    ,
@@ -262,7 +262,7 @@
           <molarVolume> 1.3 </molarVolume>
       </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <Shomate Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
            <floatArray size="7">
            4690.299245    ,  -21942.13632    ,   38874.11066    ,
            -24864.27860    ,  -84.53391833    ,  -1253.323756    ,
