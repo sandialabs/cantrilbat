@@ -146,7 +146,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
         Molecular Weight = 58.4425 gm/mol
         Heat of formation (298.15K) = -411.119840  kJ/gmol 
         DeltaGf (298.15K) = -384.030575  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 1073 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.027015 m3/kmol
@@ -171,7 +171,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
                               b =           0.0039 cal/kmol/K2
                               c =                0 cal-K/gmol
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -223,7 +223,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)_nist" IN PHASE "NaCl(S)_nist"
         Molecular Weight = 58.4425 gm/mol
         Heat of formation (298.15K) = -411.120713  kJ/gmol 
         DeltaGf (298.15K) = -384.024632  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0269942 m3/kmol
@@ -241,7 +241,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)_nist" IN PHASE "NaCl(S)_nist"
                  5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,
                 -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |

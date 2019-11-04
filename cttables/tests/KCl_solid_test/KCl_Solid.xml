@@ -30,14 +30,14 @@
        -->
       <atomArray> K:1 Cl:1 </atomArray>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="900.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="900.0" Tmin="250.0">
           <floatArray size="7">
            35.41597,  70.03472, -91.38233,
            52.52426,  0.153460, -449.1357,
            108.9982
           </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="1044.0" Tmin="900.0">
+        <Shomate Pref="1 bar" Tmax="1044.0" Tmin="900.0">
           <floatArray size="7">
           -717.3845,  1247.861, -708.5144,
            141.4435,  103.6712,  1.760084,

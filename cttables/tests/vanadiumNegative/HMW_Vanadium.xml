@@ -112,7 +112,7 @@
                                    <atomArray> H:1 </atomArray>
                                    <charge> 1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> 0 </S0_Pr_Tr>
@@ -139,7 +139,7 @@
                                    <atomArray> O:1 H:1 </atomArray>
                                    <charge> -1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -37595 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -54977 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -2.56 </S0_Pr_Tr>
@@ -164,7 +164,7 @@
                                    <atomArray> Cl:1 </atomArray>
                                    <charge> -1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -31379 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -39933 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> 13.56 </S0_Pr_Tr>
@@ -190,7 +190,7 @@
                                    <atomArray> V:1 </atomArray>
                                    <charge> 3 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -57900 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -62391.9 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -55 </S0_Pr_Tr>
@@ -215,7 +215,7 @@
                                    <atomArray> V:1  </atomArray>
                                    <charge> 2 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -52000 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -54000 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -31 </S0_Pr_Tr>
@@ -240,7 +240,7 @@
                                    <atomArray> V:1 O:1 </atomArray>
                                    <charge> 1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -106100 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -109400 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> 4.9 </S0_Pr_Tr>
@@ -265,7 +265,7 @@
                                    <atomArray> V:1 O:1 H:1 </atomArray>
                                    <charge> 1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -99800 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -114100 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -16.4 </S0_Pr_Tr>
@@ -290,7 +290,7 @@
                                    <atomArray> V:1 O:2 </atomArray>
                                    <charge> 1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -140300 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -155300 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -10.1 </S0_Pr_Tr>
@@ -316,7 +316,7 @@
                                    <atomArray> V:1 O:2 H:1 </atomArray>
                                    <charge> 1 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -155700 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -177600 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -17.7 </S0_Pr_Tr>
@@ -342,7 +342,7 @@
                                    <atomArray> H:1 V:1 O:4 </atomArray>
                                    <charge> -2 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -233000 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -277000 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> 4 </S0_Pr_Tr>
@@ -367,7 +367,7 @@
                                    <atomArray> V:1 O:4 </atomArray>
                                    <charge> -3 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -214900 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -270600 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -35.2 </S0_Pr_Tr>
@@ -392,7 +392,7 @@
                                    <atomArray> V:1 O:1 </atomArray>
                                    <charge> 2 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -106700 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -116300 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -32 </S0_Pr_Tr>
@@ -418,7 +418,7 @@
                                    <atomArray> V:1 O:1 H:1 </atomArray>
                                    <charge> 2 </charge>
                                    <thermo model="HKFT">
-                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                     <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
                                        <DG0_f_Pr_Tr units="cal/gmol"> -111500 </DG0_f_Pr_Tr>
                                        <DH0_f_Pr_Tr units="cal/gmol"> -119400 </DH0_f_Pr_Tr>
                                        <S0_Pr_Tr units="cal/gmol/K"> -10.6 </S0_Pr_Tr>

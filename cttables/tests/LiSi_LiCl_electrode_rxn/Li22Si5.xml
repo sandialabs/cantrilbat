@@ -24,7 +24,7 @@
       <species name="Li22Si5(S)">
        <atomArray> Li:22 Si:5  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                828.41979  ,
                -38.4939   ,
@@ -35,7 +35,7 @@
                1528.8245   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                686.28307  ,
                143.4098   ,
@@ -55,7 +55,7 @@
       <species name="Li22d5Si(S)">
        <atomArray> Li:4.4  Si:1.0  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                165.68396  ,
                -7.69878   ,
@@ -66,7 +66,7 @@
                305.7649    
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                137.25661  ,
                28.68196   ,

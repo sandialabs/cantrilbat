@@ -114,7 +114,7 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
         Molecular Weight = 74.551 gm/mol
         Heat of formation (298.15K) = -436.684080  kJ/gmol 
         DeltaGf (298.15K) = -408.760937  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 1043 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.037524 m3/kmol
@@ -139,7 +139,7 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
                               b =           0.0052 cal/kmol/K2
                               c =            77000 cal-K/gmol
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |

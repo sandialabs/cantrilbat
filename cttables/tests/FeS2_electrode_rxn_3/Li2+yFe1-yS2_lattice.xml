@@ -48,7 +48,7 @@
           <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
        </standardState>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="800.0" Tmin="650.0">
+        <Shomate Pref="1 bar" Tmax="800.0" Tmin="650.0">
            <floatArray size="7">
 73.8162,    4.0662, -221.3493,  298.6681,   49.4095, -444.5406,  373.5727
 <!-- -155.1644, 170.3132, -198.9654, 156.2058, 109.8578, -230.2122, 251.1922 -->
@@ -70,7 +70,7 @@
        </standardState>
 
        <thermo>
-        <Shomate Pref="1 atm" Tmax="800.0" Tmin="650.0">
+        <Shomate Pref="1 bar" Tmax="800.0" Tmin="650.0">
            <floatArray size="7">
 60.9250,  142.4894, -631.4150,  168.2203,  108.2059, -389.3583,  414.2005
 <!-- 7.6715, 223.8284, -87.6685, 363.3396, -14.9317, -619.0877, 71.0284 -->

@@ -107,7 +107,7 @@
          <volumeTemperaturePolynomial units="ml/mol"> 27.318, 0.020496, 0, 0 </volumeTemperaturePolynomial>
       </standardState>
       <thermo>
-         <Shomate Pref="1 atm" Tmax="2000.0" Tmin="700.0">
+         <Shomate Pref="1 bar" Tmax="2000.0" Tmin="700.0">
           <floatArray size="7">
            73.59698,  0.0,      0.0,
            0.0,       0.0,      -443.7341,
@@ -137,7 +137,7 @@
          <volumeTemperaturePolynomial units="ml/mol"> 20.467, 0.0087415, 0, 0 </volumeTemperaturePolynomial>
       </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="2000.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2000.0" Tmin="700.0">
           <floatArray size="7">
            73.18025, -9.047232, -0.316390,
            0.079587, 0.013594, -417.1314,

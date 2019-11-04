@@ -54,17 +54,17 @@
       </standardState>
       <!-- NIST converted from Shomate to NASA9 -->
       <thermo>
-        <NASA9 Pref="1 atm" Tmax="411" Tmin="298">
+        <NASA9 Pref="1 bar" Tmax="411" Tmin="298">
           <floatArray size="9">
              1.624978846782997e+06,                         0,    -3.994274891572467e+01,     1.258949069909696e-02,     4.105328960285707e-04,    -4.719654052106978e-07,                         0,     1.876887757420276e+03,     2.261418515478969e+02
           </floatArray>
         </NASA9>
-        <NASA9 Pref="1 atm" Tmax="598" Tmin="411">
+        <NASA9 Pref="1 bar" Tmax="598" Tmin="411">
           <floatArray size="9">
                                  0,                         0,     8.702657089301814e+00,                         0,                         0,                         0,                         0,    -1.467258191118297e+04,    -4.203180665812728e+01
           </floatArray>
         </NASA9>
-        <NASA9 Pref="1 atm" Tmax="1900" Tmin="598">
+        <NASA9 Pref="1 bar" Tmax="1900" Tmin="598">
           <floatArray size="9">
             -2.105097494977636e+02,                         0,     1.152755943070828e+01,    -1.029452576038542e-02,     5.862190850753402e-06,    -5.695958641385566e-13,                         0,    -1.489164847651440e+04,    -5.490551417199553e+01
           </floatArray>
@@ -81,7 +81,7 @@
             -4.96981593694e3
           </floatArray>
         </NASA9>
-        <NASA9 Pref="1 atm" Tmax="598.0" Tmin="411.0">
+        <NASA9 Pref="1 bar" Tmax="598.0" Tmin="411.0">
           <floatArray size="9">
             -2.16489990889,
              0,
@@ -94,7 +94,7 @@
             -4.20866773071e1
           </floatArray>
         </NASA9>
-        <NASA9 Pref="1 atm" Tmax="1463.0" Tmin="598.0">
+        <NASA9 Pref="1 bar" Tmax="1463.0" Tmin="598.0">
           <floatArray size="9">
              8.5393274183978,
              0,
@@ -124,7 +124,7 @@
       </standardState>
       <!--  SGTE data for pure elements 144.04939 ++ -5.228956, -6.513769-->
       <thermo>
-        <Shomate Pref="1 atm" Tmax="368.3" Tmin="298.15">
+        <Shomate Pref="1 bar" Tmax="368.3" Tmin="298.15">
           <floatArray size="7">
              11.007,
              53.058,
@@ -135,7 +135,7 @@
              31.6229
           </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="1300" Tmin="368.3">
+        <Shomate Pref="1 bar" Tmax="1300" Tmin="368.3">
           <floatArray size="7">
              17.941839,
              21.79025,

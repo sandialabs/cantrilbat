@@ -28,7 +28,7 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
         Molecular Weight = 0.00054858 gm/mol
         Heat of formation (298.15K) = 95.158417 kcal/gmol
         DeltaGf (298.15K) = 103.095954 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 400 K
         Maximum Temperature = 2700 K
         Partial    Molar Volume at (T,P) of (700,101325) = 5.4858e-09 m3/kmol
@@ -46,7 +46,7 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
                 -4.717129000000000E+01,  1.467960700000000E+01, -3.696837000000000E+00,  7.940990000000000E-01,
                  3.305560000000000E-01,  4.129317100000000E+02, -8.554510700000000E+01
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -89,7 +89,7 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
         Molecular Weight = 6.94045 gm/mol
         Heat of formation (298.15K) = -94.589642 kcal/gmol
         DeltaGf (298.15K) = -102.255927 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 700 K
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
@@ -99,10 +99,10 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
                PDSS Species index    = 0
                PDSS min Temperature  = 700
                PDSS max Temperature  = 2000
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -132,7 +132,7 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
         Molecular Weight = 39.0978 gm/mol
         Heat of formation (298.15K) = -100.810507 kcal/gmol
         DeltaGf (298.15K) = -103.929332 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 700 K
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
@@ -142,10 +142,10 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
                PDSS Species index    = 1
                PDSS min Temperature  = 700
                PDSS max Temperature  = 2000
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -175,7 +175,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 33.254160 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 700 K
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
@@ -185,10 +185,10 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
                PDSS Species index    = 2
                PDSS min Temperature  = 700
                PDSS max Temperature  = 2000
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -229,7 +229,7 @@ INFORMATION TABLE FOR SPECIES "LiCl(L)" IN PHASE "LiKCl_Margules"
         Molecular Weight = 42.3937 gm/mol
         Heat of formation (298.15K) = -94.589642 kcal/gmol
         DeltaGf (298.15K) = -72.438331 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 700 K
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
@@ -243,7 +243,7 @@ INFORMATION TABLE FOR SPECIES "LiCl(L)" IN PHASE "LiKCl_Margules"
                  7.318025000000000E+01, -9.047231999999999E+00, -3.163900000000000E-01,  7.958700000000000E-02,
                  1.359400000000000E-02, -4.171314000000000E+02,  1.576711000000000E+02
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -272,7 +272,7 @@ INFORMATION TABLE FOR SPECIES "KCl(L)" IN PHASE "LiKCl_Margules"
         Molecular Weight = 74.551 gm/mol
         Heat of formation (298.15K) = -100.810507 kcal/gmol
         DeltaGf (298.15K) = -74.111736 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 700 K
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
@@ -286,7 +286,7 @@ INFORMATION TABLE FOR SPECIES "KCl(L)" IN PHASE "LiKCl_Margules"
                  7.359698000000000E+01,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
                  0.000000000000000E+00, -4.437341000000000E+02,  1.757209000000000E+02
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -326,7 +326,7 @@ INFORMATION TABLE FOR SPECIES "FeS2_A(S)" IN PHASE "FeS2_A(S)"
         Molecular Weight = 119.979 gm/mol
         Heat of formation (298.15K) = -41.291993 kcal/gmol
         DeltaGf (298.15K) = -29.808150 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 1400 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0239308 m3/kmol
@@ -344,7 +344,7 @@ INFORMATION TABLE FOR SPECIES "FeS2_A(S)" IN PHASE "FeS2_A(S)"
                  8.358231514608801E+01, -2.926305021180920E+01,  4.118730132715020E+01, -1.167399437545190E+01,
                 -1.430034455902400E+00, -2.015222881191370E+02,  1.530175933771690E+02
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -385,7 +385,7 @@ INFORMATION TABLE FOR SPECIES "FeS2_B(S)" IN PHASE "FeS2_B(S)"
         Molecular Weight = 147.743 gm/mol
         Heat of formation (298.15K) = -41.291993 kcal/gmol
         DeltaGf (298.15K) = 4.878621 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 1400 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0294686 m3/kmol
@@ -403,7 +403,7 @@ INFORMATION TABLE FOR SPECIES "FeS2_B(S)" IN PHASE "FeS2_B(S)"
                  8.358231514608801E+01, -2.926305021180920E+01,  4.118730132715020E+01, -1.167399437545190E+01,
                 -1.430034455902400E+00, -2.015222881191370E+02,  1.530175933771690E+02
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -442,7 +442,7 @@ INFORMATION TABLE FOR SPECIES "Li(L)" IN PHASE "Li(L)"
         Molecular Weight = 6.941 gm/mol
         Heat of formation (298.15K) = 0.568775 kcal/gmol
         DeltaGf (298.15K) = -0.878249 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 3000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0149726 m3/kmol
@@ -456,7 +456,7 @@ INFORMATION TABLE FOR SPECIES "Li(L)" IN PHASE "Li(L)"
                  2.600896000000000E+01,  5.632375000000000E+00, -4.013227000000000E+00,  8.736860000000000E-01,
                  3.441500000000000E-01, -4.199690000000000E+00,  6.636284000000001E+01
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -575,8 +575,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage = phi_Metal - phi_Soln  = 0 Volts
                nStoichElectrons (product electrons - reactant electrons) = -1 
-               Delta G (rxn)   =    2.7368e+07 J/kmol   --->                  E    = -0.283644 Volts
-               Delta G_SS (rxn)=    2.3333e+07 J/kmol   --->                  E_SS = -0.241833 Volts
+               Delta G (rxn)   =    2.7367e+07 J/kmol   --->                  E    = -0.283644 Volts
+               Delta G_SS (rxn)=    2.3333e+07 J/kmol   --->                  E_SS = -0.241832 Volts
                Bath Gas conditions:
                   T = 700 K
                   P = 101325 Pascal
@@ -591,7 +591,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
                !      -0.8 |   3.66e+06          701     3.66e+06 |   -3.53e+10     6.77e+06     -3.53e+10 |
                !      -0.6 |   6.98e+05     3.68e+03     6.94e+05 |   -6.73e+09     3.55e+07      -6.7e+09 |
                !      -0.4 |   1.33e+05     1.93e+04     1.14e+05 |   -1.28e+09     1.86e+08      -1.1e+09 |
-               !   -0.2836 |   5.07e+04     5.07e+04     6.55e-10 |   -4.89e+08     4.89e+08     -6.32e-06 |
+               !   -0.2836 |   5.07e+04     5.07e+04    -3.86e-10 |   -4.89e+08     4.89e+08      3.72e-06 |
                !      -0.2 |   2.53e+04     1.01e+05     -7.6e+04 |   -2.44e+08     9.78e+08      7.34e+08 |
                !         0 |   4.83e+03     5.32e+05    -5.27e+05 |   -4.66e+07     5.13e+09      5.09e+09 |
                !       0.2 |        920     2.79e+06    -2.79e+06 |   -8.88e+06     2.69e+10      2.69e+10 |
@@ -609,7 +609,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
                !      -0.8 |  -3.53e+10     6.77e+06    -3.53e+10 |         1  |
                !      -0.6 |  -6.73e+09     3.55e+07     -6.7e+09 |         1  |
                !      -0.4 |  -1.28e+09     1.86e+08     -1.1e+09 |         1  |
-               !   -0.2836 |  -4.89e+08     4.89e+08    -6.32e-06 |         1  |
+               !   -0.2836 |  -4.89e+08     4.89e+08     3.72e-06 |         1  |
                !      -0.2 |  -2.44e+08     9.78e+08     7.34e+08 |         1  |
                !         0 |  -4.66e+07     5.13e+09     5.09e+09 |         1  |
                !       0.2 |  -8.88e+06     2.69e+10     2.69e+10 |         1  |
@@ -749,8 +749,8 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiC
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts
                nStoicElectrons (product electrons - reactant electrons) = 1 
-               Delta G (rxn)   =   -2.7368e+07 J/kmol   --->                  E    = -0.283644 Volts
-               Delta G_SS (rxn)=   -2.3333e+07 J/kmol   --->                  E_SS = -0.241833 Volts
+               Delta G (rxn)   =   -2.7367e+07 J/kmol   --->                  E    = -0.283644 Volts
+               Delta G_SS (rxn)=   -2.3333e+07 J/kmol   --->                  E_SS = -0.241832 Volts
                Bath Conditions:
                   T = 700 K
                   P = 101325 Pascal
@@ -763,10 +763,10 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiC
                |   Volts   |         (amps/cm2)                  |         (amps/cm2)                  |             |            |
                -------------------------------------------------------------------------------------------------------------------
                !        -1 |  1.2896e+06  4.8892e+08         0.5 | -1.8536e+11  4.8892e+08         0.5 | -1.8535e+11 |         1  |
-               !      -0.8 |  6.7677e+06  4.8892e+08         0.5 | -3.5321e+10  4.8892e+08         0.5 | -3.5315e+10 |         1  |
-               !      -0.6 |  3.5515e+07  4.8892e+08         0.5 | -6.7308e+09  4.8892e+08         0.5 | -6.6953e+09 |         1  |
+               !      -0.8 |  6.7676e+06  4.8892e+08         0.5 | -3.5321e+10  4.8892e+08         0.5 | -3.5315e+10 |         1  |
+               !      -0.6 |  3.5514e+07  4.8892e+08         0.5 | -6.7308e+09  4.8892e+08         0.5 | -6.6953e+09 |         1  |
                !      -0.4 |  1.8637e+08  4.8892e+08         0.5 | -1.2826e+09  4.8892e+08         0.5 | -1.0963e+09 |         1  |
-               !   -0.2836 |  4.8892e+08  4.8892e+08         0.5 | -4.8892e+08  4.8892e+08         0.5 | -6.3182e-06 |         1  |
+               !   -0.2836 |  4.8892e+08  4.8892e+08         0.5 | -4.8892e+08  4.8892e+08         0.5 |  3.7207e-06 |         1  |
                !      -0.2 |  9.7801e+08  4.8892e+08         0.5 | -2.4442e+08  4.8892e+08         0.5 |  7.3359e+08 |         1  |
                !         0 |  5.1323e+09  4.8892e+08         0.5 | -4.6576e+07  4.8892e+08         0.5 |  5.0857e+09 |         1  |
                !       0.2 |  2.6933e+10  4.8892e+08         0.5 | -8.8755e+06  4.8892e+08         0.5 |  2.6924e+10 |         1  |

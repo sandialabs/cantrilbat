@@ -7,5 +7,7 @@ BLESSED_FILES = Fe1_xS.xml  FeS2_2_electrode.xml  Li2+yFe1-yS2_lattice.xml  Li3F
 
 include ../Makefile_sub
 
+rebaseline::
+	cp polarizationData.csv polarizationData_blessed.csv
 
 

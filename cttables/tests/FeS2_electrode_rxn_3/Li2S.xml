@@ -25,7 +25,7 @@
       </standardState>
       <!-- Morachevskii Russian J. of Applied Chem. 74(12) 2001 p 1934 (from Khachkuruzov) dH_298=-445.6, S_298=62-->
       <thermo>
-        <Shomate Pref="1 atm" Tmax="3000" Tmin="298">
+        <Shomate Pref="1 bar" Tmax="3000" Tmin="298">
           <floatArray size="7">
 	     24.4800, 115.7000, 22.6900, 0, 0, -458.2417, 56.1202
 <!--             24.4800,  115.7000,   22.6900,         0,         0,   -2.5417,   56.1202 -->

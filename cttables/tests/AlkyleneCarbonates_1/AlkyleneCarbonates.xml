@@ -90,7 +90,7 @@
                  Journal of Chemical Thermodynamics 40(9): 1428-1432.
                Entropy set arbitrarily.  Relative entropy for liquid from H_fusion/T = 43.69
           -->
-         <Shomate Pref="1 atm" Tmax="311.0" Tmin="200.0">
+         <Shomate Pref="1 bar" Tmax="311.0" Tmin="200.0">
           <floatArray size="7">
             -117.6069,   2.1214e+003,       -8.3486e+003,
             1.2994e+004,     0.0,       -595.9205,
@@ -98,7 +98,7 @@
           </floatArray>
         </Shomate>
         <!--superheated solid temperature fit - above Tmelt -->
-         <Shomate Pref="1 atm" Tmax="521.0" Tmin="311.0">
+         <Shomate Pref="1 bar" Tmax="521.0" Tmin="311.0">
           <floatArray size="7">
             84.1530,  131.0540,      0.0,
            0.0,       0.0,      -615.6967,
@@ -130,7 +130,7 @@
                Entropy for crystal phase set arbitrarily.  
                Relative entropy for liquid from H_fusion/T = 43.69
           -->
-         <Shomate Pref="1 atm" Tmax="521.0" Tmin="311.0">
+         <Shomate Pref="1 bar" Tmax="521.0" Tmin="311.0">
           <floatArray size="7">
            93.7949,   131.0540,      0.0,
            0.0,       0.0,      -607.2968,
@@ -160,7 +160,7 @@
                Entropy for crystal phase set arbitrarily.  
 	       Relative entropy for liquid from H_sublimation/T = 298.66
           -->
-         <Shomate Pref="1 atm" Tmax="1000.0" Tmin="250.0">
+         <Shomate Pref="1 bar" Tmax="1000.0" Tmin="250.0">
           <floatArray size="7">
            -1.509E+01,     4.024E+02,   -2.866E+02,     
            7.963E+01,       0.0,       -521.6994,
@@ -188,7 +188,7 @@
                  Journal of Chemical Thermodynamics 40(9): 1428-1432.
                Entropy for liquid phase set arbitrarily.  
           -->
-         <Shomate Pref="1 atm" Tmax="515.0" Tmin="310.0">
+         <Shomate Pref="1 bar" Tmax="515.0" Tmin="310.0">
           <floatArray size="7">
            190.2319,     -906.0261,     4.1920e+003,
            -5.2513e+003,       0.0,     -657.1847,
@@ -216,7 +216,7 @@
                Entropy for liquid phase set arbitrarily.  
 	       Relative entropy for liquid from H_vaporization/T = 
        -->
-         <Shomate Pref="1 atm" Tmax="1000.0" Tmin="298.0">
+         <Shomate Pref="1 bar" Tmax="1000.0" Tmin="298.0">
           <floatArray size="7">
            -6.6367E+00,   4.6759E+02,   -3.0567E+02,
             7.7160E+01,    0.0,       -570.1399,
@@ -244,7 +244,7 @@
                  2008. 112(42): p. 10667-10673.
                Entropy for liquid phase obtained from gas-phase entropy and heat of vaporization 
           -->
-        <Shomate Pref="1 atm" Tmax="363.5" Tmin="267.55">
+        <Shomate Pref="1 bar" Tmax="363.5" Tmin="267.55">
           <floatArray size="7">
            112.5253,    178.8497,   0.0,
            0.0,       0.0,    -650.1738,

@@ -1129,7 +1129,7 @@ Start of Time Step:     1       Time_n =     1e-08 Time_nm1 =         0
 	delta_t_nm1      = 1.00000e-08
 	Time Step Number     1 was a success: time =      1e-08
 		Estimated Error
-		--------------------   =   7.53073e+03
+		--------------------   =   7.53081e+03
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -1146,7 +1146,7 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 	delta_t_nm1      = 1.00000e-08
 	Time Step Number     2 was a success: time =      2e-08
 		Estimated Error
-		--------------------   =   9.61162e-01
+		--------------------   =   9.60506e-01
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -1163,7 +1163,7 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 	delta_t_nm1      = 1.00000e-08
 	Time Step Number     3 was a success: time =      3e-08
 		Estimated Error
-		--------------------   =   9.61163e-01
+		--------------------   =   9.60506e-01
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -1180,7 +1180,7 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 	delta_t_nm1      = 1.00000e-08
 	Time Step Number     4 was a success: time =      4e-08
 		Estimated Error
-		--------------------   =   1.46784e-08
+		--------------------   =   1.46096e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.5e-08
@@ -1197,7 +1197,7 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 	delta_t_nm1      = 1.00000e-08
 	Time Step Number     5 was a success: time =    5.5e-08
 		Estimated Error
-		--------------------   =   6.27462e-08
+		--------------------   =   6.26879e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.25e-08
@@ -1214,7 +1214,7 @@ Start of Time Step:     6       Time_n =  7.75e-08 Time_nm1 =   5.5e-08
 	delta_t_nm1      = 1.50000e-08
 	Time Step Number     6 was a success: time =   7.75e-08
 		Estimated Error
-		--------------------   =   1.64584e-08
+		--------------------   =   1.64686e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 3.375e-08
@@ -1231,7 +1231,7 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 	delta_t_nm1      = 2.25000e-08
 	Time Step Number     7 was a success: time = 1.1125e-07
 		Estimated Error
-		--------------------   =   4.12124e-10
+		--------------------   =   4.17950e-10
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 5.0625e-08
@@ -1248,7 +1248,7 @@ Start of Time Step:     8       Time_n = 1.6188e-07 Time_nm1 = 1.1125e-07
 	delta_t_nm1      = 3.37500e-08
 	Time Step Number     8 was a success: time = 1.61875e-07
 		Estimated Error
-		--------------------   =   7.40161e-10
+		--------------------   =   7.39385e-10
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 7.59375e-08
@@ -1265,7 +1265,7 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 	delta_t_nm1      = 5.06250e-08
 	Time Step Number     9 was a success: time = 2.37813e-07
 		Estimated Error
-		--------------------   =   1.44034e-09
+		--------------------   =   1.43873e-09
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.13906e-07
@@ -1282,7 +1282,7 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 	delta_t_nm1      = 7.59375e-08
 	Time Step Number    10 was a success: time = 3.51719e-07
 		Estimated Error
-		--------------------   =   2.57097e-09
+		--------------------   =   2.56980e-09
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.70859e-07
@@ -1299,7 +1299,7 @@ Start of Time Step:    11       Time_n = 5.2258e-07 Time_nm1 = 3.5172e-07
 	delta_t_nm1      = 1.13906e-07
 	Time Step Number    11 was a success: time = 5.22578e-07
 		Estimated Error
-		--------------------   =   4.36112e-09
+		--------------------   =   4.36480e-09
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.56289e-07
@@ -1316,7 +1316,7 @@ Start of Time Step:    12       Time_n = 7.7887e-07 Time_nm1 = 5.2258e-07
 	delta_t_nm1      = 1.70859e-07
 	Time Step Number    12 was a success: time = 7.78867e-07
 		Estimated Error
-		--------------------   =   7.00940e-09
+		--------------------   =   7.00329e-09
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 3.84434e-07
@@ -1333,7 +1333,7 @@ Start of Time Step:    13       Time_n = 1.1633e-06 Time_nm1 = 7.7887e-07
 	delta_t_nm1      = 2.56289e-07
 	Time Step Number    13 was a success: time = 1.1633e-06
 		Estimated Error
-		--------------------   =   1.06263e-08
+		--------------------   =   1.06310e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 5.7665e-07
@@ -1350,7 +1350,7 @@ Start of Time Step:    14       Time_n =  1.74e-06 Time_nm1 = 1.1633e-06
 	delta_t_nm1      = 3.84434e-07
 	Time Step Number    14 was a success: time = 1.73995e-06
 		Estimated Error
-		--------------------   =   1.56078e-08
+		--------------------   =   1.56135e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 8.64976e-07
@@ -1367,7 +1367,7 @@ Start of Time Step:    15       Time_n = 2.6049e-06 Time_nm1 =  1.74e-06
 	delta_t_nm1      = 5.76650e-07
 	Time Step Number    15 was a success: time = 2.60493e-06
 		Estimated Error
-		--------------------   =   2.27282e-08
+		--------------------   =   2.27185e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.29746e-06
@@ -1384,7 +1384,7 @@ Start of Time Step:    16       Time_n = 3.9024e-06 Time_nm1 = 2.6049e-06
 	delta_t_nm1      = 8.64976e-07
 	Time Step Number    16 was a success: time = 3.90239e-06
 		Estimated Error
-		--------------------   =   3.54212e-08
+		--------------------   =   3.54336e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.9462e-06
@@ -1401,7 +1401,7 @@ Start of Time Step:    17       Time_n = 5.8486e-06 Time_nm1 = 3.9024e-06
 	delta_t_nm1      = 1.29746e-06
 	Time Step Number    17 was a success: time = 5.84859e-06
 		Estimated Error
-		--------------------   =   6.32109e-08
+		--------------------   =   6.32020e-08
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.91929e-06
@@ -1418,7 +1418,7 @@ Start of Time Step:    18       Time_n = 8.7679e-06 Time_nm1 = 5.8486e-06
 	delta_t_nm1      = 1.94620e-06
 	Time Step Number    18 was a success: time = 8.76788e-06
 		Estimated Error
-		--------------------   =   1.21628e-07
+		--------------------   =   1.21627e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 4.37894e-06
@@ -1435,7 +1435,7 @@ Start of Time Step:    19       Time_n = 1.3147e-05 Time_nm1 = 8.7679e-06
 	delta_t_nm1      = 2.91929e-06
 	Time Step Number    19 was a success: time = 1.31468e-05
 		Estimated Error
-		--------------------   =   2.36578e-07
+		--------------------   =   2.36587e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 6.56841e-06
@@ -1469,7 +1469,7 @@ Start of Time Step:    21       Time_n = 2.9568e-05 Time_nm1 = 1.9715e-05
 	delta_t_nm1      = 6.56841e-06
 	Time Step Number    21 was a success: time = 2.95678e-05
 		Estimated Error
-		--------------------   =   8.61899e-07
+		--------------------   =   8.61897e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.47789e-05
@@ -1486,7 +1486,7 @@ Start of Time Step:    22       Time_n = 4.4347e-05 Time_nm1 = 2.9568e-05
 	delta_t_nm1      = 9.85261e-06
 	Time Step Number    22 was a success: time = 4.43468e-05
 		Estimated Error
-		--------------------   =   1.61066e-06
+		--------------------   =   1.61065e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.21684e-05
@@ -1503,7 +1503,7 @@ Start of Time Step:    23       Time_n = 6.6515e-05 Time_nm1 = 4.4347e-05
 	delta_t_nm1      = 1.47789e-05
 	Time Step Number    23 was a success: time = 6.65151e-05
 		Estimated Error
-		--------------------   =   2.97986e-06
+		--------------------   =   2.97988e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 3.32526e-05
@@ -1520,7 +1520,7 @@ Start of Time Step:    24       Time_n = 9.9768e-05 Time_nm1 = 6.6515e-05
 	delta_t_nm1      = 2.21684e-05
 	Time Step Number    24 was a success: time = 9.97677e-05
 		Estimated Error
-		--------------------   =   5.47800e-06
+		--------------------   =   5.47796e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 4.98789e-05
@@ -1775,7 +1775,7 @@ Start of Time Step:    39       Time_n =  0.043683 Time_nm1 =  0.029122
 	delta_t_nm1      = 9.70740e-03
 	Time Step Number    39 was a success: time =  0.0436833
 		Estimated Error
-		--------------------   =   3.86992e-05
+		--------------------   =   3.86991e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 0.0218416

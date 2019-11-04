@@ -26,7 +26,7 @@
       </standardState>
       <!-- NIST -->
       <thermo>
-        <Shomate Pref="1 atm" Tmax="1400.0" Tmin="298">
+        <Shomate Pref="1 bar" Tmax="1400.0" Tmin="298">
           <floatArray size="7">
              72.3870,    8.8501,    0.0007,         0,   -1.1428, -197.3525,  131.4492
              <!-- pyrite Pelton  -->

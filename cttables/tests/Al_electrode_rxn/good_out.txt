@@ -27,7 +27,7 @@ INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
         Molecular Weight = 26.9815 gm/mol
         Heat of formation (298.15K) = -0.000046  kJ/gmol 
         DeltaGf (298.15K) = 0.000281  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
@@ -45,7 +45,7 @@ INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
                  2.808920000000000E+01, -5.414849000000000E+00,  8.560423000000000E+00,  3.427370000000000E+00,
                 -2.773750000000000E-01, -9.146887000000000E+00,  6.190981000000000E+01
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -187,8 +187,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = -167.096666  kJ/gmol 
         DeltaGf (298.15K) = -131.238370  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.00996831 m3/kmol
@@ -203,7 +202,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
                  5.669620420000000E+04, -2.978359780000000E+05,  5.814265490000000E+05, -4.017599910000000E+05,
                 -8.043011360000000E+02, -1.087382570000000E+04,  1.306506970000000E+05
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -282,8 +281,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = -230.032043  kJ/gmol 
         DeltaGf (298.15K) = -157.239158  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.00996831 m3/kmol
@@ -298,7 +296,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
                  4.467499961000000E+04, -2.349430414000000E+05,  4.605228260000000E+05, -3.206951836000000E+05,
                 -6.385044716000000E+02, -8.683955813000000E+03,  1.028742667000000E+05
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -330,8 +328,7 @@ INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
         Molecular Weight = 26.9799 gm/mol
         Heat of formation (298.15K) = -542.490782  kJ/gmol 
         DeltaGf (298.15K) = -487.609592  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 623.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.00834 m3/kmol
@@ -346,7 +343,7 @@ INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
                 -2.500551634000000E+05,  1.215326459000000E+06, -2.190592348000000E+06,  1.385805888000000E+06,
                  4.096004078000000E+03,  5.034742547000000E+04, -5.571472613000000E+05
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -482,7 +479,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !    -1.734 |   2.48e-48     2.48e-48    -3.19e-62 |    7.18e-44    -7.18e-44     -9.24e-58 |
+               !    -1.734 |   2.48e-48     2.48e-48    -2.28e-62 |    7.18e-44    -7.18e-44      -6.6e-58 |
                !        -1 |   7.67e-30     8.02e-67     7.67e-30 |    2.22e-25    -2.32e-62      2.22e-25 |
                !      -0.8 |   8.41e-25     7.32e-72     8.41e-25 |    2.43e-20    -2.12e-67      2.43e-20 |
                !      -0.6 |   9.22e-20     6.68e-77     9.22e-20 |    2.67e-15    -1.93e-72      2.67e-15 |
@@ -500,7 +497,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |       Ifwd         Irev        Inet  |    al_site |
                |   Volts   |               (amps/cm2)             |            |
                -----------------------------------------------------------------
-               !    -1.734 |   7.18e-44    -7.18e-44    -9.24e-58 |         1  |
+               !    -1.734 |   7.18e-44    -7.18e-44     -6.6e-58 |         1  |
                !        -1 |   2.22e-25    -2.32e-62     2.22e-25 |         1  |
                !      -0.8 |   2.43e-20    -2.12e-67     2.43e-20 |         1  |
                !      -0.6 |   2.67e-15    -1.93e-72     2.67e-15 |         1  |
