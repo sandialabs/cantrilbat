@@ -147,6 +147,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 rebaseline:
 	cp out.txt                   good_out.txt
 	cp soln_0_0.xml              soln_0_0_blessed.xml
+	cp soln_Restart_4_0_0        soln_Restart_4_0_0_blessed.xml
 	cp MCMB_globalResults_0_0.csv MCMB_globalResults_blessed_0_0.csv
 	cp MCMB_intResults_0_0.csv MCMB_intResults_blessed_0_0.csv
 	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \

@@ -213,8 +213,8 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
- volts = 4.17612
-oc[0] = 4.17612
+ volts = 4.17613
+oc[0] = 4.17613
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  0.00000E+00
                               time init_init   =  0.00000E+00                     deltaTglobal = 0
@@ -222,7 +222,7 @@ oc[0] = 4.17612
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
           Voltage = 3.7 volts
-          Current = -0.000539224 amps
+          Current = -0.000539301 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
           Total Volume =  1.000E-08
@@ -309,18 +309,18 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17612
+                Open Circuit Voltage = 4.17613
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon      -2.661E-09
+                           electron_Li_LiIon      -2.662E-09
                            ECDMC                   0.000E+00
-                           Li+                    -2.661E-09
+                           Li+                    -2.662E-09
                            PF6-                    0.000E+00
-                           LiCoO2                  2.661E-09
-                           CoO2                   -2.661E-09
+                           LiCoO2                  2.662E-09
+                           CoO2                   -2.662E-09
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
@@ -331,7 +331,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 16
                 numIntegrationSubCycles = 14, SubIntegrationCounter = 224
    ==============================================================================================
-          Voltage = 3.63263 volts
+          Voltage = 3.63264 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -351,7 +351,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63263
+                Electric Potential = 3.63264
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -419,7 +419,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.1761
+                Open Circuit Voltage = 4.17611
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -441,7 +441,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 26
                 numIntegrationSubCycles = 2, SubIntegrationCounter = 244
    ==============================================================================================
-          Voltage = 3.63261 volts
+          Voltage = 3.63262 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -461,7 +461,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63261
+                Electric Potential = 3.63262
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -529,7 +529,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17608
+                Open Circuit Voltage = 4.17609
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -551,7 +551,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 36
                 numIntegrationSubCycles = 2, SubIntegrationCounter = 264
    ==============================================================================================
-          Voltage = 3.63259 volts
+          Voltage = 3.6326 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -571,7 +571,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63259
+                Electric Potential = 3.6326
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -639,7 +639,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17606
+                Open Circuit Voltage = 4.17607
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -661,7 +661,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 46
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 274
    ==============================================================================================
-          Voltage = 3.63257 volts
+          Voltage = 3.63258 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -681,7 +681,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63257
+                Electric Potential = 3.63258
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -749,7 +749,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17604
+                Open Circuit Voltage = 4.17605
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -771,7 +771,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 56
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 284
    ==============================================================================================
-          Voltage = 3.63255 volts
+          Voltage = 3.63256 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -791,7 +791,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63255
+                Electric Potential = 3.63256
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -859,7 +859,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17602
+                Open Circuit Voltage = 4.17603
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -881,7 +881,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 66
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 294
    ==============================================================================================
-          Voltage = 3.63253 volts
+          Voltage = 3.63254 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -901,7 +901,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63253
+                Electric Potential = 3.63254
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -969,7 +969,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.176
+                Open Circuit Voltage = 4.17601
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -991,7 +991,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 76
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 304
    ==============================================================================================
-          Voltage = 3.63251 volts
+          Voltage = 3.63252 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -1011,7 +1011,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63251
+                Electric Potential = 3.63252
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -1101,7 +1101,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 86
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 314
    ==============================================================================================
-          Voltage = 3.63249 volts
+          Voltage = 3.6325 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -1121,7 +1121,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63249
+                Electric Potential = 3.6325
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -1299,7 +1299,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17595
+                Open Circuit Voltage = 4.17596
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -1409,7 +1409,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17593
+                Open Circuit Voltage = 4.17594
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -1431,7 +1431,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 116
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 344
    ==============================================================================================
-          Voltage = 3.63244 volts
+          Voltage = 3.63245 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -1451,7 +1451,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63244
+                Electric Potential = 3.63245
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -1519,7 +1519,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17591
+                Open Circuit Voltage = 4.17592
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -1541,7 +1541,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 126
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 354
    ==============================================================================================
-          Voltage = 3.63242 volts
+          Voltage = 3.63243 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -1561,7 +1561,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63242
+                Electric Potential = 3.63243
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -1629,7 +1629,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17589
+                Open Circuit Voltage = 4.1759
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -1651,7 +1651,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 136
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 364
    ==============================================================================================
-          Voltage = 3.6324 volts
+          Voltage = 3.63241 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -1671,7 +1671,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.6324
+                Electric Potential = 3.63241
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -1739,7 +1739,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17587
+                Open Circuit Voltage = 4.17588
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -1761,7 +1761,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 146
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 374
    ==============================================================================================
-          Voltage = 3.63238 volts
+          Voltage = 3.63239 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -1781,7 +1781,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63238
+                Electric Potential = 3.63239
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -1959,7 +1959,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17584
+                Open Circuit Voltage = 4.17585
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -1981,7 +1981,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 166
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 394
    ==============================================================================================
-          Voltage = 3.63235 volts
+          Voltage = 3.63236 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2001,7 +2001,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63235
+                Electric Potential = 3.63236
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -2069,7 +2069,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17582
+                Open Circuit Voltage = 4.17583
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2091,7 +2091,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 176
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 404
    ==============================================================================================
-          Voltage = 3.63233 volts
+          Voltage = 3.63234 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2111,7 +2111,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63233
+                Electric Potential = 3.63234
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -2179,7 +2179,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.1758
+                Open Circuit Voltage = 4.17581
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2201,7 +2201,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 186
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 414
    ==============================================================================================
-          Voltage = 3.63231 volts
+          Voltage = 3.63232 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2221,7 +2221,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63231
+                Electric Potential = 3.63232
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -2289,7 +2289,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17578
+                Open Circuit Voltage = 4.17579
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2509,7 +2509,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17575
+                Open Circuit Voltage = 4.17576
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2531,7 +2531,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 216
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 444
    ==============================================================================================
-          Voltage = 3.63226 volts
+          Voltage = 3.63227 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2551,7 +2551,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63226
+                Electric Potential = 3.63227
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -2619,7 +2619,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17573
+                Open Circuit Voltage = 4.17574
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2641,7 +2641,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 226
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 454
    ==============================================================================================
-          Voltage = 3.63224 volts
+          Voltage = 3.63225 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2661,7 +2661,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63224
+                Electric Potential = 3.63225
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -2729,7 +2729,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17571
+                Open Circuit Voltage = 4.17572
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2861,7 +2861,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 246
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 474
    ==============================================================================================
-          Voltage = 3.63221 volts
+          Voltage = 3.63222 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2881,7 +2881,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63221
+                Electric Potential = 3.63222
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -2949,7 +2949,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17568
+                Open Circuit Voltage = 4.17569
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -2971,7 +2971,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 256
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 484
    ==============================================================================================
-          Voltage = 3.63219 volts
+          Voltage = 3.6322 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -2991,7 +2991,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63219
+                Electric Potential = 3.6322
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -3059,7 +3059,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17566
+                Open Circuit Voltage = 4.17567
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -3081,7 +3081,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 266
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 494
    ==============================================================================================
-          Voltage = 3.63217 volts
+          Voltage = 3.63218 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -3101,7 +3101,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63217
+                Electric Potential = 3.63218
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -3279,7 +3279,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17563
+                Open Circuit Voltage = 4.17564
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -3301,7 +3301,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 286
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 514
    ==============================================================================================
-          Voltage = 3.63214 volts
+          Voltage = 3.63215 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -3321,7 +3321,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63214
+                Electric Potential = 3.63215
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -3389,7 +3389,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17561
+                Open Circuit Voltage = 4.17562
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -3411,7 +3411,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 296
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 524
    ==============================================================================================
-          Voltage = 3.63212 volts
+          Voltage = 3.63213 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -3431,7 +3431,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63212
+                Electric Potential = 3.63213
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -3499,7 +3499,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17559
+                Open Circuit Voltage = 4.1756
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -3631,7 +3631,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 316
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 544
    ==============================================================================================
-          Voltage = 3.63209 volts
+          Voltage = 3.6321 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -3651,7 +3651,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63209
+                Electric Potential = 3.6321
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -3719,7 +3719,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17556
+                Open Circuit Voltage = 4.17557
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -3741,7 +3741,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 326
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 554
    ==============================================================================================
-          Voltage = 3.63207 volts
+          Voltage = 3.63208 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -3761,7 +3761,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63207
+                Electric Potential = 3.63208
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -3829,7 +3829,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17554
+                Open Circuit Voltage = 4.17555
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -3961,7 +3961,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 346
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 574
    ==============================================================================================
-          Voltage = 3.63204 volts
+          Voltage = 3.63205 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -3981,7 +3981,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63204
+                Electric Potential = 3.63205
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4049,7 +4049,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17551
+                Open Circuit Voltage = 4.17552
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4071,7 +4071,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 356
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 584
    ==============================================================================================
-          Voltage = 3.63202 volts
+          Voltage = 3.63203 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4091,7 +4091,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63202
+                Electric Potential = 3.63203
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4159,7 +4159,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17549
+                Open Circuit Voltage = 4.1755
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4269,7 +4269,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17548
+                Open Circuit Voltage = 4.17549
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4291,7 +4291,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 376
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 604
    ==============================================================================================
-          Voltage = 3.63199 volts
+          Voltage = 3.632 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4311,7 +4311,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63199
+                Electric Potential = 3.632
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4379,7 +4379,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17546
+                Open Circuit Voltage = 4.17547
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4401,7 +4401,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 386
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 614
    ==============================================================================================
-          Voltage = 3.63197 volts
+          Voltage = 3.63198 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4421,7 +4421,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63197
+                Electric Potential = 3.63198
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4599,7 +4599,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17543
+                Open Circuit Voltage = 4.17544
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4621,7 +4621,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 406
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 634
    ==============================================================================================
-          Voltage = 3.63194 volts
+          Voltage = 3.63195 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4641,7 +4641,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63194
+                Electric Potential = 3.63195
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4709,7 +4709,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17541
+                Open Circuit Voltage = 4.17542
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4731,7 +4731,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 416
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 644
    ==============================================================================================
-          Voltage = 3.63192 volts
+          Voltage = 3.63193 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4751,7 +4751,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63192
+                Electric Potential = 3.63193
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4841,7 +4841,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 426
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 654
    ==============================================================================================
-          Voltage = 3.63191 volts
+          Voltage = 3.63192 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4861,7 +4861,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63191
+                Electric Potential = 3.63192
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -4929,7 +4929,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17538
+                Open Circuit Voltage = 4.17539
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -4951,7 +4951,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 436
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 664
    ==============================================================================================
-          Voltage = 3.63189 volts
+          Voltage = 3.6319 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -4971,7 +4971,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63189
+                Electric Potential = 3.6319
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -5039,7 +5039,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17536
+                Open Circuit Voltage = 4.17537
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -5149,7 +5149,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17535
+                Open Circuit Voltage = 4.17536
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -5171,7 +5171,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 456
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 684
    ==============================================================================================
-          Voltage = 3.63186 volts
+          Voltage = 3.63187 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -5191,7 +5191,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63186
+                Electric Potential = 3.63187
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -5259,7 +5259,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17533
+                Open Circuit Voltage = 4.17534
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -5391,7 +5391,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 476
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 704
    ==============================================================================================
-          Voltage = 3.63183 volts
+          Voltage = 3.63184 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -5411,7 +5411,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63183
+                Electric Potential = 3.63184
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -5479,7 +5479,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.1753
+                Open Circuit Voltage = 4.17531
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -5501,7 +5501,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 486
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 714
    ==============================================================================================
-          Voltage = 3.63181 volts
+          Voltage = 3.63182 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -5521,7 +5521,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63181
+                Electric Potential = 3.63182
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -5611,7 +5611,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 496
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 724
    ==============================================================================================
-          Voltage = 3.6318 volts
+          Voltage = 3.63181 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -5631,7 +5631,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.6318
+                Electric Potential = 3.63181
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -5699,7 +5699,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17527
+                Open Circuit Voltage = 4.17528
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00
@@ -5721,7 +5721,7 @@ oc[0] = 4.17612
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 506
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 734
    ==============================================================================================
-          Voltage = 3.63178 volts
+          Voltage = 3.63179 volts
           Current = -0.002 amps
           Number of external surfaces = 1
           Solid Volume =  7.000E-09
@@ -5741,7 +5741,7 @@ oc[0] = 4.17612
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = -0.002 amps 
-                Electric Potential = 3.63178
+                Electric Potential = 3.63179
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00  -2.073E-12
@@ -5809,7 +5809,7 @@ oc[0] = 4.17612
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = 4.17525
+                Open Circuit Voltage = 4.17526
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  6.300E-11  6.300E-11   0.000E+00

@@ -186,14 +186,14 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = -0.0230978
+oc[0] = -0.0230903
    ==============================================================================================
       Electrode_DiffTALE at time final =  0.00000E+00
                               time init  =  0.00000E+00
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 589461 amps
+          Current = 589364 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -281,18 +281,18 @@ oc[0] = -0.0230978
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0230978
+                Open Circuit Voltage = -0.0230903
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.431E-02
+                           electron_Li_LiIon       2.430E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.431E-02
+                           Li+                     2.430E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.431E-02
-                           V_C6-bulk               2.431E-02
+                           Li_C6-bulk             -2.430E-02
+                           V_C6-bulk               2.430E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -301,7 +301,7 @@ oc[0] = -0.0230978
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 573398 amps
+          Current = 573305 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -313,7 +313,7 @@ oc[0] = -0.0230978
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      5.73398 coulombs =   0.00159277 Ah
+          Capacity Discharged Since Start =      5.73305 coulombs =   0.00159251 Ah
           Depth of Discharge (Current)    =      2986.24 coulombs    Relative Depth of Discharge = 0.200385    
           Capacity Left                   =      11916.3 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -326,11 +326,11 @@ oc[0] = -0.0230978
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 573398 amps 
+                Current = 573305 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.943E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.942E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -338,15 +338,15 @@ oc[0] = -0.0230978
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.943E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.942E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.996E-01  8.000E-01  1.235E-04  1.236E-04  -5.943E-08
-                V_C6-bulk               2.004E-01  2.000E-01  3.095E-05  3.089E-05   5.943E-08
+                Li_C6-bulk              7.996E-01  8.000E-01  1.235E-04  1.236E-04  -5.942E-08
+                V_C6-bulk               2.004E-01  2.000E-01  3.095E-05  3.089E-05   5.942E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -389,7 +389,7 @@ oc[0] = -0.0230978
                 surface area (final) = 2.51351E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0204237
+                Open Circuit Voltage = -0.0204166
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.540E-09   0.000E+00
@@ -403,14 +403,14 @@ oc[0] = -0.0230978
                            V_C6-bulk               2.364E-02
                            li_site                 0.000E+00
    ==============================================================================================
-          1e-05         573398
+          1e-05         573305
    ==============================================================================================
       Electrode_DiffTALE at time final =  1.00000E-05
                               time init  =  0.00000E+00
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 573398 amps
+          Current = 573305 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -422,7 +422,7 @@ oc[0] = -0.0230978
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      5.73398 coulombs =   0.00159277 Ah
+          Capacity Discharged Since Start =      5.73305 coulombs =   0.00159251 Ah
           Depth of Discharge (Current)    =      2986.24 coulombs    Relative Depth of Discharge = 0.200385    
           Capacity Left                   =      11916.3 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -435,11 +435,11 @@ oc[0] = -0.0230978
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 573398 amps 
+                Current = 573305 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.943E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.942E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -447,15 +447,15 @@ oc[0] = -0.0230978
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.943E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.942E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.996E-01  8.000E-01  1.235E-04  1.236E-04  -5.943E-08
-                V_C6-bulk               2.004E-01  2.000E-01  3.095E-05  3.089E-05   5.943E-08
+                Li_C6-bulk              7.996E-01  8.000E-01  1.235E-04  1.236E-04  -5.942E-08
+                V_C6-bulk               2.004E-01  2.000E-01  3.095E-05  3.089E-05   5.942E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -498,7 +498,7 @@ oc[0] = -0.0230978
                 surface area (final) = 2.51351E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0204237
+                Open Circuit Voltage = -0.0204166
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.540E-09   0.000E+00
@@ -518,7 +518,7 @@ oc[0] = -0.0230978
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 566054 amps
+          Current = 565963 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -530,7 +530,7 @@ oc[0] = -0.0230978
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      8.56425 coulombs =   0.00237896 Ah
+          Capacity Discharged Since Start =      8.56286 coulombs =   0.00237857 Ah
           Depth of Discharge (Current)    =      2989.07 coulombs    Relative Depth of Discharge = 0.200575    
           Capacity Left                   =      11913.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -543,7 +543,7 @@ oc[0] = -0.0230978
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 566054 amps 
+                Current = 565963 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -589,7 +589,7 @@ oc[0] = -0.0230978
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6873E+01  3.6873E+01 |
                    7.9376E-06 |  1.4748E+02  1.4749E+02 |  3.6882E+01  3.6878E+01 |
-                   1.0001E-05 |  1.4702E+02  1.4718E+02 |  3.7204E+01  3.7096E+01 |
+                   1.0001E-05 |  1.4702E+02  1.4718E+02 |  3.7203E+01  3.7096E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -606,7 +606,7 @@ oc[0] = -0.0230978
                 surface area (final) = 2.51363E-01 m2
                 surface area (init)  = 2.51351E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0192012
+                Open Circuit Voltage = -0.0191943
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
@@ -620,14 +620,14 @@ oc[0] = -0.0230978
                            V_C6-bulk               2.334E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117807 beat out pnorm 0.258398
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117786 beat out pnorm 0.258355
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  2.00000E-05
                               intermediate-step time init  =  1.50000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 559174 amps
+          Current = 559084 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -639,7 +639,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117807 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      11.3601 coulombs =   0.00315559 Ah
+          Capacity Discharged Since Start =      11.3583 coulombs =   0.00315508 Ah
           Depth of Discharge (Current)    =      2991.87 coulombs    Relative Depth of Discharge = 0.200762    
           Capacity Left                   =      11910.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -652,11 +652,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117807 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 559174 amps 
+                Current = 559084 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.898E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.897E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -664,15 +664,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117807 bea
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   2.898E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   2.897E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.992E-01  7.994E-01  1.234E-04  1.235E-04  -2.898E-08
-                V_C6-bulk               2.008E-01  2.006E-01  3.101E-05  3.098E-05   2.898E-08
+                Li_C6-bulk              7.992E-01  7.994E-01  1.234E-04  1.235E-04  -2.897E-08
+                V_C6-bulk               2.008E-01  2.006E-01  3.101E-05  3.098E-05   2.897E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -698,7 +698,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117807 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6873E+01  3.6873E+01 |
                    7.9377E-06 |  1.4748E+02  1.4748E+02 |  3.6887E+01  3.6882E+01 |
-                   1.0001E-05 |  1.4687E+02  1.4702E+02 |  3.7307E+01  3.7204E+01 |
+                   1.0001E-05 |  1.4687E+02  1.4702E+02 |  3.7307E+01  3.7203E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -711,33 +711,33 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117807 bea
 
      ===============================================================
           Phase 3 anode_surface 
-                Total moles = 7.54124e-09
-                surface area (final) = 2.51375E-01 m2
+                Total moles = 7.54123e-09
+                surface area (final) = 2.51374E-01 m2
                 surface area (init)  = 2.51363E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0180607
+                Open Circuit Voltage = -0.018054
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.306E-02
+                           electron_Li_LiIon       2.305E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.306E-02
+                           Li+                     2.305E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.306E-02
-                           V_C6-bulk               2.306E-02
+                           Li_C6-bulk             -2.305E-02
+                           V_C6-bulk               2.305E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 beat out pnorm 0.319741
-          2e-05         562614
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108581 beat out pnorm 0.319691
+          2e-05         562523
    ==============================================================================================
       Electrode_DiffTALE at time final =  2.00000E-05
                               time init  =  1.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 562614 amps
+          Current = 562523 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -749,7 +749,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      11.3601 coulombs =   0.00315559 Ah
+          Capacity Discharged Since Start =      11.3583 coulombs =   0.00315508 Ah
           Depth of Discharge (Current)    =      2991.87 coulombs    Relative Depth of Discharge = 0.200762    
           Capacity Left                   =      11910.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -762,11 +762,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 562614 amps 
+                Current = 562523 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.831E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.830E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -774,15 +774,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.831E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.830E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.992E-01  7.994E-01  1.234E-04  1.235E-04  -5.831E-08
-                V_C6-bulk               2.008E-01  2.006E-01  3.101E-05  3.095E-05   5.831E-08
+                Li_C6-bulk              7.992E-01  7.994E-01  1.234E-04  1.235E-04  -5.830E-08
+                V_C6-bulk               2.008E-01  2.006E-01  3.101E-05  3.095E-05   5.830E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -808,7 +808,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6873E+01  3.6873E+01 |
                    7.9377E-06 |  1.4748E+02  1.4748E+02 |  3.6887E+01  3.6882E+01 |
-                   1.0001E-05 |  1.4687E+02  1.4702E+02 |  3.7307E+01  3.7204E+01 |
+                   1.0001E-05 |  1.4687E+02  1.4702E+02 |  3.7307E+01  3.7203E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -821,22 +821,22 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
 
      ===============================================================
           Phase 3 anode_surface 
-                Total moles = 7.54124e-09
-                surface area (final) = 2.51375E-01 m2
+                Total moles = 7.54123e-09
+                surface area (final) = 2.51374E-01 m2
                 surface area (init)  = 2.51363E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0180607
+                Open Circuit Voltage = -0.018054
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.306E-02
+                           electron_Li_LiIon       2.305E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.306E-02
+                           Li+                     2.305E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.306E-02
-                           V_C6-bulk               2.306E-02
+                           Li_C6-bulk             -2.305E-02
+                           V_C6-bulk               2.305E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -845,7 +845,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 552722 amps
+          Current = 552634 amps
           Number of external surfaces = 1
           Solid Volume =  8.380E-07
           Total Volume =  1.289E-06
@@ -857,7 +857,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      14.1237 coulombs =   0.00392326 Ah
+          Capacity Discharged Since Start =      14.1215 coulombs =   0.00392263 Ah
           Depth of Discharge (Current)    =      2994.63 coulombs    Relative Depth of Discharge = 0.200948    
           Capacity Left                   =      11907.9 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -870,7 +870,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 552722 amps 
+                Current = 552634 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -898,7 +898,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7254E-06  7.7249E-06 |  1.9314E-06  1.9312E-06 |
                    7.9379E-06 |  8.1430E-05  8.1427E-05 |  2.0371E-05  2.0367E-05 |
-                   1.0001E-05 |  3.4262E-05  3.4293E-05 |  8.7345E-06  8.7106E-06 |
+                   1.0001E-05 |  3.4262E-05  3.4293E-05 |  8.7344E-06  8.7106E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -925,36 +925,36 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108599 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
                    7.9379E-06 |  7.9989E-01  7.9992E-01 |  2.0011E-01  2.0008E-01 |
-                   1.0001E-05 |  7.9685E-01  7.9744E-01 |  2.0315E-01  2.0256E-01 |
+                   1.0001E-05 |  7.9686E-01  7.9744E-01 |  2.0314E-01  2.0256E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.54158e-09
                 surface area (final) = 2.51386E-01 m2
-                surface area (init)  = 2.51375E-01 m2
+                surface area (init)  = 2.51374E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0169943
+                Open Circuit Voltage = -0.0169877
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.279E-02
+                           electron_Li_LiIon       2.278E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.279E-02
+                           Li+                     2.278E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.279E-02
-                           V_C6-bulk               2.279E-02
+                           Li_C6-bulk             -2.278E-02
+                           V_C6-bulk               2.278E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 beat out pnorm 0.38274
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100391 beat out pnorm 0.382681
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  3.00000E-05
                               intermediate-step time init  =  2.50000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 546659 amps
+          Current = 546572 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -966,7 +966,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =       16.857 coulombs =   0.00468251 Ah
+          Capacity Discharged Since Start =      16.8543 coulombs =   0.00468175 Ah
           Depth of Discharge (Current)    =      2997.36 coulombs    Relative Depth of Discharge = 0.201131    
           Capacity Left                   =      11905.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -979,11 +979,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 546659 amps 
+                Current = 546572 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.833E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.832E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -991,15 +991,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 bea
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   2.833E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   2.832E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.989E-01  7.991E-01  1.234E-04  1.234E-04  -2.833E-08
-                V_C6-bulk               2.011E-01  2.009E-01  3.107E-05  3.104E-05   2.833E-08
+                Li_C6-bulk              7.989E-01  7.991E-01  1.234E-04  1.234E-04  -2.832E-08
+                V_C6-bulk               2.011E-01  2.009E-01  3.107E-05  3.104E-05   2.832E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1007,7 +1007,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7259E-06  7.7254E-06 |  1.9315E-06  1.9314E-06 |
                    7.9381E-06 |  8.1431E-05  8.1430E-05 |  2.0377E-05  2.0371E-05 |
-                   1.0001E-05 |  3.4231E-05  3.4262E-05 |  8.7574E-06  8.7345E-06 |
+                   1.0001E-05 |  3.4231E-05  3.4262E-05 |  8.7574E-06  8.7344E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1034,7 +1034,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
                    7.9381E-06 |  7.9985E-01  7.9989E-01 |  2.0015E-01  2.0011E-01 |
-                   1.0001E-05 |  7.9628E-01  7.9685E-01 |  2.0372E-01  2.0315E-01 |
+                   1.0001E-05 |  7.9629E-01  7.9686E-01 |  2.0371E-01  2.0314E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
@@ -1042,29 +1042,29 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100408 bea
                 surface area (final) = 2.51397E-01 m2
                 surface area (init)  = 2.51386E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0159948
+                Open Circuit Voltage = -0.0159883
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.254E-02
+                           electron_Li_LiIon       2.253E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.254E-02
+                           Li+                     2.253E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.254E-02
-                           V_C6-bulk               2.254E-02
+                           Li_C6-bulk             -2.253E-02
+                           V_C6-bulk               2.253E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 beat out pnorm 0.447315
-          3e-05         549691
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0929874 beat out pnorm 0.447248
+          3e-05         549603
    ==============================================================================================
       Electrode_DiffTALE at time final =  3.00000E-05
                               time init  =  2.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 549691 amps
+          Current = 549603 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -1076,7 +1076,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =       16.857 coulombs =   0.00468251 Ah
+          Capacity Discharged Since Start =      16.8543 coulombs =   0.00468175 Ah
           Depth of Discharge (Current)    =      2997.36 coulombs    Relative Depth of Discharge = 0.201131    
           Capacity Left                   =      11905.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -1089,11 +1089,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 549691 amps 
+                Current = 549603 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.697E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.696E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -1101,15 +1101,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.697E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.696E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.989E-01  7.991E-01  1.234E-04  1.234E-04  -5.697E-08
-                V_C6-bulk               2.011E-01  2.009E-01  3.107E-05  3.101E-05   5.697E-08
+                Li_C6-bulk              7.989E-01  7.991E-01  1.234E-04  1.234E-04  -5.696E-08
+                V_C6-bulk               2.011E-01  2.009E-01  3.107E-05  3.101E-05   5.696E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1117,7 +1117,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7259E-06  7.7254E-06 |  1.9315E-06  1.9314E-06 |
                    7.9381E-06 |  8.1431E-05  8.1430E-05 |  2.0377E-05  2.0371E-05 |
-                   1.0001E-05 |  3.4231E-05  3.4262E-05 |  8.7574E-06  8.7345E-06 |
+                   1.0001E-05 |  3.4231E-05  3.4262E-05 |  8.7574E-06  8.7344E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1144,7 +1144,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
                    7.9381E-06 |  7.9985E-01  7.9989E-01 |  2.0015E-01  2.0011E-01 |
-                   1.0001E-05 |  7.9628E-01  7.9685E-01 |  2.0372E-01  2.0315E-01 |
+                   1.0001E-05 |  7.9629E-01  7.9686E-01 |  2.0371E-01  2.0314E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
@@ -1152,18 +1152,18 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
                 surface area (final) = 2.51397E-01 m2
                 surface area (init)  = 2.51386E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0159948
+                Open Circuit Voltage = -0.0159883
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.254E-02
+                           electron_Li_LiIon       2.253E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.254E-02
+                           Li+                     2.253E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.254E-02
-                           V_C6-bulk               2.254E-02
+                           Li_C6-bulk             -2.253E-02
+                           V_C6-bulk               2.253E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -1172,7 +1172,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 540948 amps
+          Current = 540862 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -1184,8 +1184,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      19.5618 coulombs =   0.00543382 Ah
-          Depth of Discharge (Current)    =      3000.07 coulombs    Relative Depth of Discharge = 0.201313    
+          Capacity Discharged Since Start =      19.5586 coulombs =   0.00543295 Ah
+          Depth of Discharge (Current)    =      3000.07 coulombs    Relative Depth of Discharge = 0.201312    
           Capacity Left                   =      11902.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -1197,7 +1197,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 540948 amps 
+                Current = 540862 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1225,7 +1225,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7264E-06  7.7259E-06 |  1.9316E-06  1.9315E-06 |
                    7.9383E-06 |  8.1433E-05  8.1431E-05 |  2.0382E-05  2.0377E-05 |
-                   1.0002E-05 |  3.4201E-05  3.4231E-05 |  8.7797E-06  8.7574E-06 |
+                   1.0002E-05 |  3.4202E-05  3.4231E-05 |  8.7796E-06  8.7574E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1252,15 +1252,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
                    7.9383E-06 |  7.9981E-01  7.9985E-01 |  2.0019E-01  2.0015E-01 |
-                   1.0002E-05 |  7.9573E-01  7.9628E-01 |  2.0427E-01  2.0372E-01 |
+                   1.0002E-05 |  7.9573E-01  7.9629E-01 |  2.0427E-01  2.0371E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
-                Total moles = 7.54226e-09
-                surface area (final) = 2.51409E-01 m2
+                Total moles = 7.54225e-09
+                surface area (final) = 2.51408E-01 m2
                 surface area (init)  = 2.51397E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.015056
+                Open Circuit Voltage = -0.0150497
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -1274,14 +1274,14 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0930021 be
                            V_C6-bulk               2.230E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0862947 beat out pnorm 0.513393
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0862815 beat out pnorm 0.513318
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  4.00000E-05
                               intermediate-step time init  =  3.50000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 535558 amps
+          Current = 535473 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -1293,8 +1293,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0862947 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      22.2396 coulombs =   0.00617765 Ah
-          Depth of Discharge (Current)    =      3002.75 coulombs    Relative Depth of Discharge = 0.201492    
+          Capacity Discharged Since Start =       22.236 coulombs =   0.00617666 Ah
+          Depth of Discharge (Current)    =      3002.74 coulombs    Relative Depth of Discharge = 0.201492    
           Capacity Left                   =      11899.8 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -1306,7 +1306,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0862947 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 535558 amps 
+                Current = 535473 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1334,7 +1334,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0862947 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7269E-06  7.7264E-06 |  1.9318E-06  1.9316E-06 |
                    7.9385E-06 |  8.1433E-05  8.1433E-05 |  2.0388E-05  2.0382E-05 |
-                   1.0002E-05 |  3.4173E-05  3.4201E-05 |  8.8012E-06  8.7797E-06 |
+                   1.0002E-05 |  3.4173E-05  3.4202E-05 |  8.8011E-06  8.7796E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1367,31 +1367,31 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0862947 be
           Phase 3 anode_surface 
                 Total moles = 7.54259e-09
                 surface area (final) = 2.51420E-01 m2
-                surface area (init)  = 2.51409E-01 m2
+                surface area (init)  = 2.51408E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0141726
+                Open Circuit Voltage = -0.0141663
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.542E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.208E-02
+                           electron_Li_LiIon       2.207E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.208E-02
+                           Li+                     2.207E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.208E-02
-                           V_C6-bulk               2.208E-02
+                           Li_C6-bulk             -2.207E-02
+                           V_C6-bulk               2.207E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 beat out pnorm 0.580817
-          4e-05         538253
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801855 beat out pnorm 0.580734
+          4e-05         538168
    ==============================================================================================
       Electrode_DiffTALE at time final =  4.00000E-05
                               time init  =  3.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 538253 amps
+          Current = 538168 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -1403,8 +1403,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      22.2396 coulombs =   0.00617765 Ah
-          Depth of Discharge (Current)    =      3002.75 coulombs    Relative Depth of Discharge = 0.201492    
+          Capacity Discharged Since Start =       22.236 coulombs =   0.00617666 Ah
+          Depth of Discharge (Current)    =      3002.74 coulombs    Relative Depth of Discharge = 0.201492    
           Capacity Left                   =      11899.8 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -1416,11 +1416,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 538253 amps 
+                Current = 538168 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.579E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.578E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -1428,15 +1428,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.579E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.578E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.985E-01  7.987E-01  1.233E-04  1.234E-04  -5.579E-08
-                V_C6-bulk               2.015E-01  2.013E-01  3.112E-05  3.107E-05   5.579E-08
+                Li_C6-bulk              7.985E-01  7.987E-01  1.233E-04  1.234E-04  -5.578E-08
+                V_C6-bulk               2.015E-01  2.013E-01  3.112E-05  3.107E-05   5.578E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1444,7 +1444,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7269E-06  7.7264E-06 |  1.9318E-06  1.9316E-06 |
                    7.9385E-06 |  8.1433E-05  8.1433E-05 |  2.0388E-05  2.0382E-05 |
-                   1.0002E-05 |  3.4173E-05  3.4201E-05 |  8.8012E-06  8.7797E-06 |
+                   1.0002E-05 |  3.4173E-05  3.4202E-05 |  8.8011E-06  8.7796E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1477,20 +1477,20 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
           Phase 3 anode_surface 
                 Total moles = 7.54259e-09
                 surface area (final) = 2.51420E-01 m2
-                surface area (init)  = 2.51409E-01 m2
+                surface area (init)  = 2.51408E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0141726
+                Open Circuit Voltage = -0.0141663
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.542E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.208E-02
+                           electron_Li_LiIon       2.207E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.208E-02
+                           Li+                     2.207E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.208E-02
-                           V_C6-bulk               2.208E-02
+                           Li_C6-bulk             -2.207E-02
+                           V_C6-bulk               2.207E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -1499,7 +1499,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 528059 amps
+          Current = 527975 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -1511,8 +1511,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =         26.2 coulombs =   0.00727778 Ah
-          Depth of Discharge (Current)    =      3006.71 coulombs    Relative Depth of Discharge = 0.201758    
+          Capacity Discharged Since Start =      26.1958 coulombs =   0.00727661 Ah
+          Depth of Discharge (Current)    =       3006.7 coulombs    Relative Depth of Discharge = 0.201758    
           Capacity Left                   =      11895.8 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -1524,11 +1524,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 528059 amps 
+                Current = 527975 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   4.105E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   4.104E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -1536,15 +1536,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   4.105E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   4.104E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.982E-01  7.985E-01  1.233E-04  1.233E-04  -4.105E-08
-                V_C6-bulk               2.018E-01  2.015E-01  3.116E-05  3.112E-05   4.105E-08
+                Li_C6-bulk              7.982E-01  7.985E-01  1.233E-04  1.233E-04  -4.104E-08
+                V_C6-bulk               2.018E-01  2.015E-01  3.116E-05  3.112E-05   4.104E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1552,7 +1552,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7276E-06  7.7269E-06 |  1.9320E-06  1.9318E-06 |
                    7.9387E-06 |  8.1433E-05  8.1433E-05 |  2.0398E-05  2.0388E-05 |
-                   1.0002E-05 |  3.4131E-05  3.4173E-05 |  8.8320E-06  8.8012E-06 |
+                   1.0002E-05 |  3.4131E-05  3.4173E-05 |  8.8320E-06  8.8011E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1570,7 +1570,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6875E+01  3.6874E+01 |
                    7.9387E-06 |  1.4743E+02  1.4745E+02 |  3.6931E+01  3.6917E+01 |
-                   1.0002E-05 |  1.4612E+02  1.4632E+02 |  3.7813E+01  3.7684E+01 |
+                   1.0002E-05 |  1.4613E+02  1.4632E+02 |  3.7812E+01  3.7684E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -1587,28 +1587,28 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0801973 be
                 surface area (final) = 2.51436E-01 m2
                 surface area (init)  = 2.51420E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0129488
+                Open Circuit Voltage = -0.0129427
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.543E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.177E-02
+                           electron_Li_LiIon       2.176E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.177E-02
+                           Li+                     2.176E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.177E-02
-                           V_C6-bulk               2.177E-02
+                           Li_C6-bulk             -2.176E-02
+                           V_C6-bulk               2.176E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163405 beat out pnorm 0.922138
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163382 beat out pnorm 0.922009
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  5.00000E-05
                               intermediate-step time init  =  4.75000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 525665 amps
+          Current = 525582 amps
           Number of external surfaces = 1
           Solid Volume =  8.383E-07
           Total Volume =  1.289E-06
@@ -1620,7 +1620,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163405 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      27.5142 coulombs =   0.00764282 Ah
+          Capacity Discharged Since Start =      27.5098 coulombs =    0.0076416 Ah
           Depth of Discharge (Current)    =      3008.02 coulombs    Relative Depth of Discharge = 0.201846    
           Capacity Left                   =      11894.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -1633,7 +1633,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163405 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 525665 amps 
+                Current = 525582 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1679,7 +1679,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163405 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6875E+01  3.6875E+01 |
                    7.9388E-06 |  1.4743E+02  1.4743E+02 |  3.6936E+01  3.6931E+01 |
-                   1.0002E-05 |  1.4606E+02  1.4612E+02 |  3.7855E+01  3.7813E+01 |
+                   1.0002E-05 |  1.4606E+02  1.4613E+02 |  3.7855E+01  3.7812E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -1696,29 +1696,29 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163405 bea
                 surface area (final) = 2.51441E-01 m2
                 surface area (init)  = 2.51436E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0125572
+                Open Circuit Voltage = -0.0125511
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.543E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.167E-02
+                           electron_Li_LiIon       2.166E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.167E-02
+                           Li+                     2.166E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.167E-02
-                           V_C6-bulk               2.167E-02
+                           Li_C6-bulk             -2.166E-02
+                           V_C6-bulk               2.166E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 beat out pnorm 0.492085
-          5e-05         527460
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252825 beat out pnorm 0.492017
+          5e-05         527377
    ==============================================================================================
       Electrode_DiffTALE at time final =  5.00000E-05
                               time init  =  4.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 527460 amps
+          Current = 527377 amps
           Number of external surfaces = 1
           Solid Volume =  8.383E-07
           Total Volume =  1.289E-06
@@ -1730,7 +1730,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      27.5142 coulombs =   0.00764282 Ah
+          Capacity Discharged Since Start =      27.5098 coulombs =    0.0076416 Ah
           Depth of Discharge (Current)    =      3008.02 coulombs    Relative Depth of Discharge = 0.201846    
           Capacity Left                   =      11894.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -1743,11 +1743,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 527460 amps 
+                Current = 527377 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.467E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.466E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -1755,15 +1755,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.467E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.466E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.982E-01  7.982E-01  1.233E-04  1.233E-04  -5.467E-08
-                V_C6-bulk               2.018E-01  2.018E-01  3.118E-05  3.112E-05   5.467E-08
+                Li_C6-bulk              7.982E-01  7.982E-01  1.233E-04  1.233E-04  -5.466E-08
+                V_C6-bulk               2.018E-01  2.018E-01  3.118E-05  3.112E-05   5.466E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1789,7 +1789,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6875E+01  3.6875E+01 |
                    7.9388E-06 |  1.4743E+02  1.4743E+02 |  3.6936E+01  3.6931E+01 |
-                   1.0002E-05 |  1.4606E+02  1.4612E+02 |  3.7855E+01  3.7813E+01 |
+                   1.0002E-05 |  1.4606E+02  1.4613E+02 |  3.7855E+01  3.7812E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -1806,18 +1806,18 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
                 surface area (final) = 2.51441E-01 m2
                 surface area (init)  = 2.51436E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0125572
+                Open Circuit Voltage = -0.0125511
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.543E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.167E-02
+                           electron_Li_LiIon       2.166E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.167E-02
+                           Li+                     2.166E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.167E-02
-                           V_C6-bulk               2.167E-02
+                           Li_C6-bulk             -2.166E-02
+                           V_C6-bulk               2.166E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -1826,7 +1826,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 518905 amps
+          Current = 518823 amps
           Number of external surfaces = 1
           Solid Volume =  8.383E-07
           Total Volume =  1.290E-06
@@ -1838,7 +1838,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      31.4059 coulombs =   0.00872387 Ah
+          Capacity Discharged Since Start =      31.4009 coulombs =   0.00872248 Ah
           Depth of Discharge (Current)    =      3011.91 coulombs    Relative Depth of Discharge = 0.202107    
           Capacity Left                   =      11890.6 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -1851,11 +1851,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 518905 amps 
+                Current = 518823 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   4.034E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   4.033E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -1863,15 +1863,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   4.034E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   4.033E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.979E-01  7.982E-01  1.232E-04  1.233E-04  -4.034E-08
-                V_C6-bulk               2.021E-01  2.018E-01  3.122E-05  3.118E-05   4.034E-08
+                Li_C6-bulk              7.979E-01  7.982E-01  1.232E-04  1.233E-04  -4.033E-08
+                V_C6-bulk               2.021E-01  2.018E-01  3.122E-05  3.118E-05   4.033E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1896,8 +1896,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6876E+01  3.6875E+01 |
-                   7.9391E-06 |  1.4741E+02  1.4743E+02 |  3.6953E+01  3.6936E+01 |
-                   1.0003E-05 |  1.4588E+02  1.4606E+02 |  3.7976E+01  3.7855E+01 |
+                   7.9391E-06 |  1.4741E+02  1.4743E+02 |  3.6952E+01  3.6936E+01 |
+                   1.0003E-05 |  1.4588E+02  1.4606E+02 |  3.7975E+01  3.7855E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -1914,28 +1914,28 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0252864 be
                 surface area (final) = 2.51458E-01 m2
                 surface area (init)  = 2.51441E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0114614
+                Open Circuit Voltage = -0.0114554
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.544E-09  7.543E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.139E-02
+                           electron_Li_LiIon       2.138E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.139E-02
+                           Li+                     2.138E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.139E-02
-                           V_C6-bulk               2.139E-02
+                           Li_C6-bulk             -2.138E-02
+                           V_C6-bulk               2.138E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148772 beat out pnorm 1.08047
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148751 beat out pnorm 1.08033
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  6.00000E-05
                               intermediate-step time init  =  5.75000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 516744 amps
+          Current = 516662 amps
           Number of external surfaces = 1
           Solid Volume =  8.384E-07
           Total Volume =  1.290E-06
@@ -1947,8 +1947,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148772 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      32.6978 coulombs =   0.00908272 Ah
-          Depth of Discharge (Current)    =      3013.21 coulombs    Relative Depth of Discharge = 0.202194    
+          Capacity Discharged Since Start =      32.6926 coulombs =   0.00908127 Ah
+          Depth of Discharge (Current)    =       3013.2 coulombs    Relative Depth of Discharge = 0.202194    
           Capacity Left                   =      11889.3 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -1960,7 +1960,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148772 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 516744 amps 
+                Current = 516662 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2005,8 +2005,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148772 bea
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6876E+01  3.6876E+01 |
-                   7.9391E-06 |  1.4741E+02  1.4741E+02 |  3.6958E+01  3.6953E+01 |
-                   1.0003E-05 |  1.4582E+02  1.4588E+02 |  3.8015E+01  3.7976E+01 |
+                   7.9391E-06 |  1.4741E+02  1.4741E+02 |  3.6958E+01  3.6952E+01 |
+                   1.0003E-05 |  1.4582E+02  1.4588E+02 |  3.8015E+01  3.7975E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -2015,7 +2015,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148772 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.9999E-01  7.9999E-01 |  2.0001E-01  2.0001E-01 |
                    7.9391E-06 |  7.9954E-01  7.9957E-01 |  2.0046E-01  2.0043E-01 |
-                   1.0003E-05 |  7.9320E-01  7.9345E-01 |  2.0680E-01  2.0655E-01 |
+                   1.0003E-05 |  7.9321E-01  7.9345E-01 |  2.0679E-01  2.0655E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
@@ -2023,29 +2023,29 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148772 bea
                 surface area (final) = 2.51463E-01 m2
                 surface area (init)  = 2.51458E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0111098
+                Open Circuit Voltage = -0.0111039
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.544E-09  7.544E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.130E-02
+                           electron_Li_LiIon       2.129E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.130E-02
+                           Li+                     2.129E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.130E-02
-                           V_C6-bulk               2.130E-02
+                           Li_C6-bulk             -2.129E-02
+                           V_C6-bulk               2.129E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 beat out pnorm 0.613391
-          6e-05         518364
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284592 beat out pnorm 0.613309
+          6e-05         518283
    ==============================================================================================
       Electrode_DiffTALE at time final =  6.00000E-05
                               time init  =  5.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 518364 amps
+          Current = 518283 amps
           Number of external surfaces = 1
           Solid Volume =  8.384E-07
           Total Volume =  1.290E-06
@@ -2057,8 +2057,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      32.6978 coulombs =   0.00908272 Ah
-          Depth of Discharge (Current)    =      3013.21 coulombs    Relative Depth of Discharge = 0.202194    
+          Capacity Discharged Since Start =      32.6926 coulombs =   0.00908127 Ah
+          Depth of Discharge (Current)    =       3013.2 coulombs    Relative Depth of Discharge = 0.202194    
           Capacity Left                   =      11889.3 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2070,7 +2070,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 518364 amps 
+                Current = 518283 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2115,8 +2115,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6876E+01  3.6876E+01 |
-                   7.9391E-06 |  1.4741E+02  1.4741E+02 |  3.6958E+01  3.6953E+01 |
-                   1.0003E-05 |  1.4582E+02  1.4588E+02 |  3.8015E+01  3.7976E+01 |
+                   7.9391E-06 |  1.4741E+02  1.4741E+02 |  3.6958E+01  3.6952E+01 |
+                   1.0003E-05 |  1.4582E+02  1.4588E+02 |  3.8015E+01  3.7975E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -2125,7 +2125,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.9999E-01  7.9999E-01 |  2.0001E-01  2.0001E-01 |
                    7.9391E-06 |  7.9954E-01  7.9957E-01 |  2.0046E-01  2.0043E-01 |
-                   1.0003E-05 |  7.9320E-01  7.9345E-01 |  2.0680E-01  2.0655E-01 |
+                   1.0003E-05 |  7.9321E-01  7.9345E-01 |  2.0679E-01  2.0655E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
@@ -2133,18 +2133,18 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
                 surface area (final) = 2.51463E-01 m2
                 surface area (init)  = 2.51458E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0111098
+                Open Circuit Voltage = -0.0111039
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.544E-09  7.543E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.130E-02
+                           electron_Li_LiIon       2.129E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.130E-02
+                           Li+                     2.129E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.130E-02
-                           V_C6-bulk               2.130E-02
+                           Li_C6-bulk             -2.129E-02
+                           V_C6-bulk               2.129E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -2153,7 +2153,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 510616 amps
+          Current = 510536 amps
           Number of external surfaces = 1
           Solid Volume =  8.384E-07
           Total Volume =  1.290E-06
@@ -2165,8 +2165,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      36.5274 coulombs =    0.0101465 Ah
-          Depth of Discharge (Current)    =      3017.04 coulombs    Relative Depth of Discharge = 0.202451    
+          Capacity Discharged Since Start =      36.5216 coulombs =    0.0101449 Ah
+          Depth of Discharge (Current)    =      3017.03 coulombs    Relative Depth of Discharge = 0.202451    
           Capacity Left                   =      11885.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2178,11 +2178,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 510616 amps 
+                Current = 510536 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   3.969E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   3.968E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -2190,15 +2190,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   3.969E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   3.968E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.975E-01  7.978E-01  1.232E-04  1.232E-04  -3.969E-08
-                V_C6-bulk               2.025E-01  2.022E-01  3.127E-05  3.123E-05   3.969E-08
+                Li_C6-bulk              7.975E-01  7.978E-01  1.232E-04  1.232E-04  -3.968E-08
+                V_C6-bulk               2.025E-01  2.022E-01  3.127E-05  3.123E-05   3.968E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -2206,7 +2206,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7295E-06  7.7288E-06 |  1.9326E-06  1.9324E-06 |
                    7.9394E-06 |  8.1429E-05  8.1431E-05 |  2.0428E-05  2.0416E-05 |
-                   1.0003E-05 |  3.4026E-05  3.4064E-05 |  8.9084E-06  8.8808E-06 |
+                   1.0003E-05 |  3.4026E-05  3.4064E-05 |  8.9083E-06  8.8808E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2233,7 +2233,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.9998E-01  7.9999E-01 |  2.0002E-01  2.0001E-01 |
                    7.9394E-06 |  7.9944E-01  7.9954E-01 |  2.0056E-01  2.0046E-01 |
-                   1.0003E-05 |  7.9251E-01  7.9320E-01 |  2.0749E-01  2.0680E-01 |
+                   1.0003E-05 |  7.9251E-01  7.9321E-01 |  2.0749E-01  2.0679E-01 |
 
      ===============================================================
           Phase 3 anode_surface 
@@ -2241,7 +2241,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
                 surface area (final) = 2.51479E-01 m2
                 surface area (init)  = 2.51463E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0101224
+                Open Circuit Voltage = -0.0101165
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.544E-09  7.544E-09   0.000E+00
@@ -2255,14 +2255,14 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284637 be
                            V_C6-bulk               2.104E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 beat out pnorm 1.2388
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131959 beat out pnorm 1.23864
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  7.00000E-05
                               intermediate-step time init  =  6.75000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 508653 amps
+          Current = 508574 amps
           Number of external surfaces = 1
           Solid Volume =  8.385E-07
           Total Volume =  1.290E-06
@@ -2274,8 +2274,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      37.7991 coulombs =    0.0104997 Ah
-          Depth of Discharge (Current)    =      3018.31 coulombs    Relative Depth of Discharge = 0.202536    
+          Capacity Discharged Since Start =       37.793 coulombs =    0.0104981 Ah
+          Depth of Discharge (Current)    =       3018.3 coulombs    Relative Depth of Discharge = 0.202536    
           Capacity Left                   =      11884.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2287,7 +2287,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 508653 amps 
+                Current = 508574 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2315,7 +2315,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7297E-06  7.7295E-06 |  1.9327E-06  1.9326E-06 |
                    7.9395E-06 |  8.1428E-05  8.1429E-05 |  2.0432E-05  2.0428E-05 |
-                   1.0003E-05 |  3.4013E-05  3.4026E-05 |  8.9175E-06  8.9084E-06 |
+                   1.0003E-05 |  3.4014E-05  3.4026E-05 |  8.9174E-06  8.9083E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2333,7 +2333,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6877E+01  3.6877E+01 |
                    7.9395E-06 |  1.4738E+02  1.4739E+02 |  3.6982E+01  3.6976E+01 |
-                   1.0003E-05 |  1.4558E+02  1.4564E+02 |  3.8168E+01  3.8130E+01 |
+                   1.0003E-05 |  1.4558E+02  1.4564E+02 |  3.8167E+01  3.8130E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -2350,7 +2350,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 bea
                 surface area (final) = 2.51484E-01 m2
                 surface area (init)  = 2.51479E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00980478
+                Open Circuit Voltage = -0.00979898
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.545E-09  7.544E-09   0.000E+00
@@ -2364,15 +2364,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131977 bea
                            V_C6-bulk               2.096E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 beat out pnorm 0.740806
-          7e-05         510125
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280047 beat out pnorm 0.740709
+          7e-05         510045
    ==============================================================================================
       Electrode_DiffTALE at time final =  7.00000E-05
                               time init  =  6.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 510125 amps
+          Current = 510045 amps
           Number of external surfaces = 1
           Solid Volume =  8.385E-07
           Total Volume =  1.290E-06
@@ -2384,8 +2384,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      37.7991 coulombs =    0.0104997 Ah
-          Depth of Discharge (Current)    =      3018.31 coulombs    Relative Depth of Discharge = 0.202536    
+          Capacity Discharged Since Start =       37.793 coulombs =    0.0104981 Ah
+          Depth of Discharge (Current)    =       3018.3 coulombs    Relative Depth of Discharge = 0.202536    
           Capacity Left                   =      11884.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2397,11 +2397,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 510125 amps 
+                Current = 510045 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.287E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.286E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -2409,15 +2409,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.287E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.286E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.975E-01  7.975E-01  1.232E-04  1.232E-04  -5.287E-08
-                V_C6-bulk               2.025E-01  2.025E-01  3.128E-05  3.123E-05   5.287E-08
+                Li_C6-bulk              7.975E-01  7.975E-01  1.232E-04  1.232E-04  -5.286E-08
+                V_C6-bulk               2.025E-01  2.025E-01  3.128E-05  3.123E-05   5.286E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -2425,7 +2425,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7297E-06  7.7295E-06 |  1.9327E-06  1.9326E-06 |
                    7.9395E-06 |  8.1428E-05  8.1429E-05 |  2.0432E-05  2.0428E-05 |
-                   1.0003E-05 |  3.4013E-05  3.4026E-05 |  8.9175E-06  8.9084E-06 |
+                   1.0003E-05 |  3.4014E-05  3.4026E-05 |  8.9174E-06  8.9083E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2443,7 +2443,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6877E+01  3.6877E+01 |
                    7.9395E-06 |  1.4738E+02  1.4739E+02 |  3.6982E+01  3.6976E+01 |
-                   1.0003E-05 |  1.4558E+02  1.4564E+02 |  3.8168E+01  3.8130E+01 |
+                   1.0003E-05 |  1.4558E+02  1.4564E+02 |  3.8167E+01  3.8130E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -2460,7 +2460,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
                 surface area (final) = 2.51484E-01 m2
                 surface area (init)  = 2.51479E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00980478
+                Open Circuit Voltage = -0.00979898
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.545E-09  7.544E-09   0.000E+00
@@ -2480,7 +2480,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 503068 amps
+          Current = 502989 amps
           Number of external surfaces = 1
           Solid Volume =  8.385E-07
           Total Volume =  1.290E-06
@@ -2492,8 +2492,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      41.5721 coulombs =    0.0115478 Ah
-          Depth of Discharge (Current)    =      3022.08 coulombs    Relative Depth of Discharge = 0.20279     
+          Capacity Discharged Since Start =      41.5654 coulombs =     0.011546 Ah
+          Depth of Discharge (Current)    =      3022.07 coulombs    Relative Depth of Discharge = 0.202789    
           Capacity Left                   =      11880.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2505,7 +2505,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 503068 amps 
+                Current = 502989 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2533,7 +2533,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7304E-06  7.7297E-06 |  1.9329E-06  1.9327E-06 |
                    7.9397E-06 |  8.1425E-05  8.1428E-05 |  2.0445E-05  2.0432E-05 |
-                   1.0003E-05 |  3.3977E-05  3.4013E-05 |  8.9437E-06  8.9175E-06 |
+                   1.0003E-05 |  3.3977E-05  3.4014E-05 |  8.9437E-06  8.9174E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2551,7 +2551,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6878E+01  3.6877E+01 |
                    7.9397E-06 |  1.4736E+02  1.4738E+02 |  3.7002E+01  3.6982E+01 |
-                   1.0003E-05 |  1.4541E+02  1.4558E+02 |  3.8276E+01  3.8168E+01 |
+                   1.0003E-05 |  1.4541E+02  1.4558E+02 |  3.8276E+01  3.8167E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -2568,7 +2568,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
                 surface area (final) = 2.51500E-01 m2
                 surface area (init)  = 2.51484E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00890987
+                Open Circuit Voltage = -0.00890415
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.545E-09  7.545E-09   0.000E+00
@@ -2582,14 +2582,14 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0280091 be
                            V_C6-bulk               2.073E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117785 beat out pnorm 1.39785
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.11777 beat out pnorm 1.39767
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  8.00000E-05
                               intermediate-step time init  =  7.75000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 501276 amps
+          Current = 501197 amps
           Number of external surfaces = 1
           Solid Volume =  8.386E-07
           Total Volume =  1.290E-06
@@ -2601,8 +2601,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117785 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      42.8252 coulombs =    0.0118959 Ah
-          Depth of Discharge (Current)    =      3023.33 coulombs    Relative Depth of Discharge = 0.202874    
+          Capacity Discharged Since Start =      42.8184 coulombs =     0.011894 Ah
+          Depth of Discharge (Current)    =      3023.33 coulombs    Relative Depth of Discharge = 0.202873    
           Capacity Left                   =      11879.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2614,7 +2614,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117785 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 501276 amps 
+                Current = 501197 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2642,7 +2642,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117785 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7306E-06  7.7304E-06 |  1.9330E-06  1.9329E-06 |
                    7.9398E-06 |  8.1424E-05  8.1425E-05 |  2.0449E-05  2.0445E-05 |
-                   1.0004E-05 |  3.3965E-05  3.3977E-05 |  8.9524E-06  8.9437E-06 |
+                   1.0004E-05 |  3.3965E-05  3.3977E-05 |  8.9523E-06  8.9437E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2677,29 +2677,29 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117785 bea
                 surface area (final) = 2.51505E-01 m2
                 surface area (init)  = 2.51500E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0086214
+                Open Circuit Voltage = -0.00861571
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.545E-09  7.545E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.066E-02
+                           electron_Li_LiIon       2.065E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.066E-02
+                           Li+                     2.065E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.066E-02
-                           V_C6-bulk               2.066E-02
+                           Li_C6-bulk             -2.065E-02
+                           V_C6-bulk               2.065E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 beat out pnorm 0.873458
-          8e-05         502620
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275904 beat out pnorm 0.873346
+          8e-05         502541
    ==============================================================================================
       Electrode_DiffTALE at time final =  8.00000E-05
                               time init  =  7.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 502620 amps
+          Current = 502541 amps
           Number of external surfaces = 1
           Solid Volume =  8.386E-07
           Total Volume =  1.290E-06
@@ -2711,8 +2711,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      42.8252 coulombs =    0.0118959 Ah
-          Depth of Discharge (Current)    =      3023.33 coulombs    Relative Depth of Discharge = 0.202874    
+          Capacity Discharged Since Start =      42.8184 coulombs =     0.011894 Ah
+          Depth of Discharge (Current)    =      3023.33 coulombs    Relative Depth of Discharge = 0.202873    
           Capacity Left                   =      11879.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -2724,11 +2724,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 502620 amps 
+                Current = 502541 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.209E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.208E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -2736,15 +2736,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.209E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.208E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.971E-01  7.972E-01  1.231E-04  1.232E-04  -5.209E-08
-                V_C6-bulk               2.029E-01  2.028E-01  3.133E-05  3.128E-05   5.209E-08
+                Li_C6-bulk              7.971E-01  7.972E-01  1.231E-04  1.232E-04  -5.208E-08
+                V_C6-bulk               2.029E-01  2.028E-01  3.133E-05  3.128E-05   5.208E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -2752,7 +2752,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7306E-06  7.7304E-06 |  1.9330E-06  1.9329E-06 |
                    7.9398E-06 |  8.1424E-05  8.1425E-05 |  2.0449E-05  2.0445E-05 |
-                   1.0004E-05 |  3.3965E-05  3.3977E-05 |  8.9524E-06  8.9437E-06 |
+                   1.0004E-05 |  3.3965E-05  3.3977E-05 |  8.9523E-06  8.9437E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2787,18 +2787,18 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
                 surface area (final) = 2.51505E-01 m2
                 surface area (init)  = 2.51500E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0086214
+                Open Circuit Voltage = -0.00861571
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.545E-09  7.545E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.066E-02
+                           electron_Li_LiIon       2.065E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.066E-02
+                           Li+                     2.065E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.066E-02
-                           V_C6-bulk               2.066E-02
+                           Li_C6-bulk             -2.065E-02
+                           V_C6-bulk               2.065E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -2807,7 +2807,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 496158 amps
+          Current = 496080 amps
           Number of external surfaces = 1
           Solid Volume =  8.386E-07
           Total Volume =  1.290E-06
@@ -2819,7 +2819,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      46.5464 coulombs =    0.0129296 Ah
+          Capacity Discharged Since Start =       46.539 coulombs =    0.0129275 Ah
           Depth of Discharge (Current)    =      3027.05 coulombs    Relative Depth of Discharge = 0.203123    
           Capacity Left                   =      11875.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
@@ -2832,11 +2832,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 496158 amps 
+                Current = 496080 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   3.857E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   3.856E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -2844,15 +2844,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   3.857E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   3.856E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.969E-01  7.971E-01  1.231E-04  1.231E-04  -3.857E-08
-                V_C6-bulk               2.031E-01  2.029E-01  3.137E-05  3.133E-05   3.857E-08
+                Li_C6-bulk              7.969E-01  7.971E-01  1.231E-04  1.231E-04  -3.856E-08
+                V_C6-bulk               2.031E-01  2.029E-01  3.137E-05  3.133E-05   3.856E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -2860,7 +2860,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7312E-06  7.7306E-06 |  1.9333E-06  1.9330E-06 |
                    7.9401E-06 |  8.1420E-05  8.1424E-05 |  2.0463E-05  2.0449E-05 |
-                   1.0004E-05 |  3.3929E-05  3.3965E-05 |  8.9774E-06  8.9524E-06 |
+                   1.0004E-05 |  3.3930E-05  3.3965E-05 |  8.9773E-06  8.9523E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2878,7 +2878,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6880E+01  3.6879E+01 |
                    7.9401E-06 |  1.4734E+02  1.4736E+02 |  3.7029E+01  3.7008E+01 |
-                   1.0004E-05 |  1.4519E+02  1.4535E+02 |  3.8416E+01  3.8312E+01 |
+                   1.0004E-05 |  1.4519E+02  1.4535E+02 |  3.8415E+01  3.8312E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -2895,28 +2895,28 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0275947 be
                 surface area (final) = 2.51520E-01 m2
                 surface area (init)  = 2.51505E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00780609
+                Open Circuit Voltage = -0.00780047
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.546E-09  7.545E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.045E-02
+                           electron_Li_LiIon       2.044E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.045E-02
+                           Li+                     2.044E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.045E-02
-                           V_C6-bulk               2.045E-02
+                           Li_C6-bulk             -2.044E-02
+                           V_C6-bulk               2.044E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 beat out pnorm 1.55751
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105699 beat out pnorm 1.55732
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  9.00000E-05
                               intermediate-step time init  =  8.75000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 494514 amps
+          Current = 494436 amps
           Number of external surfaces = 1
           Solid Volume =  8.387E-07
           Total Volume =  1.290E-06
@@ -2928,9 +2928,9 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      47.7827 coulombs =     0.013273 Ah
-          Depth of Discharge (Current)    =      3028.29 coulombs    Relative Depth of Discharge = 0.203206    
-          Capacity Left                   =      11874.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
+          Capacity Discharged Since Start =      47.7751 coulombs =    0.0132709 Ah
+          Depth of Discharge (Current)    =      3028.28 coulombs    Relative Depth of Discharge = 0.203206    
+          Capacity Left                   =      11874.3 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
           --------------------------------------------------------------------------------
@@ -2941,7 +2941,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 494514 amps 
+                Current = 494436 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2969,7 +2969,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7314E-06  7.7312E-06 |  1.9333E-06  1.9333E-06 |
                    7.9401E-06 |  8.1419E-05  8.1420E-05 |  2.0467E-05  2.0463E-05 |
-                   1.0004E-05 |  3.3918E-05  3.3929E-05 |  8.9857E-06  8.9774E-06 |
+                   1.0004E-05 |  3.3918E-05  3.3930E-05 |  8.9856E-06  8.9773E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -2978,7 +2978,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.8437E+02  1.8437E+02 |
                    7.9401E-06 |  1.8437E+02  1.8437E+02 |
-                   1.0004E-05 |  1.8358E+02  1.8361E+02 |
+                   1.0004E-05 |  1.8359E+02  1.8361E+02 |
 
               --------------------------------------------------------------------------------
                    Species Concentrations (kmol /m3) (final and init)
@@ -2987,7 +2987,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6881E+01  3.6880E+01 |
                    7.9401E-06 |  1.4733E+02  1.4734E+02 |  3.7036E+01  3.7029E+01 |
-                   1.0004E-05 |  1.4513E+02  1.4519E+02 |  3.8450E+01  3.8416E+01 |
+                   1.0004E-05 |  1.4514E+02  1.4519E+02 |  3.8450E+01  3.8415E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -3004,29 +3004,29 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105712 bea
                 surface area (final) = 2.51525E-01 m2
                 surface area (init)  = 2.51520E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00754275
+                Open Circuit Voltage = -0.00753715
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.546E-09  7.546E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.038E-02
+                           electron_Li_LiIon       2.037E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.038E-02
+                           Li+                     2.037E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.038E-02
-                           V_C6-bulk               2.038E-02
+                           Li_C6-bulk             -2.037E-02
+                           V_C6-bulk               2.037E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 beat out pnorm 1.0106
-          9e-05         495747
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0272107 beat out pnorm 1.01047
+          9e-05         495669
    ==============================================================================================
       Electrode_DiffTALE at time final =  9.00000E-05
                               time init  =  8.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 495747 amps
+          Current = 495669 amps
           Number of external surfaces = 1
           Solid Volume =  8.387E-07
           Total Volume =  1.290E-06
@@ -3038,9 +3038,9 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      47.7827 coulombs =     0.013273 Ah
-          Depth of Discharge (Current)    =      3028.29 coulombs    Relative Depth of Discharge = 0.203206    
-          Capacity Left                   =      11874.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
+          Capacity Discharged Since Start =      47.7751 coulombs =    0.0132709 Ah
+          Depth of Discharge (Current)    =      3028.28 coulombs    Relative Depth of Discharge = 0.203206    
+          Capacity Left                   =      11874.3 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
           --------------------------------------------------------------------------------
@@ -3051,11 +3051,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 495747 amps 
+                Current = 495669 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.138E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.137E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -3063,15 +3063,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.138E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.137E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.968E-01  7.969E-01  1.231E-04  1.231E-04  -5.138E-08
-                V_C6-bulk               2.032E-01  2.031E-01  3.139E-05  3.133E-05   5.138E-08
+                Li_C6-bulk              7.968E-01  7.969E-01  1.231E-04  1.231E-04  -5.137E-08
+                V_C6-bulk               2.032E-01  2.031E-01  3.139E-05  3.133E-05   5.137E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -3079,7 +3079,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7314E-06  7.7312E-06 |  1.9333E-06  1.9333E-06 |
                    7.9401E-06 |  8.1419E-05  8.1420E-05 |  2.0467E-05  2.0463E-05 |
-                   1.0004E-05 |  3.3918E-05  3.3929E-05 |  8.9857E-06  8.9774E-06 |
+                   1.0004E-05 |  3.3918E-05  3.3930E-05 |  8.9856E-06  8.9773E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -3088,7 +3088,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.8437E+02  1.8437E+02 |
                    7.9401E-06 |  1.8437E+02  1.8437E+02 |
-                   1.0004E-05 |  1.8358E+02  1.8361E+02 |
+                   1.0004E-05 |  1.8359E+02  1.8361E+02 |
 
               --------------------------------------------------------------------------------
                    Species Concentrations (kmol /m3) (final and init)
@@ -3097,7 +3097,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4749E+02  1.4749E+02 |  3.6881E+01  3.6880E+01 |
                    7.9401E-06 |  1.4733E+02  1.4734E+02 |  3.7036E+01  3.7029E+01 |
-                   1.0004E-05 |  1.4513E+02  1.4519E+02 |  3.8450E+01  3.8416E+01 |
+                   1.0004E-05 |  1.4514E+02  1.4519E+02 |  3.8450E+01  3.8415E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -3114,18 +3114,18 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
                 surface area (final) = 2.51525E-01 m2
                 surface area (init)  = 2.51520E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00754275
+                Open Circuit Voltage = -0.00753715
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.546E-09  7.545E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       2.038E-02
+                           electron_Li_LiIon       2.037E-02
                            ECDMC                   0.000E+00
-                           Li+                     2.038E-02
+                           Li+                     2.037E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -2.038E-02
-                           V_C6-bulk               2.038E-02
+                           Li_C6-bulk             -2.037E-02
+                           V_C6-bulk               2.037E-02
                            li_site                 0.000E+00
    ==============================================================================================
    ==============================================================================================
@@ -3134,7 +3134,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 489803 amps
+          Current = 489726 amps
           Number of external surfaces = 1
           Solid Volume =  8.387E-07
           Total Volume =  1.290E-06
@@ -3146,8 +3146,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      51.4562 coulombs =    0.0142934 Ah
-          Depth of Discharge (Current)    =      3031.96 coulombs    Relative Depth of Discharge = 0.203453    
+          Capacity Discharged Since Start =      51.4481 coulombs =    0.0142911 Ah
+          Depth of Discharge (Current)    =      3031.96 coulombs    Relative Depth of Discharge = 0.203452    
           Capacity Left                   =      11870.6 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -3159,7 +3159,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 489803 amps 
+                Current = 489726 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3187,7 +3187,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7321E-06  7.7314E-06 |  1.9336E-06  1.9333E-06 |
                    7.9404E-06 |  8.1414E-05  8.1419E-05 |  2.0481E-05  2.0467E-05 |
-                   1.0004E-05 |  3.3884E-05  3.3918E-05 |  9.0096E-06  8.9857E-06 |
+                   1.0004E-05 |  3.3884E-05  3.3918E-05 |  9.0096E-06  8.9856E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -3196,7 +3196,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.8437E+02  1.8437E+02 |
                    7.9404E-06 |  1.8437E+02  1.8437E+02 |
-                   1.0004E-05 |  1.8353E+02  1.8358E+02 |
+                   1.0004E-05 |  1.8353E+02  1.8359E+02 |
 
               --------------------------------------------------------------------------------
                    Species Concentrations (kmol /m3) (final and init)
@@ -3205,7 +3205,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.4748E+02  1.4749E+02 |  3.6882E+01  3.6881E+01 |
                    7.9404E-06 |  1.4731E+02  1.4733E+02 |  3.7057E+01  3.7036E+01 |
-                   1.0004E-05 |  1.4498E+02  1.4513E+02 |  3.8549E+01  3.8450E+01 |
+                   1.0004E-05 |  1.4498E+02  1.4514E+02 |  3.8549E+01  3.8450E+01 |
 
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
@@ -3222,7 +3222,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
                 surface area (final) = 2.51541E-01 m2
                 surface area (init)  = 2.51525E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00679643
+                Open Circuit Voltage = -0.0067909
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.546E-09  7.546E-09   0.000E+00
@@ -3236,14 +3236,14 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.027215 bea
                            V_C6-bulk               2.018E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953763 beat out pnorm 1.71771
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953648 beat out pnorm 1.7175
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  1.00000E-04
                               intermediate-step time init  =  9.75000E-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 488288 amps
+          Current = 488211 amps
           Number of external surfaces = 1
           Solid Volume =  8.388E-07
           Total Volume =  1.290E-06
@@ -3255,8 +3255,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953763 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =       52.677 coulombs =    0.0146325 Ah
-          Depth of Discharge (Current)    =      3033.18 coulombs    Relative Depth of Discharge = 0.203535    
+          Capacity Discharged Since Start =      52.6686 coulombs =    0.0146302 Ah
+          Depth of Discharge (Current)    =      3033.18 coulombs    Relative Depth of Discharge = 0.203534    
           Capacity Left                   =      11869.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -3268,7 +3268,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953763 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 488288 amps 
+                Current = 488211 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3296,7 +3296,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953763 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7323E-06  7.7321E-06 |  1.9337E-06  1.9336E-06 |
                    7.9405E-06 |  8.1413E-05  8.1414E-05 |  2.0485E-05  2.0481E-05 |
-                   1.0004E-05 |  3.3872E-05  3.3884E-05 |  9.0176E-06  9.0096E-06 |
+                   1.0004E-05 |  3.3872E-05  3.3884E-05 |  9.0175E-06  9.0096E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -3331,7 +3331,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953763 be
                 surface area (final) = 2.51546E-01 m2
                 surface area (init)  = 2.51541E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00655493
+                Open Circuit Voltage = -0.00654941
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.546E-09  7.546E-09   0.000E+00
@@ -3345,15 +3345,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0953763 be
                            V_C6-bulk               2.012E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268655 beat out pnorm 1.15159
-         0.0001         489424
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268613 beat out pnorm 1.15145
+         0.0001         489347
    ==============================================================================================
       Electrode_DiffTALE at time final =  1.00000E-04
                               time init  =  9.00000E-05
                 Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.05 volts
-          Current = 489424 amps
+          Current = 489347 amps
           Number of external surfaces = 1
           Solid Volume =  8.388E-07
           Total Volume =  1.290E-06
@@ -3365,8 +3365,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268655 be
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =       52.677 coulombs =    0.0146325 Ah
-          Depth of Discharge (Current)    =      3033.18 coulombs    Relative Depth of Discharge = 0.203535    
+          Capacity Discharged Since Start =      52.6686 coulombs =    0.0146302 Ah
+          Depth of Discharge (Current)    =      3033.18 coulombs    Relative Depth of Discharge = 0.203534    
           Capacity Left                   =      11869.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
           --------------------------------------------------------------------------------
                   z      LatticeRadius
@@ -3378,11 +3378,11 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268655 be
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 489424 amps 
+                Current = 489347 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.073E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   5.072E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
@@ -3390,15 +3390,15 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268655 be
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.073E-08
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   5.072E-08
                 PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.965E-01  7.965E-01  1.230E-04  1.231E-04  -5.073E-08
-                V_C6-bulk               2.035E-01  2.035E-01  3.144E-05  3.139E-05   5.073E-08
+                Li_C6-bulk              7.965E-01  7.965E-01  1.230E-04  1.231E-04  -5.072E-08
+                V_C6-bulk               2.035E-01  2.035E-01  3.144E-05  3.139E-05   5.072E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -3406,7 +3406,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268655 be
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7323E-06  7.7321E-06 |  1.9337E-06  1.9336E-06 |
                    7.9405E-06 |  8.1413E-05  8.1414E-05 |  2.0485E-05  2.0481E-05 |
-                   1.0004E-05 |  3.3872E-05  3.3884E-05 |  9.0176E-06  9.0096E-06 |
+                   1.0004E-05 |  3.3872E-05  3.3884E-05 |  9.0175E-06  9.0096E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -3441,7 +3441,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0268655 be
                 surface area (final) = 2.51546E-01 m2
                 surface area (init)  = 2.51541E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.00655493
+                Open Circuit Voltage = -0.00654941
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.546E-09  7.546E-09   0.000E+00

@@ -150,6 +150,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 rebaseline:
 	cp LiCoO2_globalResults_0_0.csv LiCoO2_globalResults_blessed.csv
 	cp out.txt good_out.txt
+	cp  outputTable.csv  outputTable_blessed.csv
 
 ##############################################################################
 

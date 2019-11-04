@@ -24,7 +24,7 @@
       <species name="Li13Si4(S)">
        <atomArray> Li:13 Si:4  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                513.37512  ,
                -18.669635 ,
@@ -35,7 +35,7 @@
                949.39284   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                429.38524  ,
                88.818915  ,
@@ -55,7 +55,7 @@
       <species name="Li13d4Si(S)">
        <atomArray> Li:3.25  Si:1.0  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                128.34378  ,
                -4.6674087 ,
@@ -66,7 +66,7 @@
                237.34821   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                107.34631  ,
                22.204729  ,

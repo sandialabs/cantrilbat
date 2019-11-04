@@ -24,7 +24,7 @@
       <species name="Li12Si7(S)">
        <atomArray> Li:12 Si:7  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                549.35697  ,
                -4.33513   ,
@@ -35,7 +35,7 @@
                1028.6723   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                471.82785  ,
                94.88507   ,
@@ -55,7 +55,7 @@
       <species name="Li12d7Si(S)">
        <atomArray> Li:1.71428571428571  Si:1.0  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                78.479567  ,
                -0.61930429,
@@ -66,7 +66,7 @@
                146.95318   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                67.403979  ,
                13.55501   ,

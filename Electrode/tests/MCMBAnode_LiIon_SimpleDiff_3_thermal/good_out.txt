@@ -186,7 +186,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = -0.0230979
+oc[0] = -0.0230903
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  0.00000E+00
                               time init_init   =  0.00000E+00                     deltaTglobal = 0
@@ -194,7 +194,7 @@ oc[0] = -0.0230979
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 1.15919e+07 amps
+          Current = 1.15902e+07 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -275,7 +275,7 @@ oc[0] = -0.0230979
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0230979
+                Open Circuit Voltage = -0.0230903
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
@@ -295,7 +295,7 @@ oc[0] = -0.0230979
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 1.10354e+07 amps
+          Current = 1.10339e+07 amps
           Number of external surfaces = 1
           Solid Volume =  8.375E-07
           Total Volume =  1.289E-06
@@ -307,13 +307,13 @@ oc[0] = -0.0230979
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      11.0354 coulombs =   0.00306539 Ah
-          Depth of Discharge (Current)    =       2451.6 coulombs    Relative Depth of Discharge = 0.200904    
+          Capacity Discharged Since Start =      11.0339 coulombs =   0.00306496 Ah
+          Depth of Discharge (Current)    =      2451.59 coulombs    Relative Depth of Discharge = 0.200904    
           Capacity Left                   =      9751.21 coulombs    Capacity at Zero DOD = 12202.8      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 1.10354e+07 amps 
+                Current = 1.10339e+07 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -341,7 +341,7 @@ oc[0] = -0.0230979
               --------------------------------------------------------------------------------
                    0.0000E+00 |  6.3237E-06  6.3237E-06 |  1.5809E-06  1.5809E-06 |
                    7.9370E-06 |  6.6663E-05  6.6664E-05 |  1.6667E-05  1.6666E-05 |
-                   9.9991E-06 |  2.8077E-05  2.8191E-05 |  7.1616E-06  7.0478E-06 |
+                   9.9991E-06 |  2.8077E-05  2.8191E-05 |  7.1615E-06  7.0478E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -376,7 +376,7 @@ oc[0] = -0.0230979
                 surface area (final) = 2.51282E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0168449
+                Open Circuit Voltage = -0.0168382
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.538E-09  7.540E-09   0.000E+00
@@ -390,7 +390,7 @@ oc[0] = -0.0230979
                            V_C6-bulk               4.551E-01
                            li_site                 0.000E+00
    ==============================================================================================
-          1e-06    1.10354e+071
+          1e-06    1.10339e+071
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.00000E-06
                               time init_init   =  0.00000E+00                     deltaTglobal = 1e-06
@@ -398,7 +398,7 @@ oc[0] = -0.0230979
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 1.10354e+07 amps
+          Current = 1.10339e+07 amps
           Number of external surfaces = 1
           Solid Volume =  8.375E-07
           Total Volume =  1.289E-06
@@ -410,13 +410,13 @@ oc[0] = -0.0230979
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      11.0354 coulombs =   0.00306539 Ah
-          Depth of Discharge (Current)    =       2451.6 coulombs    Relative Depth of Discharge = 0.200904    
+          Capacity Discharged Since Start =      11.0339 coulombs =   0.00306496 Ah
+          Depth of Discharge (Current)    =      2451.59 coulombs    Relative Depth of Discharge = 0.200904    
           Capacity Left                   =      9751.21 coulombs    Capacity at Zero DOD = 12202.8      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 1.10354e+07 amps 
+                Current = 1.10339e+07 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -444,7 +444,7 @@ oc[0] = -0.0230979
               --------------------------------------------------------------------------------
                    0.0000E+00 |  6.3237E-06  6.3237E-06 |  1.5809E-06  1.5809E-06 |
                    7.9370E-06 |  6.6663E-05  6.6664E-05 |  1.6667E-05  1.6666E-05 |
-                   9.9991E-06 |  2.8077E-05  2.8191E-05 |  7.1616E-06  7.0478E-06 |
+                   9.9991E-06 |  2.8077E-05  2.8191E-05 |  7.1615E-06  7.0478E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -479,7 +479,7 @@ oc[0] = -0.0230979
                 surface area (final) = 2.51282E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0168449
+                Open Circuit Voltage = -0.0168382
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.538E-09  7.540E-09   0.000E+00
@@ -493,20 +493,20 @@ oc[0] = -0.0230979
                            V_C6-bulk               4.551E-01
                            li_site                 0.000E+00
    ==============================================================================================
-currentDensity0 = 4.39125e+07
-current0 = 1.10344e+07 amps
-cd1 = 4.39125e+07
-current1 = 1.10344e+07 amps
-cd2 = 4.39125e+07
-current2 = 1.10344e+07 amps
+currentDensity0 = 4.39063e+07
+current0 = 1.10328e+07 amps
+cd1 = 4.39063e+07
+current1 = 1.10328e+07 amps
+cd2 = 4.39063e+07
+current2 = 1.10328e+07 amps
     Check of Thermal Source terms: These should add up to each other:
- q_over    = 2.39297e+06
- q_over2   = 2.39297e+06
- q_over3   = 2.46197e+06
- q_entrop  = -2.09533e+06
- q_entrop2 = -2.09533e+06
- q_enth    = 297636
- q_enth2   = 297636
- diff  =  q_enth -  q_over  - q_entrop = 1.16415e-09
- diff2 =  q_enth2 - q_over  - q_entrop = -3.91155e-08
- diff3 =  q_enth2 - q_over2  - q_entrop2 = 1.16415e-09
+ q_over    = 2.39256e+06
+ q_over2   = 2.39256e+06
+ q_over3   = 2.46155e+06
+ q_entrop  = -2.09504e+06
+ q_entrop2 = -2.09504e+06
+ q_enth    = 297520
+ q_enth2   = 297520
+ diff  =  q_enth -  q_over  - q_entrop = 2.32831e-09
+ diff2 =  q_enth2 - q_over  - q_entrop = -2.56114e-08
+ diff3 =  q_enth2 - q_over2  - q_entrop2 = 2.32831e-09

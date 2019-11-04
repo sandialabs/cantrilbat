@@ -44,7 +44,7 @@
       <species name="Li7Si3(S)">
        <atomArray> Li:7 Si:3  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                295.73961  ,
                -6.753295  ,
@@ -55,7 +55,7 @@
                554.35647   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                250.51429  ,
                51.125155  ,
@@ -75,7 +75,7 @@
       <species name="Li7d3Si(S)">
        <atomArray> Li:2.3333333333333  Si:1.0  </atomArray>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="250.0">
            <floatArray size="7">
                98.57987   ,
                -2.2510983 ,
@@ -86,7 +86,7 @@
                184.78549   
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                83.504763  ,
                17.041718  ,

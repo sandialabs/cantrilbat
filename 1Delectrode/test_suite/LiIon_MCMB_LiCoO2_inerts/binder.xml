@@ -48,7 +48,7 @@
         <molarVolume units="m3/kmol"> 0.011258 </molarVolume>
       </standardState>
       <thermo> 
-        <Shomate Pref="1 atm" Tmax="3125.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="3125.0" Tmin="250.0">
           <!-- source : http://webbook.nist.gov MgO solid phase heat
           capacity -->
           <floatArray size="8">

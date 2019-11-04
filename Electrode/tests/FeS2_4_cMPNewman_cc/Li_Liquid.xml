@@ -29,13 +29,13 @@
         </densityTemperaturePolynomial>
       </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="700" Tmin="298">
+        <Shomate Pref="1 bar" Tmax="700" Tmin="298">
           <floatArray size="7">
 32.46972, -2.635975, -6.327128, 4.230359, 0.005686, -7.117319, 74.2936
 <!--	     26.3072, 30.4657, -69.1692, 44.1951, 0.0776, -6.0337, 59.8106 -->
           </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="3000" Tmin="700">
+        <Shomate Pref="1 bar" Tmax="3000" Tmin="700">
           <floatArray size="7">
 26.00896, 5.632375, -4.013227, 0.873686, 0.34415, -4.19969, 66.36284
 <!--	     22.6832, 10.476, -6.5428, 1.3255, 0.8783, -2.0426, 62.8859 -->

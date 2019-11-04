@@ -141,6 +141,7 @@ rebaseline:
 	cp MCMB_CC_intResults_0_0.csv     MCMB_CC_intResults_blessed_0_0.csv
 	cp MCMB_CC_globalResults_0_0.csv  MCMB_CC_globalResults_blessed_0_0.csv
 	cp  outputTable.csv  outputTable_blessed.csv
+	cp soln_0_0.xml soln_0_0_blessed.xml
 	@ if test $(DEBUG_MODE_ENABLED) -eq 1 ; then \
            cp out.txt good_out_dbg.txt  ; \
         else \

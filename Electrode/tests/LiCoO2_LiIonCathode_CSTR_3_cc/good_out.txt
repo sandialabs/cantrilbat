@@ -1230,7 +1230,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = 3.98922
+oc[0] = 3.98923
    ==============================================================================================
       Electrode at time final_final =  0.00000E+00
                    time init_init   =  0.00000E+00        deltaTglobal =  0.00000E+00
@@ -1247,7 +1247,7 @@ oc[0] = 3.98922
           Total Solid Moles =  1.9406E-05 kmol
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current = -9.99412E-03 amps
+          Current = -9.99568E-03 amps
           Voltage (phiMetal - phiElectrolyte) =  3.90000E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
@@ -1308,18 +1308,18 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
 
                            spName                  SourceRateLastStep (kmol/m2/s) 
-                           electron_Li_LiIon      -4.121E-10
+                           electron_Li_LiIon      -4.122E-10
                            ECDMC                   0.000E+00
-                           Li+                    -4.121E-10
+                           Li+                    -4.122E-10
                            PF6-                    0.000E+00
-                           LiCoO2                  4.121E-10
-                           CoO2                   -4.121E-10
+                           LiCoO2                  4.122E-10
+                           CoO2                   -4.122E-10
                            li_site                 0.000E+00
      ============================================================================================
            0.02           -0.1
@@ -1340,7 +1340,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1358,7 +1358,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1368,7 +1368,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1388,7 +1388,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
            0.04           -0.1
    ==============================================================================================
@@ -1408,7 +1408,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1426,7 +1426,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1436,7 +1436,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1456,7 +1456,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
            0.06           -0.1
    ==============================================================================================
@@ -1476,7 +1476,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1494,7 +1494,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1504,7 +1504,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1524,7 +1524,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
            0.08           -0.1
    ==============================================================================================
@@ -1544,7 +1544,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1562,7 +1562,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1572,7 +1572,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1592,7 +1592,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
             0.1           -0.1
    ==============================================================================================
@@ -1612,7 +1612,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1630,7 +1630,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1640,7 +1640,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1660,7 +1660,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
            0.12           -0.1
    ==============================================================================================
@@ -1680,7 +1680,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1698,7 +1698,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1708,7 +1708,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1728,7 +1728,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
            0.14           -0.1
    ==============================================================================================
@@ -1748,7 +1748,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78326E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -1766,7 +1766,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78326E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1776,7 +1776,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78325
+                Electric Potential = 3.78326
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1796,7 +1796,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
      ============================================================================================
            0.16           -0.1
    ==============================================================================================
@@ -2020,7 +2020,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2038,7 +2038,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2048,7 +2048,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2068,7 +2068,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.24           -0.1
    ==============================================================================================
@@ -2088,7 +2088,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2106,7 +2106,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2116,7 +2116,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2136,7 +2136,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.26           -0.1
    ==============================================================================================
@@ -2156,7 +2156,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2174,7 +2174,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2184,7 +2184,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2204,7 +2204,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.28           -0.1
    ==============================================================================================
@@ -2224,7 +2224,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2242,7 +2242,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2252,7 +2252,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2272,7 +2272,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
             0.3           -0.1
    ==============================================================================================
@@ -2292,7 +2292,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2310,7 +2310,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2320,7 +2320,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2340,7 +2340,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.32           -0.1
    ==============================================================================================
@@ -2360,7 +2360,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2378,7 +2378,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2388,7 +2388,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2408,7 +2408,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.34           -0.1
    ==============================================================================================
@@ -2428,7 +2428,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2446,7 +2446,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2456,7 +2456,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2476,7 +2476,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.36           -0.1
    ==============================================================================================
@@ -2496,7 +2496,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78325E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2514,7 +2514,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2524,7 +2524,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78324
+                Electric Potential = 3.78325
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2544,7 +2544,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.38           -0.1
    ==============================================================================================
@@ -2612,7 +2612,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
             0.4           -0.1
    ==============================================================================================
@@ -2680,7 +2680,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.42           -0.1
    ==============================================================================================
@@ -2748,7 +2748,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98921
+                 Open Circuit Voltage = 3.98922
      ============================================================================================
            0.44           -0.1
    ==============================================================================================
@@ -2768,7 +2768,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2786,7 +2786,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2796,7 +2796,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2836,7 +2836,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2854,7 +2854,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2864,7 +2864,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2904,7 +2904,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2922,7 +2922,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2932,7 +2932,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -2972,7 +2972,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -2990,7 +2990,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3000,7 +3000,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3020,7 +3020,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.52           -0.1
    ==============================================================================================
@@ -3040,7 +3040,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3058,7 +3058,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3068,7 +3068,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3088,7 +3088,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.54           -0.1
    ==============================================================================================
@@ -3108,7 +3108,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3126,7 +3126,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3136,7 +3136,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3156,7 +3156,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.56           -0.1
    ==============================================================================================
@@ -3176,7 +3176,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3194,7 +3194,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3204,7 +3204,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3224,7 +3224,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.58           -0.1
    ==============================================================================================
@@ -3244,7 +3244,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3262,7 +3262,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3272,7 +3272,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3292,7 +3292,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
             0.6           -0.1
    ==============================================================================================
@@ -3312,7 +3312,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78324E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3330,7 +3330,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3340,7 +3340,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78323
+                Electric Potential = 3.78324
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3360,7 +3360,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.62           -0.1
    ==============================================================================================
@@ -3428,7 +3428,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.64           -0.1
    ==============================================================================================
@@ -3496,7 +3496,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.66           -0.1
    ==============================================================================================
@@ -3564,7 +3564,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
            0.68           -0.1
    ==============================================================================================
@@ -3584,7 +3584,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3602,7 +3602,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3612,7 +3612,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3632,7 +3632,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.9892
+                 Open Circuit Voltage = 3.98921
      ============================================================================================
             0.7           -0.1
    ==============================================================================================
@@ -3652,7 +3652,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3670,7 +3670,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3680,7 +3680,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3720,7 +3720,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3738,7 +3738,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3748,7 +3748,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3788,7 +3788,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3806,7 +3806,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3816,7 +3816,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3856,7 +3856,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3874,7 +3874,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3884,7 +3884,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3924,7 +3924,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -3942,7 +3942,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3952,7 +3952,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -3972,7 +3972,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
             0.8           -0.1
    ==============================================================================================
@@ -3992,7 +3992,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4010,7 +4010,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4020,7 +4020,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4040,7 +4040,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.82           -0.1
    ==============================================================================================
@@ -4060,7 +4060,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78323E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4078,7 +4078,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4088,7 +4088,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78322
+                Electric Potential = 3.78323
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4108,7 +4108,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.84           -0.1
    ==============================================================================================
@@ -4176,7 +4176,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.86           -0.1
    ==============================================================================================
@@ -4244,7 +4244,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.88           -0.1
    ==============================================================================================
@@ -4312,7 +4312,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
             0.9           -0.1
    ==============================================================================================
@@ -4332,7 +4332,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78321E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4350,7 +4350,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4360,7 +4360,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78321
+                Electric Potential = 3.78322
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4380,7 +4380,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.92           -0.1
    ==============================================================================================
@@ -4400,7 +4400,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78321E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4418,7 +4418,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4428,7 +4428,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78321
+                Electric Potential = 3.78322
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4448,7 +4448,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.94           -0.1
    ==============================================================================================
@@ -4468,7 +4468,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78321E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4486,7 +4486,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4496,7 +4496,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78321
+                Electric Potential = 3.78322
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4516,7 +4516,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.96           -0.1
    ==============================================================================================
@@ -4536,7 +4536,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78321E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4554,7 +4554,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4564,7 +4564,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78321
+                Electric Potential = 3.78322
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4584,7 +4584,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98919
+                 Open Circuit Voltage = 3.9892
      ============================================================================================
            0.98           -0.1
    ==============================================================================================
@@ -4604,7 +4604,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78321E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4622,7 +4622,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4632,7 +4632,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78321
+                Electric Potential = 3.78322
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -4672,7 +4672,7 @@ oc[0] = 3.98922
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.00000E-01 amps
-          Voltage (phiMetal - phiElectrolyte) =  3.78321E+00 volts
+          Voltage (phiMetal - phiElectrolyte) =  3.78322E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
@@ -4690,7 +4690,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.486E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4700,7 +4700,7 @@ oc[0] = 3.98922
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
                 Current = -0.1 amps 
-                Electric Potential = 3.78321
+                Electric Potential = 3.78322
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 

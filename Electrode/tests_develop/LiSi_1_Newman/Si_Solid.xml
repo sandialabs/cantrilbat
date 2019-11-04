@@ -26,7 +26,7 @@
         <molarVolume units="m3/kmol"> 0.01205386 </molarVolume>
       </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="1750.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="250.0">
           <floatArray size="7">
             22.81719,
             3.899510,

@@ -1230,7 +1230,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = 3.98922
+oc[0] = 3.98923
    ==============================================================================================
       Electrode at time final_final =  0.00000E+00
                    time init_init   =  0.00000E+00        deltaTglobal =  0.00000E+00
@@ -1247,7 +1247,7 @@ oc[0] = 3.98922
           Total Solid Moles =  1.9406E-05 kmol
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current = -1.06542E-01 amps
+          Current = -1.06557E-01 amps
           Voltage (phiMetal - phiElectrolyte) =  3.78000E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
@@ -1308,7 +1308,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
@@ -1337,12 +1337,12 @@ oc[0] = 3.98922
           Total Solid Moles =  1.9406E-05 kmol
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current = -1.06542E-01 amps
+          Current = -1.06557E-01 amps
           Voltage (phiMetal - phiElectrolyte) =  3.78000E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =  2.13083e-05 coulombs =  5.91898e-09 Ah
+          Capacity Discharged Since Start =  2.13114e-05 coulombs =  5.91984e-09 Ah
           Depth of Discharge (Current)    =      93.6199 coulombs
           Capacity Left                   =      636.615 coulombs         Capacity at Zero DOD =      730.235 coulombs
           RelativeExtentRxn_final              = 0.6
@@ -1365,11 +1365,11 @@ oc[0] = 3.98922
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
-                Current = -0.106542 amps 
+                Current = -0.106557 amps 
                 Electric Potential = 3.78
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.208E-13
+                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1379,7 +1379,7 @@ oc[0] = 3.98922
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 ECDMC                   8.400E-01  2.828E-07    2.828E-07   0.000E+00
-                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.208E-13
+                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.209E-13
                 PF6-                    8.000E-02  2.693E-08    2.693E-08   0.000E+00
      ============================================================================================
      ============================================================================================
@@ -1388,8 +1388,8 @@ oc[0] = 3.98922
                 Molar Volume = 4.31700E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.208E-13
-                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.208E-13
+                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.209E-13
+                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 3 cathode_surface 
@@ -1398,7 +1398,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
@@ -1412,7 +1412,7 @@ oc[0] = 3.98922
                            CoO2                   -4.394E-09
                            li_site                 0.000E+00
      ============================================================================================
-         0.0002      -0.106542
+         0.0002      -0.106557
    ==============================================================================================
       Electrode at time final_final =  2.00000E-04
                    time init_init   =  0.00000E+00        deltaTglobal =  2.00000E-04
@@ -1429,12 +1429,12 @@ oc[0] = 3.98922
           Total Solid Moles =  1.9406E-05 kmol
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current = -1.06542E-01 amps
+          Current = -1.06557E-01 amps
           Voltage (phiMetal - phiElectrolyte) =  3.78000E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =  2.13083e-05 coulombs =  5.91898e-09 Ah
+          Capacity Discharged Since Start =  2.13114e-05 coulombs =  5.91984e-09 Ah
           Depth of Discharge (Current)    =      93.6199 coulombs
           Capacity Left                   =      636.615 coulombs         Capacity at Zero DOD =      730.235 coulombs
           RelativeExtentRxn_final_final         = 0.6
@@ -1457,11 +1457,11 @@ oc[0] = 3.98922
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
-                Current = -0.106542 amps 
+                Current = -0.106557 amps 
                 Electric Potential = 3.78
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.208E-13
+                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1471,7 +1471,7 @@ oc[0] = 3.98922
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 ECDMC                   8.400E-01  2.828E-07    2.828E-07   0.000E+00
-                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.208E-13
+                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.209E-13
                 PF6-                    8.000E-02  2.693E-08    2.693E-08   0.000E+00
      ============================================================================================
      ============================================================================================
@@ -1480,8 +1480,8 @@ oc[0] = 3.98922
                 Molar Volume = 4.31700E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.208E-13
-                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.208E-13
+                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.209E-13
+                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 3 cathode_surface 
@@ -1490,7 +1490,7 @@ oc[0] = 3.98922
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
@@ -1504,19 +1504,19 @@ oc[0] = 3.98922
                            CoO2                   -4.394E-09
                            li_site                 0.000E+00
      ============================================================================================
-currentDensity0 = -0.423915
-current0 = -0.106542 amps
-cd1 = -0.423915
-current1 = -0.106542 amps
-cd2 = -0.423915
-current2 = -0.106542 amps
+currentDensity0 = -0.423978
+current0 = -0.106557 amps
+cd1 = -0.423978
+current1 = -0.106557 amps
+cd2 = -0.423978
+current2 = -0.106557 amps
     Check of Thermal Source terms: These should add up to each other:
- q_over    = 0.0222909
- q_over2   = 0.0222909
- q_entrop  = 0.0237432
- q_entrop2 = 0.0237432
- q_enth    = 0.0460341
- q_enth2   = 0.0460341
+ q_over    = 0.022295
+ q_over2   = 0.022295
+ q_entrop  = 0.0237467
+ q_entrop2 = 0.0237467
+ q_enth    = 0.0460417
+ q_enth2   = 0.0460417
  diff  =  q_enth -  q_over  - q_entrop = 0
  diff2 =  q_enth2 - q_over  - q_entrop = 0
    ==============================================================================================
@@ -1534,12 +1534,12 @@ current2 = -0.106542 amps
           Total Solid Moles =  1.9406E-05 kmol
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current = -1.06542E-01 amps
+          Current = -1.06557E-01 amps
           Voltage (phiMetal - phiElectrolyte) =  3.78000E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =  4.26166e-05 coulombs =   1.1838e-08 Ah
+          Capacity Discharged Since Start =  4.26229e-05 coulombs =  1.18397e-08 Ah
           Depth of Discharge (Current)    =      93.6199 coulombs
           Capacity Left                   =      636.615 coulombs         Capacity at Zero DOD =      730.235 coulombs
           RelativeExtentRxn_final              = 0.6
@@ -1562,11 +1562,11 @@ current2 = -0.106542 amps
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
-                Current = -0.106542 amps 
+                Current = -0.106557 amps 
                 Electric Potential = 3.78
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.208E-13
+                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1576,7 +1576,7 @@ current2 = -0.106542 amps
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 ECDMC                   8.400E-01  2.828E-07    2.828E-07   0.000E+00
-                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.208E-13
+                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.209E-13
                 PF6-                    8.000E-02  2.693E-08    2.693E-08   0.000E+00
      ============================================================================================
      ============================================================================================
@@ -1585,8 +1585,8 @@ current2 = -0.106542 amps
                 Molar Volume = 4.31700E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.208E-13
-                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.208E-13
+                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.209E-13
+                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 3 cathode_surface 
@@ -1595,7 +1595,7 @@ current2 = -0.106542 amps
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
@@ -1609,7 +1609,7 @@ current2 = -0.106542 amps
                            CoO2                   -4.394E-09
                            li_site                 0.000E+00
      ============================================================================================
-         0.0004      -0.106542
+         0.0004      -0.106557
    ==============================================================================================
       Electrode at time final_final =  4.00000E-04
                    time init_init   =  2.00000E-04        deltaTglobal =  2.00000E-04
@@ -1626,12 +1626,12 @@ current2 = -0.106542 amps
           Total Solid Moles =  1.9406E-05 kmol
           Molar Volume of Solid =  4.3170E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current = -1.06542E-01 amps
+          Current = -1.06557E-01 amps
           Voltage (phiMetal - phiElectrolyte) =  3.78000E+00 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =  4.26166e-05 coulombs =   1.1838e-08 Ah
+          Capacity Discharged Since Start =  4.26229e-05 coulombs =  1.18397e-08 Ah
           Depth of Discharge (Current)    =      93.6199 coulombs
           Capacity Left                   =      636.615 coulombs         Capacity at Zero DOD =      730.235 coulombs
           RelativeExtentRxn_final_final         = 0.6
@@ -1654,11 +1654,11 @@ current2 = -0.106542 amps
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Molar Volume = 5.48580E+02 cm3 gmol-1
-                Current = -0.106542 amps 
+                Current = -0.106557 amps 
                 Electric Potential = 3.78
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.208E-13
+                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -1668,7 +1668,7 @@ current2 = -0.106542 amps
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 ECDMC                   8.400E-01  2.828E-07    2.828E-07   0.000E+00
-                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.208E-13
+                Li+                     8.000E-02  2.693E-08    2.693E-08  -2.209E-13
                 PF6-                    8.000E-02  2.693E-08    2.693E-08   0.000E+00
      ============================================================================================
      ============================================================================================
@@ -1677,8 +1677,8 @@ current2 = -0.106542 amps
                 Molar Volume = 4.31700E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.208E-13
-                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.208E-13
+                LiCoO2                  6.000E-01  1.164E-05    1.164E-05   2.209E-13
+                CoO2                    4.000E-01  7.762E-06    7.762E-06  -2.209E-13
      ============================================================================================
      ============================================================================================
           PHASE 3 cathode_surface 
@@ -1687,7 +1687,7 @@ current2 = -0.106542 amps
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = 3.98922
+                 Open Circuit Voltage = 3.98923
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
@@ -1701,18 +1701,18 @@ current2 = -0.106542 amps
                            CoO2                   -4.394E-09
                            li_site                 0.000E+00
      ============================================================================================
-currentDensity0 = -0.423915
-current0 = -0.106542 amps
-cd1 = -0.423915
-current1 = -0.106542 amps
-cd2 = -0.423915
-current2 = -0.106542 amps
+currentDensity0 = -0.423978
+current0 = -0.106557 amps
+cd1 = -0.423978
+current1 = -0.106557 amps
+cd2 = -0.423978
+current2 = -0.106557 amps
     Check of Thermal Source terms: These should add up to each other:
- q_over    = 0.0222909
- q_over2   = 0.0222909
- q_entrop  = 0.0237432
- q_entrop2 = 0.0237432
- q_enth    = 0.0460341
- q_enth2   = 0.0460341
- diff  =  q_enth -  q_over  - q_entrop = 0
+ q_over    = 0.022295
+ q_over2   = 0.022295
+ q_entrop  = 0.0237467
+ q_entrop2 = 0.0237467
+ q_enth    = 0.0460417
+ q_enth2   = 0.0460417
+ diff  =  q_enth -  q_over  - q_entrop = -1.07553e-16
  diff2 =  q_enth2 - q_over  - q_entrop = 0

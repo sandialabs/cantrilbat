@@ -186,7 +186,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = -0.0230979
+oc[0] = -0.0230904
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  0.00000E+00
                               time init_init   =  0.00000E+00                     deltaTglobal = 0
@@ -194,7 +194,7 @@ oc[0] = -0.0230979
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5919 amps
+          Current = 11.5902 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -275,7 +275,7 @@ oc[0] = -0.0230979
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0230979
+                Open Circuit Voltage = -0.0230904
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
@@ -295,7 +295,7 @@ oc[0] = -0.0230979
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5903 amps
+          Current = 11.5886 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -307,13 +307,13 @@ oc[0] = -0.0230979
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =     0.115903 coulombs =  3.21954e-05 Ah
+          Capacity Discharged Since Start =     0.115886 coulombs =  3.21907e-05 Ah
           Depth of Discharge (Current)    =      2980.62 coulombs    Relative Depth of Discharge = 0.200008    
           Capacity Left                   =      11921.9 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5903 amps 
+                Current = 11.5886 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -376,52 +376,52 @@ oc[0] = -0.0230979
                 surface area (final) = 2.51328E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0230809
+                Open Circuit Voltage = -0.0230734
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.780E-07
+                           electron_Li_LiIon       4.779E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.780E-07
+                           Li+                     4.779E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.780E-07
-                           V_C6-bulk               4.780E-07
+                           Li_C6-bulk             -4.779E-07
+                           V_C6-bulk               4.779E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.20125e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.20108e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   1.201E-09  1.000E-02 -2.308E-02    2.308E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   1.201E-09  1.000E-02 -2.307E-02    2.307E-02       0.00   0  Surf_OCV
                                                                          -2.231E-01     100.00   0  surf_overpotential
-                                                                         -6.133E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.132E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0403403 beat out pnorm 0.0992296
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.523751607003E-16
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0403344 beat out pnorm 0.0992151
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.522125303744E-16
                                 isp =  4    sum_f  =  1.235631328848E-04 sum_i =  1.235631328846E-04
-                             spMoles_final =  1.235619316298345E-04 EletrodeSrc = -1.201254972599732E-09 spMoles_init =  1.235631328846E-04
-                             relCapDiff = -2.434899215586483E-08
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.528766042051E-16
+                             spMoles_final =  1.235619318059713E-04 EletrodeSrc = -1.201078835708055E-09 spMoles_init =  1.235631328846E-04
+                             relCapDiff = -2.433625923004001E-08
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.527614077243E-16
                                 isp =  5    sum_f  =  3.089078322089E-05 sum_i =  3.089078322114E-05
-                             spMoles_final =  3.089198447585842E-05 EletrodeSrc =  1.201254972599732E-09 spMoles_init =  3.089078322114E-05
-                             relCapDiff = -2.434899215586483E-08
-BEFORE  0: spMoles_final_[5] = 3.089198447585842E-05 , diff =  -2.528766042051E-16
-BEFORE  0: spMoles_final_[4] = 1.235619316298345E-04 , diff =   2.523751607003E-16
-AFTER: spMoles_final_[4]  = 1.235619316295821E-04 , diff =  -2.710505431214E-20
-BEFORE: spMoles_final_[5] = 3.089198447611130E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.52877e-16
+                             spMoles_final =  3.089198429972164E-05 EletrodeSrc =  1.201078835708055E-09 spMoles_init =  3.089078322114E-05
+                             relCapDiff = -2.433625923004001E-08
+BEFORE  0: spMoles_final_[5] = 3.089198429972164E-05 , diff =  -2.527614077243E-16
+BEFORE  0: spMoles_final_[4] = 1.235619318059713E-04 , diff =   2.522125303744E-16
+AFTER: spMoles_final_[4]  = 1.235619318057191E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.089198429997440E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.52761e-16
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.50000E-02
                               intermediate-step time init  =  1.00000E-02               deltaT = 0.015
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5882 amps
+          Current = 11.5865 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -433,17 +433,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.52877e-16
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =     0.289726 coulombs =  8.04794e-05 Ah
+          Capacity Discharged Since Start =     0.289683 coulombs =  8.04676e-05 Ah
           Depth of Discharge (Current)    =       2980.8 coulombs    Relative Depth of Discharge = 0.200019    
           Capacity Left                   =      11921.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5882 amps 
+                Current = 11.5865 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   1.802E-09
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   1.801E-09
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -451,15 +451,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.52877e-16
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   1.802E-09
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   1.801E-09
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              8.000E-01  8.000E-01  1.236E-04  1.236E-04  -1.802E-09
-                V_C6-bulk               2.000E-01  2.000E-01  3.089E-05  3.089E-05   1.802E-09
+                Li_C6-bulk              8.000E-01  8.000E-01  1.236E-04  1.236E-04  -1.801E-09
+                V_C6-bulk               2.000E-01  2.000E-01  3.089E-05  3.089E-05   1.801E-09
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -502,52 +502,52 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.52877e-16
                 surface area (final) = 2.51329E-01 m2
                 surface area (init)  = 2.51328E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0230563
+                Open Circuit Voltage = -0.0230488
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.779E-07
+                           electron_Li_LiIon       4.778E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.779E-07
+                           Li+                     4.778E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.779E-07
-                           V_C6-bulk               4.779E-07
+                           Li_C6-bulk             -4.778E-07
+                           V_C6-bulk               4.778E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.80154e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.80128e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   1.802E-09  1.500E-02 -2.306E-02    2.306E-02       0.00   0  Surf_OCV
-                                                                         -2.231E-01     100.00   0  surf_overpotential
-                                                                         -6.404E-07       0.00   0  ConcLoss SolidDiff
+        0    0    0    0  -2.000E-01   1.801E-09  1.500E-02 -2.305E-02    2.305E-02       0.00   0  Surf_OCV
+                                                                         -2.230E-01     100.00   0  surf_overpotential
+                                                                         -6.403E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0045151 beat out pnorm 0.102502
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.710505431214E-19
-                                isp =  4    sum_f  =  1.235619316296E-04 sum_i =  1.235619316296E-04
-                             spMoles_final =  1.235601300882527E-04 EletrodeSrc = -1.801541329735788E-09 spMoles_init =  1.235619316296E-04
-                             relCapDiff = -2.228262019343674E-11
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00451445 beat out pnorm 0.102487
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.439454888092E-19
+                                isp =  4    sum_f  =  1.235619318057E-04 sum_i =  1.235619318057E-04
+                             spMoles_final =  1.235601305284950E-04 EletrodeSrc = -1.801277224324352E-09 spMoles_init =  1.235619318057E-04
+                             relCapDiff = -2.319211489520967E-11
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.507217523873E-19
-                                isp =  5    sum_f  =  3.089198447611E-05 sum_i =  3.089198447611E-05
-                             spMoles_final =  3.089378601744078E-05 EletrodeSrc =  1.801541329735788E-09 spMoles_init =  3.089198447611E-05
-                             relCapDiff = -2.228262019343674E-11
-BEFORE  0: spMoles_final_[5] = 3.089378601744078E-05 , diff =  -2.507217523873E-19
-BEFORE  0: spMoles_final_[4] = 1.235601300882527E-04 , diff =   2.710505431214E-19
-AFTER: spMoles_final_[4]  = 1.235601300882524E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.089378601744103E-05 , diff =  -6.776263578034E-21
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-19
+                                isp =  5    sum_f  =  3.089198429997E-05 sum_i =  3.089198429997E-05
+                             spMoles_final =  3.089378557719847E-05 EletrodeSrc =  1.801277224324352E-09 spMoles_init =  3.089198429997E-05
+                             relCapDiff = -2.319211489520967E-11
+BEFORE  0: spMoles_final_[5] = 3.089378557719847E-05 , diff =  -2.507217523873E-19
+BEFORE  0: spMoles_final_[4] = 1.235601305284950E-04 , diff =   2.439454888092E-19
+AFTER: spMoles_final_[4]  = 1.235601305284947E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.089378557719873E-05 , diff =   6.776263578034E-21
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.50722e-19
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.75000E-02
                               intermediate-step time init  =  2.50000E-02               deltaT = 0.0225
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5849 amps
+          Current = 11.5832 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -559,17 +559,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-19
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =     0.550385 coulombs =  0.000152885 Ah
+          Capacity Discharged Since Start =     0.550305 coulombs =  0.000152862 Ah
           Depth of Discharge (Current)    =      2981.06 coulombs    Relative Depth of Discharge = 0.200037    
           Capacity Left                   =      11921.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5849 amps 
+                Current = 11.5832 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.702E-09
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.701E-09
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -577,15 +577,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-19
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.702E-09
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.701E-09
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              8.000E-01  8.000E-01  1.236E-04  1.236E-04  -2.702E-09
-                V_C6-bulk               2.000E-01  2.000E-01  3.090E-05  3.089E-05   2.702E-09
+                Li_C6-bulk              8.000E-01  8.000E-01  1.236E-04  1.236E-04  -2.701E-09
+                V_C6-bulk               2.000E-01  2.000E-01  3.090E-05  3.089E-05   2.701E-09
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -628,7 +628,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-19
                 surface area (final) = 2.51330E-01 m2
                 surface area (init)  = 2.51329E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0230195
+                Open Circuit Voltage = -0.023012
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
@@ -642,30 +642,30 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-19
                            V_C6-bulk               4.777E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.70155e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.70115e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.702E-09  2.250E-02 -2.302E-02    2.302E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.701E-09  2.250E-02 -2.301E-02    2.301E-02       0.00   0  Surf_OCV
                                                                          -2.230E-01     100.00   0  surf_overpotential
-                                                                         -6.408E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.407E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000334416 beat out pnorm 0.150997
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000334367 beat out pnorm 0.150975
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
-                                isp =  4    sum_f  =  1.235601300883E-04 sum_i =  1.235601300883E-04
-                             spMoles_final =  1.235574285420083E-04 EletrodeSrc = -2.701546244123601E-09 spMoles_init =  1.235601300883E-04
-                             relCapDiff =  3.183231456205249E-12
+                                isp =  4    sum_f  =  1.235601305285E-04 sum_i =  1.235601305285E-04
+                             spMoles_final =  1.235574293781846E-04 EletrodeSrc = -2.701150310113374E-09 spMoles_init =  1.235601305285E-04
+                             relCapDiff =  4.547473508864641E-13
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -6.776263578034E-21
-                                isp =  5    sum_f  =  3.089378601744E-05 sum_i =  3.089378601744E-05
-                             spMoles_final =  3.089648756368514E-05 EletrodeSrc =  2.701546244123601E-09 spMoles_init =  3.089378601744E-05
-                             relCapDiff =  3.183231456205249E-12
-BEFORE  0: spMoles_final_[5] = 3.089648756368514E-05 , diff =  -6.776263578034E-21
-BEFORE  0: spMoles_final_[4] = 1.235574285420083E-04 , diff =   0.000000000000E+00
-AFTER: spMoles_final_[4]  = 1.235574285420083E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.089648756368515E-05 , diff =   0.000000000000E+00
+                                isp =  5    sum_f  =  3.089378557720E-05 sum_i =  3.089378557720E-05
+                             spMoles_final =  3.089648672750883E-05 EletrodeSrc =  2.701150310113374E-09 spMoles_init =  3.089378557720E-05
+                             relCapDiff =  4.547473508864641E-13
+BEFORE  0: spMoles_final_[5] = 3.089648672750883E-05 , diff =  -6.776263578034E-21
+BEFORE  0: spMoles_final_[4] = 1.235574293781846E-04 , diff =   0.000000000000E+00
+AFTER: spMoles_final_[4]  = 1.235574293781846E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.089648672750884E-05 , diff =   0.000000000000E+00
 Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.12500E-02
@@ -673,7 +673,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.58 amps
+          Current = 11.5783 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -685,17 +685,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =     0.941209 coulombs =  0.000261447 Ah
+          Capacity Discharged Since Start =     0.941071 coulombs =  0.000261409 Ah
           Depth of Discharge (Current)    =      2981.45 coulombs    Relative Depth of Discharge = 0.200063    
           Capacity Left                   =      11921.1 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.58 amps 
+                Current = 11.5783 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   4.051E-09
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   4.050E-09
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -703,15 +703,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   4.051E-09
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   4.050E-09
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.999E-01  8.000E-01  1.236E-04  1.236E-04  -4.051E-09
-                V_C6-bulk               2.001E-01  2.000E-01  3.090E-05  3.090E-05   4.051E-09
+                Li_C6-bulk              7.999E-01  8.000E-01  1.236E-04  1.236E-04  -4.050E-09
+                V_C6-bulk               2.001E-01  2.000E-01  3.090E-05  3.090E-05   4.050E-09
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -754,7 +754,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
                 surface area (final) = 2.51331E-01 m2
                 surface area (init)  = 2.51330E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0229643
+                Open Circuit Voltage = -0.0229568
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
@@ -768,38 +768,38 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
                            V_C6-bulk               4.775E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 4.0506e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 4.05001e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   4.051E-09  3.375E-02 -2.296E-02    2.296E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   4.050E-09  3.375E-02 -2.296E-02    2.296E-02       0.00   0  Surf_OCV
                                                                          -2.230E-01     100.00   0  surf_overpotential
-                                                                         -6.405E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.404E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 5.76888e-05 beat out pnorm 0.226356
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.710505431214E-20
-                                isp =  4    sum_f  =  1.235574285420E-04 sum_i =  1.235574285420E-04
-                             spMoles_final =  1.235533779423811E-04 EletrodeSrc = -4.050599627145610E-09 spMoles_init =  1.235574285420E-04
-                             relCapDiff =  5.911715561524034E-12
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -6.776263578034E-21
-                                isp =  5    sum_f  =  3.089648756369E-05 sum_i =  3.089648756369E-05
-                             spMoles_final =  3.090053816331229E-05 EletrodeSrc =  4.050599627145610E-09 spMoles_init =  3.089648756369E-05
-                             relCapDiff =  5.911715561524034E-12
-BEFORE  0: spMoles_final_[5] = 3.090053816331229E-05 , diff =  -6.776263578034E-21
-BEFORE  0: spMoles_final_[4] = 1.235533779423811E-04 , diff =  -2.710505431214E-20
-AFTER: spMoles_final_[4]  = 1.235533779423812E-04 , diff =   2.710505431214E-20
-BEFORE: spMoles_final_[5] = 3.090053816331230E-05 , diff =   6.776263578034E-21
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 5.76722e-05 beat out pnorm 0.226323
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
+                                isp =  4    sum_f  =  1.235574293782E-04 sum_i =  1.235574293782E-04
+                             spMoles_final =  1.235533793719557E-04 EletrodeSrc = -4.050006228968184E-09 spMoles_init =  1.235574293782E-04
+                             relCapDiff = -4.547473508864641E-13
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -1.355252715607E-20
+                                isp =  5    sum_f  =  3.089648672751E-05 sum_i =  3.089648672751E-05
+                             spMoles_final =  3.090053673373780E-05 EletrodeSrc =  4.050006228968184E-09 spMoles_init =  3.089648672751E-05
+                             relCapDiff = -4.547473508864641E-13
+BEFORE  0: spMoles_final_[5] = 3.090053673373780E-05 , diff =  -1.355252715607E-20
+BEFORE  0: spMoles_final_[4] = 1.235533793719557E-04 , diff =   0.000000000000E+00
+AFTER: spMoles_final_[4]  = 1.235533793719557E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.090053673373781E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.35525e-20
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.31875E-01
                               intermediate-step time init  =  8.12500E-02               deltaT = 0.050625
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5726 amps
+          Current = 11.5709 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -811,17 +811,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      1.52707 coulombs =  0.000424187 Ah
+          Capacity Discharged Since Start =      1.52685 coulombs =  0.000424124 Ah
           Depth of Discharge (Current)    =      2982.03 coulombs    Relative Depth of Discharge = 0.200102    
           Capacity Left                   =      11920.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5726 amps 
+                Current = 11.5709 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   6.072E-09
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   6.071E-09
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -829,15 +829,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   6.072E-09
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   6.071E-09
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.999E-01  7.999E-01  1.235E-04  1.236E-04  -6.072E-09
-                V_C6-bulk               2.001E-01  2.001E-01  3.091E-05  3.090E-05   6.072E-09
+                Li_C6-bulk              7.999E-01  7.999E-01  1.235E-04  1.236E-04  -6.071E-09
+                V_C6-bulk               2.001E-01  2.001E-01  3.091E-05  3.090E-05   6.071E-09
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -880,7 +880,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                 surface area (final) = 2.51334E-01 m2
                 surface area (init)  = 2.51331E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0228818
+                Open Circuit Voltage = -0.0228743
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
@@ -894,38 +894,38 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                            V_C6-bulk               4.772E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 6.07204e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 6.07115e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   6.072E-09  5.063E-02 -2.288E-02    2.288E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   6.071E-09  5.063E-02 -2.287E-02    2.287E-02       0.00   0  Surf_OCV
                                                                          -2.229E-01     100.00   0  surf_overpotential
-                                                                         -6.400E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.399E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0001249 beat out pnorm 0.339327
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
-                                isp =  4    sum_f  =  1.235533779424E-04 sum_i =  1.235533779424E-04
-                             spMoles_final =  1.235473059016810E-04 EletrodeSrc = -6.072040700148160E-09 spMoles_init =  1.235533779424E-04
-                             relCapDiff =  1.818989403545856E-12
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -1.355252715607E-20
-                                isp =  5    sum_f  =  3.090053816331E-05 sum_i =  3.090053816331E-05
-                             spMoles_final =  3.090661020401243E-05 EletrodeSrc =  6.072040700148160E-09 spMoles_init =  3.090053816331E-05
-                             relCapDiff =  1.818989403545856E-12
-BEFORE  0: spMoles_final_[5] = 3.090661020401243E-05 , diff =  -1.355252715607E-20
-BEFORE  0: spMoles_final_[4] = 1.235473059016810E-04 , diff =   0.000000000000E+00
-AFTER: spMoles_final_[4]  = 1.235473059016810E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.090661020401245E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.35525e-20
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000124863 beat out pnorm 0.339277
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.710505431214E-20
+                                isp =  4    sum_f  =  1.235533793720E-04 sum_i =  1.235533793720E-04
+                             spMoles_final =  1.235473082202261E-04 EletrodeSrc = -6.071151729587857E-09 spMoles_init =  1.235533793720E-04
+                             relCapDiff = -1.818989403545856E-12
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.032879073410E-20
+                                isp =  5    sum_f  =  3.090053673374E-05 sum_i =  3.090053673374E-05
+                             spMoles_final =  3.090660788546738E-05 EletrodeSrc =  6.071151729587857E-09 spMoles_init =  3.090053673374E-05
+                             relCapDiff = -1.818989403545856E-12
+BEFORE  0: spMoles_final_[5] = 3.090660788546738E-05 , diff =  -2.032879073410E-20
+BEFORE  0: spMoles_final_[4] = 1.235473082202261E-04 , diff =   2.710505431214E-20
+AFTER: spMoles_final_[4]  = 1.235473082202260E-04 , diff =  -2.710505431214E-20
+BEFORE: spMoles_final_[5] = 3.090660788546741E-05 , diff =   6.776263578034E-21
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.00000E-01
                               intermediate-step time init  =  1.31875E-01               deltaT = 0.068125
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5627 amps
+          Current = 11.5611 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -937,17 +937,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.35525e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      2.31478 coulombs =  0.000642996 Ah
+          Capacity Discharged Since Start =      2.31445 coulombs =  0.000642901 Ah
           Depth of Discharge (Current)    =      2982.82 coulombs    Relative Depth of Discharge = 0.200155    
           Capacity Left                   =      11919.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5627 amps 
+                Current = 11.5611 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   8.164E-09
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   8.163E-09
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -955,15 +955,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.35525e-20
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   8.164E-09
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   8.163E-09
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.998E-01  7.999E-01  1.235E-04  1.235E-04  -8.164E-09
-                V_C6-bulk               2.002E-01  2.001E-01  3.091E-05  3.091E-05   8.164E-09
+                Li_C6-bulk              7.998E-01  7.999E-01  1.235E-04  1.235E-04  -8.163E-09
+                V_C6-bulk               2.002E-01  2.001E-01  3.091E-05  3.091E-05   8.163E-09
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1006,46 +1006,46 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.35525e-20
                 surface area (final) = 2.51337E-01 m2
                 surface area (init)  = 2.51334E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0227711
+                Open Circuit Voltage = -0.0227636
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.768E-07
+                           electron_Li_LiIon       4.767E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.768E-07
+                           Li+                     4.767E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.768E-07
-                           V_C6-bulk               4.768E-07
+                           Li_C6-bulk             -4.767E-07
+                           V_C6-bulk               4.767E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 8.16406e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 8.16287e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   8.164E-09  6.812E-02 -2.277E-02    2.277E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   8.163E-09  6.812E-02 -2.276E-02    2.276E-02       0.00   0  Surf_OCV
                                                                          -2.228E-01     100.00   0  surf_overpotential
-                                                                         -6.394E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.393E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000225034 beat out pnorm 0.45622
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  5.421010862428E-20
-                                isp =  4    sum_f  =  1.235473059017E-04 sum_i =  1.235473059017E-04
-                             spMoles_final =  1.235391418407083E-04 EletrodeSrc = -8.164060972755348E-09 spMoles_init =  1.235473059017E-04
-                             relCapDiff = -3.183231456205249E-12
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000224969 beat out pnorm 0.456154
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  8.131516293641E-20
+                                isp =  4    sum_f  =  1.235473082202E-04 sum_i =  1.235473082202E-04
+                             spMoles_final =  1.235391453534950E-04 EletrodeSrc = -8.162866731108981E-09 spMoles_init =  1.235473082202E-04
+                             relCapDiff = -5.002220859751105E-12
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -5.421010862428E-20
-                                isp =  5    sum_f  =  3.090661020401E-05 sum_i =  3.090661020401E-05
-                             spMoles_final =  3.091477426498515E-05 EletrodeSrc =  8.164060972755348E-09 spMoles_init =  3.090661020401E-05
-                             relCapDiff = -3.183231456205249E-12
-BEFORE  0: spMoles_final_[5] = 3.091477426498515E-05 , diff =  -5.421010862428E-20
-BEFORE  0: spMoles_final_[4] = 1.235391418407083E-04 , diff =   5.421010862428E-20
-AFTER: spMoles_final_[4]  = 1.235391418407082E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.091477426498520E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
-            0.2        11.5739
+                                isp =  5    sum_f  =  3.090660788547E-05 sum_i =  3.090660788547E-05
+                             spMoles_final =  3.091477075219846E-05 EletrodeSrc =  8.162866731108981E-09 spMoles_init =  3.090660788547E-05
+                             relCapDiff = -5.002220859751105E-12
+BEFORE  0: spMoles_final_[5] = 3.091477075219846E-05 , diff =  -5.421010862428E-20
+BEFORE  0: spMoles_final_[4] = 1.235391453534950E-04 , diff =   8.131516293641E-20
+AFTER: spMoles_final_[4]  = 1.235391453534949E-04 , diff =  -2.710505431214E-20
+BEFORE: spMoles_final_[5] = 3.091477075219852E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 8.13152e-20
+            0.2        11.5722
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.00000E-01
                               time init_init   =  0.00000E+00                     deltaTglobal = 0.2
@@ -1053,7 +1053,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
                 numIntegrationSubCycles = 6, SubIntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5739 amps
+          Current = 11.5722 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -1065,13 +1065,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      2.31478 coulombs =  0.000642996 Ah
+          Capacity Discharged Since Start =      2.31445 coulombs =  0.000642901 Ah
           Depth of Discharge (Current)    =      2982.82 coulombs    Relative Depth of Discharge = 0.200155    
           Capacity Left                   =      11919.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5739 amps 
+                Current = 11.5722 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1134,28 +1134,28 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
                 surface area (final) = 2.51337E-01 m2
                 surface area (init)  = 2.51334E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0227711
+                Open Circuit Voltage = -0.0227636
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.768E-07
+                           electron_Li_LiIon       4.767E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.768E-07
+                           Li+                     4.767E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.768E-07
-                           V_C6-bulk               4.768E-07
+                           Li_C6-bulk             -4.767E-07
+                           V_C6-bulk               4.767E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.3991e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.39875e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.399E-08  2.000E-01 -2.277E-02    2.284E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.399E-08  2.000E-01 -2.276E-02    2.283E-02       0.00   0  Surf_OCV
                                                                          -2.228E-01     100.00   0  surf_overpotential
-                                                                         -6.397E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.396E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -1165,7 +1165,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5518 amps
+          Current = 11.5501 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -1177,17 +1177,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =        3.192 coulombs =  0.000886667 Ah
+          Capacity Discharged Since Start =      3.19153 coulombs =  0.000886537 Ah
           Depth of Discharge (Current)    =       2983.7 coulombs    Relative Depth of Discharge = 0.200214    
           Capacity Left                   =      11918.8 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5518 amps 
+                Current = 11.5501 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   9.092E-09
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   9.090E-09
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -1195,15 +1195,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   9.092E-09
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   9.090E-09
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.998E-01  7.998E-01  1.235E-04  1.235E-04  -9.092E-09
-                V_C6-bulk               2.002E-01  2.002E-01  3.092E-05  3.091E-05   9.092E-09
+                Li_C6-bulk              7.998E-01  7.998E-01  1.235E-04  1.235E-04  -9.090E-09
+                V_C6-bulk               2.002E-01  2.002E-01  3.092E-05  3.091E-05   9.090E-09
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1246,52 +1246,52 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 5.42101e-20
                 surface area (final) = 2.51341E-01 m2
                 surface area (init)  = 2.51337E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0226482
+                Open Circuit Voltage = -0.0226407
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.764E-07
+                           electron_Li_LiIon       4.763E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.764E-07
+                           Li+                     4.763E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.764E-07
-                           V_C6-bulk               4.764E-07
+                           Li_C6-bulk             -4.763E-07
+                           V_C6-bulk               4.763E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 9.09171e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 9.09038e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   9.092E-09  7.594E-02 -2.265E-02    2.265E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   9.090E-09  7.594E-02 -2.264E-02    2.264E-02       0.00   0  Surf_OCV
                                                                          -2.226E-01     100.00   0  surf_overpotential
-                                                                         -6.387E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.386E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00027794 beat out pnorm 0.507961
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  5.421010862428E-20
-                                isp =  4    sum_f  =  1.235391418407E-04 sum_i =  1.235391418407E-04
-                             spMoles_final =  1.235300501285120E-04 EletrodeSrc = -9.091712196268059E-09 spMoles_init =  1.235391418407E-04
-                             relCapDiff = -3.637978807091713E-12
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000277859 beat out pnorm 0.507886
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  8.131516293641E-20
+                                isp =  4    sum_f  =  1.235391453535E-04 sum_i =  1.235391453535E-04
+                             spMoles_final =  1.235300549699958E-04 EletrodeSrc = -9.090383499159881E-09 spMoles_init =  1.235391453535E-04
+                             relCapDiff = -2.728484105318785E-12
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -6.776263578034E-20
-                                isp =  5    sum_f  =  3.091477426499E-05 sum_i =  3.091477426499E-05
-                             spMoles_final =  3.092386597718140E-05 EletrodeSrc =  9.091712196268059E-09 spMoles_init =  3.091477426499E-05
-                             relCapDiff = -3.637978807091713E-12
-BEFORE  0: spMoles_final_[5] = 3.092386597718140E-05 , diff =  -6.776263578034E-20
-BEFORE  0: spMoles_final_[4] = 1.235300501285120E-04 , diff =   5.421010862428E-20
-AFTER: spMoles_final_[4]  = 1.235300501285120E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.092386597718147E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-20
+                                isp =  5    sum_f  =  3.091477075220E-05 sum_i =  3.091477075220E-05
+                             spMoles_final =  3.092386113569761E-05 EletrodeSrc =  9.090383499159881E-09 spMoles_init =  3.091477075220E-05
+                             relCapDiff = -2.728484105318785E-12
+BEFORE  0: spMoles_final_[5] = 3.092386113569761E-05 , diff =  -6.776263578034E-20
+BEFORE  0: spMoles_final_[4] = 1.235300549699958E-04 , diff =   8.131516293641E-20
+AFTER: spMoles_final_[4]  = 1.235300549699957E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.092386113569768E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 8.13152e-20
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.89844E-01
                               intermediate-step time init  =  2.75938E-01               deltaT = 0.113906
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5355 amps
+          Current = 11.5338 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -1303,13 +1303,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      4.50597 coulombs =   0.00125166 Ah
+          Capacity Discharged Since Start =      4.50531 coulombs =   0.00125147 Ah
           Depth of Discharge (Current)    =      2985.01 coulombs    Relative Depth of Discharge = 0.200302    
           Capacity Left                   =      11917.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5355 amps 
+                Current = 11.5338 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1372,44 +1372,44 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-20
                 surface area (final) = 2.51346E-01 m2
                 surface area (init)  = 2.51341E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0224648
+                Open Circuit Voltage = -0.0224573
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.757E-07
+                           electron_Li_LiIon       4.756E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.757E-07
+                           Li+                     4.756E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.757E-07
-                           V_C6-bulk               4.757E-07
+                           Li_C6-bulk             -4.756E-07
+                           V_C6-bulk               4.756E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.36183e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.36163e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
         0    0    0    0  -2.000E-01   1.362E-08  1.139E-01 -2.246E-02    2.246E-02       0.00   0  Surf_OCV
                                                                          -2.225E-01     100.00   0  surf_overpotential
-                                                                         -6.376E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.375E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00062233 beat out pnorm 0.760903
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.000622149 beat out pnorm 0.760792
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.981555974335E-19
-                                isp =  4    sum_f  =  1.235300501285E-04 sum_i =  1.235300501285E-04
-                             spMoles_final =  1.235164318122216E-04 EletrodeSrc = -1.361831629061611E-08 spMoles_init =  1.235300501285E-04
-                             relCapDiff = -2.455635694786906E-11
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.913793338555E-19
-                                isp =  5    sum_f  =  3.092386597718E-05 sum_i =  3.092386597718E-05
-                             spMoles_final =  3.093748429347180E-05 EletrodeSrc =  1.361831629061611E-08 spMoles_init =  3.092386597718E-05
-                             relCapDiff = -2.455635694786906E-11
-BEFORE  0: spMoles_final_[5] = 3.093748429347180E-05 , diff =  -2.913793338555E-19
-BEFORE  0: spMoles_final_[4] = 1.235164318122216E-04 , diff =   2.981555974335E-19
-AFTER: spMoles_final_[4]  = 1.235164318122213E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.093748429347209E-05 , diff =   0.000000000000E+00
+                                isp =  4    sum_f  =  1.235300549700E-04 sum_i =  1.235300549700E-04
+                             spMoles_final =  1.235164386411707E-04 EletrodeSrc = -1.361632882535570E-08 spMoles_init =  1.235300549700E-04
+                             relCapDiff = -2.091837814077735E-11
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.846030702774E-19
+                                isp =  5    sum_f  =  3.092386113570E-05 sum_i =  3.092386113570E-05
+                             spMoles_final =  3.093747746452274E-05 EletrodeSrc =  1.361632882535570E-08 spMoles_init =  3.092386113570E-05
+                             relCapDiff = -2.091837814077735E-11
+BEFORE  0: spMoles_final_[5] = 3.093747746452274E-05 , diff =  -2.846030702774E-19
+BEFORE  0: spMoles_final_[4] = 1.235164386411707E-04 , diff =   2.981555974335E-19
+AFTER: spMoles_final_[4]  = 1.235164386411704E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.093747746452303E-05 , diff =   0.000000000000E+00
 Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.98156e-19
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.00000E-01
@@ -1417,7 +1417,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.98156e-19
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5342 amps
+          Current = 11.5325 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -1429,13 +1429,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.98156e-19
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      4.62311 coulombs =    0.0012842 Ah
+          Capacity Discharged Since Start =      4.62244 coulombs =   0.00128401 Ah
           Depth of Discharge (Current)    =      2985.13 coulombs    Relative Depth of Discharge = 0.20031     
           Capacity Left                   =      11917.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5342 amps 
+                Current = 11.5325 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1498,46 +1498,46 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.98156e-19
                 surface area (final) = 2.51347E-01 m2
                 surface area (init)  = 2.51346E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0224485
+                Open Circuit Voltage = -0.022441
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.756E-07
+                           electron_Li_LiIon       4.755E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.756E-07
+                           Li+                     4.755E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.756E-07
-                           V_C6-bulk               4.756E-07
+                           Li_C6-bulk             -4.755E-07
+                           V_C6-bulk               4.755E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.21411e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 1.21394e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   1.214E-09  1.016E-02 -2.245E-02    2.245E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   1.214E-09  1.016E-02 -2.244E-02    2.244E-02       0.00   0  Surf_OCV
                                                                          -2.224E-01     100.00   0  surf_overpotential
-                                                                         -6.375E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.374E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 4.53411e-06 beat out pnorm 0.067743
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.710505431214E-20
-                                isp =  4    sum_f  =  1.235164318122E-04 sum_i =  1.235164318122E-04
-                             spMoles_final =  1.235152176992428E-04 EletrodeSrc = -1.214112978597595E-09 spMoles_init =  1.235164318122E-04
-                             relCapDiff =  1.364242052659392E-12
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 4.53279e-06 beat out pnorm 0.0677331
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
-                                isp =  5    sum_f  =  3.093748429347E-05 sum_i =  3.093748429347E-05
-                             spMoles_final =  3.093869840645069E-05 EletrodeSrc =  1.214112978597595E-09 spMoles_init =  3.093748429347E-05
-                             relCapDiff =  1.364242052659392E-12
-BEFORE  0: spMoles_final_[5] = 3.093869840645069E-05 , diff =   0.000000000000E+00
-BEFORE  0: spMoles_final_[4] = 1.235152176992428E-04 , diff =   2.710505431214E-20
-AFTER: spMoles_final_[4]  = 1.235152176992427E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.093869840645069E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
-            0.4        11.5416
+                                isp =  4    sum_f  =  1.235164386412E-04 sum_i =  1.235164386412E-04
+                             spMoles_final =  1.235152247053601E-04 EletrodeSrc = -1.213935810300009E-09 spMoles_init =  1.235164386412E-04
+                             relCapDiff =  7.275957614183426E-12
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
+                                isp =  5    sum_f  =  3.093747746452E-05 sum_i =  3.093747746452E-05
+                             spMoles_final =  3.093869140033333E-05 EletrodeSrc =  1.213935810300009E-09 spMoles_init =  3.093747746452E-05
+                             relCapDiff =  7.275957614183426E-12
+BEFORE  0: spMoles_final_[5] = 3.093869140033333E-05 , diff =   0.000000000000E+00
+BEFORE  0: spMoles_final_[4] = 1.235152247053601E-04 , diff =   0.000000000000E+00
+AFTER: spMoles_final_[4]  = 1.235152247053601E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.093869140033333E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
+            0.4          11.54
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.00000E-01
                               time init_init   =  2.00000E-01                     deltaTglobal = 0.2
@@ -1545,7 +1545,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                 numIntegrationSubCycles = 3, SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5416 amps
+          Current = 11.54 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -1557,13 +1557,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      4.62311 coulombs =    0.0012842 Ah
+          Capacity Discharged Since Start =      4.62244 coulombs =   0.00128401 Ah
           Depth of Discharge (Current)    =      2985.13 coulombs    Relative Depth of Discharge = 0.20031     
           Capacity Left                   =      11917.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5416 amps 
+                Current = 11.54 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1626,26 +1626,26 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                 surface area (final) = 2.51347E-01 m2
                 surface area (init)  = 2.51346E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0224485
+                Open Circuit Voltage = -0.022441
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.756E-07
+                           electron_Li_LiIon       4.755E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.756E-07
+                           Li+                     4.755E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.756E-07
-                           V_C6-bulk               4.756E-07
+                           Li_C6-bulk             -4.755E-07
+                           V_C6-bulk               4.755E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.39241e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.39206e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.392E-08  2.000E-01 -2.245E-02    2.249E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.392E-08  2.000E-01 -2.244E-02    2.248E-02       0.00   0  Surf_OCV
                                                                          -2.225E-01     100.00   0  surf_overpotential
                                                                          -6.377E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
@@ -1657,7 +1657,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5099 amps
+          Current = 11.5082 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -1669,13 +1669,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      6.58968 coulombs =   0.00183047 Ah
+          Capacity Discharged Since Start =      6.58872 coulombs =    0.0018302 Ah
           Depth of Discharge (Current)    =       2987.1 coulombs    Relative Depth of Discharge = 0.200442    
           Capacity Left                   =      11915.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5099 amps 
+                Current = 11.5082 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1703,7 +1703,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7184E-06  7.7197E-06 |  1.9349E-06  1.9337E-06 |
                    7.9370E-06 |  8.1367E-05  8.1381E-05 |  2.0398E-05  2.0385E-05 |
-                   1.0001E-05 |  3.4409E-05  3.4415E-05 |  8.6261E-06  8.6204E-06 |
+                   1.0001E-05 |  3.4409E-05  3.4415E-05 |  8.6260E-06  8.6204E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1738,44 +1738,44 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.71051e-20
                 surface area (final) = 2.51355E-01 m2
                 surface area (init)  = 2.51347E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0221757
+                Open Circuit Voltage = -0.0221683
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.746E-07
+                           electron_Li_LiIon       4.745E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.746E-07
+                           Li+                     4.745E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.746E-07
-                           V_C6-bulk               4.746E-07
+                           Li_C6-bulk             -4.745E-07
+                           V_C6-bulk               4.745E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.0382e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.03791e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.038E-08  1.709E-01 -2.218E-02    2.218E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.038E-08  1.709E-01 -2.217E-02    2.217E-02       0.00   0  Surf_OCV
                                                                          -2.222E-01     100.00   0  surf_overpotential
-                                                                         -6.359E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.358E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00139199 beat out pnorm 1.13884
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00139159 beat out pnorm 1.13867
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  1.409462824231E-18
-                                isp =  4    sum_f  =  1.235152176992E-04 sum_i =  1.235152176992E-04
-                             spMoles_final =  1.234948356763266E-04 EletrodeSrc = -2.038202291750075E-08 spMoles_init =  1.235152176992E-04
-                             relCapDiff = -1.327862264588475E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -1.409462824231E-18
-                                isp =  5    sum_f  =  3.093869840645E-05 sum_i =  3.093869840645E-05
-                             spMoles_final =  3.095908042936678E-05 EletrodeSrc =  2.038202291750075E-08 spMoles_init =  3.093869840645E-05
-                             relCapDiff = -1.327862264588475E-10
-BEFORE  0: spMoles_final_[5] = 3.095908042936678E-05 , diff =  -1.409462824231E-18
-BEFORE  0: spMoles_final_[4] = 1.234948356763266E-04 , diff =   1.409462824231E-18
-AFTER: spMoles_final_[4]  = 1.234948356763252E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.095908042936819E-05 , diff =   0.000000000000E+00
+                                isp =  4    sum_f  =  1.235152247054E-04 sum_i =  1.235152247054E-04
+                             spMoles_final =  1.234948456505299E-04 EletrodeSrc = -2.037905483159341E-08 spMoles_init =  1.235152247054E-04
+                             relCapDiff = -1.286935003008693E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -1.402686560653E-18
+                                isp =  5    sum_f  =  3.093869140033E-05 sum_i =  3.093869140033E-05
+                             spMoles_final =  3.095907045516352E-05 EletrodeSrc =  2.037905483159341E-08 spMoles_init =  3.093869140033E-05
+                             relCapDiff = -1.286935003008693E-10
+BEFORE  0: spMoles_final_[5] = 3.095907045516352E-05 , diff =  -1.402686560653E-18
+BEFORE  0: spMoles_final_[4] = 1.234948456505299E-04 , diff =   1.409462824231E-18
+AFTER: spMoles_final_[4]  = 1.234948456505285E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.095907045516492E-05 , diff =   0.000000000000E+00
 Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.00000E-01
@@ -1783,7 +1783,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5059 amps
+          Current = 11.5042 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -1795,13 +1795,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      6.92497 coulombs =    0.0019236 Ah
+          Capacity Discharged Since Start =      6.92396 coulombs =   0.00192332 Ah
           Depth of Discharge (Current)    =      2987.43 coulombs    Relative Depth of Discharge = 0.200465    
           Capacity Left                   =      11915.1 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5059 amps 
+                Current = 11.5042 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -1829,7 +1829,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
               --------------------------------------------------------------------------------
                    0.0000E+00 |  7.7182E-06  7.7184E-06 |  1.9352E-06  1.9349E-06 |
                    7.9370E-06 |  8.1365E-05  8.1367E-05 |  2.0400E-05  2.0398E-05 |
-                   1.0001E-05 |  3.4408E-05  3.4409E-05 |  8.6270E-06  8.6261E-06 |
+                   1.0001E-05 |  3.4408E-05  3.4409E-05 |  8.6270E-06  8.6260E-06 |
 
               --------------------------------------------------------------------------------
                     Phase Concentration (kmol /m3) (final and init)
@@ -1864,7 +1864,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
                 surface area (final) = 2.51356E-01 m2
                 surface area (init)  = 2.51355E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0221294
+                Open Circuit Voltage = -0.022122
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
@@ -1878,32 +1878,32 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 1.40946e-18
                            V_C6-bulk               4.744E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 3.47503e-09 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 3.47452e-09 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   3.475E-09  2.914E-02 -2.213E-02    2.213E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   3.475E-09  2.914E-02 -2.212E-02    2.212E-02       0.00   0  Surf_OCV
                                                                          -2.221E-01     100.00   0  surf_overpotential
-                                                                         -6.357E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.356E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 3.84814e-05 beat out pnorm 0.193792
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 3.84704e-05 beat out pnorm 0.193764
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
-                                isp =  4    sum_f  =  1.234948356763E-04 sum_i =  1.234948356763E-04
-                             spMoles_final =  1.234913606467378E-04 EletrodeSrc = -3.475029587446777E-09 spMoles_init =  1.234948356763E-04
-                             relCapDiff =  2.273736754432321E-12
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  0.000000000000E+00
-                                isp =  5    sum_f  =  3.095908042937E-05 sum_i =  3.095908042937E-05
-                             spMoles_final =  3.096255545895564E-05 EletrodeSrc =  3.475029587446777E-09 spMoles_init =  3.095908042937E-05
-                             relCapDiff =  2.273736754432321E-12
-BEFORE  0: spMoles_final_[5] = 3.096255545895564E-05 , diff =   0.000000000000E+00
-BEFORE  0: spMoles_final_[4] = 1.234913606467378E-04 , diff =   0.000000000000E+00
-AFTER: spMoles_final_[4]  = 1.234913606467378E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.096255545895564E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
-            0.6        11.5093
+                                isp =  4    sum_f  =  1.234948456505E-04 sum_i =  1.234948456505E-04
+                             spMoles_final =  1.234913711268154E-04 EletrodeSrc = -3.474523713126479E-09 spMoles_init =  1.234948456505E-04
+                             relCapDiff =  6.366462912410498E-12
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -6.776263578034E-21
+                                isp =  5    sum_f  =  3.095907045516E-05 sum_i =  3.095907045516E-05
+                             spMoles_final =  3.096254497887804E-05 EletrodeSrc =  3.474523713126479E-09 spMoles_init =  3.095907045516E-05
+                             relCapDiff =  6.366462912410498E-12
+BEFORE  0: spMoles_final_[5] = 3.096254497887804E-05 , diff =  -6.776263578034E-21
+BEFORE  0: spMoles_final_[4] = 1.234913711268154E-04 , diff =   0.000000000000E+00
+AFTER: spMoles_final_[4]  = 1.234913711268154E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.096254497887805E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 6.77626e-21
+            0.6        11.5076
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  6.00000E-01
                               time init_init   =  4.00000E-01                     deltaTglobal = 0.2
@@ -1911,7 +1911,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                 numIntegrationSubCycles = 2, SubIntegrationCounter = 11
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.5093 amps
+          Current = 11.5076 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -1923,17 +1923,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      6.92497 coulombs =    0.0019236 Ah
+          Capacity Discharged Since Start =      6.92396 coulombs =   0.00192332 Ah
           Depth of Discharge (Current)    =      2987.43 coulombs    Relative Depth of Discharge = 0.200465    
           Capacity Left                   =      11915.1 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.5093 amps 
+                Current = 11.5076 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.386E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.385E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -1941,15 +1941,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.386E-08
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.385E-08
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.995E-01  7.997E-01  1.235E-04  1.235E-04  -2.386E-08
-                V_C6-bulk               2.005E-01  2.003E-01  3.096E-05  3.094E-05   2.386E-08
+                Li_C6-bulk              7.995E-01  7.997E-01  1.235E-04  1.235E-04  -2.385E-08
+                V_C6-bulk               2.005E-01  2.003E-01  3.096E-05  3.094E-05   2.385E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -1992,7 +1992,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                 surface area (final) = 2.51356E-01 m2
                 surface area (init)  = 2.51355E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0221294
+                Open Circuit Voltage = -0.022122
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.540E-09   0.000E+00
@@ -2006,14 +2006,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                            V_C6-bulk               4.744E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.38571e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.38536e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.386E-08  2.000E-01 -2.213E-02    2.216E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.385E-08  2.000E-01 -2.212E-02    2.216E-02       0.00   0  Surf_OCV
                                                                          -2.222E-01     100.00   0  surf_overpotential
-                                                                         -6.359E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.358E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -2023,7 +2023,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.4778 amps
+          Current = 11.4762 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -2035,13 +2035,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      9.22053 coulombs =   0.00256126 Ah
+          Capacity Discharged Since Start =      9.21919 coulombs =   0.00256089 Ah
           Depth of Discharge (Current)    =      2989.73 coulombs    Relative Depth of Discharge = 0.200619    
           Capacity Left                   =      11912.8 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.4778 amps 
+                Current = 11.4762 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2104,46 +2104,46 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 0
                 surface area (final) = 2.51366E-01 m2
                 surface area (init)  = 2.51356E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0218138
+                Open Circuit Voltage = -0.0218064
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.733E-07
+                           electron_Li_LiIon       4.732E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.733E-07
+                           Li+                     4.732E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.733E-07
-                           V_C6-bulk               4.733E-07
+                           Li_C6-bulk             -4.732E-07
+                           V_C6-bulk               4.732E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.37919e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.37884e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
         0    0    0    0  -2.000E-01   2.379E-08  2.000E-01 -2.181E-02    2.181E-02       0.00   0  Surf_OCV
                                                                          -2.218E-01     100.00   0  surf_overpotential
-                                                                         -6.339E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.338E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00187889 beat out pnorm 1.32865
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.656295322589E-18
-                                isp =  4    sum_f  =  1.234913606467E-04 sum_i =  1.234913606467E-04
-                             spMoles_final =  1.234675687951445E-04 EletrodeSrc = -2.379185159596716E-08 spMoles_init =  1.234913606467E-04
-                             relCapDiff = -2.528395270928741E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.649519059011E-18
-                                isp =  5    sum_f  =  3.096255545895E-05 sum_i =  3.096255545896E-05
-                             spMoles_final =  3.098634731054896E-05 EletrodeSrc =  2.379185159596716E-08 spMoles_init =  3.096255545896E-05
-                             relCapDiff = -2.528395270928741E-10
-BEFORE  0: spMoles_final_[5] = 3.098634731054896E-05 , diff =  -2.649519059011E-18
-BEFORE  0: spMoles_final_[4] = 1.234675687951445E-04 , diff =   2.656295322589E-18
-AFTER: spMoles_final_[4]  = 1.234675687951418E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.098634731055161E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
-            0.8        11.4778
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00187835 beat out pnorm 1.32846
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.629190268277E-18
+                                isp =  4    sum_f  =  1.234913711268E-04 sum_i =  1.234913711268E-04
+                             spMoles_final =  1.234675827304954E-04 EletrodeSrc = -2.378839632263046E-08 spMoles_init =  1.234913711268E-04
+                             relCapDiff = -2.464730641804636E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.642742795433E-18
+                                isp =  5    sum_f  =  3.096254497888E-05 sum_i =  3.096254497888E-05
+                             spMoles_final =  3.098633337519804E-05 EletrodeSrc =  2.378839632263046E-08 spMoles_init =  3.096254497888E-05
+                             relCapDiff = -2.464730641804636E-10
+BEFORE  0: spMoles_final_[5] = 3.098633337519804E-05 , diff =  -2.642742795433E-18
+BEFORE  0: spMoles_final_[4] = 1.234675827304954E-04 , diff =   2.629190268277E-18
+AFTER: spMoles_final_[4]  = 1.234675827304928E-04 , diff =   2.710505431214E-20
+BEFORE: spMoles_final_[5] = 3.098633337520068E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.64274e-18
+            0.8        11.4762
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  8.00000E-01
                               time init_init   =  6.00000E-01                     deltaTglobal = 0.2
@@ -2151,7 +2151,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 12
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.4778 amps
+          Current = 11.4762 amps
           Number of external surfaces = 1
           Solid Volume =  8.379E-07
           Total Volume =  1.289E-06
@@ -2163,13 +2163,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      9.22053 coulombs =   0.00256126 Ah
+          Capacity Discharged Since Start =      9.21919 coulombs =   0.00256089 Ah
           Depth of Discharge (Current)    =      2989.73 coulombs    Relative Depth of Discharge = 0.200619    
           Capacity Left                   =      11912.8 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.4778 amps 
+                Current = 11.4762 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2232,28 +2232,28 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
                 surface area (final) = 2.51366E-01 m2
                 surface area (init)  = 2.51356E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0218138
+                Open Circuit Voltage = -0.0218064
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.733E-07
+                           electron_Li_LiIon       4.732E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.733E-07
+                           Li+                     4.732E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.733E-07
-                           V_C6-bulk               4.733E-07
+                           Li_C6-bulk             -4.732E-07
+                           V_C6-bulk               4.732E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.37919e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.37884e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
         0    0    0    0  -2.000E-01   2.379E-08  2.000E-01 -2.181E-02    2.181E-02       0.00   0  Surf_OCV
                                                                          -2.218E-01     100.00   0  surf_overpotential
-                                                                         -6.339E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.338E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -2263,7 +2263,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.4503 amps
+          Current = 11.4486 amps
           Number of external surfaces = 1
           Solid Volume =  8.380E-07
           Total Volume =  1.289E-06
@@ -2275,13 +2275,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      11.5106 coulombs =   0.00319739 Ah
+          Capacity Discharged Since Start =      11.5089 coulombs =   0.00319692 Ah
           Depth of Discharge (Current)    =      2992.02 coulombs    Relative Depth of Discharge = 0.200772    
           Capacity Left                   =      11910.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.4503 amps 
+                Current = 11.4486 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2344,46 +2344,46 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.6563e-18
                 surface area (final) = 2.51375E-01 m2
                 surface area (init)  = 2.51366E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0215015
+                Open Circuit Voltage = -0.0214942
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.721E-07
+                           electron_Li_LiIon       4.720E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.721E-07
+                           Li+                     4.720E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.721E-07
-                           V_C6-bulk               4.721E-07
+                           Li_C6-bulk             -4.720E-07
+                           V_C6-bulk               4.720E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.37347e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.37313e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.373E-08  2.000E-01 -2.150E-02    2.150E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.373E-08  2.000E-01 -2.149E-02    2.149E-02       0.00   0  Surf_OCV
                                                                          -2.215E-01     100.00   0  surf_overpotential
-                                                                         -6.321E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.320E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00184213 beat out pnorm 1.32441
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00184161 beat out pnorm 1.32422
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.520770051029E-18
-                                isp =  4    sum_f  =  1.234675687951E-04 sum_i =  1.234675687951E-04
-                             spMoles_final =  1.234438340630645E-04 EletrodeSrc = -2.373473207988498E-08 spMoles_init =  1.234675687951E-04
-                             relCapDiff = -2.410160959698260E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.547875105341E-18
-                                isp =  5    sum_f  =  3.098634731055E-05 sum_i =  3.098634731055E-05
-                             spMoles_final =  3.101008204262895E-05 EletrodeSrc =  2.373473207988498E-08 spMoles_init =  3.098634731055E-05
-                             relCapDiff = -2.410160959698260E-10
-BEFORE  0: spMoles_final_[5] = 3.101008204262895E-05 , diff =  -2.547875105341E-18
-BEFORE  0: spMoles_final_[4] = 1.234438340630645E-04 , diff =   2.520770051029E-18
-AFTER: spMoles_final_[4]  = 1.234438340630620E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.101008204263149E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
-              1        11.4503
+                                isp =  4    sum_f  =  1.234675827305E-04 sum_i =  1.234675827305E-04
+                             spMoles_final =  1.234438514374277E-04 EletrodeSrc = -2.373129306761602E-08 spMoles_init =  1.234675827305E-04
+                             relCapDiff = -2.396518539171666E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.541098841763E-18
+                                isp =  5    sum_f  =  3.098633337520E-05 sum_i =  3.098633337520E-05
+                             spMoles_final =  3.101006466826575E-05 EletrodeSrc =  2.373129306761602E-08 spMoles_init =  3.098633337520E-05
+                             relCapDiff = -2.396518539171666E-10
+BEFORE  0: spMoles_final_[5] = 3.101006466826575E-05 , diff =  -2.541098841763E-18
+BEFORE  0: spMoles_final_[4] = 1.234438514374277E-04 , diff =   2.520770051029E-18
+AFTER: spMoles_final_[4]  = 1.234438514374251E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.101006466826830E-05 , diff =   6.776263578034E-21
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.5411e-18
+              1        11.4486
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.00000E+00
                               time init_init   =  8.00000E-01                     deltaTglobal = 0.2
@@ -2391,7 +2391,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 13
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.4503 amps
+          Current = 11.4486 amps
           Number of external surfaces = 1
           Solid Volume =  8.380E-07
           Total Volume =  1.289E-06
@@ -2403,13 +2403,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      11.5106 coulombs =   0.00319739 Ah
+          Capacity Discharged Since Start =      11.5089 coulombs =   0.00319692 Ah
           Depth of Discharge (Current)    =      2992.02 coulombs    Relative Depth of Discharge = 0.200772    
           Capacity Left                   =      11910.5 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.4503 amps 
+                Current = 11.4486 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2472,28 +2472,28 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
                 surface area (final) = 2.51375E-01 m2
                 surface area (init)  = 2.51366E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0215015
+                Open Circuit Voltage = -0.0214942
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.541E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.721E-07
+                           electron_Li_LiIon       4.720E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.721E-07
+                           Li+                     4.720E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.721E-07
-                           V_C6-bulk               4.721E-07
+                           Li_C6-bulk             -4.720E-07
+                           V_C6-bulk               4.720E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.37347e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.37313e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.373E-08  2.000E-01 -2.150E-02    2.150E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.373E-08  2.000E-01 -2.149E-02    2.149E-02       0.00   0  Surf_OCV
                                                                          -2.215E-01     100.00   0  surf_overpotential
-                                                                         -6.321E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.320E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -2503,7 +2503,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.423 amps
+          Current = 11.4214 amps
           Number of external surfaces = 1
           Solid Volume =  8.380E-07
           Total Volume =  1.289E-06
@@ -2515,17 +2515,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      13.7952 coulombs =     0.003832 Ah
+          Capacity Discharged Since Start =      13.7932 coulombs =   0.00383144 Ah
           Depth of Discharge (Current)    =       2994.3 coulombs    Relative Depth of Discharge = 0.200926    
           Capacity Left                   =      11908.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.423 amps 
+                Current = 11.4214 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.368E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.367E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -2533,15 +2533,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.368E-08
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.367E-08
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.991E-01  7.992E-01  1.234E-04  1.234E-04  -2.368E-08
-                V_C6-bulk               2.009E-01  2.008E-01  3.103E-05  3.101E-05   2.368E-08
+                Li_C6-bulk              7.991E-01  7.992E-01  1.234E-04  1.234E-04  -2.367E-08
+                V_C6-bulk               2.009E-01  2.008E-01  3.103E-05  3.101E-05   2.367E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -2584,46 +2584,46 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.54788e-18
                 surface area (final) = 2.51385E-01 m2
                 surface area (init)  = 2.51375E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0211925
+                Open Circuit Voltage = -0.0211852
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.710E-07
+                           electron_Li_LiIon       4.709E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.710E-07
+                           Li+                     4.709E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.710E-07
-                           V_C6-bulk               4.710E-07
+                           Li_C6-bulk             -4.709E-07
+                           V_C6-bulk               4.709E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.36783e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.36749e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.368E-08  2.000E-01 -2.119E-02    2.119E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.367E-08  2.000E-01 -2.119E-02    2.118E-02       0.00   0  Surf_OCV
                                                                          -2.212E-01     100.00   0  surf_overpotential
-                                                                         -6.303E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.302E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00181818 beat out pnorm 1.32022
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00181767 beat out pnorm 1.32003
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.439454888092E-18
-                                isp =  4    sum_f  =  1.234438340631E-04 sum_i =  1.234438340631E-04
-                             spMoles_final =  1.234201557509546E-04 EletrodeSrc = -2.367831210983446E-08 spMoles_init =  1.234438340631E-04
-                             relCapDiff = -2.337401383556426E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.459783678826E-18
-                                isp =  5    sum_f  =  3.101008204263E-05 sum_i =  3.101008204263E-05
-                             spMoles_final =  3.103376035473887E-05 EletrodeSrc =  2.367831210983446E-08 spMoles_init =  3.101008204263E-05
-                             relCapDiff = -2.337401383556426E-10
-BEFORE  0: spMoles_final_[5] = 3.103376035473887E-05 , diff =  -2.459783678826E-18
-BEFORE  0: spMoles_final_[4] = 1.234201557509546E-04 , diff =   2.439454888092E-18
-AFTER: spMoles_final_[4]  = 1.234201557509521E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.103376035474133E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
-            1.2         11.423
+                                isp =  4    sum_f  =  1.234438514374E-04 sum_i =  1.234438514374E-04
+                             spMoles_final =  1.234201765483677E-04 EletrodeSrc = -2.367488905984267E-08 spMoles_init =  1.234438514374E-04
+                             relCapDiff = -2.301021595485508E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.466559942405E-18
+                                isp =  5    sum_f  =  3.101006466827E-05 sum_i =  3.101006466827E-05
+                             spMoles_final =  3.103373955732568E-05 EletrodeSrc =  2.367488905984267E-08 spMoles_init =  3.101006466827E-05
+                             relCapDiff = -2.301021595485508E-10
+BEFORE  0: spMoles_final_[5] = 3.103373955732568E-05 , diff =  -2.466559942405E-18
+BEFORE  0: spMoles_final_[4] = 1.234201765483677E-04 , diff =   2.439454888092E-18
+AFTER: spMoles_final_[4]  = 1.234201765483653E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.103373955732814E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.46656e-18
+            1.2        11.4214
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.20000E+00
                               time init_init   =  1.00000E+00                     deltaTglobal = 0.2
@@ -2631,7 +2631,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 14
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.423 amps
+          Current = 11.4214 amps
           Number of external surfaces = 1
           Solid Volume =  8.380E-07
           Total Volume =  1.289E-06
@@ -2643,17 +2643,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      13.7952 coulombs =     0.003832 Ah
+          Capacity Discharged Since Start =      13.7932 coulombs =   0.00383144 Ah
           Depth of Discharge (Current)    =       2994.3 coulombs    Relative Depth of Discharge = 0.200926    
           Capacity Left                   =      11908.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.423 amps 
+                Current = 11.4214 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.368E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.367E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -2661,15 +2661,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.368E-08
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.367E-08
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.991E-01  7.992E-01  1.234E-04  1.234E-04  -2.368E-08
-                V_C6-bulk               2.009E-01  2.008E-01  3.103E-05  3.101E-05   2.368E-08
+                Li_C6-bulk              7.991E-01  7.992E-01  1.234E-04  1.234E-04  -2.367E-08
+                V_C6-bulk               2.009E-01  2.008E-01  3.103E-05  3.101E-05   2.367E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -2712,28 +2712,28 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                 surface area (final) = 2.51385E-01 m2
                 surface area (init)  = 2.51375E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0211925
+                Open Circuit Voltage = -0.0211852
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.541E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       4.710E-07
+                           electron_Li_LiIon       4.709E-07
                            ECDMC                   0.000E+00
-                           Li+                     4.710E-07
+                           Li+                     4.709E-07
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -4.710E-07
-                           V_C6-bulk               4.710E-07
+                           Li_C6-bulk             -4.709E-07
+                           V_C6-bulk               4.709E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.36783e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.36749e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.368E-08  2.000E-01 -2.119E-02    2.119E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.367E-08  2.000E-01 -2.119E-02    2.118E-02       0.00   0  Surf_OCV
                                                                          -2.212E-01     100.00   0  surf_overpotential
-                                                                         -6.303E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.302E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -2743,7 +2743,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3962 amps
+          Current = 11.3945 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -2755,13 +2755,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      16.0744 coulombs =   0.00446512 Ah
-          Depth of Discharge (Current)    =      2996.58 coulombs    Relative Depth of Discharge = 0.201079    
+          Capacity Discharged Since Start =      16.0721 coulombs =   0.00446447 Ah
+          Depth of Discharge (Current)    =      2996.58 coulombs    Relative Depth of Discharge = 0.201078    
           Capacity Left                   =        11906 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3962 amps 
+                Current = 11.3945 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2824,7 +2824,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                 surface area (final) = 2.51394E-01 m2
                 surface area (init)  = 2.51385E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0208868
+                Open Circuit Voltage = -0.0208795
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -2838,32 +2838,32 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.45978e-18
                            V_C6-bulk               4.698E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.36226e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.36192e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.362E-08  2.000E-01 -2.089E-02    2.089E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.362E-08  2.000E-01 -2.088E-02    2.088E-02       0.00   0  Surf_OCV
                                                                          -2.209E-01     100.00   0  surf_overpotential
-                                                                         -6.286E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.285E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00179465 beat out pnorm 1.31608
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.412349833780E-18
-                                isp =  4    sum_f  =  1.234201557510E-04 sum_i =  1.234201557510E-04
-                             spMoles_final =  1.233965331707321E-04 EletrodeSrc = -2.362258022242623E-08 spMoles_init =  1.234201557510E-04
-                             relCapDiff = -2.305569068994373E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.385244779468E-18
-                                isp =  5    sum_f  =  3.103376035474E-05 sum_i =  3.103376035474E-05
-                             spMoles_final =  3.105738293496137E-05 EletrodeSrc =  2.362258022242623E-08 spMoles_init =  3.103376035474E-05
-                             relCapDiff = -2.305569068994373E-10
-BEFORE  0: spMoles_final_[5] = 3.105738293496137E-05 , diff =  -2.385244779468E-18
-BEFORE  0: spMoles_final_[4] = 1.233965331707321E-04 , diff =   2.412349833780E-18
-AFTER: spMoles_final_[4]  = 1.233965331707297E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.105738293496375E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
-            1.4        11.3962
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00179414 beat out pnorm 1.31589
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.439454888092E-18
+                                isp =  4    sum_f  =  1.234201765484E-04 sum_i =  1.234201765484E-04
+                             spMoles_final =  1.233965573755253E-04 EletrodeSrc = -2.361917284241684E-08 spMoles_init =  1.234201765484E-04
+                             relCapDiff = -2.296474121976644E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.392021043046E-18
+                                isp =  5    sum_f  =  3.103373955733E-05 sum_i =  3.103373955733E-05
+                             spMoles_final =  3.105735873016817E-05 EletrodeSrc =  2.361917284241684E-08 spMoles_init =  3.103373955733E-05
+                             relCapDiff = -2.296474121976644E-10
+BEFORE  0: spMoles_final_[5] = 3.105735873016817E-05 , diff =  -2.392021043046E-18
+BEFORE  0: spMoles_final_[4] = 1.233965573755253E-04 , diff =   2.439454888092E-18
+AFTER: spMoles_final_[4]  = 1.233965573755229E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.105735873017056E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.43945e-18
+            1.4        11.3945
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.40000E+00
                               time init_init   =  1.20000E+00                     deltaTglobal = 0.2
@@ -2871,7 +2871,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 15
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3962 amps
+          Current = 11.3945 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -2883,13 +2883,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      16.0744 coulombs =   0.00446512 Ah
-          Depth of Discharge (Current)    =      2996.58 coulombs    Relative Depth of Discharge = 0.201079    
+          Capacity Discharged Since Start =      16.0721 coulombs =   0.00446447 Ah
+          Depth of Discharge (Current)    =      2996.58 coulombs    Relative Depth of Discharge = 0.201078    
           Capacity Left                   =        11906 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3962 amps 
+                Current = 11.3945 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -2952,7 +2952,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                 surface area (final) = 2.51394E-01 m2
                 surface area (init)  = 2.51385E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0208868
+                Open Circuit Voltage = -0.0208795
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -2966,14 +2966,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                            V_C6-bulk               4.698E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.36226e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.36192e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.362E-08  2.000E-01 -2.089E-02    2.089E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.362E-08  2.000E-01 -2.088E-02    2.088E-02       0.00   0  Surf_OCV
                                                                          -2.209E-01     100.00   0  surf_overpotential
-                                                                         -6.286E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.285E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -2983,7 +2983,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3696 amps
+          Current = 11.368 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -2995,17 +2995,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      18.3484 coulombs =   0.00509676 Ah
-          Depth of Discharge (Current)    =      2998.86 coulombs    Relative Depth of Discharge = 0.201231    
+          Capacity Discharged Since Start =      18.3457 coulombs =   0.00509602 Ah
+          Depth of Discharge (Current)    =      2998.85 coulombs    Relative Depth of Discharge = 0.201231    
           Capacity Left                   =      11903.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3696 amps 
+                Current = 11.368 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.357E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.356E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -3013,15 +3013,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.357E-08
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.356E-08
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.988E-01  7.989E-01  1.234E-04  1.234E-04  -2.357E-08
-                V_C6-bulk               2.012E-01  2.011E-01  3.108E-05  3.106E-05   2.357E-08
+                Li_C6-bulk              7.988E-01  7.989E-01  1.234E-04  1.234E-04  -2.356E-08
+                V_C6-bulk               2.012E-01  2.011E-01  3.108E-05  3.106E-05   2.356E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -3064,7 +3064,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                 surface area (final) = 2.51403E-01 m2
                 surface area (init)  = 2.51394E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0205842
+                Open Circuit Voltage = -0.020577
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -3078,32 +3078,32 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.41235e-18
                            V_C6-bulk               4.687E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.35675e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.35641e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.357E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.356E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
                                                                          -2.206E-01     100.00   0  surf_overpotential
-                                                                         -6.268E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.267E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00177151 beat out pnorm 1.31199
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.331034670844E-18
-                                isp =  4    sum_f  =  1.233965331707E-04 sum_i =  1.233965331707E-04
-                             spMoles_final =  1.233729656455248E-04 EletrodeSrc = -2.356752520720270E-08 spMoles_init =  1.233965331707E-04
-                             relCapDiff = -2.210072125308216E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.324258407266E-18
-                                isp =  5    sum_f  =  3.105738293496E-05 sum_i =  3.105738293496E-05
-                             spMoles_final =  3.108095046016863E-05 EletrodeSrc =  2.356752520720270E-08 spMoles_init =  3.105738293496E-05
-                             relCapDiff = -2.210072125308216E-10
-BEFORE  0: spMoles_final_[5] = 3.108095046016863E-05 , diff =  -2.324258407266E-18
-BEFORE  0: spMoles_final_[4] = 1.233729656455248E-04 , diff =   2.331034670844E-18
-AFTER: spMoles_final_[4]  = 1.233729656455225E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.108095046017096E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
-            1.6        11.3696
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00177102 beat out pnorm 1.3118
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.303929616532E-18
+                                isp =  4    sum_f  =  1.233965573755E-04 sum_i =  1.233965573755E-04
+                             spMoles_final =  1.233729932423140E-04 EletrodeSrc = -2.356413321120683E-08 spMoles_init =  1.233965573755E-04
+                             relCapDiff = -2.155502443201840E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.310705880110E-18
+                                isp =  5    sum_f  =  3.105735873017E-05 sum_i =  3.105735873017E-05
+                             spMoles_final =  3.108092286337945E-05 EletrodeSrc =  2.356413321120683E-08 spMoles_init =  3.105735873017E-05
+                             relCapDiff = -2.155502443201840E-10
+BEFORE  0: spMoles_final_[5] = 3.108092286337945E-05 , diff =  -2.310705880110E-18
+BEFORE  0: spMoles_final_[4] = 1.233729932423140E-04 , diff =   2.303929616532E-18
+AFTER: spMoles_final_[4]  = 1.233729932423117E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.108092286338176E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.31071e-18
+            1.6         11.368
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.60000E+00
                               time init_init   =  1.40000E+00                     deltaTglobal = 0.2
@@ -3111,7 +3111,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 16
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3696 amps
+          Current = 11.368 amps
           Number of external surfaces = 1
           Solid Volume =  8.381E-07
           Total Volume =  1.289E-06
@@ -3123,17 +3123,17 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      18.3484 coulombs =   0.00509676 Ah
-          Depth of Discharge (Current)    =      2998.86 coulombs    Relative Depth of Discharge = 0.201231    
+          Capacity Discharged Since Start =      18.3457 coulombs =   0.00509602 Ah
+          Depth of Discharge (Current)    =      2998.85 coulombs    Relative Depth of Discharge = 0.201231    
           Capacity Left                   =      11903.7 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3696 amps 
+                Current = 11.368 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.357E-08
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   2.356E-08
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 3.36642e-07
@@ -3141,15 +3141,15 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 ECDMC                   8.400E-01  8.400E-01  2.828E-07  2.828E-07   0.000E+00
-                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.357E-08
+                Li+                     8.000E-02  8.000E-02  2.693E-08  2.693E-08   2.356E-08
                 PF6-                    8.000E-02  8.000E-02  2.693E-08  2.693E-08   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000154454
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              7.988E-01  7.989E-01  1.234E-04  1.234E-04  -2.357E-08
-                V_C6-bulk               2.012E-01  2.011E-01  3.108E-05  3.106E-05   2.357E-08
+                Li_C6-bulk              7.988E-01  7.989E-01  1.234E-04  1.234E-04  -2.356E-08
+                V_C6-bulk               2.012E-01  2.011E-01  3.108E-05  3.106E-05   2.356E-08
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
@@ -3192,7 +3192,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                 surface area (final) = 2.51403E-01 m2
                 surface area (init)  = 2.51394E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0205842
+                Open Circuit Voltage = -0.020577
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -3206,14 +3206,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                            V_C6-bulk               4.687E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.35675e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.35641e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.357E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.356E-08  2.000E-01 -2.058E-02    2.058E-02       0.00   0  Surf_OCV
                                                                          -2.206E-01     100.00   0  surf_overpotential
-                                                                         -6.268E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.267E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -3223,7 +3223,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3434 amps
+          Current = 11.3417 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -3235,13 +3235,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =       20.617 coulombs =   0.00572695 Ah
+          Capacity Discharged Since Start =       20.614 coulombs =   0.00572612 Ah
           Depth of Discharge (Current)    =      3001.12 coulombs    Relative Depth of Discharge = 0.201383    
           Capacity Left                   =      11901.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3434 amps 
+                Current = 11.3417 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3304,7 +3304,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                 surface area (final) = 2.51413E-01 m2
                 surface area (init)  = 2.51403E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0202848
+                Open Circuit Voltage = -0.0202777
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -3318,32 +3318,32 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.33103e-18
                            V_C6-bulk               4.676E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.35131e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.35098e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
         0    0    0    0  -2.000E-01   2.351E-08  2.000E-01 -2.028E-02    2.028E-02       0.00   0  Surf_OCV
                                                                          -2.203E-01     100.00   0  surf_overpotential
-                                                                         -6.251E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.250E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00174876 beat out pnorm 1.30794
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00174828 beat out pnorm 1.30775
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.222614453595E-18
-                                isp =  4    sum_f  =  1.233729656455E-04 sum_i =  1.233729656455E-04
-                             spMoles_final =  1.233494525094251E-04 EletrodeSrc = -2.351313609959685E-08 spMoles_init =  1.233729656455E-04
-                             relCapDiff = -2.119122655130923E-10
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.256495771485E-18
-                                isp =  5    sum_f  =  3.108095046017E-05 sum_i =  3.108095046017E-05
-                             spMoles_final =  3.110446359626830E-05 EletrodeSrc =  2.351313609959685E-08 spMoles_init =  3.108095046017E-05
-                             relCapDiff = -2.119122655130923E-10
-BEFORE  0: spMoles_final_[5] = 3.110446359626830E-05 , diff =  -2.256495771485E-18
-BEFORE  0: spMoles_final_[4] = 1.233494525094251E-04 , diff =   2.222614453595E-18
-AFTER: spMoles_final_[4]  = 1.233494525094229E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.110446359627056E-05 , diff =   6.776263578034E-21
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
-            1.8        11.3434
+                                isp =  4    sum_f  =  1.233729932423E-04 sum_i =  1.233729932423E-04
+                             spMoles_final =  1.233494834831061E-04 EletrodeSrc = -2.350975920781313E-08 spMoles_init =  1.233729932423E-04
+                             relCapDiff = -2.078195393551141E-10
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.249719507907E-18
+                                isp =  5    sum_f  =  3.108092286338E-05 sum_i =  3.108092286338E-05
+                             spMoles_final =  3.110443262258733E-05 EletrodeSrc =  2.350975920781313E-08 spMoles_init =  3.108092286338E-05
+                             relCapDiff = -2.078195393551141E-10
+BEFORE  0: spMoles_final_[5] = 3.110443262258733E-05 , diff =  -2.249719507907E-18
+BEFORE  0: spMoles_final_[4] = 1.233494834831061E-04 , diff =   2.222614453595E-18
+AFTER: spMoles_final_[4]  = 1.233494834831038E-04 , diff =   0.000000000000E+00
+BEFORE: spMoles_final_[5] = 3.110443262258958E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.24972e-18
+            1.8        11.3417
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.80000E+00
                               time init_init   =  1.60000E+00                     deltaTglobal = 0.2
@@ -3351,7 +3351,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 17
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3434 amps
+          Current = 11.3417 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -3363,13 +3363,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =       20.617 coulombs =   0.00572695 Ah
+          Capacity Discharged Since Start =       20.614 coulombs =   0.00572612 Ah
           Depth of Discharge (Current)    =      3001.12 coulombs    Relative Depth of Discharge = 0.201383    
           Capacity Left                   =      11901.4 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3434 amps 
+                Current = 11.3417 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3432,7 +3432,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                 surface area (final) = 2.51413E-01 m2
                 surface area (init)  = 2.51403E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0202848
+                Open Circuit Voltage = -0.0202777
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.542E-09  7.542E-09   0.000E+00
@@ -3446,14 +3446,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                            V_C6-bulk               4.676E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.35131e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.35098e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
         0    0    0    0  -2.000E-01   2.351E-08  2.000E-01 -2.028E-02    2.028E-02       0.00   0  Surf_OCV
                                                                          -2.203E-01     100.00   0  surf_overpotential
-                                                                         -6.251E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.250E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
@@ -3463,7 +3463,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3174 amps
+          Current = 11.3158 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -3475,13 +3475,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      22.8805 coulombs =    0.0063557 Ah
-          Depth of Discharge (Current)    =      3003.39 coulombs    Relative Depth of Discharge = 0.201535    
-          Capacity Left                   =      11899.1 coulombs    Capacity at Zero DOD = 14902.5      coulombs
+          Capacity Discharged Since Start =      22.8772 coulombs =   0.00635478 Ah
+          Depth of Discharge (Current)    =      3003.38 coulombs    Relative Depth of Discharge = 0.201535    
+          Capacity Left                   =      11899.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3174 amps 
+                Current = 11.3158 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3544,7 +3544,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                 surface area (final) = 2.51422E-01 m2
                 surface area (init)  = 2.51413E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0199886
+                Open Circuit Voltage = -0.0199815
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.542E-09   0.000E+00
@@ -3558,32 +3558,32 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.2565e-18
                            V_C6-bulk               4.665E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.34594e-08 
+     Electrode Polarization Analysis: (local  step) Total electrons accounted for: 2.3456e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.346E-08  2.000E-01 -1.999E-02    1.999E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.346E-08  2.000E-01 -1.998E-02    1.998E-02       0.00   0  Surf_OCV
                                                                          -2.200E-01     100.00   0  surf_overpotential
-                                                                         -6.234E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.233E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0017264 beat out pnorm 1.30394
-Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.195509399283E-18
-                                isp =  4    sum_f  =  1.233494525094E-04 sum_i =  1.233494525094E-04
-                             spMoles_final =  1.233259931072509E-04 EletrodeSrc = -2.345940217414950E-08 spMoles_init =  1.233494525094E-04
-                             relCapDiff = -2.078195393551141E-10
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00172592 beat out pnorm 1.30375
+Electrode_SimpleDiff::checkMoles_final_init INFO: diff =  2.141299290659E-18
+                                isp =  4    sum_f  =  1.233494834831E-04 sum_i =  1.233494834831E-04
+                             spMoles_final =  1.233260274429932E-04 EletrodeSrc = -2.345604011275096E-08 spMoles_init =  1.233494834831E-04
+                             relCapDiff = -2.014530764427036E-10
 Electrode_SimpleDiff::checkMoles_final_init INFO: diff = -2.188733135705E-18
-                                isp =  5    sum_f  =  3.110446359627E-05 sum_i =  3.110446359627E-05
-                             spMoles_final =  3.112792299844252E-05 EletrodeSrc =  2.345940217414950E-08 spMoles_init =  3.110446359627E-05
-                             relCapDiff = -2.078195393551141E-10
-BEFORE  0: spMoles_final_[5] = 3.112792299844252E-05 , diff =  -2.188733135705E-18
-BEFORE  0: spMoles_final_[4] = 1.233259931072509E-04 , diff =   2.195509399283E-18
-AFTER: spMoles_final_[4]  = 1.233259931072487E-04 , diff =   0.000000000000E+00
-BEFORE: spMoles_final_[5] = 3.112792299844471E-05 , diff =   0.000000000000E+00
-Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.19551e-18
-              2        11.3174
+                                isp =  5    sum_f  =  3.110443262259E-05 sum_i =  3.110443262259E-05
+                             spMoles_final =  3.112788866270014E-05 EletrodeSrc =  2.345604011275096E-08 spMoles_init =  3.110443262259E-05
+                             relCapDiff = -2.014530764427036E-10
+BEFORE  0: spMoles_final_[5] = 3.112788866270014E-05 , diff =  -2.188733135705E-18
+BEFORE  0: spMoles_final_[4] = 1.233260274429932E-04 , diff =   2.141299290659E-18
+AFTER: spMoles_final_[4]  = 1.233260274429911E-04 , diff =   2.710505431214E-20
+BEFORE: spMoles_final_[5] = 3.112788866270233E-05 , diff =   0.000000000000E+00
+Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.18873e-18
+              2        11.3158
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.00000E+00
                               time init_init   =  1.80000E+00                     deltaTglobal = 0.2
@@ -3591,7 +3591,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.19551e-18
                 numIntegrationSubCycles = 1, SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 0.2 volts
-          Current = 11.3174 amps
+          Current = 11.3158 amps
           Number of external surfaces = 1
           Solid Volume =  8.382E-07
           Total Volume =  1.289E-06
@@ -3603,13 +3603,13 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.19551e-18
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =      22.8805 coulombs =    0.0063557 Ah
-          Depth of Discharge (Current)    =      3003.39 coulombs    Relative Depth of Discharge = 0.201535    
-          Capacity Left                   =      11899.1 coulombs    Capacity at Zero DOD = 14902.5      coulombs
+          Capacity Discharged Since Start =      22.8772 coulombs =   0.00635478 Ah
+          Depth of Discharge (Current)    =      3003.38 coulombs    Relative Depth of Discharge = 0.201535    
+          Capacity Left                   =      11899.2 coulombs    Capacity at Zero DOD = 14902.5      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 11.3174 amps 
+                Current = 11.3158 amps 
                 Electric Potential = 0
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3672,7 +3672,7 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.19551e-18
                 surface area (final) = 2.51422E-01 m2
                 surface area (init)  = 2.51413E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.0199886
+                Open Circuit Voltage = -0.0199815
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.543E-09  7.542E-09   0.000E+00
@@ -3686,14 +3686,14 @@ Electrode_SimpleDiff::check_final_state() INFO: diffMax = 2.19551e-18
                            V_C6-bulk               4.665E-07
                            li_site                 0.000E+00
      ============================================================================================
-     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.34594e-08 
+     Electrode Polarization Analysis: (global step) Total electrons accounted for: 2.3456e-08 
                                  DischargeDir =  1         Number of records = 1
                             ElectrodeCapacityType = 0   ElectrodeType = SimpleDiff
 
      DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %PolLoss  Rgn  Reason
-        0    0    0    0  -2.000E-01   2.346E-08  2.000E-01 -1.999E-02    1.999E-02       0.00   0  Surf_OCV
+        0    0    0    0  -2.000E-01   2.346E-08  2.000E-01 -1.998E-02    1.998E-02       0.00   0  Surf_OCV
                                                                          -2.200E-01     100.00   0  surf_overpotential
-                                                                         -6.234E-07       0.00   0  ConcLoss SolidDiff
+                                                                         -6.233E-07       0.00   0  ConcLoss SolidDiff
             phiAnodeP =  0.000E+00  phiCathodeP = -2.000E-01     total = -2.000E-01 
      ============================================================================================
    ==============================================================================================

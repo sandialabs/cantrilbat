@@ -31,7 +31,7 @@
            <density units="g/cm3"> 1.0E-6 </density>
        </standardState>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="400.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="400.0">
            <floatArray size="7">
                -40.71053  ,
                6.411257   ,
@@ -42,7 +42,7 @@
                -77.614337  
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                -47.17129  ,
                14.679607  ,
