@@ -15,8 +15,8 @@ Initial data for these two species and TBP*H2O(org) is based on the equilibrium 
       <pressure units="Pa"> 100000.0 </pressure>
       <soluteMolalities>
              H+:2.40 
-             OH-:1.0E-4
 	     NO3-:2.40
+             OH-:1.0
 	     UO2++:0.5
       </soluteMolalities>
     </state>
