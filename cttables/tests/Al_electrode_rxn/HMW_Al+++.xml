@@ -11,10 +11,10 @@
       <temperature units="K"> 298.15 </temperature>
       <pressure units="Pa"> 101325.0 </pressure>
       <soluteMolalities>
-             Al+++:6.0954
-             Cl-:6.0954
-             H+:2.1628E-9
-             OH-:1.3977E-6
+             Al+++:2.0000
+             Cl-:6.0000
+             H+:1.3977E-7
+             OH-:1.3977E-7
       </soluteMolalities>
     </state>
 

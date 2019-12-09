@@ -1,0 +1,69 @@
+#
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = HMW_ZnSO4_pdss.xml
+#
+#
+Output Units = KJoule
+
+!Debugging = true
+!Bath Temperature = 300.
+Bath Temperature = 298.15
+Bath Pressure =  1 atm 
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 20.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 333.15 273.15 350. 373.15
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+
+
+start block Bath Specification for Phase ZnSO4_Electrolyte
+   Bath Species ID = H2O(L)
+   start block Bath Species Molalities
+       Zn++ = 0.0
+       SO4-- = 0.0
+       H2(aq) =  1.0E-7 
+       OH- = 0.0E-7   
+   End block Bath Species Molalities
+end block Bath Specification for Phase ZnSO4_Electrolyte
+
+
+# the above were empty lines

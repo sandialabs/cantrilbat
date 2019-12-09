@@ -17,6 +17,7 @@ test:
 	cd airNASA9;                                          $(MAKE) -s test
 	cd H2_electrode_rxn;                                  $(MAKE) -s test
 	cd Al_electrode_rxn;                                  $(MAKE) -s test
+	cd H2aq_solubility;                                   $(MAKE) -s test
 	cd Zn_electrode_rxn;                                  $(MAKE) -s test
 	cd KCl_solid_test;                                    $(MAKE) -s test
 	cd NaCl_solid_test;                                   $(MAKE) -s test
@@ -48,6 +49,7 @@ rebaseline:
 	cd airNASA9;                                          $(MAKE) rebaseline
 	cd H2_electrode_rxn;                                  $(MAKE) rebaseline
 	cd Al_electrode_rxn;                                  $(MAKE) rebaseline
+	cd H2aq_solubility;                                   $(MAKE) rebaseline
 	cd Zn_electrode_rxn;                                  $(MAKE) rebaseline
 	cd KCl_solid_test;                                    $(MAKE) rebaseline
 	cd NaCl_solid_test;                                   $(MAKE) rebaseline
@@ -80,6 +82,7 @@ clean_dist:
 	cd airNASA9;                                          $(MAKE) -s clean_dist
 	cd H2_electrode_rxn;                                  $(MAKE) -s clean_dist
 	cd Al_electrode_rxn;                                  $(MAKE) -s clean_dist
+	cd H2aq_solubility;                                   $(MAKE) -s clean_dist
 	cd Zn_electrode_rxn;                                  $(MAKE) -s clean_dist
 	cd KCl_solid_test;                                    $(MAKE) -s clean_dist
 	cd NaCl_solid_test;                                   $(MAKE) -s clean_dist
@@ -111,6 +114,7 @@ clean:
 	cd airNASA9;                                          $(MAKE) -s clean
 	cd H2_electrode_rxn;                                  $(MAKE) -s clean
 	cd Al_electrode_rxn;                                  $(MAKE) -s clean
+	cd H2aq_solubility;                                   $(MAKE) -s clean
 	cd Zn_electrode_rxn;                                  $(MAKE) -s clean
 	cd KCl_solid_test;                                    $(MAKE) -s clean
 	cd NaCl_solid_test;                                   $(MAKE) -s clean
@@ -142,6 +146,7 @@ clean_test:
 	cd airNASA9;                                           $(MAKE) -s clean_test
 	cd H2_electrode_rxn;                                   $(MAKE) -s clean_test
 	cd Al_electrode_rxn;                                   $(MAKE) -s clean_test
+	cd H2aq_solubility;                                    $(MAKE) -s clean_test
 	cd Zn_electrode_rxn;                                   $(MAKE) -s clean_test
 	cd KCl_solid_test;                                     $(MAKE) -s clean_test
 	cd NaCl_solid_test;                                    $(MAKE) -s clean_test
@@ -173,6 +178,7 @@ clean_test_flags:
 	cd airNASA9;                                           $(MAKE) -s clean_test_flags
 	cd H2_electrode_rxn;                                   $(MAKE) -s clean_test_flags
 	cd Al_electrode_rxn;                                   $(MAKE) -s clean_test_flags
+	cd H2aq_solubility;                                    $(MAKE) -s clean_test_flags
 	cd Zn_electrode_rxn;                                   $(MAKE) -s clean_test_flags
 	cd KCl_solid_test;                                     $(MAKE) -s clean_test_flags
 	cd NaCl_solid_test;                                    $(MAKE) -s clean_test_flags

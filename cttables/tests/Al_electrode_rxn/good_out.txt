@@ -144,9 +144,9 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "AlCl_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.0179367 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.0179391 m3/kmol
         StandState Molar Volume at (T,P) of (300,101325) = 0.0180775 m3/kmol
-        species partial Molar Volume = 0.0179367 m**3 / kmol
+        species partial Molar Volume = 0.0179391 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 0
@@ -190,9 +190,9 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.00996831 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00996277 m3/kmol
         StandState Molar Volume at (T,P) of (300,101325) = 0.00834 m3/kmol
-        species partial Molar Volume = 0.00996831 m**3 / kmol
+        species partial Molar Volume = 0.00996277 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 298 < T < 623.15:
@@ -237,9 +237,9 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "AlCl_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 273.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.00162831 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00162277 m3/kmol
         StandState Molar Volume at (T,P) of (300,101325) = 0 m3/kmol
-        species partial Molar Volume = 0.00162831 m**3 / kmol
+        species partial Molar Volume = 0.00162277 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         MU0_POLY format:
                 Valid Range: 273.15 < T < 625.15: 
@@ -284,9 +284,9 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.00996831 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00996277 m3/kmol
         StandState Molar Volume at (T,P) of (300,101325) = 0.00834 m3/kmol
-        species partial Molar Volume = 0.00996831 m**3 / kmol
+        species partial Molar Volume = 0.00996277 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 298 < T < 623.15:
@@ -479,7 +479,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !    -1.734 |   2.48e-48     2.48e-48    -2.28e-62 |    7.18e-44    -7.18e-44      -6.6e-58 |
+               !    -1.734 |   2.48e-48     2.48e-48    -2.22e-62 |    7.18e-44    -7.18e-44     -6.42e-58 |
                !        -1 |   7.67e-30     8.02e-67     7.67e-30 |    2.22e-25    -2.32e-62      2.22e-25 |
                !      -0.8 |   8.41e-25     7.32e-72     8.41e-25 |    2.43e-20    -2.12e-67      2.43e-20 |
                !      -0.6 |   9.22e-20     6.68e-77     9.22e-20 |    2.67e-15    -1.93e-72      2.67e-15 |
@@ -497,7 +497,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |       Ifwd         Irev        Inet  |    al_site |
                |   Volts   |               (amps/cm2)             |            |
                -----------------------------------------------------------------
-               !    -1.734 |   7.18e-44    -7.18e-44     -6.6e-58 |         1  |
+               !    -1.734 |   7.18e-44    -7.18e-44    -6.42e-58 |         1  |
                !        -1 |   2.22e-25    -2.32e-62     2.22e-25 |         1  |
                !      -0.8 |   2.43e-20    -2.12e-67     2.43e-20 |         1  |
                !      -0.6 |   2.67e-15    -1.93e-72     2.67e-15 |         1  |

@@ -1,0 +1,358 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "ZnSO4_electrolyte", with name, "ZnSO4_electrolyte", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2O(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          H2O(L)          1.0000       5.534E-02       1.000E+00
+              2            Zn++          0.0000       0.000E+00       0.000E+00
+              3           SO4--          0.0000       0.000E+00       0.000E+00
+              4              H+          0.0000       0.000E+00       0.000E+00
+              5             OH-          0.0000       0.000E+00       0.000E+00
+              6          H2(aq)          0.0000       9.970E-11       1.000E-07
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "ZnSO4_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.574
+                    H: 2      |                    130.680
+                                                   233.254 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 18.0153 gm/mol
+        Heat of formation (298.15K) = -285.830000  kJ/gmol 
+        DeltaGf (298.15K) = -237.140870  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 200 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0177751 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0180686 m3/kmol
+        species partial Molar Volume = 0.0177751 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 0
+               PDSS min Temperature  = 200
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = 100000
+               Water PDSS thermo type
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -1.8891        -19.1769        76.0145      63.3321   |    -305.0069 | 
+|    298.15 |     0.0000        -20.8442        75.3276      69.9500   |    -306.6742 | 
+|    300.00 |     0.1393        -20.9740        75.3153      70.4159   |    -306.8040 | 
+|    320.00 |     1.6453        -22.4314        75.3135      75.2756   |    -308.2614 | 
+|    333.15 |     2.6362        -23.4412        75.3931      78.3100   |    -309.2712 | 
+|    340.00 |     3.1528        -23.9829        75.4533      79.8450   |    -309.8129 | 
+|    350.00 |     3.9079        -24.7923        75.5645      82.0338   |    -310.6223 | 
+|    360.00 |     4.6642        -25.6232        75.7063      84.1644   |    -311.4532 | 
+|    373.15 |     5.6612        -26.7479        75.9465      86.8846   |    -312.5779 | 
+|    380.00 |     6.1824        -27.3477        76.0980      88.2670   |    -313.1777 | 
+|    400.00 |     7.7111        -29.1523        76.6642      92.1820   |    -314.9823 | 
+|    420.00 |     9.2541        -31.0336        77.4472      95.9369   |    -316.8636 | 
+|    440.00 |    10.8162        -32.9887        78.4946      99.5565   |    -318.8187 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:               ElementEntropy298
+                   Zn: 1      |                     41.717
+                    E: -2      |                     -0.000
+                   E-: 2      |                    130.680
+                                                   -88.963 J/gmol/K 
+        Electronic Charge = 2.000000
+        Molecular Weight = 65.3789 gm/mol
+        Heat of formation (298.15K) = -153.435923  kJ/gmol 
+        DeltaGf (298.15K) = -147.276800  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = -0.0133167 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -0.0206984 m3/kmol
+        species partial Molar Volume = -0.0133167 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 1
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 100000
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -35200
+                  deltaH_formation_tr_pr = -36660
+                  Mu0_tr_pr              = -1.20752e+08
+                  Entrop_tr_pr           = -26.2
+                  a1                     = -0.10676
+                  a2                     = -892.9
+                  a3                     = 6.1282
+                  a4                     = -24098
+                  c1                     = 18.74
+                  c2                     = -53700
+                  omega_pr_tr            = -100
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|    -0.1876         29.9239       -31.7786    -110.2380   |    -123.5120 | 
+|    298.15 |     0.0000         32.6834        32.7862    -109.6208   |    -120.7525 | 
+|    300.00 |     0.0628         32.8860        35.1028    -109.4107   |    -120.5499 | 
+|    320.00 |     0.9534         35.0471        51.9040    -106.5428   |    -118.3889 | 
+|    333.15 |     1.6796         36.4337        58.1326    -104.3196   |    -117.0023 | 
+|    340.00 |     2.0863         37.1441        60.5448    -103.1112   |    -116.2918 | 
+|    350.00 |     2.7065         38.1663        63.3645    -101.3137   |    -115.2697 | 
+|    360.00 |     3.3516         39.1703        65.5692     -99.4966   |    -114.2656 | 
+|    373.15 |     4.2292         40.4629        67.8058     -97.1024   |    -112.9730 | 
+|    380.00 |     4.6964         41.1233        68.7494     -95.8604   |    -112.3126 | 
+|    400.00 |     6.0916         43.0023        70.8924     -92.2767   |    -110.4337 | 
+|    420.00 |     7.5213         44.8089        72.4072     -88.7800   |    -108.6270 | 
+|    440.00 |     8.9750         46.5447        73.5213     -85.3856   |    -106.8913 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    O: 4      |                    410.297
+                    S: 1      |                     32.056
+                    E: 2      |                      0.000
+                   E-: -2      |                   -130.680
+                                                   573.033 J/gmol/K 
+        Electronic Charge = -2.000000
+        Molecular Weight = 96.0647 gm/mol
+        Heat of formation (298.15K) = -909.695223  kJ/gmol 
+        DeltaGf (298.15K) = -744.459110  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0210933 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0137117 m3/kmol
+        species partial Molar Volume = 0.0210933 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 2
+               PDSS min Temperature  = 298
+               PDSS max Temperature  = 623.15
+               PDSS reference pres   = 100000
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -177930
+                  deltaH_formation_tr_pr = -217400
+                  Mu0_tr_pr              = -9.15309e+08
+                  Entrop_tr_pr           = 4.5
+                  a1                     = 0.83014
+                  a2                     = -198.46
+                  a3                     = -6.2122
+                  a4                     = -26970
+                  c1                     = 1.64
+                  c2                     = -179980
+                  omega_pr_tr            = 314630
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     8.3532         -4.8163      -459.2027      48.2136   |    -914.5116 | 
+|    298.15 |     0.0000         -5.6135      -257.3945      18.8279   |    -915.3088 | 
+|    300.00 |    -0.4702         -5.6469      -251.0209      17.2558   |    -915.3421 | 
+|    320.00 |    -5.0252         -5.8392      -212.0232       2.5438   |    -915.5344 | 
+|    333.15 |    -7.7542         -5.8170      -204.7099      -5.8147   |    -915.5122 | 
+|    340.00 |    -9.1541         -5.7629      -204.3686      -9.9743   |    -915.4581 | 
+|    350.00 |   -11.2085         -5.6333      -207.0729     -15.9291   |    -915.3285 | 
+|    360.00 |   -13.3059         -5.4444      -212.8885     -21.8375   |    -915.1397 | 
+|    373.15 |   -16.1770         -5.1059      -224.4800     -29.6692   |    -914.8011 | 
+|    380.00 |   -17.7386         -4.8882      -232.0925     -33.8168   |    -914.5834 | 
+|    400.00 |   -22.6391         -4.0864      -260.2909     -46.3817   |    -913.7817 | 
+|    420.00 |   -28.1873         -3.0244      -298.0925     -59.9117   |    -912.7196 | 
+|    440.00 |   -34.5894         -1.6798      -348.6994     -74.7946   |    -911.3750 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
+        Overall, this is the 4th species in mechanism
+        It is the 4th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                    E: -1      |                     -0.000
+                   E-: 1      |                     65.340
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 1.000000
+        Molecular Weight = 1.00739 gm/mol
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
+        DeltaGf (298.15K) = -0.000000  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0018454 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -4.17086e-25 m3/kmol
+        species partial Molar Volume = 0.0018454 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 3
+               PDSS min Temperature  = 298
+               PDSS max Temperature  = 623.15
+               PDSS reference pres   = 100000
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = 0
+                  deltaH_formation_tr_pr = 0
+                  Mu0_tr_pr              = 0
+                  Entrop_tr_pr           = 0
+                  a1                     = 0
+                  a2                     = 0
+                  a3                     = 0
+                  a4                     = 0
+                  c1                     = 0
+                  c2                     = 0
+                  omega_pr_tr            = 0
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    320.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    340.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    350.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    380.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    400.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    420.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    440.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
+        Overall, this is the 5th species in mechanism
+        It is the 5th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.574
+                    H: 1      |                     65.340
+                    E: 1      |                      0.000
+                   E-: -1      |                    -65.340
+                                                   233.254 J/gmol/K 
+        Electronic Charge = -1.000000
+        Molecular Weight = 17.0079 gm/mol
+        Heat of formation (298.15K) = -230.035705  kJ/gmol 
+        DeltaGf (298.15K) = -157.297474  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = -0.00242721 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -0.00427261 m3/kmol
+        species partial Molar Volume = -0.00242721 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 4
+               PDSS min Temperature  = 298
+               PDSS max Temperature  = 623.15
+               PDSS reference pres   = 100000
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -37595
+                  deltaH_formation_tr_pr = -54977
+                  Mu0_tr_pr              = -2.26842e+08
+                  Entrop_tr_pr           = -2.56
+                  a1                     = 0.12527
+                  a2                     = 7.38
+                  a3                     = 1.8423
+                  a4                     = -27821
+                  c1                     = 4.15
+                  c2                     = -103460
+                  omega_pr_tr            = 172460
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     4.3974          3.0959      -247.9683       4.7646   |    -226.9398 | 
+|    298.15 |     0.0000          3.1935      -131.5713     -10.7111   |    -226.8422 | 
+|    300.00 |    -0.2399          3.2141      -127.8703     -11.5133   |    -226.8216 | 
+|    320.00 |    -2.5253          3.5214      -104.9859     -18.8959   |    -226.5143 | 
+|    333.15 |    -3.8695          3.7973      -100.4045     -23.0131   |    -226.2384 | 
+|    340.00 |    -4.5552          3.9620       -99.9853     -25.0504   |    -226.0737 | 
+|    350.00 |    -5.5594          4.2271      -101.1757     -27.9613   |    -225.8086 | 
+|    360.00 |    -6.5845          4.5211      -104.1006     -30.8488   |    -225.5146 | 
+|    373.15 |    -7.9904          4.9519      -110.1133     -34.6839   |    -225.0838 | 
+|    380.00 |    -8.7575          5.1963      -114.0969     -36.7204   |    -224.8394 | 
+|    400.00 |   -11.1763          5.9912      -128.8914     -42.9188   |    -224.0445 | 
+|    420.00 |   -13.9353          6.9141      -148.6677     -49.6415   |    -223.1216 | 
+|    440.00 |   -17.1409          7.9765      -175.0378     -57.0851   |    -222.0592 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2(aq)" IN PHASE "ZnSO4_electrolyte"
+        Overall, this is the 6th species in mechanism
+        It is the 6th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    H: 2      |                    130.680
+                                                   130.680 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 2.01588 gm/mol
+        Heat of formation (298.15K) = -4.023875  kJ/gmol 
+        DeltaGf (298.15K) = 17.723423  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0252116 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0252116 m3/kmol
+        species partial Molar Volume = 0.0252116 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 5
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 100000
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = 4236
+                  deltaH_formation_tr_pr = -1000
+                  Mu0_tr_pr              = -2.12388e+07
+                  Entrop_tr_pr           = 13.8
+                  a1                     = 0.51427
+                  a2                     = 477.58
+                  a3                     = 3.8729
+                  a4                     = -29764
+                  c1                     = 27.6251
+                  c2                     = 50930
+                  omega_pr_tr            = -20900
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|    -4.7430        -15.9660       226.5365      41.0872   |     -19.9898 | 
+|    298.15 |     0.0000        -17.2149       166.2745      57.7392   |     -21.2388 | 
+|    300.00 |     0.3056        -17.3227       164.1702      58.7611   |     -21.3466 | 
+|    320.00 |     3.4214        -18.6012       149.3941      68.8205   |     -22.6251 | 
+|    333.15 |     5.3504        -19.5455       144.4045      74.7287   |     -23.5694 | 
+|    340.00 |     6.3333        -20.0674       142.6474      77.6491   |     -24.0913 | 
+|    350.00 |     7.7499        -20.8646       140.8184      81.7559   |     -24.8885 | 
+|    360.00 |     9.1519        -21.7020       139.6655      85.7053   |     -25.7259 | 
+|    373.15 |    10.9829        -22.8621       138.9412      90.7007   |     -26.8860 | 
+|    380.00 |    11.9347        -23.4913       138.8595      93.2264   |     -27.5152 | 
+|    400.00 |    14.7192        -25.4244       139.6078     100.3591   |     -29.4483 | 
+|    420.00 |    17.5339        -27.4950       141.7493     107.2114   |     -31.5188 | 
+|    440.00 |    20.4076        -29.6973       145.4409     113.8748   |     -33.7212 | 
+---------------------------------------------------------------------------------------
