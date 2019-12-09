@@ -119,7 +119,10 @@ int main(int argc, char **argv) {
       vcs_equilibrate(mmm, "TP", estimateEquil, printLvl, solver);
       cout << mmm << endl;
     }
-   
+  
+    delete solid; 
+    delete HMW;
+    appdelete();
     return 0;
   }
   catch (ZuzaxError) {

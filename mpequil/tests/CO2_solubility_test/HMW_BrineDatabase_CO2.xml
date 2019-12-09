@@ -17,8 +17,8 @@
       <soluteMolalities>
              Na+:6.0954
              Cl-:6.0954
-             H+:2.1628E-9
-             OH-:1.3977E-6
+             H+:1.3977E-7
+             OH-:1.3977E-7
       </soluteMolalities>
     </state> 
     <elementArray datasrc="elements.xml"> O H C K Si N Na Cl E </elementArray>
