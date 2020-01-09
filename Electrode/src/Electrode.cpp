@@ -3523,7 +3523,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         /*
                          *  Add the overpotential term next. We'll use the same VoltPolPhenom variable, and then push it back to 
                          *  a new record.
-                         *  The end result for the sign of this term should be negative for  discharge and positive for  charge,
+                         *  The end result for the sign of this term should be negative for  discharge and positive for charge,
                          *  for both the anode and the cathode. This is checked and an error is thrown in these debugging stages.
                          */
                         vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;

@@ -197,8 +197,10 @@ BulkDomainDescription::SetEquationDescription()
 #endif
             //IsArithmeticScaled_NE[iEqn] = 1;
         } else if (eqnT.EquationType == Continuity) {
+            // For the global continuity equation, it can either be velocity or Pressure
             VarType varN(Velocity_Axial);
-            AssertTrace(varT == varN);
+            VarType varP(Pressure_Axial);
+            AssertTrace(varT == varN || varT == varP );
             EquationIndexStart_EqName[iEqnTPos] = iEqn;
             IsArithmeticScaled_NE[iEqn] = 1;
         } else if (eqnT.EquationType == Continuity_Global) {
