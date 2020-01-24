@@ -120,15 +120,14 @@ namespace Zuzax
     }
 
 
-    /**
-     * Evaluate the right-hand-side function. Called by the
-     * integrator.
+    //!  Evaluate the right-hand-side function. Called by the integrator.
+    /*!
      * @param t time. (input)
      * @param y solution vector. (input)
      * @param ydot rate of change of solution vector. (output)
      * @param p parameter vector
      */
-    virtual void eval(double t, const double* const y, double* const ydot, const double* const p)
+    virtual void eval(double t, const double* const y, double* const ydot, const double* const p) override
     {
       if (t > t_init_) {
 	setOnce = 1;
@@ -184,7 +183,7 @@ namespace Zuzax
      * Fill the solution vector with the initial conditions 
      * at initial time t0.
      */
-    virtual void getInitialConditions(double t0, size_t leny, double* y)
+    virtual void getInitialConditions(double t0, size_t leny, double* y) override
     {
       for (size_t i = 0; i < leny; i++) {
 	y[i] = molNumVector_[i];
@@ -194,15 +193,11 @@ namespace Zuzax
     /** 
      * Number of equations. 
      */
-    virtual size_t neq()
+    virtual size_t neq() const override
     {
       return neq_;
     }
 
-    //! Number of parameters.
-    virtual size_t nparams() { 
-      return 0;
-    }
 
   protected:
 
