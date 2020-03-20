@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     g.setState_TPX(1500.0, pres, "CH4:0.3, O2:0.3, N2:0.4");
 
     MultiPhase mphase;
-    mphase.addPhase(&g, 10.0);
+    mphase.addPhaseWithMoles(&g, 10.0);
     mphase.init();
     int usedZeroedSpecies = 0;
     vector<size_t> orderVectorSpecies;

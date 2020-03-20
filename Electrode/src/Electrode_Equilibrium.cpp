@@ -83,7 +83,7 @@ int Electrode_Equilibrium::setupEquilibriumProblem()
     PhaseIndex_mp_.resize(ee_->m_NumVolPhases);
     for (size_t iph = 0; iph < ee_->m_NumVolPhases; iph++) {
         ThermoPhase* tp = ee_->VolPhaseList_[iph];
-        m_mp->addPhase(tp, ee_->phaseMoles_final_[iph]);
+        m_mp->addPhaseWithMoles(tp, ee_->phaseMoles_final_[iph]);
         PhaseIndex_mp_[iph] = iph;
     }
 
@@ -140,7 +140,7 @@ int Electrode_Equilibrium::addLiIonPlusElectronBathPhase()
     /*
      *  Add this bath phase into the MultiSpecies
      */
-    m_mp->addPhase(LiFixed_, 10. * tMoles);
+    m_mp->addPhaseWithMoles(LiFixed_, 10. * tMoles);
     PhaseIndex_mp_.push_back(-1);
 
     return 0;

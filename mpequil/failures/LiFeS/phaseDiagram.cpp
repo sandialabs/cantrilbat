@@ -100,13 +100,13 @@ void createPhaseDiagram() {
 
   // populate multiphase
   MP_EquilStatic mmm;
-  mmm.addPhase(S_solid,0.);
-  mmm.addPhase(S_liquid,0.);
-  mmm.addPhase(gas,0.);
-  mmm.addPhase(FeS2,1.);
-  mmm.addPhase(Fe1_xS,0);
-  mmm.addPhase(Li3Fe2S4,0);
-  mmm.addPhase(Li2_xFe1_xS2,0);
+  mmm.addPhaseWithMoles(S_solid,0.);
+  mmm.addPhaseWithMoles(S_liquid,0.);
+  mmm.addPhaseWithMoles(gas,0.);
+  mmm.addPhaseWithMoles(FeS2,1.);
+  mmm.addPhaseWithMoles(Fe1_xS,0);
+  mmm.addPhaseWithMoles(Li3Fe2S4,0);
+  mmm.addPhaseWithMoles(Li2_xFe1_xS2,0);
   size_t nPhases = mmm.nPhases();
 
   int iS_solid = 0;

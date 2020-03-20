@@ -158,7 +158,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
       printf("\nVCS FAILED TO CONVERGE!\n");
     }
     printf("\n");
-    printf("Temperature = %g Kelvin\n",  vprob->T);
+    printf("Temperature = %g Kelvin\n",  vprob->temperature());
     printf("Pressure    = %g Pa\n", vprob->PresPA);
     printf("\n");
     printf("----------------------------------------"

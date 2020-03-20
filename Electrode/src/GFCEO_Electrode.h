@@ -115,6 +115,8 @@ public:
 
     //! Evaluate the residual function at the current conditions
     /*!
+     *  (virtual from ResidEvalJac)
+     *
      *  @param[in]           t                   Time                    (input)
      *  @param[in]           delta_t             The current value of the time step (input)
      *  @param[in]           y                   Solution vector (input, do not modify)

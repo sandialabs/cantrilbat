@@ -183,7 +183,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
       printf("\nVCS FAILED TO CONVERGE!\n");
     }
     printf("\n");
-    printf("Temperature = %g Kelvin\n",  vprob->T);
+    printf("Temperature = %g Kelvin\n",  vprob->temperature());
     printf("Pressure    = %g Pa\n", vprob->PresPA);
     printf("\n");
     printf("----------------------------------------"

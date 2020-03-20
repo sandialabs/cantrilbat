@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     g.setState_TPX(2000.0, pres, "C2H2:0.9, CH:0.1");
 
     MP_EquilStatic mphase;
-    mphase.addPhase(&g, 10.0);
+    mphase.addPhaseWithMoles(&g, 10.0);
     int usedZeroedSpecies = 0;
     vector<size_t> orderVectorSpecies;
     vector<size_t> orderVectorElements;

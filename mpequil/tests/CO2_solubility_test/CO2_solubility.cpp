@@ -100,9 +100,9 @@ int main(int argc, char **argv) {
 
     Zuzax::MP_EquilStatic mmm;
     
-    mmm.addPhase(HMW, 10.);
-    mmm.addPhase(solid, 0.001);
-    mmm.addPhase(&gas, 0.0001);
+    mmm.addPhaseWithMoles(HMW, 10.);
+    mmm.addPhaseWithMoles(solid, 0.001);
+    mmm.addPhaseWithMoles(&gas, 0.0001);
 
     //equilibrate(mmm, "TP", solver);
 

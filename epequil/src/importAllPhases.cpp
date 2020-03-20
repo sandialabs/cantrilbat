@@ -73,7 +73,7 @@ static void processPhasePL(XML_Node *xmlphase,  EPEQUIL_INPUT *pi)
     pi->tplist[pi->nphase] = tPhase;
     pi->nphase++;
     MultiPhase *mp = pi->m_mp;
-    mp->addPhase(tPhase, 0.0);
+    mp->addPhaseWithMoles(tPhase, 0.0);
 }
 
 /**************************************************************************
