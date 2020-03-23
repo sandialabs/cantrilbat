@@ -159,7 +159,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
     }
     printf("\n");
     printf("Temperature = %g Kelvin\n",  vprob->temperature());
-    printf("Pressure    = %g Pa\n", vprob->PresPA);
+    printf("Pressure    = %g Pa\n", vprob->pressure());
     printf("\n");
     printf("----------------------------------------"
 	   "---------------------\n");

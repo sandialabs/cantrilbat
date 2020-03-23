@@ -184,7 +184,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
     }
     printf("\n");
     printf("Temperature = %g Kelvin\n",  vprob->temperature());
-    printf("Pressure    = %g Pa\n", vprob->PresPA);
+    printf("Pressure    = %g Pa\n", vprob->pressure());
     printf("\n");
     printf("----------------------------------------"
 	   "---------------------\n");
