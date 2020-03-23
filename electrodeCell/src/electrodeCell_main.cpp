@@ -140,7 +140,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
    */
   mix->uploadMoleFractionsFromPhases();
   int kGlob = 0;
-  for (int ip = 0; ip < (int) vprob->NPhase; ip++) {
+  for (int ip = 0; ip < (int) vprob->nPhases(); ip++) {
     double phaseMole = 0.0;
     ThermoPhase &tref = mix->phase(ip);
     int nspPhase = tref.nSpecies();

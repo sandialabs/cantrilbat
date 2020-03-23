@@ -165,7 +165,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
    */
   mix->uploadMoleFractionsFromPhases();
   int kGlob = 0;
-  for (size_t ip = 0; ip < vprob->NPhase; ip++) {
+  for (size_t ip = 0; ip < vprob->nPhases(); ip++) {
     double phaseMole = 0.0;
     ThermoPhase &tref = mix->phase(ip);
     int nspPhase = tref.nSpecies();
