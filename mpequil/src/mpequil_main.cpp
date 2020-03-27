@@ -88,7 +88,7 @@ int mpequil_convert(MPEQUIL_INPUT *prob_input, vcs_nonideal::VCS_PROB *vprob) {
   // than the number of elements, because there may be multiple oxidation
   // 
   if (prob_input->specifiedElementAbundances) {
-    for (size_t e = 0; e < vprob->ne; e++) {
+    for (size_t e = 0; e < vprob->nGlobalElementConstraints(); e++) {
       // gather some useful info about the element constraint
       //int elType = vprob->m_elType[e];
       //int elActive = vprob->ElActive[e];
