@@ -31,9 +31,9 @@
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     1.000000e+01
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     1.000000e-03
-             air     2     0        1 Ideal Gas               7     0.000000e+00     1.000000e-04
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     1.000000e+01
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     1.000000e-03
+             air     2     0        1         IdealGas        7     0.000000e+00     1.000000e-04
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   8.012176011988E+00    0         1
@@ -225,9 +225,9 @@ Moles: 0.00885526
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     8.790006e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     1.016195e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     1.008855e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     8.790006e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     1.016195e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     1.008855e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   9.012176011988E+00    0         1
@@ -419,9 +419,9 @@ Moles: 1.03614
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     7.531803e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     2.170787e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     2.036139e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     7.531803e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     2.170787e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     2.036139e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.001217601199E+01    0         1
@@ -613,9 +613,9 @@ Moles: 2.06342
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     6.273601e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     3.325379e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     3.063424e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     6.273601e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     3.325379e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     3.063424e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.101217601199E+01    0         1
@@ -807,9 +807,9 @@ Moles: 3.09071
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     5.015398e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     4.479970e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     4.090708e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     5.015398e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     4.479970e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     4.090708e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.201217601199E+01    0         1
@@ -1001,9 +1001,9 @@ Moles: 4.11799
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     3.757196e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     5.634562e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     5.117992e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     3.757196e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     5.634562e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     5.117992e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.301217601199E+01    0         1
@@ -1195,9 +1195,9 @@ Moles: 5.14528
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     2.498993e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     6.789153e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     6.145276e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     2.498993e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     6.789153e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     6.145276e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.401217601199E+01    0         1
@@ -1389,9 +1389,9 @@ Moles: 6.17256
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     1.240791e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     7.943745e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     7.172560e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     1.240791e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     7.943745e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     7.172560e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.501217601199E+01    0         1
@@ -1589,9 +1589,9 @@ WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.000
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     1.804820e-01
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     9.098336e-01
-             air     2     0        1 Ideal Gas               7     0.000000e+00     8.199844e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     1.804820e-01
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     9.098336e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     8.199844e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.621006965112E+01    0         1
@@ -1884,9 +1884,9 @@ we are here
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     0.000000e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     1.000001e+00
-             air     2     0        1 Ideal Gas               7     0.000000e+00     9.199992e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     0.000000e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     1.000001e+00
+             air     2     0        1         IdealGas        7     0.000000e+00     9.199992e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   1.821006965112E+01    0         1
@@ -2078,9 +2078,9 @@ Moles: 9.19999
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnkType: -1            10     0.000000e+00     0.000000e+00
-         NaCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     1.000001e+00
-             air     2     0        1 Ideal Gas               7     0.000000e+00     1.019999e+01
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     0.000000e+00
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     1.000001e+00
+             air     2     0        1         IdealGas        7     0.000000e+00     1.019999e+01
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
                           O   2.021006965112E+01    0         1
