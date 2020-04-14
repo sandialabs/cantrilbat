@@ -1554,8 +1554,6 @@ WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.000
 
 WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
 
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
 
 ================================================================================
 ==================== VCS_PROB: PROBLEM STATEMENT ===============================

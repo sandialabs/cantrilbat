@@ -65,7 +65,8 @@ int mpequil_convert(MPEQUIL_INPUT *prob_input, vcs_nonideal::VCS_PROB *vprob) {
    *     from the MultiPhase object and
    *     Transfer it to VCS_PROB object.
    */
-  int res = vcs_Cantera_to_vprob(mix, vprob);
+  //int res = vcs_Cantera_to_vprob(mix, vprob);
+  int res = vprob->input(mix);
   if (res != 0) {
     printf("problems\n");
   }

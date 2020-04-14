@@ -115,6 +115,14 @@ fi
 # -----------------------------------------------------------------------------
 #                  Configure MPI
 # -----------------------------------------------------------------------------
+if test "x${DO_MPI}" = "xy"
+then
+  if test "x${MPIHOME}" = "x"
+  then
+     echo 'MPI is requested but the MPIHOME environmental variable is not set'
+     exit 3
+  fi
+fi
 #
 # Determine the default names for the MPI compilers from the MPIHOME variable,
 # unless overwritten.
