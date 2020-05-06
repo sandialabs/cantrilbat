@@ -208,10 +208,10 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
       printf("%-12s", vprob->SpName[i].c_str());
       if (vprob->SpeciesUnknownType[i] == 
 	  VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {
-	printf("  %15.3e %15.3e  ", 0.0, vprob->mf[i]);
+	printf("  %15.3e %15.3e  ", 0.0, vprob->mfVectorC()[i]);
 	printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
       } else {
-	printf("  %15.3e   %15.3e  ", vprob->m_spMoles[i], vprob->mf[i]);
+	printf("  %15.3e   %15.3e  ", vprob->m_spMoles[i], vprob->mfVectorC()[i]);
 	if (vprob->m_spMoles[i] <= 0.0) {
 	  int iph = vprob->PhaseID[i];
 	  vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
