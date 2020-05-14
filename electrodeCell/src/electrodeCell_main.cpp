@@ -146,7 +146,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
     ThermoPhase &tref = mix->phase(ip);
     int nspPhase = tref.nSpecies();
     for (int k = 0; k < nspPhase; k++, kGlob++) {
-      phaseMole += vprob->m_spMoles[kGlob];
+      phaseMole += vprob->speciesMoles(kGlob);
     }
     //phaseMole *= 1.0E-3;
     mix->setPhaseMoles(ip, phaseMole);
@@ -167,15 +167,15 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
     printf(" Name            KMole_Number");
     printf("(kmol)");
     printf("  Mole_Fraction     Chem_Potential");
-    if (vprob->m_VCS_UnitsFormat == VCS_UNITS_KCALMOL) 
+    if (vprob->vcsUnitsFormat() == VCS_UNITS_KCALMOL) 
       printf(" (kcal/mol)\n");
-    else if (vprob->m_VCS_UnitsFormat == VCS_UNITS_UNITLESS) 
+    else if (vprob->vcsUnitsFormat() == VCS_UNITS_UNITLESS) 
       printf(" (Dimensionless)\n");
-    else if (vprob->m_VCS_UnitsFormat == VCS_UNITS_KJMOL) 
+    else if (vprob->vcsUnitsFormat() == VCS_UNITS_KJMOL) 
       printf(" (kJ/mol)\n");
-    else if (vprob->m_VCS_UnitsFormat == VCS_UNITS_KELVIN) 
+    else if (vprob->vcsUnitsFormat() == VCS_UNITS_KELVIN) 
       printf(" (Kelvin)\n");
-    else if (vprob->m_VCS_UnitsFormat == VCS_UNITS_MKS) 
+    else if (vprob->vcsUnitsFormat() == VCS_UNITS_MKS) 
       printf(" (J/kmol)\n");
     printf("--------------------------------------------------"
 	   "-----------\n");
@@ -186,8 +186,8 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
 	printf("  %15.3e %15.3e  ", 0.0, vprob->mfVectorC()[i]);
 	printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
       } else {
-	printf("  %15.3e   %15.3e  ", vprob->m_spMoles[i], vprob->mfVectorC()[i]);
-	if (vprob->m_spMoles[i] <= 0.0) {
+	printf("  %15.3e   %15.3e  ", vprob->speciesMoles(i), vprob->mfVectorC()[i]);
+	if (vprob->speciesMoles(i) <= 0.0) {
 	  size_t iph = vprob->PhaseID[i];
 	  vcs_nonideal::vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
 	  if (VPhase->nSpecies() > 1) {
