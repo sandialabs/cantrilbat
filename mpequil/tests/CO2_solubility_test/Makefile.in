@@ -12,6 +12,7 @@
 
 # the name of the executable program to be created
 PROG_NAME = CO2_solubility
+TESTNAME = $(PROG_NAME)
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately

@@ -3,6 +3,7 @@
 #     Problem setup for runtest_Electrode
 #
 TEST_NAME=CO2_solubility
+TESTNAME=CO2_solubility
 #
 #  Name of the program to run
 #

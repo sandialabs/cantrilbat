@@ -5,6 +5,7 @@
 
 # the name of the executable program to be created
 PROG_NAME = gri_equil
+TESTNAME=$(PROG_NAME)
 
 BLESSED_FILES = good_out.txt vcs_equilibrate_blessed.csv
 BLESSED_DEBUG_FILES = good_dout.txt vcs_equilibrate_blessed.csv
