@@ -89,7 +89,7 @@ int mpequil_convert(MPEQUIL_INPUT *prob_input, vcs_nonideal::VCS_PROB *vprob) {
   // than the number of elements, because there may be multiple oxidation
   // 
   if (prob_input->specifiedElementAbundances) {
-    for (size_t e = 0; e < vprob->nGlobalElementConstraints(); e++) {
+    for (size_t e = 0; e < vprob->nEquilElementConstraints(); e++) {
       // gather some useful info about the element constraint
       //int elType = vprob->m_elType[e];
       //int elActive = vprob->ElActive[e];
@@ -206,12 +206,13 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
       printf(" (J/kmol)\n");
     printf("--------------------------------------------------"
 	   "-----------\n");
+    const std::vector<doublevalue>& gg = vprob->vec_gibbsSpecies();
     for (size_t i = 0; i < vprob->nSpecies(); i++) {
       printf("%-12s", vprob->SpName[i].c_str());
       if (vprob->SpeciesUnknownType[i] == 
 	  VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {
 	printf("  %15.3e %15.3e  ", 0.0, vprob->mfVectorC()[i]);
-	printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
+	printf("%15.3e\n", gg[i]);
       } else {
 	printf("  %15.3e   %15.3e  ", vprob->speciesMoles(i), vprob->mfVectorC()[i]);
 	if (vprob->speciesMoles(i) <= 0.0) {
@@ -220,10 +221,10 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");
 	  } else {
-	    printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
+	    printf("%15.3e\n", gg[i]);
 	  }
 	} else {
-	  printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
+	  printf("%15.3e\n", gg[i]);
 	}
       }
     }
