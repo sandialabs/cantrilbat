@@ -73,9 +73,9 @@ int mpequil_convert(MPEQUIL_INPUT *prob_input, vcs_nonideal::VCS_PROB *vprob) {
 
   // Set the estimation technique
   if (prob_input->iest) {
-    vprob->iest = 0;
+    vprob->setInitialEstimateMethod(0);
   } else {
-    vprob->iest = -1;
+    vprob->setInitialEstimateMethod(-1);
   }
 
   // Figure out where the element abundances are
