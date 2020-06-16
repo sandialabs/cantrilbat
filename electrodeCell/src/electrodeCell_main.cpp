@@ -66,7 +66,8 @@ int mpequil_convert(Zuzax::Electrode *electrode, vcs_nonideal::VCS_PROB *vprob, 
   }
 
   // Set the estimation technique
-  vprob->iest = -1;
+  vprob->setInitialEstimateMethod(-1);
+
 
   // Figure out where the element abundances are
   // coming from. Is it from the multiphase object are are
@@ -179,12 +180,13 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
       printf(" (J/kmol)\n");
     printf("--------------------------------------------------"
 	   "-----------\n");
+    const std::vector<doublevalue>& vg = vprob->vec_gibbsSpecies();
     for (int i = 0; i < (int) vprob->nSpecies(); i++) {
       printf("%-12s", vprob->SpName[i].c_str());
       if (vprob->SpeciesUnknownType[i] == 
 	  VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {
 	printf("  %15.3e %15.3e  ", 0.0, vprob->mfVectorC()[i]);
-	printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
+	printf("%15.3e\n", vg[i]);
       } else {
 	printf("  %15.3e   %15.3e  ", vprob->speciesMoles(i), vprob->mfVectorC()[i]);
 	if (vprob->speciesMoles(i) <= 0.0) {
@@ -193,10 +195,10 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");
 	  } else {
-	    printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
+	    printf("%15.3e\n", vg[i]);
 	  }
 	} else {
-	  printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
+	  printf("%15.3e\n", vg[i]);
 	}
       }
     }
