@@ -58,7 +58,7 @@ export FFLAGS
 #
 # MPIHOME
 #
-export MPIHOME=/projects/sierra/linux_rh7/SDK/mpi/openmpi/1.10.2-gcc-7.2.0-RHEL6
+export MPIHOME=/projects/sierra/linux_rh7/SDK/mpi/openmpi/4.0.3-gcc-7.2.0-RHEL6
 MPICXX=${MPIHOME}/bin/mpiCC
 export MPICXX
 

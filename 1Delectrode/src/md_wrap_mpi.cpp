@@ -120,7 +120,9 @@ void md_throw(const char* const rout, const int err)
 #ifdef HAVE_MPI
     if (err == MPI_ERR_BUFFER) {
         fprintf(stderr, "ERROR %s: MPI_ERR_BUFFER\n", rout);
-        throw MPI::Exception(err);
+        exit(-1);
+        //throw std::exception(err);
+        //throw MPI::Exception(err);
     }
 #else
     fprintf(stderr, " MPI error occurred when mpi not compiled in");
