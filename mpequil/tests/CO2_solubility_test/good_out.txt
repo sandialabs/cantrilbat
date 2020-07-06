@@ -1550,12 +1550,6 @@ Moles: 7.19984
                 OH    2.24093e-34        8.797e-35         -83.8053
 
 
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
 
 ================================================================================
 ==================== VCS_PROB: PROBLEM STATEMENT ===============================
@@ -1567,7 +1561,7 @@ WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.000
 		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
-          H2O(L)          0   carbonate_electrolyte             0                          Mol_Num
+          H2O(L)          0   carbonate_electrolyte             0.80211                    Mol_Num
              Cl-          0   carbonate_electrolyte             0.090167                   Mol_Num
               H+          0   carbonate_electrolyte             1.0392e-06                 Mol_Num
              Na+          0   carbonate_electrolyte             0.090167                   Mol_Num
@@ -1589,13 +1583,13 @@ WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.000
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     1.804820e-01
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     9.825883e-01
          NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     9.098336e-01
              air     2     0        1         IdealGas        7     0.000000e+00     8.199844e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
-                          O   1.621006965112E+01    0         1
-                          H   3.798272622843E-01    0         1
+                          O   1.701217601199E+01    0         1
+                          H   1.984039984016E+00    0         1
                           C   8.010078009990E+00    0         1
                           K   0.000000000000E+00    0         1
                           Si  0.000000000000E+00    0         1
@@ -1632,104 +1626,6 @@ Chemical Potentials:  (J/kmol)
 ==================== VCS_PROB: END OF PROBLEM STATEMENT ========================
 ================================================================================
 
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-13, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   0.0000E+00, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-05, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   1.0000E-13, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
-WARNING:MolalityVPSSTP::setMoleFractions(): Input solvent mole fraction,   3.5916E-26, is less than minimum,   1.0000E-05. Adjusting
-
 
  Results from vcs:
 
@@ -1739,62 +1635,62 @@ Pressure    = 101325 Pa
 -------------------------------------------------------------
  Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
 --------------------------------------------------------------
-H2O(L)              0.000e+00         8.115e-01       -1.000e+300
-Cl-                 0.000e+00         9.416e-02       -1.000e+300
-H+                  0.000e+00         1.015e-06       -1.000e+300
-Na+                 0.000e+00         9.416e-02       -1.000e+300
-OH-                 0.000e+00         5.649e-13       -1.000e+300
+H2O(L)              7.750e-01         8.163e-01       -3.075e+08
+Cl-                 8.712e-02         9.177e-02       -1.795e+08
+H+                  1.004e-06         1.058e-06       -1.957e+07
+Na+                 8.712e-02         9.177e-02       -2.532e+08
+OH-                 5.729e-13         6.034e-13       -2.880e+08
 K+                  0.000e+00         0.000e+00       -1.000e+300
-HCO3-               0.000e+00         1.015e-06       -1.000e+300
-CO3--               0.000e+00         3.160e-12       -1.000e+300
-CO2(aq)             0.000e+00         1.612e-04       -1.000e+300
-O2(aq)              0.000e+00         2.186e-17       -1.000e+300
-NaCl(S)             1.000e+00         1.000e+00       -4.328e+08
-O2                  6.487e-49         7.911e-50       -3.436e+08
-H2                  1.110e-16         1.354e-17       -1.361e+08
-CO2                 8.010e+00         9.768e-01       -4.577e+08
-H2O                 1.899e-01         2.316e-02       -3.079e+08
-NaCl                1.417e-31         1.728e-32       -4.328e+08
+HCO3-               1.004e-06         1.058e-06       -7.457e+08
+CO3--               3.278e-12         3.452e-12       -7.261e+08
+CO2(aq)             1.402e-04         1.477e-04       -4.577e+08
+O2(aq)              5.677e-34         5.979e-34       -2.211e+08
+NaCl(S)             9.129e-01         1.000e+00       -4.328e+08
+O2                  1.378e-27         1.675e-28       -2.211e+08
+H2                  2.757e-27         3.351e-28       -1.970e+08
+CO2                 8.010e+00         9.736e-01       -4.577e+08
+H2O                 2.170e-01         2.638e-02       -3.075e+08
+NaCl                1.422e-31         1.728e-32       -4.328e+08
 N2                  0.000e+00         0.000e+00       -1.000e+300
-OH                  8.027e-39         9.788e-40       -2.398e+08
+OH                  1.844e-33         2.241e-34       -2.090e+08
 -------------------------------------------------------------
 *************** carbonate_electrolyte *****************
-Moles: 0
+Moles: 0.9494
  
   carbonate_electrolyte:
  
        temperature             300  K
           pressure          101325  Pa
-           density         1223.02  kg/m^3
-  mean mol. weight         20.1298  amu
+           density         1216.83  kg/m^3
+  mean mol. weight         20.0758  amu
          potential               0  V
-                pH           3.388  
+                pH           3.407  
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -1.34357e+07       -2.705e+08     J
-   internal energy    -1.34358e+07       -2.705e+08     J
-           entropy          3301.7        6.646e+04     J/K
-    Gibbs function    -1.44262e+07       -2.904e+08     J
- heat capacity c_p         3192.61        6.427e+04     J/K
+          enthalpy    -1.34911e+07       -2.708e+08     J
+   internal energy    -1.34912e+07       -2.708e+08     J
+           entropy         3318.55        6.662e+04     J/K
+    Gibbs function    -1.44867e+07       -2.908e+08     J
+ heat capacity c_p         3208.14        6.441e+04     J/K
  heat capacity c_v    <not implemented>       
  
                            X           Molalities         Chem.Pot.    ChemPotSS    ActCoeffMolal
                                                           (J/kmol)      (J/kmol)                 
                      -------------    ------------     ------------  ------------    ------------
-            H2O(L)      0.811515          55.5084     -3.07574e+08   -3.06815e+08       0.909101
-               Cl-     0.0941607          6.44068     -1.79374e+08   -1.84129e+08        1.04457
-                H+   1.01474e-06      6.94094e-05     -1.94592e+07              0         5.8952
-               Na+     0.0941607          6.44068     -2.53088e+08   -2.57849e+08        1.04719
-               OH-   5.64924e-13      3.86414e-11     -2.88115e+08   -2.26822e+08       0.550892
-                K+             0                0          N/A      -2.82449e+08       0.525383 
-             HCO3-   1.01474e-06      6.94089e-05     -7.45817e+08   -7.19543e+08       0.383638
-             CO3--   3.16005e-12      2.16151e-10     -7.26358e+08    -6.6031e+08      0.0146402
-           CO2(aq)   0.000161173        0.0110244     -4.57411e+08   -4.49069e+08        3.20034
-            O2(aq)     2.186e-17      1.49524e-15      -1.2583e+08   -4.48243e+07        5.26358
+            H2O(L)       0.81632          55.5084     -3.07541e+08   -3.06815e+08         0.9159
+               Cl-     0.0917652          6.23988      -1.7952e+08   -1.84129e+08        1.01718
+                H+   1.05765e-06      7.19183e-05     -1.95673e+07              0        5.44829
+               Na+     0.0917652          6.23988     -2.53234e+08   -2.57849e+08         1.0195
+               OH-   6.03386e-13      4.10293e-11     -2.87973e+08   -2.26822e+08       0.549078
+                K+             0                0          N/A      -2.82449e+08       0.525536 
+             HCO3-   1.05764e-06      7.19178e-05     -7.45684e+08   -7.19543e+08       0.390556
+             CO3--   3.45243e-12      2.34759e-10     -7.26117e+08    -6.6031e+08      0.0148477
+           CO2(aq)   0.000147699        0.0100433      -4.5771e+08   -4.49069e+08        3.11577
+            O2(aq)    5.9791e-34      4.06569e-32     -2.21073e+08   -4.48243e+07        5.05548
 
 *************** NaCl(S) *****************
-Moles: 1
+Moles: 0.912879
  
   NaCl(S) using EOS StoichSubstance:
  
@@ -1818,34 +1714,34 @@ Moles: 1
            NaCl(S)              1                1         -173.494
 
 *************** air *****************
-Moles: 8.19999
+Moles: 8.22694
  
   air;air;FLUID_GAS using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
-           density         1.76331  kg/m^3
+           density         1.75991  kg/m^3
       molar volume         24.6172  m^3/kmol
-  mean mol. weight         43.4078  amu
+  mean mol. weight         43.3241  amu
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     -8.9829e+06       -3.899e+08     J
-   internal energy     -9.0403e+06       -3.924e+08     J
-           entropy          4938.1        2.144e+05     J/K
-    Gibbs function     -1.0464e+07       -4.542e+08     J
- heat capacity c_p          855.47        3.713e+04     J/K
- heat capacity c_v          663.92        2.882e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
-                O2    7.91109e-50       5.8318e-50         -137.735
-                H2    1.35394e-17      6.28778e-19         -54.5582
-               CO2        0.97684         0.990388         -183.496
-               H2O      0.0231602       0.00961206         -123.426
-              NaCl    1.72842e-32      2.32707e-32         -173.494
+                O2     1.6754e-28      1.23743e-28         -88.6301
+                H2    3.35079e-28      1.55913e-29         -78.9805
+               CO2       0.973623         0.989032           -183.5
+               H2O      0.0263773        0.0109684         -123.296
+              NaCl    1.72842e-32      2.33157e-32         -173.494
                 N2              0                0     
-                OH    9.78845e-40      3.83515e-40         -96.1465
+                OH    2.24093e-34        8.797e-35         -83.8053
 
 
 we are here
@@ -1860,43 +1756,43 @@ we are here
 		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
-          H2O(L)          0   carbonate_electrolyte             0                          Mol_Num
-             Cl-          0   carbonate_electrolyte             0                          Mol_Num
-              H+          0   carbonate_electrolyte             0                          Mol_Num
-             Na+          0   carbonate_electrolyte             0                          Mol_Num
-             OH-          0   carbonate_electrolyte             0                          Mol_Num
+          H2O(L)          0   carbonate_electrolyte             0.77501                    Mol_Num
+             Cl-          0   carbonate_electrolyte             0.087122                   Mol_Num
+              H+          0   carbonate_electrolyte             1.0041e-06                 Mol_Num
+             Na+          0   carbonate_electrolyte             0.087122                   Mol_Num
+             OH-          0   carbonate_electrolyte             5.7286e-13                 Mol_Num
               K+          0   carbonate_electrolyte             0                          Mol_Num
-           HCO3-          0   carbonate_electrolyte             0                          Mol_Num
-           CO3--          0   carbonate_electrolyte             0                          Mol_Num
-         CO2(aq)          0   carbonate_electrolyte             0                          Mol_Num
-          O2(aq)          0   carbonate_electrolyte             0                          Mol_Num
-         NaCl(S)          1            NaCl(S)             1                          Mol_Num
-              O2          2                air             6.4871e-49                 Mol_Num
-              H2          2                air             1.1102e-16                 Mol_Num
-             CO2          2                air             9.0101                     Mol_Num
-             H2O          2                air             0.18991                    Mol_Num
-            NaCl          2                air             1.4173e-31                 Mol_Num
+           HCO3-          0   carbonate_electrolyte             1.0041e-06                 Mol_Num
+           CO3--          0   carbonate_electrolyte             3.2777e-12                 Mol_Num
+         CO2(aq)          0   carbonate_electrolyte             0.00014023                 Mol_Num
+          O2(aq)          0   carbonate_electrolyte             5.6766e-34                 Mol_Num
+         NaCl(S)          1            NaCl(S)             0.91288                    Mol_Num
+              O2          2                air             1.3783e-27                 Mol_Num
+              H2          2                air             2.7567e-27                 Mol_Num
+             CO2          2                air             9.0099                     Mol_Num
+             H2O          2                air             0.217                      Mol_Num
+            NaCl          2                air             1.422e-31                  Mol_Num
               N2          2                air             0                          Mol_Num
-              OH          2                air             8.0265e-39                 Mol_Num
+              OH          2                air             1.8436e-33                 Mol_Num
 
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     0.000000e+00
-         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     1.000001e+00
-             air     2     0        1         IdealGas        7     0.000000e+00     9.199992e+00
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     9.494003e-01
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     9.128791e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     9.226941e+00
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
-                          O   1.821006965112E+01    0         1
-                          H   3.798272622843E-01    0         1
+                          O   1.901217601199E+01    0         1
+                          H   1.984039984016E+00    0         1
                           C   9.010078009990E+00    0         1
                           K   0.000000000000E+00    0         1
                           Si  0.000000000000E+00    0         1
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E   0.000000000000E+00    1         0
-                          cn  0.000000000000E+00    2         1
+                          E  -1.572845197837E-18    1         0
+                          cn  1.572845197837E-18    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -1934,62 +1830,62 @@ Pressure    = 101325 Pa
 -------------------------------------------------------------
  Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
 --------------------------------------------------------------
-H2O(L)              0.000e+00         8.113e-01       -1.000e+300
-Cl-                 0.000e+00         9.425e-02       -1.000e+300
-H+                  0.000e+00         1.013e-06       -1.000e+300
-Na+                 0.000e+00         9.425e-02       -1.000e+300
-OH-                 0.000e+00         5.674e-13       -1.000e+300
+H2O(L)              7.479e-01         8.163e-01       -3.075e+08
+Cl-                 8.408e-02         9.177e-02       -1.795e+08
+H+                  9.690e-07         1.058e-06       -1.957e+07
+Na+                 8.408e-02         9.177e-02       -2.532e+08
+OH-                 5.528e-13         6.034e-13       -2.880e+08
 K+                  0.000e+00         0.000e+00       -1.000e+300
-HCO3-               0.000e+00         1.013e-06       -1.000e+300
-CO3--               0.000e+00         3.224e-12       -1.000e+300
-CO2(aq)             0.000e+00         1.613e-04       -1.000e+300
-O2(aq)              0.000e+00         9.905e-14       -1.000e+300
-NaCl(S)             1.000e+00         1.000e+00       -4.328e+08
-O2                  7.278e-49         7.911e-50       -3.436e+08
-H2                  1.110e-16         1.207e-17       -1.364e+08
-CO2                 9.010e+00         9.794e-01       -4.577e+08
-H2O                 1.899e-01         2.064e-02       -3.082e+08
-NaCl                1.590e-31         1.728e-32       -4.328e+08
+HCO3-               9.690e-07         1.058e-06       -7.457e+08
+CO3--               3.163e-12         3.452e-12       -7.261e+08
+CO2(aq)             1.353e-04         1.477e-04       -4.577e+08
+O2(aq)              5.478e-34         5.979e-34       -2.211e+08
+NaCl(S)             9.159e-01         1.000e+00       -4.328e+08
+O2                  1.550e-27         1.675e-28       -2.211e+08
+H2                  3.101e-27         3.351e-28       -1.970e+08
+CO2                 9.010e+00         9.736e-01       -4.577e+08
+H2O                 2.441e-01         2.638e-02       -3.075e+08
+NaCl                1.599e-31         1.728e-32       -4.328e+08
 N2                  0.000e+00         0.000e+00       -1.000e+300
-OH                  8.502e-39         9.241e-40       -2.400e+08
+OH                  2.074e-33         2.241e-34       -2.090e+08
 -------------------------------------------------------------
 *************** carbonate_electrolyte *****************
-Moles: 0
+Moles: 0.916212
  
   carbonate_electrolyte:
  
        temperature             300  K
           pressure          101325  Pa
-           density         1223.24  kg/m^3
-  mean mol. weight         20.1317  amu
+           density         1216.83  kg/m^3
+  mean mol. weight         20.0758  amu
          potential               0  V
-                pH           3.387  
+                pH           3.407  
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -1.34337e+07       -2.704e+08     J
-   internal energy    -1.34338e+07       -2.704e+08     J
-           entropy         3301.11        6.646e+04     J/K
-    Gibbs function    -1.44241e+07       -2.904e+08     J
- heat capacity c_p         3192.07        6.426e+04     J/K
+          enthalpy    -1.34911e+07       -2.708e+08     J
+   internal energy    -1.34912e+07       -2.708e+08     J
+           entropy         3318.55        6.662e+04     J/K
+    Gibbs function    -1.44867e+07       -2.908e+08     J
+ heat capacity c_p         3208.14        6.441e+04     J/K
  heat capacity c_v    <not implemented>       
  
                            X           Molalities         Chem.Pot.    ChemPotSS    ActCoeffMolal
                                                           (J/kmol)      (J/kmol)                 
                      -------------    ------------     ------------  ------------    ------------
-            H2O(L)      0.811345          55.5084     -3.07575e+08   -3.06815e+08       0.908854
-               Cl-     0.0942457          6.44785     -1.79369e+08   -1.84129e+08        1.04557
-                H+   1.01303e-06      6.93069e-05     -1.94559e+07              0        5.91185
-               Na+     0.0942457          6.44785     -2.53083e+08   -2.57849e+08         1.0482
-               OH-   5.67435e-13      3.88213e-11     -2.88103e+08   -2.26822e+08       0.550958
-                K+             0                0          N/A      -2.82449e+08       0.525375 
-             HCO3-   1.01303e-06      6.93064e-05     -7.45822e+08   -7.19543e+08       0.383388
-             CO3--   3.22449e-12      2.20605e-10     -7.26308e+08    -6.6031e+08      0.0146337
-           CO2(aq)   0.000161325        0.0110371     -4.57406e+08   -4.49069e+08        3.20337
-            O2(aq)   9.90516e-14      6.77665e-12     -1.04826e+08   -4.48243e+07        5.27109
+            H2O(L)       0.81632          55.5084     -3.07541e+08   -3.06815e+08         0.9159
+               Cl-     0.0917652          6.23988      -1.7952e+08   -1.84129e+08        1.01718
+                H+   1.05765e-06      7.19183e-05     -1.95673e+07              0        5.44829
+               Na+     0.0917652          6.23988     -2.53234e+08   -2.57849e+08         1.0195
+               OH-   6.03386e-13      4.10293e-11     -2.87973e+08   -2.26822e+08       0.549078
+                K+             0                0          N/A      -2.82449e+08       0.525536 
+             HCO3-   1.05764e-06      7.19178e-05     -7.45684e+08   -7.19543e+08       0.390556
+             CO3--   3.45243e-12      2.34759e-10     -7.26117e+08    -6.6031e+08      0.0148477
+           CO2(aq)   0.000147699        0.0100433      -4.5771e+08   -4.49069e+08        3.11577
+            O2(aq)    5.9791e-34      4.06569e-32     -2.21073e+08   -4.48243e+07        5.05548
 
 *************** NaCl(S) *****************
-Moles: 1
+Moles: 0.915925
  
   NaCl(S) using EOS StoichSubstance:
  
@@ -2013,34 +1909,34 @@ Moles: 1
            NaCl(S)              1                1         -173.494
 
 *************** air *****************
-Moles: 9.19999
+Moles: 9.25404
  
   air;air;FLUID_GAS using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
-           density         1.76597  kg/m^3
+           density         1.75991  kg/m^3
       molar volume         24.6172  m^3/kmol
-  mean mol. weight         43.4732  amu
+  mean mol. weight         43.3241  amu
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     -8.9781e+06       -3.903e+08     J
-   internal energy     -9.0355e+06       -3.928e+08     J
-           entropy          4930.3        2.143e+05     J/K
-    Gibbs function     -1.0457e+07       -4.546e+08     J
- heat capacity c_p          854.39        3.714e+04     J/K
- heat capacity c_v          663.13        2.883e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
-                O2    7.91109e-50      5.82302e-50         -137.735
-                H2    1.20678e-17      5.59589e-19         -54.6733
-               CO2       0.979357         0.991446         -183.494
-               H2O      0.0206428       0.00855437         -123.541
-              NaCl    1.72842e-32      2.32357e-32         -173.494
+                O2     1.6754e-28      1.23743e-28         -88.6301
+                H2    3.35079e-28      1.55913e-29         -78.9805
+               CO2       0.973623         0.989032           -183.5
+               H2O      0.0263773        0.0109684         -123.296
+              NaCl    1.72842e-32      2.33157e-32         -173.494
                 N2              0                0     
-                OH    9.24117e-40      3.61528e-40          -96.204
+                OH    2.24093e-34        8.797e-35         -83.8053
 
 
 
@@ -2054,43 +1950,43 @@ Moles: 9.19999
 		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
-          H2O(L)          0   carbonate_electrolyte             0                          Mol_Num
-             Cl-          0   carbonate_electrolyte             0                          Mol_Num
-              H+          0   carbonate_electrolyte             0                          Mol_Num
-             Na+          0   carbonate_electrolyte             0                          Mol_Num
-             OH-          0   carbonate_electrolyte             0                          Mol_Num
+          H2O(L)          0   carbonate_electrolyte             0.74792                    Mol_Num
+             Cl-          0   carbonate_electrolyte             0.084076                   Mol_Num
+              H+          0   carbonate_electrolyte             9.6903e-07                 Mol_Num
+             Na+          0   carbonate_electrolyte             0.084076                   Mol_Num
+             OH-          0   carbonate_electrolyte             5.5283e-13                 Mol_Num
               K+          0   carbonate_electrolyte             0                          Mol_Num
-           HCO3-          0   carbonate_electrolyte             0                          Mol_Num
-           CO3--          0   carbonate_electrolyte             0                          Mol_Num
-         CO2(aq)          0   carbonate_electrolyte             0                          Mol_Num
-          O2(aq)          0   carbonate_electrolyte             0                          Mol_Num
-         NaCl(S)          1            NaCl(S)             1                          Mol_Num
-              O2          2                air             7.2782e-49                 Mol_Num
-              H2          2                air             1.1102e-16                 Mol_Num
+           HCO3-          0   carbonate_electrolyte             9.6902e-07                 Mol_Num
+           CO3--          0   carbonate_electrolyte             3.1632e-12                 Mol_Num
+         CO2(aq)          0   carbonate_electrolyte             0.00013532                 Mol_Num
+          O2(aq)          0   carbonate_electrolyte             5.4781e-34                 Mol_Num
+         NaCl(S)          1            NaCl(S)             0.91592                    Mol_Num
+              O2          2                air             1.5504e-27                 Mol_Num
+              H2          2                air             3.1008e-27                 Mol_Num
              CO2          2                air             10.01                      Mol_Num
-             H2O          2                air             0.18991                    Mol_Num
-            NaCl          2                air             1.5901e-31                 Mol_Num
+             H2O          2                air             0.2441                     Mol_Num
+            NaCl          2                air             1.5995e-31                 Mol_Num
               N2          2                air             0                          Mol_Num
-              OH          2                air             8.5019e-39                 Mol_Num
+              OH          2                air             2.0738e-33                 Mol_Num
 
 --------------------------------------------------------------------------------
              Information about phases
   PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
-carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     0.000000e+00
-         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     1.000001e+00
-             air     2     0        1         IdealGas        7     0.000000e+00     1.019999e+01
+carbonate_electrolyte     0     0        0 UnknownPhaseType       10     0.000000e+00     9.162123e-01
+         NaCl(S)     1     1        0  StoichSubstance        1     0.000000e+00     9.159246e-01
+             air     2     0        1         IdealGas        7     0.000000e+00     1.025404e+01
 
 Elemental Abundances:             Target_kmol    ElemType ElActive
-                          O   2.021006965112E+01    0         1
-                          H   3.798272622843E-01    0         1
+                          O   2.101217601199E+01    0         1
+                          H   1.984039984016E+00    0         1
                           C   1.001007800999E+01    0         1
                           K   0.000000000000E+00    0         1
                           Si  0.000000000000E+00    0         1
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E   0.000000000000E+00    1         0
-                          cn  0.000000000000E+00    2         1
+                          E   2.495617746384E-18    1         0
+                          cn -2.495617746384E-18    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -2128,62 +2024,62 @@ Pressure    = 101325 Pa
 -------------------------------------------------------------
  Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
 --------------------------------------------------------------
-H2O(L)              0.000e+00         8.111e-01       -1.000e+300
-Cl-                 0.000e+00         9.438e-02       -1.000e+300
-H+                  0.000e+00         1.012e-06       -1.000e+300
-Na+                 0.000e+00         9.438e-02       -1.000e+300
-OH-                 0.000e+00         5.695e-13       -1.000e+300
+H2O(L)              7.208e-01         8.163e-01       -3.075e+08
+Cl-                 8.103e-02         9.177e-02       -1.795e+08
+H+                  9.339e-07         1.058e-06       -1.957e+07
+Na+                 8.103e-02         9.177e-02       -2.532e+08
+OH-                 5.328e-13         6.034e-13       -2.880e+08
 K+                  0.000e+00         0.000e+00       -1.000e+300
-HCO3-               0.000e+00         1.012e-06       -1.000e+300
-CO3--               0.000e+00         5.234e-12       -1.000e+300
-CO2(aq)             0.000e+00         1.616e-04       -1.000e+300
-O2(aq)              0.000e+00         9.921e-14       -1.000e+300
-NaCl(S)             1.000e+00         1.000e+00       -4.328e+08
-O2                  8.069e-49         7.911e-50       -3.436e+08
-H2                  1.110e-16         1.088e-17       -1.366e+08
-CO2                 1.001e+01         9.814e-01       -4.577e+08
-H2O                 1.899e-01         1.862e-02       -3.084e+08
-NaCl                1.763e-31         1.728e-32       -4.328e+08
+HCO3-               9.339e-07         1.058e-06       -7.457e+08
+CO3--               3.049e-12         3.452e-12       -7.261e+08
+CO2(aq)             1.304e-04         1.477e-04       -4.577e+08
+O2(aq)              5.280e-34         5.979e-34       -2.211e+08
+NaCl(S)             9.190e-01         1.000e+00       -4.328e+08
+O2                  1.722e-27         1.675e-28       -2.211e+08
+H2                  3.445e-27         3.351e-28       -1.970e+08
+CO2                 1.001e+01         9.736e-01       -4.577e+08
+H2O                 2.712e-01         2.638e-02       -3.075e+08
+NaCl                1.777e-31         1.728e-32       -4.328e+08
 N2                  0.000e+00         0.000e+00       -1.000e+300
-OH                  8.952e-39         8.776e-40       -2.401e+08
+OH                  2.304e-33         2.241e-34       -2.090e+08
 -------------------------------------------------------------
 *************** carbonate_electrolyte *****************
-Moles: 0
+Moles: 0.883024
  
   carbonate_electrolyte:
  
        temperature             300  K
           pressure          101325  Pa
-           density         1223.59  kg/m^3
-  mean mol. weight         20.1348  amu
+           density         1216.83  kg/m^3
+  mean mol. weight         20.0758  amu
          potential               0  V
-                pH           3.386  
+                pH           3.407  
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -1.34306e+07       -2.704e+08     J
-   internal energy    -1.34307e+07       -2.704e+08     J
-           entropy         3300.16        6.645e+04     J/K
-    Gibbs function    -1.44207e+07       -2.904e+08     J
- heat capacity c_p          3191.2        6.425e+04     J/K
+          enthalpy    -1.34911e+07       -2.708e+08     J
+   internal energy    -1.34912e+07       -2.708e+08     J
+           entropy         3318.55        6.662e+04     J/K
+    Gibbs function    -1.44867e+07       -2.908e+08     J
+ heat capacity c_p         3208.14        6.441e+04     J/K
  heat capacity c_v    <not implemented>       
  
                            X           Molalities         Chem.Pot.    ChemPotSS    ActCoeffMolal
                                                           (J/kmol)      (J/kmol)                 
                      -------------    ------------     ------------  ------------    ------------
-            H2O(L)      0.811075          55.5084     -3.07577e+08   -3.06815e+08       0.908461
-               Cl-     0.0943808          6.45925     -1.79361e+08   -1.84129e+08        1.04717
-                H+     1.012e-06      6.92594e-05     -1.94464e+07              0        5.93843
-               Na+     0.0943808          6.45925     -2.53075e+08   -2.57849e+08         1.0498
-               OH-   5.69505e-13      3.89759e-11     -2.88093e+08   -2.26822e+08       0.551064
-                K+             0                0          N/A      -2.82449e+08       0.525361 
-             HCO3-   1.01199e-06      6.92587e-05     -7.45827e+08   -7.19543e+08       0.382989
-             CO3--   5.23362e-12      3.58179e-10     -7.25101e+08    -6.6031e+08      0.0146233
-           CO2(aq)   0.000161569        0.0110575     -4.57398e+08   -4.49069e+08        3.20818
-            O2(aq)   9.92137e-14         6.79e-12     -1.04816e+08   -4.48243e+07        5.28305
+            H2O(L)       0.81632          55.5084     -3.07541e+08   -3.06815e+08         0.9159
+               Cl-     0.0917652          6.23988      -1.7952e+08   -1.84129e+08        1.01718
+                H+   1.05765e-06      7.19183e-05     -1.95673e+07              0        5.44829
+               Na+     0.0917652          6.23988     -2.53234e+08   -2.57849e+08         1.0195
+               OH-   6.03386e-13      4.10293e-11     -2.87973e+08   -2.26822e+08       0.549078
+                K+             0                0          N/A      -2.82449e+08       0.525536 
+             HCO3-   1.05764e-06      7.19178e-05     -7.45684e+08   -7.19543e+08       0.390556
+             CO3--   3.45243e-12      2.34759e-10     -7.26117e+08    -6.6031e+08      0.0148477
+           CO2(aq)   0.000147699        0.0100433      -4.5771e+08   -4.49069e+08        3.11577
+            O2(aq)    5.9791e-34      4.06569e-32     -2.21073e+08   -4.48243e+07        5.05548
 
 *************** NaCl(S) *****************
-Moles: 1
+Moles: 0.91897
  
   NaCl(S) using EOS StoichSubstance:
  
@@ -2207,33 +2103,33 @@ Moles: 1
            NaCl(S)              1                1         -173.494
 
 *************** air *****************
-Moles: 10.2
+Moles: 10.2811
  
   air;air;FLUID_GAS using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
-           density          1.7681  kg/m^3
+           density         1.75991  kg/m^3
       molar volume         24.6172  m^3/kmol
-  mean mol. weight         43.5258  amu
+  mean mol. weight         43.3241  amu
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     -8.9743e+06       -3.906e+08     J
-   internal energy     -9.0316e+06       -3.931e+08     J
-           entropy            4924        2.143e+05     J/K
-    Gibbs function     -1.0452e+07       -4.549e+08     J
- heat capacity c_p          853.52        3.715e+04     J/K
- heat capacity c_v           662.5        2.884e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
-                O2    7.91109e-50      5.81598e-50         -137.735
-                H2    1.08846e-17      5.04118e-19         -54.7765
-               CO2       0.981381         0.992294         -183.492
-               H2O       0.018619       0.00770638         -123.644
-              NaCl    1.72842e-32      2.32076e-32         -173.494
+                O2     1.6754e-28      1.23743e-28         -88.6301
+                H2    3.35079e-28      1.55913e-29         -78.9805
+               CO2       0.973623         0.989032           -183.5
+               H2O      0.0263773        0.0109684         -123.296
+              NaCl    1.72842e-32      2.33157e-32         -173.494
                 N2              0                0     
-                OH    8.77648e-40      3.42934e-40         -96.2556
+                OH    2.24093e-34        8.797e-35         -83.8053
 
 

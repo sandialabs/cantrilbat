@@ -113,7 +113,10 @@ int main(int argc, char **argv) {
     
     for (int it = 0; it < 10; it++) {
       mmm.addSpeciesMoles(iCO2g, 1.0);
-      mmm.addSpeciesMoles(iH2OL, -1.0);
+      double molesH2O = mmm.speciesMoles(iH2OL);
+      if (molesH2O > 1.1) {
+          mmm.addSpeciesMoles(iH2OL, -1.0);
+      }
       if (it == 8) {
           printf("we are here\n");
       }
