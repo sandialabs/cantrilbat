@@ -181,17 +181,16 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
     printf("--------------------------------------------------"
 	   "-----------\n");
     const std::vector<doublevalue>& vg = vprob->vec_gibbsSpecies();
-    for (int i = 0; i < (int) vprob->nSpecies(); i++) {
-      printf("%-12s", vprob->SpName[i].c_str());
-      if (vprob->SpeciesUnknownType[i] == 
-	  VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {
+    for (size_t i = 0; i < vprob->nSpecies(); i++) {
+      printf("%-12s", vprob->speciesName(i).c_str());
+      if (vprob->speciesUnknownType(i) == VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {
 	printf("  %15.3e %15.3e  ", 0.0, vprob->mfVectorC()[i]);
 	printf("%15.3e\n", vg[i]);
       } else {
 	printf("  %15.3e   %15.3e  ", vprob->speciesMoles(i), vprob->mfVectorC()[i]);
 	if (vprob->speciesMoles(i) <= 0.0) {
-	  size_t iph = vprob->PhaseID[i];
-	  vcs_nonideal::vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
+	  size_t iph = vprob->phaseIndexFromGlobalSpeciesIndex(i);
+	  vcs_nonideal::vcs_VolPhase *VPhase = vprob->phaseController(iph);
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");
 	  } else {
@@ -202,8 +201,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
 	}
       }
     }
-    printf("------------------------------------------"
-	   "-------------------\n"); 
+    printf("-------------------------------------------------------------\n"); 
 
     //     printf("Total time = %12.6e seconds\n", te - ts);
   }
