@@ -207,9 +207,9 @@ int main(int argc, char* argv[])
                 spName2 = bspNode->attrib("anion1");
                 spName3 = bspNode->attrib("anion2");
             } else if (ii == 1) {
-                spName1 = bspNode->attrib("anion");
-                spName2 = bspNode->attrib("cation1");
-                spName3 = bspNode->attrib("cation2");
+                spName1 = bspNode->attrib("cation1");
+                spName2 = bspNode->attrib("cation2");
+                spName3 = bspNode->attrib("anion");
             }
             if (spName1 == "") {
                 throw ZuzaxError("xml", "blank species name");
