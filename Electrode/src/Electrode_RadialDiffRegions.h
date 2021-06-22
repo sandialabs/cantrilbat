@@ -122,7 +122,7 @@ public:
     //! Unused atm
     std::vector<double> rxnPerturbRegions_;
 
-    //! Vector of  classes that are used to store the information about the regions
+    //! Vector of classes that are used to store the information about the regions
     std::vector<ELECTRODE_RadialRegion_KEY_INPUT> rregions_;
 };
 

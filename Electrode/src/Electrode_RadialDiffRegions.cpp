@@ -196,7 +196,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
     const BEInput::BlockEntry* be = cf->searchBlockEntry("Radial Diffusion Region", false);
     const BEInput::BlockEntry* be_cand;
     /*
-     *  Collect a set of block entries for the Radial Diffusion Rgions
+     *  Collect a set of block entries for the Radial Diffusion Regions
      */
     std::set<const BlockEntry*> cc = cf->collectBlockEntries("Radial Diffusion Region", false);
 

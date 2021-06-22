@@ -69,7 +69,7 @@ BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
       BarinConversion_C BarinConversion_Cu findRefState O2_NASAVerification \
       xmlSpeciesCVS xmlPitzerAC xmlPitzerAC_Theta xmlPitzerAC_Lambda xmlPitzerAC_Psi \
-      xmlRxnTable
+      xmlRxnTable xmlButlerVolmerForms
 
 
 ############################################################################
@@ -214,6 +214,13 @@ xmlPitzerAC_Psi: xmlPitzerAC_Psi.o \
 xmlRxnTable: xmlRxnTable.o \
          $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o xmlRxnTable xmlRxnTable.o \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+xmlButlerVolmerForms: xmlButlerVolmerForms.o \
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o xmlButlerVolmerForms xmlButlerVolmerForms.o \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 

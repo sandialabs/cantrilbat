@@ -2926,7 +2926,7 @@ void Electrode_SimpleDiff::determineBigMoleFractions()
     }
 }
 //==================================================================================================================================
-//! Changes a solution component kernal consisting of a phase value and nsp -1 species values,
+//! Changes a solution component kernel consisting of a phase value and nsp -1 species values,
 //! when the big mole fraction id is changed 
 /*!
  *  We reassemble the solnDot vector to be consistent with the change in bigMF:
