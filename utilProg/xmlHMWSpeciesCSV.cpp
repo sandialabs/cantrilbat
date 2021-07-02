@@ -1,23 +1,14 @@
 /*
  *
- *  xmlSolnDiff File1.xml File2.xml
+ *  xmlHMWSpeciesCSV File1.xml 
  *
- *  Compares the variable values in two Zuzax solution xml
- *  files.
- *  The comparison is done using a weighted norm basis.
- *
- *  The two files should be basically equal. However, File1.xml is
- *  taken as the reference file, that has precedence, when there is
- *  something to be decided upon.
+ *  This utility program will print out the entries from all thermo XML blocks that
+ *  have the HMW standard state formulation, in a comma separated variable format.
+ *  All entries that make up the standard state formulation are printed out.
  *
  *  Arguments:
  *   -h = prints this usage information
  *
- *  Shell Return Values
- *    1 = Comparison was successful
- *    0 = One or more nodal values failed the comparison
- *   -1 = Apples to oranges, the files can not even be compared against
- *        one another.
  */
 
 #include <stdio.h>
@@ -29,6 +20,7 @@
 #include <fstream>
 #include <unistd.h>
 
+#include <iostream>
 
 #include "zuzax/base/xml.h"
 #include "zuzax/base/ctml.h"
@@ -98,23 +90,60 @@ static size_t getSpeciesXML(XML_Node* xmlTop, std::vector<XML_Node*>& ccc)
     size_t sz = ccc.size();
     return sz;
 }
+//==================================================================================================================================
+static void printUsage()
+{
+    std::cout << "usage: xmlHMWSpeciesCVS [-h] [-help_cmdfile] [fileName]  "
+              <<  std::endl;
+    std::cout << "    -h           help" << endl;
+    std::cout << "    fileName:   XML File to parse for Standard State Specification block" << endl;
+    std::cout << std::endl;
+    std::cout << "        Prints out a CSV file consisting of the entries for the specification of the standard state\n" << std::endl;
+}
 
 //==================================================================================================================================
 int main(int argc, char* argv[])
 {
     char buf[100000];
-    const char*  fileName1=NULL;
     XML_Node* fp1 = nullptr;
     std::string optArgSS, arglc;
     std::vector<XML_Node*> ccc;
-    fileName1 = "HMW_CuNaOCl_full.xml";
+    std::string fileName1 = "HMW_CuNaOCl_full.xml";
+    std::string fileNameArg = "";
+
     double DG0, DH0, S0;
     double a1, a2, a3, a4, c1, c2, omega, charge;
+     if (argc > 1) {
+        std::string tok;
+        for (int j = 1; j < argc; j++) {
+            tok = std::string(argv[j]);
+            if (tok[0] == '-') {
+                int nopt = static_cast<int>(tok.size());
+                for (int n = 1; n < nopt; n++) {
+                    if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
+                    } else if (tok[n] == 'h') {
+                        printUsage();
+                        exit(1);
+                    }
+                }
+            } else {
+                if (fileNameArg != "") {
+                    printUsage();
+                    exit(1);
+                }
+                fileNameArg = tok;
+            }
+        }
+    }
+
     /*
      * Interpret command line arguments
      */
+    if (fileNameArg != "") {
+        fileName1 = fileNameArg;
+    }
     if (!(fp1 = readXML(fileName1))) {
-        fprintf(stderr,"Error opening up file1, %s\n", fileName1);
+        fprintf(stderr,"Error opening up file1, %s\n", fileName1.c_str());
         exit(-1);
     }
 
@@ -127,6 +156,16 @@ int main(int argc, char* argv[])
     FILE *fcsv = fopen("species.csv", "w");    
     printf("Got  %d species points\n", (int) numSp);
 
+    std::string ssH = "    SpeciesName   ,";
+    ssH += "      deltaG0 ,      deltaH0 ,    deltaS0   ,";
+    ssH += "       a1 ,        a2 ,        a3 ,        a4 ,        c1 ,        c2  ,      omega,";
+    ssH += " charge,  REFERENCE_FIELD";
+
+
+     fprintf(fcsv,"%s\n", ssH.c_str());
+
+    
+
     // Buffer the csv line into buf;
     for (size_t iS = 0; iS < numSp; iS++) {
         XML_Node* spNode = ccc[iS];
@@ -138,7 +177,7 @@ int main(int argc, char* argv[])
         if (spName == "") {
             throw ZuzaxError("xml", "blank species name");
         }
-        sprintf(buf + slen, "%s , ", spName.c_str());
+        sprintf(buf + slen, " %16.16s , ", spName.c_str());
         slen = strlen(buf);
 
         XML_Node* thNode = & spNode->child("thermo");
@@ -159,7 +198,7 @@ int main(int argc, char* argv[])
           S0 = ztml::getFloat(*hh, "S0_Pr_Tr");
         }
 
-        sprintf(buf + slen, "% .2f , %.2f , %.2f ,", DG0 , DH0, S0);
+        sprintf(buf + slen, "% 12.2f , % 12.2f , %12.3f ,", DG0 , DH0, S0);
         slen = strlen(buf);
 
         XML_Node* ss = & spNode->child("standardState");
@@ -172,7 +211,7 @@ int main(int argc, char* argv[])
         c2 = ztml::getFloat(*ss, "c2");
         omega = ztml::getFloat(*ss, "omega_Pr_Tr");
 
-        sprintf(buf + slen, "% .2f , %.2f , %.2f , %.2f , %.2f , %.2f , %.2f ,", 
+        sprintf(buf + slen, "% 9.2f , %9.2f , %9.2f , %9.2f , %9.2f , % 10.2f , %9.2f ,", 
                 a1, a2, a3, a4, c1, c2, omega);
         slen = strlen(buf);
 
@@ -186,7 +225,7 @@ int main(int argc, char* argv[])
         }
 
 
-        sprintf(buf + slen, "% .2f , \"%s\" ", charge, "ref" );
+        sprintf(buf + slen, "% 6.2f , \"%s\" ", charge, "ref" );
         slen = strlen(buf);
         
         

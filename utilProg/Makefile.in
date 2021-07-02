@@ -68,8 +68,8 @@ BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 
 all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
       BarinConversion_C BarinConversion_Cu findRefState O2_NASAVerification \
-      xmlSpeciesCVS xmlPitzerAC xmlPitzerAC_Theta xmlPitzerAC_Lambda xmlPitzerAC_Psi \
-      xmlRxnTable xmlButlerVolmerForms
+      xmlHMWSpeciesCSV xmlPitzerAC xmlPitzerAC_Theta xmlPitzerAC_Lambda xmlPitzerAC_Psi \
+      xmlRxnTable xmlButlerVolmerForms xmlSpecies_SS
 
 
 ############################################################################
@@ -176,9 +176,16 @@ O2_NASAVerification: O2_NASAVerification.o thermoUtilProg.o \
                   $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-xmlSpeciesCVS: xmlSpeciesCVS.o \
+xmlHMWSpeciesCSV: xmlHMWSpeciesCSV.o \
          $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o xmlSpeciesCVS xmlSpeciesCVS.o  \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o xmlHMWSpeciesCSV xmlHMWSpeciesCSV.o  \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+xmlSpecies_SS: xmlSpecies_SS.o \
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o xmlSpecies_SS xmlSpecies_SS.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
@@ -233,7 +240,8 @@ install:
 	$(INSTALL_TSC) thermoUtilProg.h  @cta_incdir@/thermoUtilProg.h
 	@INSTALL@ -d @cta_libdir@
 	$(INSTALL_TSC) thermoUtilProg.o @cta_libdir@
-	$(INSTALL_TSC) xmlSpeciesCVS @cta_bindir@
+	$(INSTALL_TSC) xmlHMWSpeciesCSV @cta_bindir@
+	$(INSTALL_TSC) xmlSpecies_SS @cta_bindir@
 	$(INSTALL_TSC) xmlPitzerAC @cta_bindir@
 	$(INSTALL_TSC) xmlPitzerAC_Theta @cta_bindir@
 

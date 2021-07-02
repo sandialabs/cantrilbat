@@ -1,0 +1,909 @@
+<?xml version="1.0"?>
+<!--
+    $Id: HMW_NaKCl.xml 5 2012-02-23 21:34:18Z hkmoffa $
+    $Source: /cvsroot/cads/cantera_apps/mpequil/tests/NaKCl_Solubility/HMW_NaKCl.xml,v $
+    $Name: MODIFIED FROM HMW_ZnKOH.xml TO BUILD UO2 SNF PROBLEM$
+
+  -->
+<ctml>
+  <phase id="HMW_UO2" dim="3">
+    <!--
+         H2O(L) UO2++ UO2OH+ UO2(aq) UO3(aq) U++++ HUO3- HUO4- UO4\-\- Na+ Cl- OH- H+ Na+ Cl- addition
+    -->
+    <speciesArray datasrc="#species_waterSolution">
+               H2O(L) UO2++ U++++ Na+ Cl- OH- H+ HCO3- UO2CO3(aq) UO2(CO3)2-- O2(aq) H2(aq)
+    </speciesArray>
+    <state>
+      <temperature units="K"> 298.15 </temperature>
+      <pressure units="Pa"> 101325.0 </pressure>
+      <soluteMolalities>
+             UO2++:1.0E-20
+             U++++:1.0E-20
+             UO2CO3(aq):1.0E-20
+             UO2(CO3)2--:1.0E-20
+             OH-:1.0E-07
+             H+:1.0E-07
+             Na+:1.05E-3
+             Cl-:1.0E-3
+             HCO3-:1.0E-05
+             O2(aq):1.0E-07
+             H2(aq):1.0E-20
+      </soluteMolalities>
+    </state>
+
+<thermo model="HMW">
+<standardConc model="solvent_volume" />
+<activityCoefficients model="Pitzer" TempModel="complex1">
+<!-- Pitzer Coefficients
+These coefficients are from Pitzer's main 
+paper, in his book.
+-->
+<A_Debye model="water" />
+<ionicRadius default="3.042843"  units="Angstroms">
+</ionicRadius>
+
+<binarySaltParameters cation="Na+" anion="Cl-">
+<beta0> 0.0765, 0.008946, -3.3158E-6, -777.03, -4.4706 </beta0>
+<beta1> 0.2664, 6.1608E-5, 1.0715E-6, 0.0, 0.0 </beta1>
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0    </beta2>
+<Cphi> 0.00127, -4.655E-5, 0.0, 33.317, 0.09421 </Cphi>
+<Alpha1> 2.0 </Alpha1>
+</binarySaltParameters>
+
+<binarySaltParameters cation="H+" anion="Cl-">
+<beta0> 0.1775, 0.0, 0.0, 0.0, 0.0 </beta0>
+<beta1> 0.2945, 0.0, 0.0, 0.0, 0.0 </beta1>
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0    </beta2>
+<Cphi> 0.0008, 0.0, 0.0, 0.0, 0.0 </Cphi>
+<Alpha1> 2.0 </Alpha1>
+</binarySaltParameters>
+
+<binarySaltParameters cation="Na+" anion="OH-">
+<beta0> 0.0864, 0.0, 0.0, 0.0, 0.0 </beta0>
+<beta1> 0.253, 0.0, 0.0, 0.0, 0.0 </beta1>
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0    </beta2>
+<Cphi> 0.0044, 0.0, 0.0, 0.0, 0.0 </Cphi>
+<Alpha1> 2.0 </Alpha1>
+</binarySaltParameters>
+
+<binarySaltParameters cation="K+" anion="Cl-">
+<beta0> 0.047781155, 0.001342983, 0.0, -343.299275, -1.38219467 </beta0>
+<beta1> 0.215510997, 0.004644833, 0.0, -576.387856, -2.88016901 </beta1>
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0 </beta2>
+<Cphi>  -0.000748605, -0.000147225, 0.0, 36.532773, 0.148205482 </Cphi>
+<Alpha1> 2.0 </Alpha1>
+</binarySaltParameters>
+
+<binarySaltParameters cation="K+" anion="OH-">
+<beta0> 0.1298, 0.0, 0.0, 0.0, 0.0 </beta0>
+<beta1> 0.32, 0.0, 0.0, 0.0, 0.0 </beta1>
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0 </beta2>
+<Cphi>  0.0041, 0.0, 0.0, 0.0, 0.0 </Cphi>
+<Alpha1> 2.0 </Alpha1>
+</binarySaltParameters>
+
+<binarySaltParameters cation="U++++" anion="Cl-">
+<beta0> 1.644, 0.0, 0.0, 0.0, 0.0 </beta0>
+<beta1> 15.5, 0.0, 0.0, 0.0, 0.0 </beta1>
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0 </beta2>
+<Cphi>  0.1, 0.0, 0.0, 0.0, 0.0 </Cphi>
+<Alpha1> 2 </Alpha1>
+<Alpha2> 12 </Alpha2>
+<source> Rai, D., Felmy, A.R., Sterner, S.M., Moore, D.A., Mason, M.J., and
+Novak, C.F., 1997. The solubility of Th(IV) and U(IV) hydrous oxides
+in concentrated NaCl and MgCl2 solutions, Radiochimica Acta, 79,
+p. 239-247. (Table 3). </source>
+</binarySaltParameters>
+
+<binarySaltParameters cation="UO2++" anion="Cl-">
+<beta0> 0.4273, 0.0, 0.0, 0.0, 0.0 </beta0>
+<beta1> 1.644, 0.0, 0.0, 0.0, 0.0 </beta1> 
+<beta2> 0.0, 0.0, 0.0, 0.0, 0.0 </beta2> 
+<Cphi>  -0.03686, 0.0, 0.0, 0.0, 0.0 </Cphi>
+<Alpha1> 2 </Alpha1>
+<Alpha2> 12 </Alpha2>
+<source> Pitzer, KS; Mayorga, G, 1973. "Thermodynamics of Electrolytes. II.
+Activity and Osmotic Coefficients for Strong Electrolytes with One or
+Both Ions Univalent." Journal of Physical Chemistry, 77, p. 2300. (Table VI) </source>
+</binarySaltParameters> 
+
+<thetaAnion anion1="Cl-" anion2="OH-">
+<Theta> -0.05 </Theta>
+</thetaAnion>
+
+<psiCommonCation cation="Na+" anion1="Cl-" anion2="OH-">
+<Theta> -0.05 </Theta>
+<Psi> -0.006 </Psi>
+</psiCommonCation>
+
+<thetaCation cation1="Na+" cation2="H+">
+<Theta> 0.036 </Theta>
+</thetaCation>
+
+<psiCommonAnion anion="Cl-" cation1="Na+" cation2="H+">
+<Theta> 0.036 </Theta>
+<Psi> -0.004 </Psi>
+</psiCommonAnion>
+
+</activityCoefficients>
+<solvent> H2O(L) </solvent>
+</thermo>
+<elementArray datasrc="elements.xml"> O H C K U Na Cl E </elementArray>
+<kinetics model="AqueousKinetics" >
+</kinetics>
+<reactionArray datasrc="aqueousRxns_MOD.xml#reaction_data"/>
+
+</phase>
+
+<speciesData id="species_waterSolution">
+
+<species name="H2O(L)">
+<!-- H2O(L) liquid standard state -> pure H2O
+The origin of the NASA polynomial is a bit murky. It does
+fit the vapor pressure curve at 298K adequately.
+-->
+<atomArray>H:2 O:1 </atomArray>
+<thermo>
+<NASA Tmax="600.0" Tmin="273.14999999999998" P0="100000.0">
+<floatArray name="coeffs" size="7">
+7.255750050E+01,  -6.624454020E-01,   2.561987460E-03,  -4.365919230E-06,
+2.781789810E-09,  -4.188654990E+04,  -2.882801370E+02
+</floatArray>
+</NASA>
+</thermo>
+<standardState model="waterPDSS"> 
+<!--
+Molar volume in m3 kmol-1.  (this is from Pitzer, Peiper, and Busey. However,
+the result can be easily derived from ~ 1gm/cm**3)
+-->
+<molarVolume> 0.018068 </molarVolume>
+</standardState>
+</species>
+
+<species name="U++++">
+<speciesChemFormula> U+4 </speciesChemFormula>
+<atomArray> U:1 </atomArray>
+<charge> 4 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -126650 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -141300 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -99.6 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> -0.42836 </a1>
+<a2 units="cal/gmol"> -1823.19 </a2>
+<a3 units="cal K/gmol/bar"> 12.8955 </a3>
+<a4 units="cal K/gmol"> -20252 </a4>
+<c1 units="cal/gmol/K"> 40.2193 </c1>
+<c2 units="cal K/gmol"> -29938 </c2>
+<omega_Pr_Tr units="cal/gmol"> 368350 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="U+++">
+<speciesChemFormula> U+3 </speciesChemFormula>
+<atomArray> U:1 </atomArray>
+<charge> 3 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -113550 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -116900 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -46.1 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> -0.28438 </a1>
+<a2 units="cal/gmol"> -1472.2 </a2>
+<a3 units="cal K/gmol/bar"> 11.528 </a3>
+<a4 units="cal K/gmol"> -21703 </a4>
+<c1 units="cal/gmol/K"> 5.7945 </c1>
+<c2 units="cal K/gmol"> -104492 </c2>
+<omega_Pr_Tr units="cal/gmol"> 227520 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="UO2++">
+<speciesChemFormula> UO2+2 </speciesChemFormula>
+<atomArray> U:1 O:2 </atomArray>
+<charge> 2 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -227680 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -243550 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -23.5 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.30256 </a1>
+<a2 units="cal/gmol"> -410.84 </a2>
+<a3 units="cal K/gmol/bar"> 15.3326 </a3>
+<a4 units="cal K/gmol"> -26091 </a4>
+<c1 units="cal/gmol/K"> 21.07 </c1>
+<c2 units="cal K/gmol"> 4300 </c2>
+<omega_Pr_Tr units="cal/gmol"> 140990 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="UOH++">
+<speciesChemFormula> UOH+2 </speciesChemFormula>
+<atomArray> U:1 O:1 H:1 </atomArray>
+<charge> 2 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -161800 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -167700 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 1.2 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.28136 </a1>
+<a2 units="cal/gmol"> -90.87 </a2>
+<a3 units="cal K/gmol/bar"> 6.1004 </a3>
+<a4 units="cal K/gmol"> -27413 </a4>
+<c1 units="cal/gmol/K"> -6.8963 </c1>
+<c2 units="cal K/gmol"> -108973 </c2>
+<omega_Pr_Tr units="cal/gmol"> 103760 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO++">
+<speciesChemFormula> UO+2 </speciesChemFormula>
+<atomArray> U:1 O:1 </atomArray>
+<charge> 2 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -180600 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -198400 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -33.4 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.07898 </a1>
+<a2 units="cal/gmol"> -584.63 </a2>
+<a3 units="cal K/gmol/bar"> 8.0337 </a3>
+<a4 units="cal K/gmol"> -25372 </a4>
+<c1 units="cal/gmol/K"> 7.3127 </c1>
+<c2 units="cal K/gmol"> -76585 </c2>
+<omega_Pr_Tr units="cal/gmol"> 156840 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO2+">
+<speciesChemFormula> UO2+ </speciesChemFormula>
+<atomArray> U:1 O:2 </atomArray>
+<charge> 1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -229690 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -245000 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -6 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.33767 </a1>
+<a2 units="cal/gmol"> 46.14 </a2>
+<a3 units="cal K/gmol/bar"> 5.5725 </a3>
+<a4 units="cal K/gmol"> -27980 </a4>
+<c1 units="cal/gmol/K"> -0.9002 </c1>
+<c2 units="cal K/gmol"> -75363 </c2>
+<omega_Pr_Tr units="cal/gmol"> 63880 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="UO+">
+<speciesChemFormula> UO+ </speciesChemFormula>
+<atomArray> U:1 O:1 </atomArray>
+<charge> 1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -152900 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -153900 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 17.5 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.29158 </a1>
+<a2 units="cal/gmol"> -66.48 </a2>
+<a3 units="cal K/gmol/bar"> 6.0168 </a3>
+<a4 units="cal K/gmol"> -27514 </a4>
+<c1 units="cal/gmol/K"> -38.0715 </c1>
+<c2 units="cal K/gmol"> -193305 </c2>
+<omega_Pr_Tr units="cal/gmol"> 28730 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="HUO2+">
+<speciesChemFormula> HUO2+ </speciesChemFormula>
+<atomArray> U:1 O:2 H:1 </atomArray>
+<charge> 1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -233200 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -254800 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -11.4 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.32291 </a1>
+<a2 units="cal/gmol"> 10.55 </a2>
+<a3 units="cal K/gmol/bar"> 5.7039 </a3>
+<a4 units="cal K/gmol"> -27833 </a4>
+<c1 units="cal/gmol/K"> 14.0517 </c1>
+<c2 units="cal K/gmol"> -26271 </c2>
+<omega_Pr_Tr units="cal/gmol"> 72870 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO2OH+">
+<speciesChemFormula> UO2OH+ </speciesChemFormula>
+<atomArray> U:1 O:3 H:1 </atomArray>
+<charge> 1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -277250 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -301550 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 4.1 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.4764 </a1>
+<a2 units="cal/gmol"> 385.29 </a2>
+<a3 units="cal K/gmol/bar"> 4.2318 </a3>
+<a4 units="cal K/gmol"> -29382 </a4>
+<c1 units="cal/gmol/K"> 13.224 </c1>
+<c2 units="cal K/gmol"> -21586 </c2>
+<omega_Pr_Tr units="cal/gmol"> 49250 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="HUO2(aq)">
+<speciesChemFormula> HUO2(aq) </speciesChemFormula>
+<atomArray> U:1 O:2 H:1 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -198000 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -205100 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 52.9 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.51622 </a1>
+<a2 units="cal/gmol"> 482.52 </a2>
+<a3 units="cal K/gmol/bar"> 3.8489 </a3>
+<a4 units="cal K/gmol"> -29784 </a4>
+<c1 units="cal/gmol/K"> -78.8543 </c1>
+<c2 units="cal K/gmol"> -324895 </c2>
+<omega_Pr_Tr units="cal/gmol"> -3000 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO2(aq)">
+<speciesChemFormula> UO2(aq) </speciesChemFormula>
+<atomArray> U:1 O:2 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -233800 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -259700 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -26 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.24664 </a1>
+<a2 units="cal/gmol"> -175.87 </a2>
+<a3 units="cal K/gmol/bar"> 6.4404 </a3>
+<a4 units="cal K/gmol"> -27062 </a4>
+<c1 units="cal/gmol/K"> 17.084 </c1>
+<c2 units="cal K/gmol"> 8561 </c2>
+<omega_Pr_Tr units="cal/gmol"> -3000 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO2OH(aq)">
+<speciesChemFormula> UO2OH(aq) </speciesChemFormula>
+<atomArray> U:1 O:3 H:1 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -261600 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -295900 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -13.9 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.3739 </a1>
+<a2 units="cal/gmol"> 134.67 </a2>
+<a3 units="cal K/gmol/bar"> 5.2242 </a3>
+<a4 units="cal K/gmol"> -28346 </a4>
+<c1 units="cal/gmol/K"> 20.4246 </c1>
+<c2 units="cal K/gmol"> 20172 </c2>
+<omega_Pr_Tr units="cal/gmol"> -3000 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO3(aq)">
+<speciesChemFormula> UO3(aq) </speciesChemFormula>
+<atomArray> U:1 O:3 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -270300 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -299600 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -12.9 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.37801 </a1>
+<a2 units="cal/gmol"> 145.12 </a2>
+<a3 units="cal K/gmol/bar"> 5.1736 </a3>
+<a4 units="cal K/gmol"> -28389 </a4>
+<c1 units="cal/gmol/K"> 5.4213 </c1>
+<c2 units="cal K/gmol"> -31975 </c2>
+<omega_Pr_Tr units="cal/gmol"> -3000 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="HUO3-">
+<speciesChemFormula> HUO3- </speciesChemFormula>
+<atomArray> U:1 O:3 H:1 </atomArray>
+<charge> -1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -274100 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -321200 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -41.3 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.31824 </a1>
+<a2 units="cal/gmol"> -0.92 </a2>
+<a3 units="cal K/gmol/bar"> 5.7491 </a3>
+<a4 units="cal K/gmol"> -27785 </a4>
+<c1 units="cal/gmol/K"> 68.04 </c1>
+<c2 units="cal K/gmol"> 112651 </c2>
+<omega_Pr_Tr units="cal/gmol"> 225030 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO3-">
+<speciesChemFormula> UO3- </speciesChemFormula>
+<atomArray> U:1 O:3 </atomArray>
+<charge> -1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -236600 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -272600 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -19.5 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.41388 </a1>
+<a2 units="cal/gmol"> 232.72 </a2>
+<a3 units="cal K/gmol/bar"> 4.8294 </a3>
+<a4 units="cal K/gmol"> -28751 </a4>
+<c1 units="cal/gmol/K"> 27.8024 </c1>
+<c2 units="cal K/gmol"> -16697 </c2>
+<omega_Pr_Tr units="cal/gmol"> 192230 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="HUO4-">
+<speciesChemFormula> HUO4- </speciesChemFormula>
+<atomArray> U:1 O:4 H:1 </atomArray>
+<charge> -1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -314800 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -362900 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -20.2 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.49364 </a1>
+<a2 units="cal/gmol"> 427.48 </a2>
+<a3 units="cal K/gmol/bar"> 4.0637 </a3>
+<a4 units="cal K/gmol"> -29556 </a4>
+<c1 units="cal/gmol/K"> 36.9351 </c1>
+<c2 units="cal K/gmol"> 14672 </c2>
+<omega_Pr_Tr units="cal/gmol"> 193390 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="UO4--">
+<speciesChemFormula> UO4-- </speciesChemFormula>
+<atomArray> U:1 O:4 </atomArray>
+<charge> -2 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -296000 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -346200 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -27.1 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.50964 </a1>
+<a2 units="cal/gmol"> 466.06 </a2>
+<a3 units="cal K/gmol/bar"> 3.9223 </a3>
+<a4 units="cal K/gmol"> -29716 </a4>
+<c1 units="cal/gmol/K"> 13.513 </c1>
+<c2 units="cal K/gmol"> -120788 </c2>
+<omega_Pr_Tr units="cal/gmol"> 362190 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., and Betz, H., 1997, "Uranium in geologic
+fluids:  Estimates of standard partial molal properties, oxidation
+potentials, and hydrolysis constants at high temperatures and
+pressures":  Geochim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266.
+</source>
+</species>
+
+<species name="Na+">
+<speciesChemFormula> Na+ </speciesChemFormula>
+<atomArray> Na:1 </atomArray>
+<charge> 1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -62591 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -57433 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 13.96 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.1839 </a1>
+<a2 units="cal/gmol"> -228.5 </a2>
+<a3 units="cal K/gmol/bar"> 3.256 </a3>
+<a4 units="cal K/gmol"> -27260 </a4>
+<c1 units="cal/gmol/K"> 18.18 </c1>
+<c2 units="cal K/gmol"> -29810 </c2>
+<omega_Pr_Tr units="cal/gmol"> 33060 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard
+molal thermodynamic properties of aqueous ions and hydroxide complexes",
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="Cl-">
+<speciesChemFormula> Cl- </speciesChemFormula>
+<atomArray> Cl:1 </atomArray>
+<charge> -1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -31379 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -39933 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 13.56 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.4032 </a1>
+<a2 units="cal/gmol"> 480.1 </a2>
+<a3 units="cal K/gmol/bar"> 5.563 </a3>
+<a4 units="cal K/gmol"> -28470 </a4>
+<c1 units="cal/gmol/K"> -4.4 </c1>
+<c2 units="cal K/gmol"> -57140 </c2>
+<omega_Pr_Tr units="cal/gmol"> 145600 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="OH-">
+<speciesChemFormula> OH- </speciesChemFormula>
+<atomArray> O:1 H:1 </atomArray>
+<charge> -1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -37595 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -54977 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> -2.56 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.12527 </a1>
+<a2 units="cal/gmol"> 7.38 </a2>
+<a3 units="cal K/gmol/bar"> 1.8423 </a3>
+<a4 units="cal K/gmol"> -27821 </a4>
+<c1 units="cal/gmol/K"> 4.15 </c1>
+<c2 units="cal K/gmol"> -103460 </c2>
+<omega_Pr_Tr units="cal/gmol"> 172460 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="H+">
+<speciesChemFormula> H+ </speciesChemFormula>
+<atomArray> H:1 </atomArray>
+<charge> 1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 0 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0 </a1>
+<a2 units="cal/gmol"> 0 </a2>
+<a3 units="cal K/gmol/bar"> 0 </a3>
+<a4 units="cal K/gmol"> 0 </a4>
+<c1 units="cal/gmol/K"> 0 </c1>
+<c2 units="cal K/gmol"> 0 </c2>
+<omega_Pr_Tr units="cal/gmol"> 0 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard 
+molal thermodynamic properties of aqueous ions and hydroxide complexes", 
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="O2(aq)">
+<speciesChemFormula> O2(aq) </speciesChemFormula>
+<atomArray> O:2 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> 3954 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -2900 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 26.04 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.57889 </a1>
+<a2 units="cal/gmol"> 635.36 </a2>
+<a3 units="cal K/gmol/bar"> 3.2528 </a3>
+<a4 units="cal K/gmol"> -30417 </a4>
+<c1 units="cal/gmol/K"> 35.353 </c1>
+<c2 units="cal K/gmol"> 83726 </c2>
+<omega_Pr_Tr units="cal/gmol"> -39430 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Helgeson, H.C., and Sverjensky, D.A., 1989,"
+Calculation of the thermodynamic and transport
+properties of aqueous species at high pressures and
+temperatures: Standard partial molal properties of
+inorganic neutral species": Geochim. Cosmo. Acta, v. 53,
+pp. 2157-2183.
+</source>
+</species>
+
+<species name="H2(aq)">
+<speciesChemFormula> H2(aq) </speciesChemFormula>
+<atomArray> H:2 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> 4236 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -1000 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 13.8 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.51427 </a1>
+<a2 units="cal/gmol"> 477.58 </a2>
+<a3 units="cal K/gmol/bar"> 3.8729 </a3>
+<a4 units="cal K/gmol"> -29764 </a4>
+<c1 units="cal/gmol/K"> 27.6251 </c1>
+<c2 units="cal K/gmol"> 50930 </c2>
+<omega_Pr_Tr units="cal/gmol"> -20900 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Helgeson, H.C., and Sverjensky, D.A., 1989,"
+Calculation of the thermodynamic and transport
+properties of aqueous species at high pressures and
+temperatures: Standard partial molal properties of
+inorganic neutral species": Geochim. Cosmo. Acta, v. 53,
+pp. 2157-2183.
+</source>
+</species>
+
+<species name="HCO3-">
+<speciesChemFormula> HCO3- </speciesChemFormula>
+<atomArray> H:1 C:1 O:3 </atomArray>
+<charge> -1 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -140282 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -164898 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 23.53 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 0.75621 </a1>
+<a2 units="cal/gmol"> 115.05 </a2>
+<a3 units="cal K/gmol/bar"> 1.2346 </a3>
+<a4 units="cal K/gmol"> -28266 </a4>
+<c1 units="cal/gmol/K"> 12.9395 </c1>
+<c2 units="cal K/gmol"> -47579 </c2>
+<omega_Pr_Tr units="cal/gmol"> 127330 </omega_Pr_Tr>
+</standardState>
+<source>
+Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+"Inorganic species in geologic fluids:  Correlations among standard
+molal thermodynamic properties of aqueous ions and hydroxide complexes",
+Geochim. Cosmo. Acta, v. 61, no. 5, pp. 907-950.
+</source>
+</species>
+
+<species name="UO2CO3(aq)">
+<speciesChemFormula> UO2CO3 </speciesChemFormula>
+<atomArray> U:1 C:1 O:5 </atomArray>
+<charge> 0 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="298.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -367396.75 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -403735.66 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 14.07 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 1.70325 </a1>
+<a2 units="cal/gmol"> 3380.44 </a2>
+<a3 units="cal K/gmol/bar"> -7.5309 </a3>
+<a4 units="cal K/gmol"> -41764 </a4>
+<c1 units="cal/gmol/K"> 161.5228 </c1>
+<c2 units="cal K/gmol"> 510592 </c2>
+<omega_Pr_Tr units="cal/gmol"> -3000 </omega_Pr_Tr>
+</standardState>
+<source>
+Guillaumont, R.; Fanghanel, T.; Fuger, J.; Grenthe, I.; Neck, V.; Palmer, D.A.;
+and Rand, M.H. 2003. Update on the Chemical Thermodynamics of Uranium, Neptunium,
+Plutonium, Americium and Technetium. Mompean, F.J.; Illemassene, M.; Domenech-Orti, C.;
+and Ben Said, K., eds. Chemical Thermodynamics 5. Amsterdam, The Netherlands: Elsevier;
+(Table 3-1, p. 57). 
+HKF parameters taken the same as those of UO2(Ac)2(aq) after: 
+Shock, E.L., and Koretsky, C.M., 1993, Metal-organic complexes"
+in geochemical processes:  Calculation of standard partial
+molal thermodynamic properties of aqueous acetate complexes
+at high pressures and temperatures":  Geochim. Cosmo. Acta,
+v.57, pp. 4899-4922.
+</source>
+</species>
+
+<species name="UO2(CO3)2--">
+<speciesChemFormula> UO2(CO3)2-- </speciesChemFormula>
+<atomArray> U:1 C:2 O:8 </atomArray>
+<charge> -2 </charge>
+<thermo model="HKFT">
+<HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
+<DG0_f_Pr_Tr units="cal/gmol"> -502667.54 </DG0_f_Pr_Tr>
+<DH0_f_Pr_Tr units="cal/gmol"> -561892.92 </DH0_f_Pr_Tr>
+<S0_Pr_Tr units="cal/gmol/K"> 43.46 </S0_Pr_Tr>
+</HKFT>
+</thermo>
+<standardState model="HKFT">
+<a1 units="cal/gmol/bar"> 1.70325 </a1>
+<a2 units="cal/gmol"> 3380.44 </a2>
+<a3 units="cal K/gmol/bar"> -7.5309 </a3>
+<a4 units="cal K/gmol"> -41764 </a4>
+<c1 units="cal/gmol/K"> 161.5228 </c1>
+<c2 units="cal K/gmol"> 510592 </c2>
+<omega_Pr_Tr units="cal/gmol"> -3000 </omega_Pr_Tr>
+</standardState>
+<source>
+Guillaumont, R.; Fanghanel, T.; Fuger, J.; Grenthe, I.; Neck, V.; Palmer, D.A.;
+and Rand, M.H. 2003. Update on the Chemical Thermodynamics of Uranium, Neptunium,
+Plutonium, Americium and Technetium. Mompean, F.J.; Illemassene, M.; Domenech-Orti, C.;
+and Ben Said, K., eds. Chemical Thermodynamics 5. Amsterdam, The Netherlands: Elsevier;
+(Table 3-1, p. 57). 
+HKF parameters taken the same as those of UO2(Ac)3- after: 
+Shock, E.L., and Koretsky, C.M., 1993, Metal-organic complexes"
+in geochemical processes:  Calculation of standard partial
+molal thermodynamic properties of aqueous acetate complexes
+at high pressures and temperatures":  Geochim. Cosmo. Acta,
+v.57, pp. 4899-4922.
+</source>
+</species>
+
+  </speciesData>
