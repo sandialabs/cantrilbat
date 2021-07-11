@@ -189,7 +189,7 @@ int mpequil_equilibrate(Zuzax::Electrode *electrode, int estimateInit, int print
       } else {
 	printf("  %15.3e   %15.3e  ", vprob->speciesMoles(i), vprob->mfVectorC()[i]);
 	if (vprob->speciesMoles(i) <= 0.0) {
-	  size_t iph = vprob->phaseIndexFromGlobalSpeciesIndex(i);
+	  size_t iph = vprob->globalPhaseIndexFromGlobalSpeciesIndex(i);
 	  vcs_nonideal::vcs_VolPhase *VPhase = vprob->phaseController(iph);
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");

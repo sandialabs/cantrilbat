@@ -179,7 +179,7 @@ Electrode_SimplePhaseChangeDiffusion::electrode_model_create(ELECTRODE_KEY_INPUT
     for (size_t k = 0; k < m_NumTotSpecies; k++) {
         double  rgamma = productStoichCoeff(surfIndexInnerSurface_, k, 0);
         if (rgamma != 0.0) {
-            int iph = phaseIndexFromGlobalSpeciesIndex(k);
+            int iph = globalPhaseIndexFromGlobalSpeciesIndex(k);
             ThermoPhase& tp = thermo(iph);
             if (tp.nSpecies() == 1) {
                 SolidOuterKSpecies_= k;
@@ -1162,7 +1162,7 @@ restartStep:
         }
 
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            size_t iph = phaseIndexFromGlobalSpeciesIndex(k);
+            size_t iph = globalPhaseIndexFromGlobalSpeciesIndex(k);
             if (iph == metalPhase_) {
                 continue;
             }

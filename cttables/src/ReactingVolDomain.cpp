@@ -193,7 +193,7 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
 //==================================================================================================================================
 bool ReactingVolDomain::importSurKinFromPL(PhaseList* pl, size_t iphSurKin)
 {
-    m_iphGlobKin = pl->phaseIndexFromSurPhaseIndex(iphSurKin);
+    m_iphGlobKin = pl->globalPhaseIndexFromSurPhaseIndex(iphSurKin);
     m_DoSurfKinetics = true;
     
     m_NumPLPhases = pl->nPhases();

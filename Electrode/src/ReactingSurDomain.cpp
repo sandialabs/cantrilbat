@@ -521,7 +521,7 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     // Find the phase id and phase name of the replaced global species. We will assume that it is also
     // the solid phase where we will get the relative extent.
     
-    size_t phase_id = m_pl->phaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
+    size_t phase_id = m_pl->globalPhaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
     std::string phaseName = m_pl->phase_name(phase_id);
     //
     //  Since the pointers must all be the same, we look up the ThermoPhase pointer in the phase list

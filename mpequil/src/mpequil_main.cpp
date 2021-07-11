@@ -217,7 +217,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
       } else {
 	printf("  %15.3e   %15.3e  ", vprob->speciesMoles(i), vprob->mfVectorC()[i]);
 	if (vprob->speciesMoles(i) <= 0.0) {
-	  int iph = vprob->phaseIndexFromGlobalSpeciesIndex(i);
+	  int iph = vprob->globalPhaseIndexFromGlobalSpeciesIndex(i);
 	  const vcs_VolPhase *VPhase = vprob->phaseController(iph);
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");
