@@ -11,12 +11,12 @@
  */
 
 //#define HAVE_MPI
-//#ifdef HAVE_MPI
+#ifdef HAVE_MPI
 #include <mpi.h>
 #include "Epetra_MpiComm.h"
-//#else
-//#include "Epetra_SerialComm.h"
-//#endif
+#else
+#include "Epetra_SerialComm.h"
+#endif
 
 #include "LiIon_PorousBat.h"
 #include "m1d_defs.h"
@@ -101,17 +101,17 @@ main(int argc, char** argv)
 
     ofstream oftmp;
     m1d::stream0 w0;
-    //#ifdef HAVE_MPI
+    #ifdef HAVE_MPI
     // Initialize MPI
     MPI_Init(&argc, &argv);
-    //#endif
+    #endif
     try {
-      //#ifdef HAVE_MPI
+        #ifdef HAVE_MPI
         // Create the One New communications object for global communications
         Epetra_MpiComm Comm(MPI_COMM_WORLD);
-	//#else
-	//        Epetra_SerialComm Comm;
-	//#endif
+	#else
+	Epetra_SerialComm Comm;
+	#endif
         Comm_ptr = &Comm;
         /*
          * Process the command line arguments
@@ -228,13 +228,13 @@ main(int argc, char** argv)
 
         // (Now that MPI is initialized, we can access/use MPI_COMM_WORLD.)
         m1d::GlobalIndices& GI = *ps->GI_ptr_;
-	//#ifdef HAVE_MPI
+	#ifdef HAVE_MPI
         MPI_Comm_size(MPI_COMM_WORLD, &(GI.NumProc));
         MPI_Comm_rank(MPI_COMM_WORLD, &(GI.MyProcID));
-	//#else
-	//        GI.NumProc = 1;
-	//        GI.MyProcID = 0;
-	//#endif
+	#else
+	        GI.NumProc = 1;
+	        GI.MyProcID = 0;
+	#endif
 
         /*
          *  Generate and fill up the local node vectors on this processor
@@ -509,9 +509,9 @@ main(int argc, char** argv)
 
         Zuzax::appdelete();
 
-	//#ifdef HAVE_MPI
+	#ifdef HAVE_MPI
         MPI_Finalize();
-	//#endif
+	#endif
     }
     /*
      *  If we have thrown a ZuzaxError of some sort, we catch it here and print out
