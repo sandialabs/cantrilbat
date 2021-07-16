@@ -154,14 +154,18 @@ then
   fi
 fi
 
+NEED_MPIRUN='n'
 if test "x${DO_MPI}" = "xy"
 then
   echo 'testing whether to turn on the HAVE_MPI flag which triggers compilation with MPI ... yes'
   AC_DEFINE(HAVE_MPI)
+  NEED_MPIRUN='y'
+  AC_SUBST(NEED_MPIRUN)
   AC_SUBST(MPIHOME)
   mpi_include_dir=${MPIHOME}/include
   AC_SUBST(mpi_include_dir)
 else
+  AC_SUBST(NEED_MPIRUN)
   echo 'testing whether to turn off the HAVE_MPI flag which triggers compilation with MPI ... no'
   MPICXX=${CXX}
   MPICC=${CC}
