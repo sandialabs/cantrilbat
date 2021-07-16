@@ -245,6 +245,7 @@ if test ! -x $PROGRAM   ; then
 fi
 # 
 ############################################################################################################################
+doMPI=@NEED_MPIRUN@
 #
 # Actually run the calculation
 #
@@ -258,9 +259,16 @@ export M1D_PRINT_TIMINGINFORMATION="false"
 # Execute the command
 # $MPIRUN $MPIOPTS -machinefile $MP_MACHINFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
 #
-echo "$MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt"
-      $MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
-retnStat=$?
+if test $doMPI = 'y'
+then
+  echo "$MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt"
+        $MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
+  retnStat=$?
+else
+  echo "$MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt"
+        $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
+  retnStat=$?
+fi
 if test $retnStat != "0" 
 then
   temp_success="0"
