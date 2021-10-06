@@ -105,6 +105,13 @@ void GFCEO_Electrode::setAlgebraic(const int k)
 // COMPLETE
 }
 //===================================================================================================================================
+void GFCEO_Electrode::getSourceTerms(std::vector<double>& values, const std::vector<int>& species_map)
+{
+    // not started
+    throw Electrode_Error("GFCEO_Electrode::getSourceTerms", "not done");
+
+}
+//===================================================================================================================================
 int GFCEO_Electrode::evalResidNJ(const double t, const double delta_t,
                             const double* const y, const double* const ydot, double* const resid,
                             const ResidEval_Type evalType, const Solve_Type solveType,

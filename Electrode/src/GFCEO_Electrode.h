@@ -19,6 +19,17 @@ namespace Zuzax
 {
 
 class DAE_Solver;
+#ifdef InterfaceAdds
+
+enum PHASE_CAT {
+       ELECTROLYTE_PH = 0,
+       METAL_ELECTRON_PH = 1,
+       SURFACE_PH = 2,
+       SOLID_NONDISTRIB_PH = 3,
+       SOLID_DISTRIB_PH = 4,
+};
+
+#endif
 
 //===================================================================================================================================
 //! This class is a derived class used to carry out fully coupled simulations
@@ -112,6 +123,32 @@ public:
      *  @param[in]       i                    Solution index
      */
     virtual void setAlgebraic(const int i) override;
+
+    //! Get the source terms for quantities associated with the Electrode object
+    /*!
+     *  The output are the LIQUID_CURRENT_SRC,  SOLID_CURRENT_SRC, and the SPECIES_SRC vector
+     *  If needs_energy_source_ is true then the enthalpy source is provided as well
+     *
+     *       Map for values:
+     *         LIQUID_CURRENT_SRC
+     *         SOLID_CURRENT_SRC
+     *         ENTHALPY_SRC
+     *         dydt_PhaseList[si]   int si = species_map[i];
+     *         values[SPECIES_SRC + ssm + i] = ydotODE_[i] , I = 0, neq_problem();
+     *                                          where ssm = species_map.size(); 
+     *
+     *  dydt_PhaseList[] is the vector of species sources within the PhaseList species
+     *  ydotODE[] is the vector of species changes within the formal internal ODE problem
+     *
+     *  @param[out]        values            Vector of output source values
+     *  @param[in]         species_map       Index within the PhaseList source vector needed by Aria's species source vector
+     *                                         Length: numSpeciesSources within Aria
+     *                                         index:  Aria species index
+     *                                         value:  Global PhaseList index within Zuzax
+     *                                        (negative value means that the species in the PhaseList vector
+     *                                         isn't needed in the Aria species source vector)
+     */
+    virtual void getSourceTerms(std::vector<double>& values, const std::vector<int>& species_map);
 
     //! Evaluate the residual function at the current conditions
     /*!
