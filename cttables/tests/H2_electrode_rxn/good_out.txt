@@ -13,7 +13,7 @@ States Government.
         Carrier Species (used in diff. calcs) = Pt_electron
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1     Pt_electron          1.0000       4.612E+03       1.000E+00
+              1     Pt_electron          1.0000       0.000E+00       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -31,8 +31,8 @@ INFORMATION TABLE FOR SPECIES "Pt_electron" IN PHASE "Pt_H2electrons"
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 2.1683e-07 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 2.1683e-07 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0 m3/kmol
         Molar Volume formulation for eos type 9 is not known to cttables
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000:
@@ -701,7 +701,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
         Carrier Species (used in diff. calcs) = Pt_electron
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1     Pt_electron          1.0000       4.612E+03       1.000E+00
+              1     Pt_electron          1.0000       0.000E+00       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "NaCl_electrolyte", with name, "NaCl_electrolyte", with eosType, "UnknownPhaseType"
