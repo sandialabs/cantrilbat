@@ -1128,8 +1128,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices* const li_ptr)
 
     /*
      * Loop over the Dirichlet conditions defined in the SurfDomainType
-     * Structure. Transfer the information to this structure for quick
-     * processing.
+     * structure. Transfer the information to this structure for quick processing.
      */
     for (int i = 0; i < sdt->NumConditions; i++) {
         VarType vtDir = sdt->VariableID[i];
@@ -1283,11 +1282,6 @@ void SurBC_Dirichlet::residEval(Epetra_Vector& res, const bool doTimeDependentRe
      * Pull in the flux vectors into this object
      */
     updateBulkFluxVectors();
-    /*
-     *   Figure out the node to apply the equation on
-     *   It is one node -> This can be done using base class level
-     */
-    // NodalVars* nodeCent = LI_ptr->NodalVars_LcNode[Index_LcNode];
     /*
      *  Figure out the equation start for this node
      *   We start at the start of the equations for this node
