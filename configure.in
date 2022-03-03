@@ -41,7 +41,7 @@ esac
 #        Configuring the ct_prefix and ct_local_inst variable
 # -----------------------------------------------------------------------------
 #
-ct_prefix=${CANTERA_INSTALL_DIR}
+ct_prefix=${ZUZAX_INSTALL_DIR}
 #
 ct_prdef="/usr/local/zuzax"
 if test "x$OS_IS_DARWIN" = "x1"; then ct_prdef="/Applications/Zuzax"; fi

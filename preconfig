@@ -28,15 +28,18 @@ CANTERA_ROOT=${CANTERA_ROOT:="~/Cantera_Build_Dir"}
 # a directory under the installation directory
 # named after the version number.
 CANTERA_VERSION=${CANTERA_VERSION:="default"}
+ZUZAX_VERSION=${ZUZAX_VERSION:="default"}
 #
 #  Zuzax will be installed in another location called the 
-#  CANTERA_INSTALL_DIR. Most applications will build against
+#  ZUZAX_INSTALL_DIR. Most applications will build against
 #  this directory. 
 #
 CANTERA_INSTALL_DIR=${CANTERA_INSTALL_DIR:="c:/cantera"}
-
+ZUZAX_INSTALL_DIR=${ZUZAX_INSTALL_DIR:="c:/zuzax"}
+#
 
 CANTERA_APPS_INSTALL_DIR=${CANTERA_APPS_INSTALL_DIR:="${CANTERA_INSTALL_DIR}/apps"}
+ZUZAX_APPS_INSTALL_DIR=${ZUZAX_APPS_INSTALL_DIR:="${ZUZAX_INSTALL_DIR}/apps"}
 # echo CTA = $CANTERA_APPS_INSTALL_DIR
 #
 #----------------------------------------------------------------------
@@ -326,6 +329,8 @@ export BUILD_PYTHON_INTERFACE
 export CANTERA_ROOT
 export CANTERA_INSTALL_DIR
 export CANTERA_APPS_INSTALL_DIR
+export ZUZAX_INSTALL_DIR
+export ZUZAX_APPS_INSTALL_DIR
 export CADS_ROOT
 export CT_SHARED_LIB
 export CXX

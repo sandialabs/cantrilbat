@@ -1,11 +1,17 @@
 #/bin/sh
 #
 #
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc720_mpi405_rh7/Zzuzax_master_dbg
+ZUZAX_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc720_mpi405_rh7/Zzuzax_master_dbg
+export ZUZAX_INSTALL_DIR
+
+CANTERA_INSTALL_DIR="${ZUZAX_INSTALL_DIR}"
 export CANTERA_INSTALL_DIR
 #
 CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zuzax_master
 export CANTERA_ROOT
+#
+ZUZAX_APPS_INSTALL_DIR="${ZUZAX_INSTALL_DIR}/apps_dbg"
+export ZUZAX_APPS_INSTALL_DIR
 #
 CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_dbg"
 export CANTERA_APPS_INSTALL_DIR
