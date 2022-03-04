@@ -158,6 +158,7 @@ end block Bath Specification for Phase NaCl_Electrolyte
 
 # the above were empty lines
 Bath Species set to H2O(L)
+setupTransport error. That's ok no transport info will be displayed
 ----------------------------------------------------------------
  Dump of Mixture properties: 
 Bath Species set to H2O(L)

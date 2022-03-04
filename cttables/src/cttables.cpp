@@ -37,7 +37,7 @@ using namespace mdpUtil;
 std::string InputFile;
 std::string TransportFile;
 std::string LogFile;
-Transport* GTran         = 0;
+Transport* GTran         = nullptr;
 TemperatureTable* TT_ptr = 0;
 VoltageTable* VV_ptr = 0;
 
@@ -972,21 +972,35 @@ bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
     bool retn = true;
     double T = 300.;
     double P = 1.0E5;
+    // Should use the bath state to set up the transport!
     int numSpecies = g.nSpecies();
+    
+/*
     double* y = new double[numSpecies];
     for (int i = 0; i < numSpecies; i++) {
         y[i] = 0.0;
     }
     y[0] = 1.0;
     g.setState_TPY(T, P, y);
+ */  
     try {
-        GTran = processExpandedTransport(xmlPhase, &g);
-    } catch (ZuzaxError& ctex) {
-        cout << "setupGasTransport ERROR!" << endl;
-        showErrors(cout);
+        //GTran = processExpandedTransport(xmlPhase, &g);
+        GTran = newDefaultTransportMgr(&g);
+        if (GTran) {
+            // We'll want to delete the transport operator if it is only the base class, because nothing is supplied
+            int mm = GTran->model();
+            if (mm == 0) {
+                delete GTran;
+                GTran = nullptr;
+            }
+        }
+  } catch (ZuzaxError& ctex) {
+        cout << "setupTransport error. That's ok no transport info will be displayed" << endl;
+        //showErrors(cout);
+        popError();
         retn = false;
     }
-    delete [] y;
+    //delete [] y;
     if (!GTran) {
         retn = false;
     }

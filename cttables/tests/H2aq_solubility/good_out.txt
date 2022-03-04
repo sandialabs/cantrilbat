@@ -4,6 +4,7 @@ Contract DE-Ac04-94AL85000, there is a non-exclusive license
 for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
+setupTransport error. That's ok no transport info will be displayed
      ====================================================================================================
       Bath Composition for Phase id, "ZnSO4_electrolyte", with name, "ZnSO4_electrolyte", with eosType, "UnknownPhaseType"
      

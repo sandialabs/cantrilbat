@@ -66,6 +66,7 @@ end block Bath Specification for Phase solidSolutionExample
 
 # the above were empty lines
 Bath Species set to C2H2-graph
+setupTransport error. That's ok no transport info will be displayed
 ----------------------------------------------------------------
  Dump of Mixture properties: 
 Bath Species set to C2H2-graph
