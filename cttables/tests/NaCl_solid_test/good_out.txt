@@ -26,7 +26,6 @@ Bath Pressure = 1.0 atm
 Add Chemical Potential Column = true
 Output Units = KJoule
 
-
 START BLOCK Temperature Table Format
   Number of Points = 14
   Added Temperatures =  373.15
@@ -76,7 +75,6 @@ Add Chemical Potential Column = true
 Output Units = KJoule
  => Output Units = KJoule
  ====> OutputUnits = KJoule, list item 1
-
 
 START BLOCK Temperature Table Format
   Number of Points = 14

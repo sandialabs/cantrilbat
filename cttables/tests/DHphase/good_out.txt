@@ -87,6 +87,7 @@ END BLOCK Temperature Table Format
 # the above were empty lines
 No kinetics object was found - that's ok
 Bath Species set to H2O(L)
+setupTransport error. That's ok no transport info will be displayed
 ----------------------------------------------------------------
  Dump of Mixture properties: 
 Bath Species set to H2O(L)
