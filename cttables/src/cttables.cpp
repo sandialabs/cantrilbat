@@ -412,7 +412,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
             if (IOO.ChemPotColumn) {
                 printf("|  (kJ/gmol)    ");
             }
-            printf("|  (kg/m*sec)    (J/m*sec*K)     (m**2/sec)    ");
+            printf("|  (g/cm*sec)    (Erg/cm*sec*K)     (cm**2/sec)    ");
             printf("|\n");
         }
     } else {
@@ -708,21 +708,18 @@ getGasTransportTables(TemperatureTable& TT, ThermoPhase& g, DenseMatrix& Visc_Ta
     }
     g.setState_TPX(BG.Temperature, BG.Pressure, BG.Xmol);
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
+//==================================================================================================================================
 /**
  * Setup the transport tables for gases. This function assumes
  * that the phase is a gas, and that the Multitransport class
  * handles the calculation of transport properties.
  */
 void
-getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g,
-                          DenseMatrix& Visc_Table,
-                          DenseMatrix& Cond_Table,
-                          DenseMatrix& Diff_Table)
+getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g, DenseMatrix& Visc_Table,
+                          DenseMatrix& Cond_Table, DenseMatrix& Diff_Table)
 {
-    int i, k;
+    size_t i, k;
+    double T, kspec;
     Transport* t = GTran;
     if (!t) {
         cout <<"getGenericTransportTables: Error no transport model initialized"
@@ -730,18 +727,18 @@ getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g,
         exit(-1);
     }
     int tModel = t->model();
-    int nsp = g.nSpecies();
+    size_t nsp = g.nSpecies();
     int nsp2 = nsp * nsp;
     int bgs = BG.BathSpeciesID;
     double* darray = new double [nsp2];
     double* svisc = new double [nsp];
+    double* lambda = new double [nsp];
     double* y = new double[nsp];
-    for (int i = 0; i < nsp; i++) {
+    for (i = 0; i < nsp; i++) {
         y[i] = 0.0;
     }
 
-    double T, kspec;
-    for (i = 0; i < TT.size(); i++) {
+    for (i = 0; i < (size_t) TT.size(); i++) {
         T = TT[i];
         g.setState_TPX(T, BG.Pressure, BG.Xmol);
         /*
@@ -752,15 +749,36 @@ getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g,
          * To get the "Species Viscosities", we set the mole fraction
          * of the phase to each of the pure species individually.
          */
-        for (k = 0; k < nsp; k++) {
-            y[k] = 1.0;
-            g.setState_TPX(T, BG.Pressure, y);
-            svisc[k] = t->viscosity();
-            Visc_Table(i, k) = svisc[k] * 10.;
-            y[k] = 0.0;
-        }
-
-
+        switch (tModel) {
+        case cMulticomponent:
+        case CK_Multicomponent:
+        case cMixtureAveraged:
+        case CK_MixtureAveraged:
+             for (k = 0; k < nsp; k++) {
+                 y[k] = 1.0;
+                 g.setState_TPX(T, BG.Pressure, y);
+                 svisc[k] = t->viscosity();
+                 Visc_Table(i, k) = svisc[k] * 10.;
+                 y[k] = 0.0;
+             }
+             break;
+         case cLiquidTransport:
+         case cAqueousTransport:
+         case cSimpleTransport:
+         case cWaterTransport:
+             GTran->getSpeciesViscosities(svisc);
+             for (k = 0; k < nsp; k++) {
+                 Visc_Table(i, k) = svisc[k] * 10.;
+             }
+             break;
+         default:
+             for (k = 0; k < nsp; k++) {
+                 svisc[k] = GTran->viscosity();
+                 Visc_Table(i, k) = svisc[k] * 10.;
+             }
+             break;
+        } 
+ 
         switch (tModel) {
         case cMulticomponent:
         case CK_Multicomponent:
@@ -773,9 +791,6 @@ getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g,
             break;
         case cSolidTransport:
         default:
-            y[BG.BathSpeciesID] = 1.0;
-            g.setState_TPX(T, BG.Pressure, y);
-            y[k] = 0.0;
             t->getMixDiffCoeffs(darray);
             for (k = 0; k < nsp; k++) {
                 Diff_Table(i, k) = darray[k] * 1.0E4;
@@ -790,15 +805,33 @@ getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g,
          * a lot of work.
          *  Note change to cgs units.
          */
-        for (int j = 0; j < nsp; j++) {
-            y[j] = 1.0;
-            g.setState_TPY(T, BG.Pressure, y);
-            kspec = t->thermalConductivity();
-            Cond_Table(i, j) = kspec * 1.0E5;
-            y[j] = 0.0;
+        switch (tModel) {
+        case cMulticomponent:
+        case CK_Multicomponent:
+        case cMixtureAveraged:
+        case CK_MixtureAveraged:
+            for (size_t j = 0; j < nsp; j++) {
+                y[j] = 1.0;
+                g.setState_TPY(T, BG.Pressure, y);
+                kspec = t->thermalConductivity();
+                Cond_Table(i, j) = kspec * 1.0E5;
+                y[j] = 0.0;
+            }
+            break;
+        case cSolidTransport:
+        default:
+            t->getSpeciesThermalConductivities(lambda);
+            for (size_t j = 0; j < nsp; j++) {
+                Cond_Table(i, j) = lambda[j] * 1.0E5;
+            }
+            break;
         }
     }
     g.setState_TPX(BG.Temperature, BG.Pressure, BG.Xmol);
+    delete [] darray;
+    delete [] svisc;
+    delete [] lambda; 
+    delete [] y;
 }
 //==================================================================================================================================
 void
@@ -970,10 +1003,8 @@ printBathSpeciesConditions(ThermoPhase& g, PhaseList* pl, int printLvl)
 bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
 {
     bool retn = true;
-    double T = 300.;
-    double P = 1.0E5;
     // Should use the bath state to set up the transport!
-    int numSpecies = g.nSpecies();
+    //int numSpecies = g.nSpecies();
     
 /*
     double* y = new double[numSpecies];
@@ -1033,7 +1064,7 @@ void print_Mixture_members(ThermoPhase& g)
         double visc = GTran->viscosity();
         cout << "\t viscosity = " << visc << endl;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             T = 300. + 100. * i;
             g.setState_TPY(T, P, y);
             visc = GTran->viscosity();

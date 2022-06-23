@@ -150,7 +150,7 @@ csvdiff_compare_file() {
    fi
    /bin/rm -rf $difname
  
-   csvdiff -a $XED_ATOL -r $XED_RTOL  $bb $gg > $difname
+   ${XBINDIR}/csvdiff -a $XED_ATOL -r $XED_RTOL  $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
    then
@@ -442,7 +442,7 @@ do
         /bin/rm runInProgress.txt
         exit -1
     fi
-    csvdiff_compare_file $b $g $n
+    ${XBINDIR/csvdiff_compare_file $b $g $n
 
     CSV_FILES=`chop_head $CSV_FILES`
     DIFF_CSV_NAMES=`chop_head $DIFF_CSV_NAMES`

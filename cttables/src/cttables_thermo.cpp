@@ -605,7 +605,7 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
             if (IOO.ChemPotColumn) {
                 printf("|  (kJ/gmol)  ");
             }
-            printf("|   (kg/m*sec)    (J/m*sec*K)     (m**2/sec)    ");
+            printf("|   (g/cm*sec)    (Erg/cm*sec*K)    (cm**2/sec)    ");
             printf("|\n");
         }
         printf("|-----------|-----------------------------------------------"
