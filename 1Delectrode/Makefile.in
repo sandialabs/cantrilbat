@@ -91,7 +91,7 @@ memtest: $(TEST_DIRS)
 rebaseline: TASK = rebaseline
 rebaseline: $(TEST_DIRS)
 
-install: TASK = instasll
+install: TASK = install
 install: $(ALL_DIRS)
 
 
