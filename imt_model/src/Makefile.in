@@ -84,6 +84,8 @@ all: .depends libimt_model.a
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
+.cpp.o: Makefile
+
 # 
 # These classes compile against the Zuzax kernel
 # format
@@ -112,11 +114,13 @@ DEPENDS = $(OBJ_CTAPPLBASE:.o=.d)
 .f.d:
 	echo "$*.o: $*.f" > $*.d
 
-.cpp.d:
+.cpp.d: Makefile
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
 .c.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+$(DEPENDS) : Makefile
 
 ############################################################################
 
@@ -129,7 +133,7 @@ depends:
 	$(RM) *.d .depends
 	@MAKE@ .depends
 
-.depends: $(DEPENDS)
+.depends: $(DEPENDS) Makefile
 	cat *.d > .depends
 
 test:

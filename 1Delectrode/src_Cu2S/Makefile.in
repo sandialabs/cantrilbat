@@ -24,7 +24,7 @@ OBJS = $(PROG_NAME).o  Cu2S_models.o m1d_DomainLayout_Cu2S.o \
 TOBJS =  $(OBJS) 
 
 #############################################################################
-# These links are to Cantera's install space
+# These links are to Zuzax's install space
 ZUZAX_INCROOT =  @ct_incroot@
 ZUZAX_INSTALL_DIR = @ct_prefix@
 ZUZAX_APPS_INSTALL_DIR =  @cta_prefix@

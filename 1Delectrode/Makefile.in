@@ -1,25 +1,99 @@
 #/bin/sh
 ###############################################################
-#  $Author: cmtenne $
-#  $Date: 2011/10/29 04:24:01 $
-#  $Revision: 1.19 $
 #
-###############################################################
-build_python=@BUILD_PYTHON@
-
+#  Need to compile the two source directories before attempting to link others
+#
 all:
-	cd src;                           $(MAKE) all
-	cd src_test;                      $(MAKE) all
-	cd src_CanteraElectrode;          $(MAKE) all
-	cd src_LiIon_PorousBat;           $(MAKE) all
-	cd src_Cu2S;                      $(MAKE) all
-	cd src_LiKCl_infPlateBat;         $(MAKE) all
-	cd src_LiKCl_infPorousBat;        $(MAKE) all
-	cd src_LiKCl_PorousBat;           $(MAKE) all
-	cd test_suite;                    $(MAKE)
-	cd test_develop;                  $(MAKE)
-	cd test_other;                    $(MAKE) 
-	cd test_LiKCl;                    $(MAKE)
+	cd src ;                  $(MAKE) all
+	cd src_CanteraElectrode ; $(MAKE) all
+	$(MAKE)  alllink
+
+src_t:
+	cd src &&                               $(MAKE) $(SSIL) $(TASK)
+
+src_test_t:
+	cd src_test &&                          $(MAKE) $(SSIL) $(TASK)
+
+src_CanteraElectrode_t:
+	cd src_CanteraElectrode &&              $(MAKE) $(SSIL) $(TASK)
+
+src_LiIon_PorousBat_t:
+	cd src_LiIon_PorousBat &&               $(MAKE) $(SSIL) $(TASK)
+
+src_Cu2S_t:
+	cd src_Cu2S &&                          $(MAKE) $(SSIL) $(TASK)
+
+src_LiKCl_infPlateBat_t:
+	cd src_LiKCl_infPlateBat &&             $(MAKE) $(SSIL) $(TASK)
+
+src_LiKCl_infPorousBat_t:
+	cd src_LiKCl_infPorousBat &&            $(MAKE) $(SSIL) $(TASK)
+
+src_LiKCl_PorousBat_t:
+	cd src_LiKCl_PorousBat &&               $(MAKE) $(SSIL) $(TASK)
+
+test_suite_t:
+	cd test_suite &&                        $(MAKE) $(SSIL) $(TASK)
+
+test_develop_t:
+	cd test_develop &&                      $(MAKE) $(SSIL) $(TASK)
+
+test_other_t:
+	cd test_other &&                        $(MAKE) $(SSIL) $(TASK)
+
+test_LiKCl_t:
+	cd test_LiKCl &&                        $(MAKE) $(SSIL) $(TASK)
+
+
+TEST_DIRS = test_suite_t \
+            test_develop_t \
+            test_other_t \
+            test_LiKCl_t \
+
+ALL_DIRS  = src_t \
+	    src_test_t \
+	    src_CanteraElectrode_t \
+	    src_LiIon_PorousBat_t \
+            src_Cu2S_t \
+            src_LiKCl_infPlateBat_t \
+            src_LiKCl_infPorousBat_t \
+            src_LiKCl_PorousBat_t \
+            $(TEST_DIRS)
+
+
+alllink: TASK = all
+alllink: $(ALL_DIRS)
+
+depends:  TASK = depends
+depends: $(ALL_DIRS)
+
+clean:  TASK = clean
+clean: $(ALL_DIRS)
+
+clean_test: TASK = clean_test
+clean_test: $(ALL_DIRS)
+
+clean_dist:  TASK = clean_dist
+clean_dist: $(ALL_DIRS)
+
+clean_test_flags:  TASK = clean_test_flags
+clean_test_flags: $(ALL_DIRS)
+
+test:  TASK = test
+test: $(TEST_DIRS)
+
+testAll:  TASK = testAll
+testAll: $(TEST_DIRS)
+
+memtest:  TASK = memtest
+memtest: $(TEST_DIRS)
+
+rebaseline: TASK = rebaseline
+rebaseline: $(TEST_DIRS)
+
+install: TASK = instasll
+install: $(ALL_DIRS)
+
 
 allsrc:
 	cd src;                           $(MAKE) 
@@ -45,25 +119,7 @@ allback:
 	cd test_develop;                  $(MAKE)
 	cd test_suite;                    $(MAKE)
 
-test:
-	cd test_suite;                    $(MAKE) test
-	cd test_other;                    $(MAKE) test
-	cd test_LiKCl;                    $(MAKE) test
-	cd test_develop;                  $(MAKE) test
 
-clean:
-	cd src;                           (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_test;                      (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_CanteraElectrode;          (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_Cu2S;                      (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
-	cd test_suite;                    $(MAKE) clean
-	cd test_develop;                  $(MAKE) clean
-	cd test_other;                    $(MAKE) clean
-	cd test_LiKCl;                    $(MAKE) clean
 
 clean_test:
 	cd test_suite;                    $(MAKE) clean_test
@@ -73,48 +129,6 @@ clean_test:
 
 dist_clean:
 	$(MAKE) clean_dist
-
-clean_dist:
-	cd src;                           (/bin/rm -f .depends ; $(MAKE) dist_clean )
-	cd src_test;	              (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_CanteraElectrode;          (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_Cu2S;                      (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
-	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
-	cd test_suite;                    $(MAKE) clean_dist
-	cd test_other;                    $(MAKE) clean_dist
-	cd test_LiKCl;                    $(MAKE) clean_dist
-	cd test_develop;                  $(MAKE) clean_dist
-
-
-depends:
-	cd src;                           $(MAKE) depends
-	cd src_test;                      $(MAKE) depends
-	cd src_CanteraElectrode;          $(MAKE) depends
-	cd src_Cu2S;                      $(MAKE) depends
-	cd src_LiKCl_infPlateBat;         $(MAKE) depends
-	cd src_LiKCl_infPorousBat;        $(MAKE) depends
-	cd src_LiKCl_PorousBat;           $(MAKE) depends
-	cd src_LiIon_PorousBat;           $(MAKE) depends
-	cd test_suite;                    $(MAKE) depends
-	cd test_other;                    $(MAKE) depends
-	cd test_LiKCl;                    $(MAKE) depends
-	cd test_develop;                  $(MAKE) depends
-
-install:
-	cd src;                           $(MAKE) install
-	cd src_test;                      $(MAKE) install
-	cd src_CanteraElectrode;          $(MAKE) install
-	cd src_Cu2S;                      $(MAKE) install
-	cd src_LiKCl_infPlateBat;         $(MAKE) install
-	cd src_LiKCl_infPorousBat;        $(MAKE) install
-	cd src_LiKCl_PorousBat;           $(MAKE) install
-	cd src_LiIon_PorousBat;           $(MAKE) install
-	cd test_suite;                    $(MAKE) install
-	cd test_other;                    $(MAKE) install
-	cd test_LiKCl;                    $(MAKE) install
 
 # end of file
 

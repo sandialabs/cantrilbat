@@ -84,7 +84,7 @@ depends:
 	$(RM) $(DEPENDS)
 	$(MAKE) .dependsT
 
-.dependsT: $(DEPENDS)
+.dependsT: $(DEPENDS) Makefile
 	cat $(DEPENDS) > .depends
 	touch .dependsT
 
