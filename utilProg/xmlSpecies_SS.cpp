@@ -1,23 +1,16 @@
 /*
  *
- *  xmlSolnDiff File1.xml File2.xml
+ *          xmlHMWSpeciesCVS [-h] [-help_cmdfile] [fileName]  "
  *
- *  Compares the variable values in two Zuzax solution xml
- *  files.
- *  The comparison is done using a weighted norm basis.
- *
- *  The two files should be basically equal. However, File1.xml is
- *  taken as the reference file, that has precedence, when there is
- *  something to be decided upon.
+ *    Creates an CSV file consisting of the key entries for the specification of the standard state
+ *    The analysis file is named speciesSS.csv 
  *
  *  Arguments:
  *   -h = prints this usage information
+ *    fileName   selects that XML file for analysis
  *
  *  Shell Return Values
- *    1 = Comparison was successful
- *    0 = One or more nodal values failed the comparison
- *   -1 = Apples to oranges, the files can not even be compared against
- *        one another.
+ *    0 = Analysis was successful
  */
 
 #include <stdio.h>
@@ -28,7 +21,6 @@
 #include <limits.h>
 #include <fstream>
 #include <unistd.h>
-
 
 #include "zuzax/base/xml.h"
 #include "zuzax/base/ctml.h"
@@ -67,51 +59,17 @@ static XML_Node* readXML(std::string inputFile)
     return fxml;
 }
 
-
-
-//==================================================================================================================================
-//! Returns the num'th SolnOutput record from the XML tree.
-/*!
- *  @param[in]               xmlTop              XML Tree including a "ctml" XMLNode with multiple SolnOutput records
- *  @param[in]               num                 Number of the record
- */
-static XML_Node* getSpeciesData(XML_Node* xmlTop, int num = 0)
-{
-    XML_Node* xctml = xmlTop;
-    if (xctml->name() != "ctml") {
-        xctml = xmlTop->findByName("ctml");
-        if (!xctml) {
-            throw ZuzaxError("getSimulNum","Can't find ctml node");
-        }
-    }
-    std::vector<XML_Node*> ccc;
-    xctml->getChildren("speciesData", ccc);
-    int sz = ccc.size();
-    if (num < 0 || num >= sz) {
-        throw ZuzaxError("getSpeciesData", "out of bounds, requested %d record, only have %d records", num, sz);
-    }
-    return ccc[num];
-}
-//==================================================================================================================================
-static size_t getSpeciesXML(XML_Node* xmlTop, std::vector<XML_Node*>& ccc)
-{
-    XML_Node* xctml = xmlTop;
-    xctml->getChildren("species", ccc);
-    size_t sz = ccc.size();
-    return sz;
-}
 //==================================================================================================================================
 static void printUsage()
 {
-    std::cout << "usage: xmlHMWSpeciesCVS [-h] [-help_cmdfile] [fileName]  "
+    std::cout << "usage: xmlHMWSpeciesCVS [-h] [-help_cmdfile] [fileName.xml]  "
               <<  std::endl;
     std::cout << "    -h           help" << endl;
     std::cout << "    fileName:   XML File to parse for Standard State Specification block" << endl;
     std::cout << std::endl;
-    std::cout << "        Prints out a CSV file consisting of the entries for the specification of the standard state\n" << std::endl;
+    std::cout << "        Creates out a CSV file consisting of the key entries for the specification of the standard state\n"; 
+    std::cout << "        The file is named fileName_speciesSS.csv \n" << std::endl;
 }
-
-
 
 //==================================================================================================================================
 int main(int argc, char* argv[])
@@ -158,6 +116,12 @@ int main(int argc, char* argv[])
         fprintf(stderr,"Error opening up file1, %s\n", fileName1.c_str());
         exit(-1);
     }
+
+    std::string fileNameOut = fileName1;
+    size_t sz = fileNameOut.size();
+    fileNameOut = fileNameOut.substr(0,sz-4);
+    fileNameOut += "_speciesSS.csv";
+    
 
     thermo_t_double& tp = *newPhase(fileName1);
     size_t nsp = tp.nSpecies();
@@ -224,11 +188,11 @@ int main(int argc, char* argv[])
         }
     }
 
-    FILE *fcsv = fopen("speciesSS.csv", "w");    
+    FILE *fcsv = fopen(fileNameOut.c_str(), "w");    
     printf("Printed out  %d species 298.15K reference state values at 1 bar\n", (int) nsp);
 
-    fprintf(fcsv, "    SpeciesName  ,      HF_298  ,      H_ref  ,      S_ref  ,      G_ref  ,      Gf_298 ,     Cp_ref  , molarVol_ref\n");
-    fprintf(fcsv, "                 ,      J/kmol  ,     J/kmol  ,    J/kmol/K ,     J/kmol  ,      J/kmol ,   J/kmol/K  ,     m3/kmol \n");
+    fprintf(fcsv, "    SpeciesName  ,      HF_298  ,      S_ref  ,      G_ref  , delta_Gf_298,     Cp_ref  , molarVol_ref\n");
+    fprintf(fcsv, "                 ,     kJ/gmol  ,    J/gmol/K ,    kJ/gmol  ,     kJ/gmol ,   J/gmol/K  ,    cm3/gmol \n");
 
     // Buffer the csv line into buf;
     for (size_t k = 0; k < nsp; k++) {
@@ -240,13 +204,13 @@ int main(int argc, char* argv[])
         sprintf(buf + slen, "%16.16s , ", spName.c_str());
         slen = strlen(buf);
 
-        sprintf(buf + slen, " % 12.5E, % 12.5E, % 12.5E,", hf_298[k], h_ref[k], s_ref[k]);
+        sprintf(buf + slen, " % 12.5E, % 12.5E,", 1.0E-6*hf_298[k], 1.0E-3*s_ref[k]);
         slen = strlen(buf);
 
-        sprintf(buf + slen, " % 12.5E, % 12.5E, % 12.5E,", g_ref[k], gf_298[k], cp_ref[k]);
+        sprintf(buf + slen, " % 12.5E, % 12.5E, % 12.5E,", 1.0E-6*g_ref[k], 1.0E-6*gf_298[k], 1.0E-3*cp_ref[k]);
         slen = strlen(buf);
 
-        sprintf(buf + slen, " % 12.5E, ", mv_ref[k]);
+        sprintf(buf + slen, " % 12.5E, ", 1.0E3*mv_ref[k]);
         slen = strlen(buf);
         
         fprintf(fcsv,"%s\n", buf); 
