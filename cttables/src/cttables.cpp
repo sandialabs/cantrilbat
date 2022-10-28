@@ -178,6 +178,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
                                   DenseMatrix& Hrel_Table,
                                   DenseMatrix& Grel_Table,
                                   DenseMatrix& S_Table,
+                                  DenseMatrix& V_Table,
                                   bool haveSpeciesTransportProps,
                                   DenseMatrix& Visc_Table,
                                   DenseMatrix& Cond_Table,
@@ -302,7 +303,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
     g_ptr->setTemperature(298.15);  // temp fix for variable reference pressures
     SpeciesThermo& sThermo = g_ptr->speciesThermo();
     double presRef = sThermo.refPressure(k);
-    double presRefPhase = g_ptr->refPressure();
+    double presRefPhase = g_ptr->refPressure(k, 298.15);
 
     if (IOO.OutputUnits == UNITS_KCAL_CGS) {
         if (doubleEqual(presRef, presRefPhase)) {
@@ -381,7 +382,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
     printf("\n");
     if (haveSpeciesTransportProps) {
         printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
-               "   S       ");
+               "   S                 V   ");
         if (IOO.IntEnergyColumn) {
             printf("|  (U - U298)   ");
         }
@@ -394,7 +395,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
         printf("|\n");
         if (IOO.OutputUnits == UNITS_KCAL_CGS) {
             printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
-                   "(cal/mol*K)");
+                   "(cal/mol*K)    (m3/kmol) ");
             if (IOO.IntEnergyColumn) {
                 printf("|  (kcal/mole)  ");
             }
@@ -405,7 +406,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
             printf("|\n");
         } else  if (IOO.OutputUnits == UNITS_KJOULE) {
             printf("|      (K)  |  (kJ/gmol)      (kJ/gmol)      (J/gmol*K)     "
-                   "(J/gmol*K) ");
+                   "(J/gmol*K)    (m3/kmol)  ");
             if (IOO.IntEnergyColumn) {
                 printf("|  (kJ/gmol)    ");
             }
@@ -417,7 +418,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
         }
     } else {
         printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
-               "   S       ");
+               "   S               V     ");
         if (IOO.IntEnergyColumn) {
             printf("|  (U - U298)  ");
         }
@@ -427,7 +428,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
         printf("|\n");
         if (IOO.OutputUnits == UNITS_KCAL_CGS) {
             printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
-                   "(cal/mol*K)");
+                   "(cal/mol*K)    (m3/kmol)  ");
             if (IOO.IntEnergyColumn) {
                 printf("|  (kcal/mole) ");
             }
@@ -437,7 +438,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
             printf("|\n");
         } else  if (IOO.OutputUnits == UNITS_KJOULE) {
             printf("|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    "
-                   "(J/gmol*K) ");
+                   "(J/gmol*K)     (m3/kmol) ");
             if (IOO.IntEnergyColumn) {
                 printf("| (kJ/gmol)    ");
             }
@@ -446,7 +447,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
             }
             printf("|\n");
         }
-        cout << "|-----------|-----------------------------------------------"
+        cout << "|-----------|-------------------------------------------------------------"
              << "-----------";
         if (IOO.IntEnergyColumn) {
             printf("|--------------");
@@ -478,6 +479,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
         pr_df(Grel_Table(i,k), 16, 4);
         pr_df(Cp_Table(i,k), 15, 4);
         pr_df(S_Table(i,k), 13, 4);
+        pr_df(V_Table(i,k), 14, 4);
         printf("   ");
         if (IOO.IntEnergyColumn) {
             printf("|");
@@ -508,18 +510,18 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
 /*****************************************************************/
 /*****************************************************************/
 /*****************************************************************/
-/*
- * Get the Thermodynamic tables for all species.
- * Note, I have switched over to using functions from the
- * ThermoPhase base class exclusively. It works! and therefore,
- * I can use this for other ThermoPhase derived classes.
- * This works at either the reference pressure for all species
- * or a single pressure specified by the input file.
+//! Get the Thermodynamic tables for all species.
+/*!
+ *  Note, I have switched over to using functions from the
+ *  ThermoPhase base class exclusively. It works! and therefore,
+ *  I can use this for other ThermoPhase derived classes.
+ *  This works at either the reference pressure for all species
+ *  or a single pressure specified by the input file.
  */
 void
 getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
                 DenseMatrix& Hrel_Table, DenseMatrix& Grel_Table,
-                DenseMatrix& S_Table, vector<double>& H298,
+                DenseMatrix& S_Table, DenseMatrix& V_Table, vector<double>& H298,
                 ThermoPhase& g, DenseMatrix& Urel_Table,
                 vector<double>& U298)
 {
@@ -531,6 +533,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
     double* S_R  = mdp_alloc_dbl_1(nsp, 0.0);
     double* g_RT = mdp_alloc_dbl_1(nsp, 0.0);
     double* cp_R = mdp_alloc_dbl_1(nsp, 0.0);
+    double* Vref = mdp_alloc_dbl_1(nsp, 0.0);
 
     /*
      * Get units converters
@@ -541,10 +544,9 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
     /*
      * First we load a vector of standard state properties at 298.15.
      * We are dropping down here to the ThermoPhase class to call
-     * their thermodyanmics routine. We don't need the concept
+     * their thermodynamics routine. We don't need the concept
      * of a mixture thermo here, except for the fact that for every
-     * phase, there is a unique definition of what the standard
-     * state is.
+     * phase, there is a unique definition of what the standard state.
      */
     double P = BG.Pressure;
     if (IOO.UseRefPressureInThermoTables) {
@@ -592,12 +594,15 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
             g.getIntEnergy_RT_ref(u_RT);
         }
         g.getCp_R_ref(cp_R);
+        g.getStandardVolumes_ref(Vref);
         /*
          * Now, copy the results into the matrices, and
          * zero off the 298 K heat of formation. Also,
          * translate to real units.
          */
         for (size_t j = 0; j < nsp; j++) {
+            
+            V_Table(i, j)    = Vref[j];
             Cp_Table(i, j)   = cp_R[j] * UIO.mEntropy;
             Hrel_Table(i, j) = h_RT[j] * RGibbs * T;
             Urel_Table(i, j) = u_RT[j] * RGibbs * T;
@@ -622,6 +627,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
                 double T;
                 for (int i = 0; i < TT.size(); i++) {
                     T = TT[i];
+                    presRef = g.refPressure(k, T);
                     g.setState_TPX(T, presRef, y);
                     g.getEntropy_R_ref(S_R);
                     g.getGibbs_RT_ref(g_RT);
@@ -630,11 +636,14 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
                         g.getIntEnergy_RT_ref(u_RT);
                     }
                     g.getCp_R_ref(cp_R);
+                    g.getStandardVolumes_ref(Vref);
+
                     /*
                      * Now, copy the results into the matrices, and
                      * zero off the 298 K heat of formation. Also,
                      * translate to real units.
                      */
+                    V_Table(i, k)    = Vref[k];
                     Cp_Table(i, k)   = cp_R[k] * UIO.mEntropy;
                     Hrel_Table(i, k) = h_RT[k] * RGibbs * T;
                     Urel_Table(i, k) = u_RT[k] * RGibbs * T;
@@ -654,6 +663,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
     mdp_safe_free((void**) &S_R);
     mdp_safe_free((void**) &g_RT);
     mdp_safe_free((void**) &cp_R);
+    mdp_safe_free((void**) &Vref);
 }
 //==================================================================================================================================
 /**
@@ -1419,9 +1429,11 @@ int main(int argc, char** argv)
             DenseMatrix Urel_Table(TT_ptr->size(), nSpecies);
             DenseMatrix Grel_Table(TT_ptr->size(), nSpecies);
             DenseMatrix S_Table(TT_ptr->size(), nSpecies);
+            DenseMatrix V_Table(TT_ptr->size(), nSpecies);
             std::vector<double> H298(nSpecies);
             std::vector<double> U298(nSpecies);
-            getThermoTables(*TT_ptr, Cp_Table, Hrel_Table, Grel_Table, S_Table, H298, *gThermoMainPhase, Urel_Table, U298);
+            getThermoTables(*TT_ptr, Cp_Table, Hrel_Table, Grel_Table, S_Table, V_Table,
+                            H298, *gThermoMainPhase, Urel_Table, U298);
 
             /*
              * Go get all of the transport quantities for the species
@@ -1465,7 +1477,7 @@ int main(int argc, char** argv)
                  */
                 for (size_t k = 0; k < nSpecies; k++) {
                     printThermoPhaseSpeciesTable(gThermoMainPhase, k, *TT_ptr, Cp_Table,
-                                                 Hrel_Table, Grel_Table, S_Table, haveSpeciesTransportProps,
+                                                 Hrel_Table, Grel_Table, S_Table, V_Table, haveSpeciesTransportProps,
                                                  Visc_Table, Cond_Table, Diff_Table, H298, Urel_Table, U298);
                 }
             }

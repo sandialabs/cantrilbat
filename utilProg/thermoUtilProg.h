@@ -60,6 +60,40 @@ struct Cp_Barin {
         return value_joules;
     }
 };
+//===============================================================================================
+//! Heat Capacity in Jgmol format
+/*!
+ *  Hist inputs are in the form of 4 parameters listed as:
+ *     A   B   C   D
+ *
+ *  The input here is the same as the table input
+ */
+struct Cp_Jgmol {
+    double A ;
+    double B ;
+    double C ;
+    double D ;
+
+    Cp_Jgmol(double a, double b, double c, double d) :
+        A(a),
+        B(b),
+        C(c),
+        D(d)
+    {
+    }
+
+    //! Calculate the value of Cp in J/gmol/K
+    /*!
+     *  @param[in]            T                   temperature
+     *
+     *  @return                                   returns the heat capacity in J/gmol/K
+     */
+    double value(double T)
+    {
+        double value_joules = A + B * 1.0E-3 * T + C * 1.0E5 / (T * T) + D * 1.0E-6 * T * T;
+        return value_joules;
+    }
+};
 //==================================================================================================================================
 //! Thermodynamics polynomial for Shomate
 /*!
@@ -133,10 +167,17 @@ struct Thermo_Shomate {
      */
     void convertCpBarinToShomate(const Cp_Barin& cpb);
 
+    void convertCpJgmolToShomate(const Cp_Jgmol& cpb);
+
     /*!
      *  @param[in]         Hf_Barin      heat of formation at 298.15 in kcal/gmol
      */
     void convert_Hf_Barin_ToShomate(double Hf_kcals);
+
+    /*!
+     *  @param[in]         Hf_Jgmol      heat of formation at 298.15 in J/gmol
+     */
+    void convert_Hf_Jgmol_ToShomate(double Hf_Jgmol);
 
     //! Set the S298 value
     /*!
@@ -163,6 +204,8 @@ struct Thermo_Shomate {
      *  @param[in]           deltaH_kcals        Value of the delta enthalpy at temperature T in kcals/gmol
      */
     void convert_DeltaH_Barin_ToShomate(const Thermo_Shomate& solid, double T_melt, double deltaH_kcals);
+
+
 
     //! Converts the Barin delta Entropy value (kcals/mole) for a phase change into a value for S298 that is used in the Shomate polynomial
     /*!

@@ -88,14 +88,6 @@ Bath Species set to N2
 	 viscosity = 1.97694e-05
 	 viscosity(300 K) = 1.97694e-05
 	 viscosity(400 K) = 2.37991e-05
-	 viscosity(500 K) = 2.74815e-05
-	 viscosity(600 K) = 3.09085e-05
-	 viscosity(700 K) = 3.41365e-05
-	 viscosity(800 K) = 3.7203e-05
-	 viscosity(900 K) = 4.01347e-05
-	 viscosity(1000 K) = 4.29514e-05
-	 viscosity(1100 K) = 4.56683e-05
-	 viscosity(1200 K) = 4.82974e-05
 ----------------------------------------------------------------
 Bath Species set to N2
 Bath Species set to N2

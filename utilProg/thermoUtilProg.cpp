@@ -30,7 +30,6 @@ void ind(size_t n)
      }
 }
 //==================================================================================================================================
-//==================================================================================================================================
 void Thermo_Shomate::convertCpBarinToShomate(const Cp_Barin& cpb)
 {
     a_s = cpb.A * 4.184;
@@ -38,6 +37,15 @@ void Thermo_Shomate::convertCpBarinToShomate(const Cp_Barin& cpb)
     c_s = cpb.D * 4.184;
     d_s = 0.0 ;
     e_s = cpb.C / 10.0 * 4.184;
+}
+//==================================================================================================================================
+void Thermo_Shomate::convertCpJgmolToShomate(const Cp_Jgmol& cpb)
+{
+    a_s = cpb.A ;
+    b_s = cpb.B ;
+    c_s = cpb.D ;
+    d_s = 0.0 ;
+    e_s = cpb.C / 10.0 ;
 }
 //==================================================================================================================================
 void Thermo_Shomate::convert_Hf_Barin_ToShomate (double Hf_kcals)
@@ -49,12 +57,21 @@ void Thermo_Shomate::convert_Hf_Barin_ToShomate (double Hf_kcals)
   f_s = Hf298_s - HfmF;
 }
 //==================================================================================================================================
-void Thermo_Shomate::set_S298(double S298)
+void Thermo_Shomate::convert_Hf_Jgmol_ToShomate (double Hf_Jgmol)
+{
+   //H= A t + \frac{B t^2}{2} + \frac{C t^3}{3} + \frac{D t^4}{4}  - \frac{E}{t}  + F.
+  double t = 298.15 / 1000.;
+  double HfmF =  a_s * t + b_s * t * t / 2.0 + c_s * t * t * t / 3.0 + d_s * t * t * t * t / 4.0  - e_s / t;
+  Hf298_s = Hf_Jgmol / 1.0E3;
+  f_s = Hf298_s - HfmF;
+}
+//==================================================================================================================================
+void Thermo_Shomate::set_S298(double S298_JgmolK)
 {
    double t = 298.15 / 1000.;
    //  \tilde{s}^0(T) = A\ln t + B t + \frac{C t^2}{2} + \frac{D t^3}{3} - \frac{E}{2t^2}  + G.
    double SmG = a_s * log(t) +  b_s * t + c_s * t * t / 2.0 + d_s * t * t * t / 3.0  - e_s / (2.0 * t * t);
-   S298_s = S298;
+   S298_s = S298_JgmolK;
    g_s = S298_s - SmG;
 }
 //==================================================================================================================================

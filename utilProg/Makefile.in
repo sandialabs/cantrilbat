@@ -69,7 +69,7 @@ BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
       BarinConversion_C BarinConversion_Cu findRefState O2_NASAVerification \
       xmlHMWSpeciesCSV xmlPitzerAC xmlPitzerAC_Theta xmlPitzerAC_Lambda xmlPitzerAC_Psi \
-      xmlRxnTable xmlButlerVolmerForms xmlSpecies_SS
+      xmlRxnTable xmlButlerVolmerForms xmlSpecies_SS  JgmolConversion_U3O8
 
 
 ############################################################################
@@ -156,6 +156,13 @@ BarinConversion_C: BarinConversion_C.o thermoUtilProg.o \
 BarinConversion_Cu: BarinConversion_Cu.o thermoUtilProg.o \
          $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Cu BarinConversion_Cu.o thermoUtilProg.o  \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+JgmolConversion_U3O8: JgmolConversion_U3O8.o thermoUtilProg.o \
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o JgmolConversion_U3O8 JgmolConversion_U3O8.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
