@@ -386,7 +386,7 @@ int main(int argc, char **argv)
     int istatus;
     for (int itimes = 0; itimes < nT; itimes++) {
       iface->resetStartingCondition(Tout);
-      istatus = integ->step(10., Tout);
+      istatus = integ->advance_oneStep(10., Tout);
       if (istatus < ZZ_INT_SUCCESS) {
           throw ZuzaxError("Error", "integrator returned error: %d", istatus);
      }

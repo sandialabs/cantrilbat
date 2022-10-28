@@ -518,6 +518,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Getting a new Jacobian
 	   solve_problem(): Initial Residual Norm =   1.0000E-150
 	   solve_problem(): Calculate the Newton direction via a Newton solve
+	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1e-150, residTrial = 1e-150
 	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
@@ -654,6 +655,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Getting a new Jacobian
 	   solve_problem(): Initial Residual Norm =   1.0000E-150
 	   solve_problem(): Calculate the Newton direction via a Newton solve
+	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1e-150, residTrial = 1e-150
 	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
@@ -790,6 +792,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Getting a new Jacobian
 	   solve_problem(): Initial Residual Norm =   1.0000E-150
 	   solve_problem(): Calculate the Newton direction via a Newton solve
+	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1e-150, residTrial = 1e-150
 	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
@@ -926,6 +929,7 @@ Phase B boundary layer thickness = 0.001
 	   solve_problem(): Getting a new Jacobian
 	   solve_problem(): Initial Residual Norm =   1.0000E-150
 	   solve_problem(): Calculate the Newton direction via a Newton solve
+	   solve_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1e-150, residTrial = 1e-150
 	  dampStep(): Current trial step accepted retnTrial = 3, its = 1, damp = 1
