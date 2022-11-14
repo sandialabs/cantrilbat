@@ -437,7 +437,7 @@ C
 C
 C        To perform multiplier test and drop a constraint.
 C
-         CALL DCOPY (NSOLN, Z, 1, X, 1)
+         CALL DCOPY (NSOLN, Z(1), 1, X, 1)
          IF (NSOLN.LT.N) CALL DCOPY (N-NSOLN, 0.D0, 0, X(NSOLN+1), 1)
 C
 C        Reclassify least squares equations as equalities as necessary.
@@ -605,7 +605,7 @@ C
 C
 C     Solve system.
 C
-      CALL DCOPY (NSOLN, Z, 1, X, 1)
+      CALL DCOPY (NSOLN, Z(1), 1, X, 1)
 C
 C     Apply Householder transformations to X(*) if KRANK.LT.L
 C

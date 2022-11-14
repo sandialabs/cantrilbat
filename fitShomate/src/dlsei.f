@@ -590,7 +590,7 @@ C
 C
 C     Save diagonal terms of lower trapezoidal matrix.
 C
-  160 CALL DCOPY (KRANKE, W, MDW+1, WS(KRANKE+1), 1)
+  160 CALL DCOPY (KRANKE, W(1,1), MDW+1, WS(KRANKE+1), 1)
 C
 C     Use Householder transformation from left to achieve
 C     KRANKE by KRANKE upper triangular form.

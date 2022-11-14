@@ -210,7 +210,7 @@ C
             MODE = 2
          ENDIF
       ELSE
-         CALL DCOPY (N, WS, 1, X, 1)
+         CALL DCOPY (N, WS(1), 1, X, 1)
       ENDIF
 C
 C     Compute covariance matrix based on the orthogonal decomposition
@@ -222,7 +222,7 @@ C
 C
 C     Copy diagonal terms to working array.
 C
-      CALL DCOPY (KRANK, W, MDW+1, WS(N2), 1)
+      CALL DCOPY (KRANK, W(1,1), MDW+1, WS(N2), 1)
 C
 C     Reciprocate diagonal terms.
 C

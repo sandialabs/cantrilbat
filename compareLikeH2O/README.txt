@@ -32,6 +32,18 @@ I will go with the deltaVolume equaling zero for all of the reactions as well,
 with an input to change the deltaVolume amount by a given value for each reaction,
 that is a use input.
 
+Issues
+--------------
+  If there really are two distinct states with the same energy, is it the case
+that I can get the same result by decreasing the entropy by a factor of 2 for each
+species?  I have to do a thought problem on this.
+The answer is that we can make the result exactly the same, but we have to reduce the
+standard state entropy of each split pair by 0.5 ln2 R.
+
+ nln n = - 2n a + n ln n/2  = - 2n a + n ln n - n ln 2 = 0
+
+   a = - 1/2 ln 2.
+
 Plan
 --------------------
 The first thing to do is to stude the H+ reaction, making sure that deltaG=0 can be 
@@ -41,6 +53,7 @@ the utility program is done.
 
 Then, I should also invest some time in reviewing the literature to come up with an
 literature review on what has been said about this issue.
+
 
 
 
