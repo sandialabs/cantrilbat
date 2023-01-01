@@ -34,6 +34,7 @@ all:
 	cd mpequil;                       $(MAKE)
 	cd epequil;                       $(MAKE)
 	cd cttables;                      $(MAKE)
+	cd waterAddRxnTables;             $(MAKE)
 	cd fitShomate;                    $(MAKE)
 	cd electrodeCell;                 $(MAKE)
 	cd imt_model;                     $(MAKE)
@@ -50,6 +51,7 @@ allsrc:
 	cd mpequil;                       $(MAKE) allsrc
 	cd epequil;                       $(MAKE) allsrc
 	cd cttables;                      $(MAKE) allsrc
+	cd waterAddRxnTables;             $(MAKE) allsrc
 	cd electrodeCell;                 $(MAKE) allsrc
 	cd batteryDevelop;		  $(MAKE)
 	cd utilProg;			  $(MAKE)
@@ -63,6 +65,7 @@ allback:
 	cd electrodeCell;                 $(MAKE)
 	cd fitShomate;                    $(MAKE)
 	cd cttables;                      $(MAKE)
+	cd waterAddRxnTables;             $(MAKE) 
 	cd epequil;                       $(MAKE)
 	cd mpequil;                       $(MAKE)
 	cd 1Delectrode;                   $(MAKE) allback
@@ -83,6 +86,7 @@ clean:
 	cd mpequil;                       $(MAKE) clean
 	cd epequil;                       $(MAKE) clean
 	cd cttables;                      $(MAKE) clean
+	cd waterAddRxnTables;             $(MAKE) clean
 	cd fitShomate;                    $(MAKE) clean
 	cd electrodeCell;                 $(MAKE) clean
 	cd imt_model;                     $(MAKE) clean
@@ -98,6 +102,7 @@ test_clean:
 	cd mpequil;                       $(MAKE) clean
 	cd epequil;                       $(MAKE) clean
 	cd cttables;                      $(MAKE) clean
+	cd waterAddRxnTables;             $(MAKE) clean
 	cd fitShomate;                    $(MAKE) clean
 	cd electrodeCell;                 $(MAKE) clean
 	cd imt_model;                     $(MAKE) clean
@@ -115,6 +120,7 @@ dist_clean:
 	cd mpequil;                       $(MAKE) clean
 	cd epequil;                       $(MAKE) clean
 	cd cttables;                      $(MAKE) clean
+	cd waterAddRxnTables;             $(MAKE) clean
 	cd fitShomate;                    $(MAKE) clean
 	cd electrodeCell;                 $(MAKE) clean
 	cd imt_model;                     $(MAKE) clean
@@ -131,6 +137,7 @@ depends:
 	cd mpequil;                      $(MAKE) depends
 	cd epequil;                      $(MAKE) depends
 	cd cttables;                     $(MAKE) depends
+	cd waterAddRxnTables;             $(MAKE) depends
 	cd fitShomate;                   $(MAKE) depends
 	cd electrodeCell;                $(MAKE) depends
 	cd imt_model;                    $(MAKE) depends
@@ -148,6 +155,7 @@ test:
 	cd mpequil;                       $(MAKE) -s test
 	cd epequil;                       $(MAKE) -s test
 	cd cttables;                      $(MAKE) -s test
+	cd waterAddRxn;                   $(MAKE) -s test
 	cd electrodeCell;                 $(MAKE) -s test
 	cd imt_model;                     $(MAKE) -s test
 	cd batteryDevelop;		  $(MAKE) -s test
@@ -162,6 +170,7 @@ testback:
 	cd mpequil;                       $(MAKE) -s test
 	cd epequil;                       $(MAKE) -s test
 	cd cttables;                      $(MAKE) -s test
+	cd waterAddRxn;                   $(MAKE) -s test
 	cd electrodeCell;                 $(MAKE) -s test
 	cd imt_model;                     $(MAKE) -s test
 
@@ -190,6 +199,7 @@ install:
 	cd mpequil;                       $(MAKE) install
 	cd epequil;                       $(MAKE) install
 	cd cttables;                      $(MAKE) install
+	cd waterAddRxn;                      $(MAKE) install
 	cd fitShomate;                    $(MAKE) install
 	cd electrodeCell;                 $(MAKE) install
 	cd imt_model;                     $(MAKE) install

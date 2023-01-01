@@ -1,0 +1,150 @@
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+#
+# Copywrite (2005) Sandia Corporation. Under the terms of 
+# Contract DE-AC04-94AL85000 with Sandia Corporation, the
+# U.S. Government retains certain rights in this software.
+#
+.SUFFIXES: .d
+#
+##########################################################################
+#           Setup The Zuzax Directory locations
+#########################################################################
+#
+
+# These links are to Cantera's install space
+ZUZAX_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Zuzax includes through the .mak file
+#
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
+
+#
+# Set up the Zuzax addition library
+#
+CTPADDS_DIR = ../../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+# Set up the Zuzax Application Base directory
+#
+#CTAPPLBASE_DIR = ../../Electrode/src
+#CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
+#CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
+#
+# Utilsrc setup
+#
+UTILSRC_DIR =../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+
+#########################################################################
+# Set up the executable extension
+########################################################################
+
+TT=@EXE_EXT@
+ifeq ($(TT),)
+EXE_EXT=
+else
+EXE_EXT=$(TT)
+endif
+
+PURIFY=@PURIFY@
+
+#############################################################################
+
+OBJ_CTTABLES= waterAddRxn.o waterAddRxn_kin.o waterAddRxnInput.o sortAlgorithms.o cttables_thermo.o 
+
+OBJ_ZUZAX_ADDONS =   ReactingVolDomain.o
+
+PROGRAM=waterAddRxn$(EXE_EXT)
+ATOFCHECKER_EXE=atofChecker$(EXE_EXT)
+
+all:  $(CTTABLES_EXE) $(ATOFCHECKER_EXE) .depends
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+
+LDEFINES = -DDEBUG -DDEBUG_HKM_ETABLE -DDEBUG_ROOT1D
+#LDEFINES = -DDEBUG -DDEBUG_JCH_ETABLE -DCENTERED_VOLTAGE_TABLE -DDEBUG_ROOT1D
+
+INCLUDE_DIRS= $(ZUZAX_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  
+
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS)
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o: 
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_ZUZAX_ADDONS:.o=.d)
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+depends: 
+	$(MAKE) .depends
+
+$(OBJ_CTTABLES) $(OBJ_ZUZAX_ADDONS): Makefile
+
+$(DEPENDS): Makefile
+
+BUILD_WITH_CTF2C=@build_with_f2c@
+ifeq ($(BUILD_WITH_CTF2C), 1)
+LIBF2C=
+else
+LIBF2C= 
+endif
+
+$(CTTABLES_EXE): $(OBJ_CTTABLES) $(OBJ_ZUZAX_ADDONS) $(CTPADDS_DEP) \
+         $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(CTTABLES_EXE) $(OBJ_CTTABLES) \
+	          $(OBJ_ZUZAX_ADDONS) $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+$(ATOFCHECKER_EXE): atofChecker.o  $(ZUZAX_CORE_LIBS_DEP)
+	$(CXXLDR) $(LCXX_FLAGS) -o $(ATOFCHECKER_EXE) atofChecker.o  \
+                  $(ZUZAX_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+
+install:
+	$(MAKE) all
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c $(CTTABLES_EXE) @cta_bindir@
+
+clean:
+	$(RM) *.o  *.d .depends cttables ${PROG}  *~
+
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

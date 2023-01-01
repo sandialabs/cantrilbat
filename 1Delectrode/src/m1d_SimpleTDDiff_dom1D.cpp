@@ -79,8 +79,7 @@ SimpleTDDiff_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 /*
  *
  */
-void
-SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
+void SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
                               const bool doTimeDependentResid,
                               const Epetra_Vector *soln_ptr,
                               const Epetra_Vector *solnDot_ptr,

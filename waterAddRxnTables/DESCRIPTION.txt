@@ -1,0 +1,59 @@
+BlockInput
+--------------
+
+This file is meant to document the BlockInput and tok_input_util set
+of input utilities.
+
+BlockInput is a packaged designed to provide a simple hierarchal input
+utility based on the concept of line entry inputs.
+
+Tok_input_util.cpp is a set of routines that read and interpret line
+entry inputs, utilizing a common structure called a TOKEN structure.
+The TOKEN structure stores internally a string and the breakup of that
+string into individual tokens according to the standard definition of
+white space. Because the token structure is used, differences in white
+space within an input deck are not significant.
+
+There are two basic building blocks. The first basic building block is 
+the concept of a line entry.  A line entry is a keyword expression
+ending by either the '=' character or a new line. The line entry is 
+case independent. The line may continue after the equals sign
+to include parameters for the line entry command. The format for
+these parameters is specific to the line entry.
+
+The second building block for the input structure is the block
+structure. A block of input starts with the expression
+
+START BLOCK block_name = block_name_args
+
+
+and ends with the expression,
+
+END BLOCK block_name = end_block_name_args
+
+Within the block there may be an arbitrary number of line entries and
+additional blocks . In this way the blocks may be nested within each
+other to any arbitrary degree. NOte the top block of an input command
+file does not need to have start block and end block.
+
+
+
+
+By default the input is order independent. It doesn't matter what order
+each of the line entries or blocks are in. Of course the hierarchal 
+block structure does provide a powerful ordering structure of sorts.
+
+Note, the input file structure may be quite a bit more general than
+the one described above. The file pointer is supplied to the line
+entry and block input objects upon recognition of the object.
+Thus, any number of follow on lines and/or blocks of arbitrary
+format may be imposed by the individual line and block objects.
+
+
+The way the input is instantiated within the user code is to
+specify the format of the input file via the recognized line
+entries and blocks. Then, the input file is processsed by
+the top level block object via a simple command.
+
+
+ 

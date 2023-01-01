@@ -1,0 +1,27 @@
+#
+#
+# This is comment line
+This is a one int entry = 12
+#
+#
+Xmole = species_15 0.5
+Bath Gas ID = species_15
+XML Input File = silane.xml
+Debugging = true
+set tracking
+
+start block Bath Gas Composition
+  species_0 = 0.4
+  species_5 = 0.2
+  species_4 = 0.1
+  species_2 = 0.8
+End block Bath Gas Composition
+
+start block Bath Gas Mole Fraction
+  species_0 = 0.4
+  species_5 = 0.2
+  species_4 = 0.1
+  species_2 = 0.8
+End block Bath Gas Mole Fraction
+
+# the above were empty lines

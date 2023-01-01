@@ -1,0 +1,2 @@
+./cttables silane.xml < silane.inp > silane.out
+diff silane.out silane_blessed2.out

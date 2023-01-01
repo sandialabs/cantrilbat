@@ -1,0 +1,146 @@
+#
+#  Generic Makefile.in: 
+#
+#
+RM = /bin/rm -f
+
+PROGRAM = BO2_test
+
+TESTNAME = BO2_test
+
+BLESSED_FILES =
+
+DATA = problem_setup.sh  HMW_UO2_UPD.xml  
+
+TEST_INTERMEDIATE_FILES =  diff_summary.txt diff_csv.txt diff_out.txt runGood runBad runInProgress.txt \
+                           err_out.txt
+
+TEST_RESULTS =   vcs_equilibrate_res.csv out.txt 
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+#
+##########################################################################
+#           Setup The Zuzax Directory locations
+#########################################################################
+#
+# The directory where Zuzax include files may be found.
+#
+ZUZAX_INCROOT=@ct_incroot@
+#
+include $(ZUZAX_INCROOT)/zuzax/Zuzax.mak
+#
+TOPDIR = @abs_top_srcdir@
+#
+#
+# Set up the various local and global defines
+#
+LDEFINES = -DDEBUG  -DDEBUG_TEST
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = -I../../src $(ZUZAX_TOTAL_INCLUDES) 
+#
+# the C++ compiler
+#
+CXX = @CXX@
+
+debug_mode = 0
+ifeq ($(debug_mode), 1)
+   DEBUG_FLAG=-DDEBUG_MODE
+else
+   DEBUG_FLAG=
+endif
+
+CXXFLAGS = @CXXFLAGS@ $(DEBUG_FLAG)
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+CFLAGS=@CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) 
+
+OBJ_FILES = $(PROGRAM).o 
+######################################################################
+
+all: .dependsT  $(PROGRAM)
+
+######################################################################
+
+.SUFFIXES: .src  .d .cpp
+
+.cpp.o:
+	$(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+#
+###########################################################################
+# section to set up depends
+###########################################################################
+#
+DEPENDS = $(PROGRAM).d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.dependsT: $(DEPENDS)
+	cat *.d > .depends
+	@ touch .dependsT
+
+depends:
+	$(RM) *.d .depends 
+	@MAKE@ .dependsT
+
+rebaseline:
+	cp out.txt output_0_blessed.txt
+	cp molality_vs_pH.csv molality_vs_pH_blessed.csv
+#
+############################################################################
+############################################################################
+#
+$(OBJ_FILES) : Makefile
+
+$(PROGRAM): $(OBJ_FILES)  $(ZUZAX_CORE_LIBS_DEP) 
+	$(CXXLDR) $(LCXX_FLAGS) $(FLIB_BSD) -o $(PROGRAM) \
+                 $(OBJ_FILES) \
+                 $(ZUZAX_TOTAL_LIBS) -lgtest $(LCXX_END_LIBS) 
+
+test: 
+	@ $(MAKE) -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@ $(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
+
+memtest: 
+	@ $(MAKE) -s
+	@echo -n 'Checking need to run memtest ' $(TESTNAME) ': '
+	@ $(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else export RUN_VALGRIND=1 ;  $(MAKE) -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
+
+###########################################################################
+#          INSTALL RULES
+###########################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+install:
+
+clean:
+	$(RM) *.o   fort.* *%  core *.trace tmp* *~ .depends .dependsT
+	$(RM) $(PROGRAM) $(OBJ_FILES) $(DEPENDS) $(TEST_FLAGS)
+	$(RM) $(TEST_INTERMEDIATE_FILES)
+
+clean_test:
+	$(RM) $(TEST_INTERMEDIATE_FILES)
+	$(RM) $(TEST_RESULTS)
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
+
+clean_dist:
+	$(MAKE) clean
+	$(RM) $(TEST_RESULTS)
+

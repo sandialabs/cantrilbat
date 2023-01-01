@@ -1,0 +1,18 @@
+
+Change cttables to  an input format just like vcs_Cantera.
+
+It should ask for a number of xml files for all phases. Then,
+it should create a list of phases and a global list of species.
+Also, it should create a list of kinetics objects that it finds.
+Then, it should service each phase one by one.
+Then, it should service each kinetics object one by one.
+ - DONE
+
+
+Put in a block structure for specification of the bath gas properties.
+Creat the block as one block per phase. Calculate the name
+of the phases on the fly.
+ - DONE
+
+
+Create a table function for Voltage, the same as was created for Temperature
