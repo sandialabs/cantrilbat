@@ -10,7 +10,7 @@
  * U.S. Government retains certain rights in this software.
  */
 
-#include "cttables.h"
+#include "waterAddRxn.h"
 #include "cttInput.h"
 
 #include "BlockEntryGlobal.h"

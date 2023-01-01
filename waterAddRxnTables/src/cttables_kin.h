@@ -11,7 +11,7 @@
 #ifndef CTTABLES_KIN_H
 #define CTTABLES_KIN_H
 
-#include "cttables.h"
+#include "waterAddRxn.h"
 #include "zuzax/kinetics.h"
 #include "zuzax/kinetics/ExtraGlobalRxn.h"
 #include "zuzax/numerics/DenseMatrix.h"

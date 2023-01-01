@@ -56,14 +56,14 @@ PURIFY=@PURIFY@
 
 #############################################################################
 
-OBJ_CTTABLES= waterAddRxn.o waterAddRxn_kin.o waterAddRxnInput.o sortAlgorithms.o cttables_thermo.o 
+
+OBJ_CTTABLES= waterAddRxn.o cttables_kin.o cttInput.o sortAlgorithms.o cttables_thermo.o 
 
 OBJ_ZUZAX_ADDONS =   ReactingVolDomain.o
 
 PROGRAM=waterAddRxn$(EXE_EXT)
-ATOFCHECKER_EXE=atofChecker$(EXE_EXT)
 
-all:  $(CTTABLES_EXE) $(ATOFCHECKER_EXE) .depends
+all:  $(PROGRAM) .depends
 
 ############################################################################
 # section to set up compiler rules
@@ -122,26 +122,22 @@ else
 LIBF2C= 
 endif
 
-$(CTTABLES_EXE): $(OBJ_CTTABLES) $(OBJ_ZUZAX_ADDONS) $(CTPADDS_DEP) \
+$(PROGRAM): $(OBJ_CTTABLES) $(OBJ_ZUZAX_ADDONS) $(CTPADDS_DEP) \
          $(ZUZAX_CORE_LIBS_DEP)  $(UTILSRC_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(CTTABLES_EXE) $(OBJ_CTTABLES) \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_CTTABLES) \
 	          $(OBJ_ZUZAX_ADDONS) $(CTPADDS_LIB)  \
                   $(UTILSRC) $(ZUZAX_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-$(ATOFCHECKER_EXE): atofChecker.o  $(ZUZAX_CORE_LIBS_DEP)
-	$(CXXLDR) $(LCXX_FLAGS) -o $(ATOFCHECKER_EXE) atofChecker.o  \
-                  $(ZUZAX_TOTAL_LIBS) \
-                  $(LIBF2C) $(LCXX_END_LIBS) 
 
 
 install:
 	$(MAKE) all
 	@INSTALL@ -d @cta_bindir@
-	@INSTALL@ -c $(CTTABLES_EXE) @cta_bindir@
+	@INSTALL@ -c $(PROGRAM) @cta_bindir@
 
 clean:
-	$(RM) *.o  *.d .depends cttables ${PROG}  *~
+	$(RM) *.o  *.d .depends cttables ${PROGRAM}  *~
 
 
 ifeq ($(wildcard .depends), .depends)

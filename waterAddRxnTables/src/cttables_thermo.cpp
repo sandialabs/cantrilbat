@@ -11,7 +11,7 @@
  * may require a license from the United States Government.
  */
 
-#include "cttables.h"
+#include "waterAddRxn.h"
 
 #include "zuzax/thermo/speciesThermoTypes.h"
 #include "zuzax/thermo/PDSS.h"

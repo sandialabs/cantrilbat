@@ -997,7 +997,7 @@ AC_OUTPUT(Makefile \
           util_src/tests/basicMultiBlock/Makefile \
           util_src/tests/test_BE/Makefile \
           util_src/tests/test_timer/Makefile \
-          util_src/tests/test_timer/Makefile \
+          waterAddRxnTables/src/Makefile \
           waterAddRxnTables/tests/BO2_test/Makefile \
           )
 #

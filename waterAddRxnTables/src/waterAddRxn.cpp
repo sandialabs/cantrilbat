@@ -1,5 +1,5 @@
 /**
- *  @file cttables.cpp
+ *  @file waterAddRxn.cpp
  *
  */
 
@@ -9,7 +9,7 @@
  * U.S. Government retains certain rights in this software.
  */
 
-#include "cttables.h"
+#include "waterAddRxn.h"
 #include "cttInput.h"
 #include "cttables_kin.h"
 

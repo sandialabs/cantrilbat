@@ -1,5 +1,5 @@
 Makefile
-cttables
+waterAddRxn
 .depends
 silane.xml
 cttables.out
