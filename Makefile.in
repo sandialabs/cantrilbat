@@ -63,9 +63,9 @@ allback:
 	cd batteryDevelop;		  $(MAKE)
 	cd imt_model;                     $(MAKE)
 	cd electrodeCell;                 $(MAKE)
+	cd waterAddRxnTables;             $(MAKE) 
 	cd fitShomate;                    $(MAKE)
 	cd cttables;                      $(MAKE)
-	cd waterAddRxnTables;             $(MAKE) 
 	cd epequil;                       $(MAKE)
 	cd mpequil;                       $(MAKE)
 	cd 1Delectrode;                   $(MAKE) allback
